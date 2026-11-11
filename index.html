@@ -9,7 +9,7 @@ if(q.length>1||sa||!own)location.replace('/tiny-world/'+q+h);})();
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Tava Valenti | Developer &amp; Designer</title>
-<meta name="description" content="Tava Valenti builds software, AI tools and digital experiences. Selected work: Veloura, Tiny World, The Collective and Project Origin.">
+<meta name="description" content="Tava Valenti builds software, AI tools and digital experiences. Selected work: Veloura, Tiny World, The Collective, Project Origin and Vylos Media.">
 <link rel="canonical" href="https://tavamadethis.com/">
 <meta name="theme-color" content="#D8D4CC">
 <meta property="og:type" content="website">
@@ -149,6 +149,17 @@ img,video{max-width:100%}
 .t-origin{--fg:#D7DAD3;--mut:#8E948A;--line:rgba(127,191,122,.25);--acc:#7FBF7A;--chip:rgba(127,191,122,.07);--btnbg:#7FBF7A;--btnfg:#07100A;--card:rgba(127,191,122,.05);--bg0:#050705;
   background:repeating-linear-gradient(0deg,rgba(127,191,122,.035) 0 1px,transparent 1px 4px),#050705}
 .t-origin .title{font-family:var(--mono);font-weight:500;letter-spacing:-.05em}
+/* Vylos Media: warm black with champagne, the client's own palette */
+.t-vylos{--fg:#EDE6D8;--mut:#A39A88;--line:rgba(205,187,152,.25);--acc:#CDBB98;--chip:rgba(205,187,152,.07);--btnbg:#CDBB98;--btnfg:#14110C;--card:rgba(205,187,152,.05);--bg0:#0C0A08;
+  background:radial-gradient(70% 90% at 85% 0%,rgba(205,187,152,.10),transparent 70%),#0C0A08}
+.t-vylos .title{font-family:'Instrument Serif',Georgia,serif;font-weight:400;letter-spacing:-.025em}
+.scrub{display:grid;gap:12px;max-width:760px}
+.scrub .stage{position:relative;aspect-ratio:1600/710;border-radius:10px;overflow:hidden;background:#0a0a0b;box-shadow:0 18px 40px rgba(0,0,0,.4)}
+.scrub .stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0}
+.scrub .stage img:first-child{opacity:1}
+.scrub label{display:flex;align-items:center;gap:14px;font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--mut)}
+.scrub input[type=range]{flex:1;min-width:0;accent-color:var(--acc);height:28px;cursor:ew-resize}
+.scrub .k{white-space:nowrap}
 
 /* ---------- Collective read-only tour ---------- */
 .tour{max-width:640px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#0b0c0d;box-shadow:0 30px 60px rgba(0,0,0,.45)}
@@ -377,6 +388,25 @@ img,video{max-width:100%}
   </div>
 </article>
 
+<article class="row t-vylos" id="vylos">
+  <div class="wrap">
+    <button type="button" aria-expanded="false" aria-controls="p-vylos"><span class="title">Vylos Media</span><span class="meta"><b>Web Design &amp; Development</b><span class="mono">Client site &middot; live</span></span><span class="plus" aria-hidden="true">+</span></button>
+    <div class="panel" id="p-vylos"><div><div class="inner">
+      <p class="lede">A website for a San Diego video studio that films automotive and luxury brands, with a camera that takes itself apart as you scroll.</p>
+      <div class="actions"><a class="btn big" href="https://vylosmedia.com" target="_blank" rel="noopener">Visit vylosmedia.com &nearr;</a><div class="chips"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>Canvas</span></div></div>
+      <div class="scrub" id="scrub">
+        <div class="stage"><img src="img/vylos-1.jpg" alt="Vylos Media website: a Sony camera, assembled" loading="lazy"><img src="img/vylos-2.jpg" alt="The camera coming apart" loading="lazy"><img src="img/vylos-3.jpg" alt="The camera fully exploded into its parts" loading="lazy"></div>
+        <label><span class="k">Drag to take it apart</span><input type="range" min="0" max="100" value="0" aria-label="Take the camera apart"></label>
+      </div>
+      <div class="shots" tabindex="0" aria-label="Vylos Media homepage">
+        <img src="img/vylos-hero.jpg" alt="Vylos Media homepage: the standard your brand deserves" loading="lazy">
+      </div>
+      <ul class="hl"><li>Designed and built end to end: pages, copy and an enquiry form</li><li>Scroll-driven camera animation: 96 frames drawn to a canvas and tied to scroll position</li><li>Instagram film previews that play only while on screen</li></ul>
+    </div></div></div>
+  </div>
+</article>
+
+
 <section class="band about" id="about">
   <div class="wrap">
     <div class="col"><span class="mono abt"><i class="logo faint" aria-hidden="true"></i>ABOUT</span><h2>My <span class="serif">story</span></h2></div>
@@ -419,6 +449,12 @@ img,video{max-width:100%}
   // links from the hero or nav straight into a project open it
   function openHash(){ var el = location.hash && document.querySelector(location.hash); if (el && el.classList.contains('row') && !el.classList.contains('open')) el.querySelector('button').click(); }
   addEventListener('hashchange', openHash); openHash();
+
+  // Vylos: drag to take the camera apart
+  var sc = document.getElementById('scrub');
+  if (sc) { var simgs = sc.querySelectorAll('.stage img'), sr = sc.querySelector('input');
+    function sfade(){ var p = sr.value / 100; simgs.forEach(function(im, i){ im.style.opacity = Math.max(0, 1 - Math.abs(p - i / 2) * 2).toFixed(3); }); }
+    sr.addEventListener('input', sfade); sfade(); }
 
   // The Collective read-only tour
   var screens = [
