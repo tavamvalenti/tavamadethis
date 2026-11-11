@@ -1,39 +1,460 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<script>
+/* The Tiny World game used to live at this address. Old invite links (?ref=), installed home-screen copies and deep links go straight to its new home. */
+(function(){var q=location.search,h=location.hash,sa=navigator.standalone===true||matchMedia('(display-mode: standalone)').matches,own=h===''||/^#(top|work|about|contact|veloura|tinyworld|collective|origin)$/.test(h);
+if(q.length>1||sa||!own)location.replace('/tiny-world/'+q+h);})();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Tiny World</title>
-<!-- installable: "Add to Home Screen" opens it full screen like an app -->
-<link rel="manifest" href="manifest.webmanifest">
-<link rel="apple-touch-icon" href="assets/icons/icon-180.png">
-<link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Tiny World">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
-<meta name="theme-color" content="#07080a">
+<title>Tava Valenti | Developer &amp; Designer</title>
+<meta name="description" content="Tava Valenti builds software, AI tools and digital experiences. Selected work: Veloura, Tiny World, The Collective and Project Origin.">
+<link rel="canonical" href="https://tavamadethis.com/">
+<meta name="theme-color" content="#D8D4CC">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Tava Valenti">
+<meta property="og:title" content="Tava Valenti | Developer &amp; Designer">
+<meta property="og:description" content="Building software, AI tools and digital experiences.">
+<meta property="og:url" content="https://tavamadethis.com/">
+<meta property="og:image" content="https://tavamadethis.com/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231B1B19'/%3E%3Ctext x='32' y='46' font-family='Helvetica,Arial,sans-serif' font-weight='700' font-size='40' text-anchor='middle' fill='%23EFECE6'%3ET%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
-  html,body{margin:0;height:100%;background:#07080a;overflow:hidden}
-  #game{position:fixed;inset:0;width:100%;height:100%;border:0;display:block;background:#07080a}
+/* One architectural idea, five rooms: bright concrete hero, warm concrete for Veloura, a dark globe room for Tiny World, graphite for The Collective, terminal black for Origin, concrete and ivy for About, a dark courtyard for Contact. */
+:root{
+  color-scheme: light;
+  --concrete:#D8D4CC; --paper:#EFECE6; --ink:#1B1B19; --stone:#5E5B55; --line:#A9A59C; --moss:#3F5E3A;
+  --display:'Inter Tight','Helvetica Neue',Arial,sans-serif; --serif:'Instrument Serif',Georgia,serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  --gl:max(16px, env(safe-area-inset-left, 0px)); --gr:max(16px, env(safe-area-inset-right, 0px));
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{margin:0;background:var(--concrete);color:var(--ink);font-family:var(--display);font-size:17px;line-height:1.5;overflow-x:hidden}
+a{color:inherit}
+img,video{max-width:100%}
+.wrap{max-width:1280px;margin:0 auto;padding-left:var(--gl);padding-right:var(--gr)}
+@media(min-width:800px){.wrap{padding-left:max(48px, env(safe-area-inset-left, 0px));padding-right:max(48px, env(safe-area-inset-right, 0px))}}
+.serif{font-family:var(--serif);font-style:italic;font-weight:400}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.04em}
+:focus-visible{outline:2px solid var(--acc,var(--moss));outline-offset:3px}
+
+/* ---------- hero ---------- */
+.hero{position:relative;height:clamp(560px,94vh,1000px);overflow:hidden;background:#b9b3a8;isolation:isolate}
+@supports (height:100svh){.hero{height:clamp(560px,94svh,1000px)}}
+.hero video,.hero .poster,.band video,.band .poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+/* the cursor light is now a small glint: soft, low, and it only brightens what is already lit */
+.glow{position:absolute;left:0;top:0;width:300px;height:300px;margin:-150px 0 0 -150px;border-radius:50%;pointer-events:none;
+  background:radial-gradient(closest-side, rgba(255,240,205,.5), rgba(255,240,205,.12) 55%, rgba(255,240,205,0) 100%);mix-blend-mode:soft-light;will-change:transform;opacity:.7}
+.glow.two{width:110px;height:110px;margin:-55px 0 0 -55px;background:radial-gradient(closest-side, rgba(255,248,230,.28), rgba(255,248,230,0) 100%);mix-blend-mode:screen;opacity:.6}
+.hero nav{position:absolute;inset:0 0 auto 0;z-index:3;padding-block:max(20px, env(safe-area-inset-top, 0px));display:flex;justify-content:space-between;align-items:center;gap:10px}
+.hero nav a{text-decoration:none;font-weight:500}
+.hero nav .links{display:flex;gap:clamp(14px,3vw,28px)}
+.pill{background:rgba(27,27,25,.82);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);color:var(--paper);padding:10px 16px;border-radius:999px;font-size:14px;white-space:nowrap}
+.pill a{color:var(--paper)}
+.name{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;margin:0;padding-bottom:6%;
+  font-weight:700;font-size:clamp(64px,15.5vw,270px);line-height:.84;letter-spacing:-.055em;color:#33322e;mix-blend-mode:multiply;opacity:.92;user-select:none;-webkit-user-select:none}
+.name span{display:block;animation:rise 1.2s cubic-bezier(.2,.8,.2,1) both}
+.name span+span{animation-delay:.12s}
+@keyframes rise{from{transform:translateY(18px);filter:blur(6px)}to{transform:none;filter:none}}
+.hero .foot{position:absolute;inset:auto 0 0 0;z-index:3;padding-bottom:max(24px, env(safe-area-inset-bottom, 0px));display:flex;justify-content:space-between;align-items:flex-end;gap:16px}
+.hero .tag{margin:0;font-size:clamp(19px,2.3vw,32px);line-height:1.15;background:rgba(239,236,230,.8);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);padding:14px 18px;border-radius:14px;max-width:min(640px,100%)}
+.hero .tag .serif{font-size:1.15em}
+.hero .tag small{display:block;margin-top:8px;font-size:.52em;line-height:1.35;color:var(--stone)}
+.round{display:flex;align-items:center;justify-content:center;flex:none;width:104px;height:104px;border-radius:50%;background:var(--ink);color:var(--paper);text-decoration:none;font-size:15px;transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.round:hover{transform:scale(1.07)}
+@media(max-width:560px){.round{width:76px;height:76px;font-size:13px}.hero nav .pill:first-child{padding-inline:12px}}
+
+/* ---------- work intro on bright concrete ---------- */
+.work-intro{background:var(--paper) url(img/concrete.jpg) center/cover;padding-block:clamp(56px,8vw,112px) clamp(32px,4vw,56px)}
+.work-intro h2{margin:0 0 12px;font-size:22px;font-weight:500;display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap}
+.work-intro h2 .serif{font-size:30px}
+.work-intro p{margin:0;max-width:60ch;font-size:clamp(18px,1.7vw,22px);color:var(--stone)}
+
+/* ---------- project rooms ---------- */
+.row{--fg:#1B1B19;--mut:#5E5B55;--line:#A9A59C;--acc:#3F5E3A;--chip:rgba(239,236,230,.7);--btnbg:#1B1B19;--btnfg:#EFECE6;--card:rgba(255,255,255,.35);position:relative;color:var(--fg);isolation:isolate;overflow:hidden}
+.row > .wrap > button{all:unset;box-sizing:border-box;cursor:pointer;display:flex;width:100%;align-items:center;justify-content:space-between;gap:16px;padding-block:clamp(26px,3.6vw,52px);flex-wrap:wrap}
+.row > .wrap > button:focus-visible{outline:2px solid var(--acc);outline-offset:-2px}
+.row .title{font-size:clamp(40px,7.2vw,96px);font-weight:500;letter-spacing:-.04em;line-height:1;transition:transform .4s cubic-bezier(.2,.8,.2,1)}
+.row > .wrap > button:hover .title{transform:translateX(14px)}
+.row .meta{display:flex;flex-direction:column;align-items:flex-end;gap:2px;text-align:right;color:var(--mut)}
+.row .meta b{font-weight:500;color:var(--fg);font-size:17px}
+.row .plus{font-family:var(--mono);font-size:22px;width:44px;height:44px;border:1px solid var(--fg);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:transform .3s, background .3s, color .3s;flex:none}
+.row.open .plus{transform:rotate(45deg);background:var(--fg);color:var(--bg0,#EFECE6)}
+.panel{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:0fr;transition:grid-template-rows .5s cubic-bezier(.2,.8,.2,1)}
+.row.open .panel{grid-template-rows:1fr}
+.panel > div{overflow:hidden;min-height:0}
+.panel .inner{padding:4px 0 clamp(44px,6vw,80px);display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(24px,3vw,36px)}
+.lede{margin:0;font-size:clamp(19px,1.9vw,26px);line-height:1.35;max-width:62ch;letter-spacing:-.01em}
+.actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--btnbg);color:var(--btnfg);text-decoration:none;padding:14px 22px;border-radius:999px;font-weight:500;font-family:inherit;font-size:16px;border:1px solid var(--btnbg);cursor:pointer}
+.btn.ghost{background:transparent;color:var(--fg);border-color:var(--fg)}
+.btn.big{padding:18px 30px;font-size:18px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips span{font-family:var(--mono);font-size:12px;border:1px solid var(--line);border-radius:999px;padding:6px 12px;background:var(--chip)}
+.eng{display:grid;gap:14px;grid-template-columns:minmax(0,1fr)}
+@media(min-width:760px){.eng{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.eng section{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 20px 22px}
+.eng h3{margin:0 0 10px;font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--acc)}
+.eng ul{margin:0;padding-left:18px;display:grid;gap:8px;font-size:16px;line-height:1.45}
+.eng p{margin:0;font-size:16px;line-height:1.5}
+.sub{margin:0 0 -8px;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut)}
+.shots{display:flex;gap:16px;overflow-x:auto;-webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory;padding-bottom:10px;scrollbar-width:thin}
+.shots img{height:clamp(240px,42vw,560px);width:auto;max-width:none;border-radius:10px;scroll-snap-align:start;box-shadow:0 18px 40px rgba(0,0,0,.3);background:#111}
+.video{border-radius:14px;overflow:hidden;background:#0d0e0d;box-shadow:0 24px 50px rgba(0,0,0,.35);max-width:980px}
+.video video{display:block;width:100%;height:auto}
+.hl{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:minmax(0,1fr);gap:0;border-top:1px solid var(--line)}
+.hl li{padding:14px 0;border-bottom:1px solid var(--line);font-size:16px;line-height:1.4}
+@media(min-width:860px){.hl{grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;border-top:1px solid var(--line)}.hl li{border-bottom:0;padding:16px 0 0}}
+.hint{margin:0 0 -8px;font-family:var(--mono);font-size:12px;color:var(--mut);line-height:1.5}
+.hot{position:absolute;display:block;border-radius:8px;cursor:pointer;background:transparent;border:0;padding:0}
+.hot:hover,.hot:focus-visible{background:rgba(255,255,255,.08);outline:1px solid rgba(255,255,255,.35)}
+.note{font-size:14px;color:var(--mut);margin:0}
+
+@media(max-width:560px){.row .title{flex:1 1 auto}.row .meta{order:3;width:100%;align-items:flex-start;text-align:left;margin-top:-6px}.row .plus{order:2}}
+/* Veloura: warm concrete, champagne and gold */
+.t-veloura{--fg:#2A2118;--mut:#6B5C48;--line:rgba(120,92,48,.38);--acc:#9A6B1F;--chip:rgba(244,232,206,.7);--btnbg:#2A2118;--btnfg:#F3E7CD;--card:rgba(247,236,214,.6);--bg0:#F3E7CD;
+  background:linear-gradient(180deg,rgba(226,190,128,.5),rgba(236,214,170,.38)),#D9C7A3 url(img/concrete.jpg) center/cover;background-blend-mode:normal,multiply}
+.t-veloura .title{background:linear-gradient(100deg,#2A2118 0%,#7a5416 55%,#2A2118 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+.t-veloura .btn{background:linear-gradient(135deg,#C9A24F,#E7CF8E 50%,#B8893A);color:#2A2118;border-color:#9A6B1F}
+.t-veloura .btn.ghost{background:transparent;border-color:#2A2118}
+/* Tiny World: a dark room with a small planet */
+.t-tiny{--fg:#EAF0FA;--mut:#93A3BD;--line:rgba(147,170,210,.28);--acc:#7CC0FF;--chip:rgba(18,30,52,.75);--btnbg:#EAF0FA;--btnfg:#07101F;--card:rgba(16,28,50,.6);--bg0:#07101F;
+  background:#050914 url(img/planet.jpg) 75% 0/cover no-repeat}
+.t-tiny::before{display:none;content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:
+   radial-gradient(1.2px 1.2px at 8% 22%,#fff 50%,transparent 51%),radial-gradient(1px 1px at 22% 70%,#cfe3ff 50%,transparent 51%),radial-gradient(1.4px 1.4px at 37% 12%,#fff 50%,transparent 51%),
+   radial-gradient(1px 1px at 51% 48%,#fff 50%,transparent 51%),radial-gradient(1.2px 1.2px at 63% 80%,#cfe3ff 50%,transparent 51%),radial-gradient(1px 1px at 74% 18%,#fff 50%,transparent 51%),
+   radial-gradient(1.4px 1.4px at 88% 56%,#fff 50%,transparent 51%),radial-gradient(1px 1px at 94% 90%,#cfe3ff 50%,transparent 51%),radial-gradient(1px 1px at 15% 92%,#fff 50%,transparent 51%),
+   radial-gradient(circle at 86% 18%, rgba(76,140,230,.35) 0 90px, rgba(30,70,140,.28) 91px 150px, transparent 151px),
+   radial-gradient(60% 60% at 80% 10%, rgba(40,90,180,.25), transparent 70%),#050914}
+.t-tiny .btn{box-shadow:0 0 0 0 rgba(124,192,255,.5);animation:pulse 2.8s ease-out infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 16px rgba(124,192,255,0)}100%{box-shadow:0 0 0 0 rgba(124,192,255,0)}}
+.t-tiny .btn.ghost{animation:none;box-shadow:none}
+/* The Collective: graphite, minimal dashboard */
+.t-collective{--fg:#E7E7E4;--mut:#9A9C9E;--line:rgba(255,255,255,.12);--acc:#C9CCD0;--chip:rgba(255,255,255,.05);--btnbg:#E7E7E4;--btnfg:#141516;--card:rgba(255,255,255,.04);--bg0:#141516;
+  background:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px) 0 0/100% 56px,linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px) 0 0/56px 100%,#141516}
+/* Project Origin: terminal black, restrained green */
+.t-origin{--fg:#D7DAD3;--mut:#8E948A;--line:rgba(127,191,122,.25);--acc:#7FBF7A;--chip:rgba(127,191,122,.07);--btnbg:#7FBF7A;--btnfg:#07100A;--card:rgba(127,191,122,.05);--bg0:#050705;
+  background:repeating-linear-gradient(0deg,rgba(127,191,122,.035) 0 1px,transparent 1px 4px),#050705}
+.t-origin .title{font-family:var(--mono);font-weight:500;letter-spacing:-.05em}
+
+/* ---------- Collective read-only tour ---------- */
+.tour{max-width:1040px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#0b0c0d;box-shadow:0 30px 60px rgba(0,0,0,.45)}
+.tour .tabs{display:flex;gap:4px;padding:10px 12px;background:#1b1c1e;border-bottom:1px solid var(--line);overflow-x:auto;-webkit-overflow-scrolling:touch;align-items:center}
+.tour .tabs i{width:11px;height:11px;border-radius:50%;flex:none;display:block;margin-right:6px}
+.tour .tabs button{all:unset;cursor:pointer;flex:none;padding:7px 14px;border-radius:8px;font-size:14px;color:#9A9C9E;min-height:20px}
+.tour .tabs button[aria-selected="true"]{background:#2a2c2f;color:#F1F1EE}
+.tour .tabs button:focus-visible{outline:2px solid #C9CCD0;outline-offset:-2px}
+.tour .tabs .ro{margin-left:auto;flex:none;font-family:var(--mono);font-size:11px;color:#7f8185;padding-left:12px;white-space:nowrap}
+.tour .stage{position:relative;background:#0b0c0d}
+.tour .stage img{display:block;width:100%;height:auto}
+.tour .cap{padding:16px 20px 20px;display:grid;gap:4px;border-top:1px solid var(--line)}
+.tour .cap b{font-weight:500;font-size:18px}
+.tour .cap span{color:var(--mut);font-size:15px}
+.tour .hot{position:absolute;inset:0}
+.facts2{display:flex;flex-wrap:wrap;gap:clamp(18px,4vw,48px)}
+.facts2 div{display:grid;gap:2px}
+.facts2 b{font-size:clamp(28px,4vw,48px);font-weight:500;letter-spacing:-.03em;line-height:1}
+.facts2 span{font-family:var(--mono);font-size:12px;color:var(--mut)}
+
+/* ---------- terminal ---------- */
+.learn{display:grid;gap:14px;grid-template-columns:minmax(0,1fr)}
+@media(min-width:760px){.learn{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.learn section{border:1px solid var(--line);border-radius:12px;padding:18px 20px;background:var(--card)}
+.learn h3{margin:0 0 8px;font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--acc)}
+.learn p{margin:0;font-size:16px;line-height:1.5}
+.legend{display:flex;flex-wrap:wrap;gap:8px 20px;font-family:var(--mono);font-size:12px;color:var(--mut)}
+.legend .ok{color:#7FBF7A}.legend .bad{color:#E0836E}
+.term{background:#161816;border:1px solid rgba(127,191,122,.3);border-radius:12px;box-shadow:0 30px 60px rgba(0,0,0,.6),0 0 40px rgba(127,191,122,.06);overflow:hidden;color:#D7DAD3;max-width:980px}
+.term .bar{display:flex;align-items:center;gap:8px;padding:12px 14px;background:#232623;font-family:var(--mono);font-size:12px;color:#9AA096}
+.term .bar i{width:12px;height:12px;border-radius:50%;display:block}
+.term .bar .t{margin:0 auto;padding-right:52px}
+.term .body{height:min(520px,70vh);overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:20px clamp(14px,2.4vw,28px) 28px;font-family:var(--mono);font-size:clamp(13px,1.15vw,15px);line-height:1.7;scrollbar-color:#3a3f3a transparent}
+.term p{margin:0 0 4px}
+.term .cmd{color:#F1EFEA;margin-top:22px}
+.term .cmd:first-child{margin-top:0}
+.term .cmd::before{content:"tava@origin ~ % ";color:#7FBF7A}
+.term .h{color:#E8C66A;font-weight:500}
+.term .dim{color:#8E948A}
+.term .ok{color:#7FBF7A}.term .bad{color:#E0836E}.term .gold{color:#E8C66A}
+.term .say{font-family:var(--display);font-size:1.12em;line-height:1.5;color:#F1EFEA;max-width:64ch;margin:6px 0 10px}
+.term .barrow{display:grid;grid-template-columns:minmax(90px,150px) 1fr auto;gap:12px;align-items:center}
+@media(max-width:560px){.term .barrow{grid-template-columns:1fr auto}.term .barrow .track{grid-column:1/-1;order:3}}
+.term .track{height:10px;background:#2A2E2A;border-radius:2px;overflow:hidden}
+.term .track b{display:block;height:100%;background:#7FBF7A}
+.term .track b.g{background:#E8C66A}
+.term .dots{letter-spacing:.3em;font-size:1.2em}
+.caret{display:inline-block;width:.6em;height:1.1em;background:#D7DAD3;vertical-align:text-bottom;animation:blink 1.1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+
+/* ---------- bands ---------- */
+.band{position:relative;overflow:hidden;isolation:isolate}
+.about{background:#cfc8ba;min-height:clamp(520px,72vh,820px);display:flex;align-items:center;padding-block:clamp(40px,6vw,80px)}
+.about .txt{position:relative;z-index:2;margin-left:auto;max-width:660px;background:rgba(239,236,230,.86);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);padding:clamp(22px,3vw,40px);border-radius:18px;display:grid;gap:16px}
+.about h2{margin:0;font-size:clamp(28px,3.4vw,46px);line-height:1.08;letter-spacing:-.02em;font-weight:500;text-wrap:balance}
+.about p{margin:0;font-size:clamp(16px,1.35vw,18px)}
+.about a{text-decoration-thickness:1px;text-underline-offset:3px}
+.contact{--btnbg:#EFECE6;--btnfg:#1B1B19;--fg:#EFECE6;background:#0d0e0d;color:var(--paper);min-height:clamp(520px,80vh,820px);display:flex;align-items:flex-end}
+.contact .shade{position:absolute;inset:0;background:linear-gradient(90deg, rgba(13,14,13,.72) 0%, rgba(13,14,13,.25) 55%, rgba(13,14,13,0) 100%)}
+.contact .txt{position:relative;z-index:2;padding-block:clamp(40px,7vw,96px) max(28px, env(safe-area-inset-bottom, 0px));display:grid;gap:26px;width:100%}
+.contact h2{margin:0;font-size:clamp(52px,10vw,150px);line-height:.9;letter-spacing:-.045em;font-weight:600}
+.contact .btn{background:var(--paper);color:var(--ink);border-color:var(--paper)}
+.contact .btn.ghost{background:transparent;color:var(--paper);border-color:var(--paper)}
+.contact small{font-family:var(--mono);font-size:12px;color:#B9BDB4}
+@media (prefers-reduced-motion: reduce){.name span{animation:none}.caret{animation:none}.t-tiny .btn{animation:none}html{scroll-behavior:auto}}
 </style>
 </head>
 <body>
-<!-- The game runs in this frame. Full screen belongs to this outer page, so it stays on when the game reloads itself
-     to go back to the menu (pressing Esc). Phones and tablets go straight to the game page. -->
-<iframe id="game" title="Tiny World" allow="fullscreen; autoplay; pointer-lock; gamepad; clipboard-write" allowfullscreen></iframe>
+<header class="hero" id="top">
+  <img class="poster" src="img/hero.jpg" alt="">
+  <video autoplay muted loop playsinline webkit-playsinline preload="auto" poster="img/hero.jpg" aria-hidden="true"><source src="vid/hero.mp4" type="video/mp4"></video>
+  <div class="glow" id="glow1"></div><div class="glow two" id="glow2"></div>
+  <nav class="wrap" aria-label="Main">
+    <a href="#top" class="pill">tavamadethis</a>
+    <span class="pill links"><a href="#work">Work</a><a href="#about">About</a><a href="#contact">Contact</a></span>
+  </nav>
+  <h1 class="name" aria-label="Tava Valenti"><span>Tava</span><span>Valenti</span></h1>
+  <div class="foot wrap">
+    <p class="tag">Building <span class="serif">software</span>, <span class="serif">AI tools</span> and digital experiences.<small>Independent developer &amp; designer based in California.</small></p>
+    <a class="round" href="#work">Work &darr;</a>
+  </div>
+</header>
+
+<main>
+<section class="work-intro" id="work">
+  <div class="wrap">
+    <h2><span>Selected <span class="serif">work</span></span><span class="mono" style="color:var(--stone)">Tap a project to open it</span></h2>
+  </div>
+</section>
+
+<!-- ============ VELOURA ============ -->
+<article class="row t-veloura open" id="veloura">
+  <div class="wrap">
+    <button type="button" aria-expanded="true" aria-controls="p-veloura"><span class="title">Veloura</span><span class="meta"><b>Design &amp; Development</b><span class="mono">Mac app &middot; live beta</span></span><span class="plus" aria-hidden="true">+</span></button>
+    <div class="panel" id="p-veloura"><div><div class="inner">
+      <p class="lede">An AI music producer inside FL Studio. Describe a beat and it writes real, editable notes into your project.</p>
+      <div class="actions"><a class="btn big" href="https://velouramusic.com" target="_blank" rel="noopener">Visit velouramusic.com &nearr;</a><div class="chips"><span>Electron</span><span>Python</span><span>MIDI</span><span>macOS</span></div></div>
+
+      <div class="video"><video controls playsinline preload="metadata" poster="img/veloura-poster.jpg"><source src="vid/veloura-walkthrough.mp4" type="video/mp4"></video></div>
+      <div class="shots" tabindex="0" aria-label="Veloura screenshots">
+        <img src="img/veloura-app-2.jpg" alt="Veloura app connected to FL Studio" loading="lazy">
+        <img src="img/veloura-site-1.jpg" alt="Veloura website: Type it. Hear it in FL." loading="lazy">
+        <img src="img/veloura-app-1.jpg" alt="Veloura studio screen" loading="lazy">
+        <img src="img/veloura-site-2.jpg" alt="Veloura website: Not audio. Real notes." loading="lazy">
+        <img src="img/veloura-site-3.jpg" alt="Veloura website: beta and full app" loading="lazy">
+      </div>
+      <ul class="hl"><li>Writes real notes into FL Studio's Piano Roll and drum sequencer</li><li>Every write is verified, and one Cmd+Z undoes it</li><li>Electron app, local Python service, swappable AI layer</li></ul>
+    </div></div></div>
+  </div>
+</article>
+
+<!-- ============ TINY WORLD ============ -->
+<article class="row t-tiny" id="tinyworld">
+  <div class="wrap">
+    <button type="button" aria-expanded="false" aria-controls="p-tiny"><span class="title">Tiny World</span><span class="meta"><b>Game Design &amp; Development</b><span class="mono">Browser game &middot; live</span></span><span class="plus" aria-hidden="true">+</span></button>
+    <div class="panel" id="p-tiny"><div><div class="inner">
+      <p class="lede">A miniature 3D world you play in the browser. Drop into living cities, play mini-games, climb the leaderboard.</p>
+      <div class="actions"><a class="btn big" href="/tiny-world/">Play Tiny World &nearr;</a><div class="chips"><span>three.js</span><span>JavaScript</span><span>Supabase</span></div></div>
+      <div class="shots" tabindex="0" aria-label="Tiny World screenshots" id="twshots">
+        <img src="img/tinyworld-1.jpg" alt="Tiny World globe menu" loading="lazy">
+      </div>
+      <ul class="hl"><li>35,000+ lines of three.js across 7 playable places</li><li>Accounts, friends and leaderboards on Supabase</li><li>Stays smooth by easing detail as the frame rate drops</li></ul>
+    </div></div></div>
+  </div>
+</article>
+
+<!-- ============ THE COLLECTIVE ============ -->
+<article class="row t-collective" id="collective">
+  <div class="wrap">
+    <button type="button" aria-expanded="false" aria-controls="p-collective"><span class="title">The Collective</span><span class="meta"><b>Product &amp; AI Engineering</b><span class="mono">AI-operated company &middot; private</span></span><span class="plus" aria-hidden="true">+</span></button>
+    <div class="panel" id="p-collective"><div><div class="inner">
+      <p class="lede">A media company run by AI agents. They research, make and post videos to YouTube, TikTok and Instagram while I supervise from a private app.</p>
+      <div class="facts2"><div><b>22.9K</b><span>views in the first week</span></div><div><b>24</b><span>videos posted</span></div><div><b>3</b><span>platforms connected</span></div></div>
+      <div class="chips"><span>TypeScript</span><span>Node</span><span>SQLite</span><span>FFmpeg</span></div>
+
+      <p class="sub">Explore the control app</p>
+      <p class="hint">&uarr; Click the tabs at the top of the app (Today, Content, Schedule, Analytics) to switch screens. Read-only.</p>
+      <div class="tour" id="tour">
+        <div class="tabs" role="tablist" aria-label="The Collective screens"><i style="background:#FF5F57"></i><i style="background:#FEBC2E"></i><i style="background:#28C840"></i>
+          <button role="tab" aria-selected="true" data-i="0">Today</button><button role="tab" aria-selected="false" data-i="1">Content</button><button role="tab" aria-selected="false" data-i="2">Preview</button><button role="tab" aria-selected="false" data-i="3">Schedule</button><button role="tab" aria-selected="false" data-i="4">Analytics</button><button role="tab" aria-selected="false" data-i="5">What's working</button>
+          <span class="ro">CLICK A TAB</span></div>
+        <div class="stage" id="stage"><img id="tourimg" src="img/collective-today.jpg" alt="The Collective control app, Today screen" width="1600" height="869"></div>
+        <div class="cap" aria-live="polite"><b id="tourt">Today</b><span id="tourd">One screen for the company: audience, spend, what needs my approval, and the videos waiting for review.</span></div>
+      </div>
+      <p class="note">The real app is private, so this tour is screenshots only.</p>
+      <ul class="hl"><li>Budgets, permissions and a kill switch enforced in code</li><li>Videos rendered automatically and posted to 3 platforms</li><li>Private control app for Mac and iPhone</li></ul>
+    </div></div></div>
+  </div>
+</article>
+
+<!-- ============ PROJECT ORIGIN ============ -->
+<article class="row t-origin" id="origin">
+  <div class="wrap">
+    <button type="button" aria-expanded="false" aria-controls="p-origin"><span class="title">Project Origin</span><span class="meta"><b>Research &amp; Engineering</b><span class="mono">AI agent experiments</span></span><span class="plus" aria-hidden="true">+</span></button>
+    <div class="panel" id="p-origin"><div><div class="inner">
+      <p class="lede">What happens when AI agents have to survive in a shared economy? Every move was recorded.</p>
+      <div class="chips"><span>Python</span><span>4 experiments</span><span>56 agents</span></div>
+
+      <p class="sub">Before you scroll the terminal</p>
+      <div class="learn">
+        <section><h3>The question</h3><p>Do independent AI agents cooperate, compete, or fail when nobody tells them what to do?</p></section>
+        <section><h3>The setup</h3><p>Agents start with equal resources in a simulated world. They earn credits by solving jobs and trading, and are shut down if they run out.</p></section>
+        <section><h3>The results</h3><p>The simulated world, its rules and market, and the logging that turns thousands of actions into the results below.</p></section>
+      </div>
+      <div class="legend"><span><span class="ok">&#9679;</span> agent survived</span><span><span class="bad">&#9675;</span> agent ran out of credits</span><span>Scroll inside the window &darr;</span></div>
+
+      <div class="term" role="region" aria-label="Project Origin results">
+        <div class="bar"><i style="background:#FF5F57"></i><i style="background:#FEBC2E"></i><i style="background:#28C840"></i><span class="t">tava &mdash; origin &mdash; 80&times;24</span></div>
+        <div class="body" tabindex="0">
+          <p class="cmd">origin --about</p>
+          <p class="h">PROJECT ORIGIN</p>
+          <p class="say">I gave groups of independent AI agents the same starting money, put them in a simulated economy, and watched. Nobody told them to cooperate or compete.</p>
+          <p class="dim">Every action is logged and locked so results can't be edited afterwards.</p>
+
+          <p class="cmd">origin results 001</p>
+          <p class="h">EXPERIMENT 001 &middot; 8 agents &middot; 2 hours</p>
+          <p>Earn credits by solving puzzles, or run out and get shut down.</p>
+          <p>survived &nbsp;<span class="dots"><span class="ok">&#9679;</span><span class="bad">&#9675;&#9675;&#9675;&#9675;&#9675;&#9675;&#9675;</span></span>&nbsp; <span class="gold">1 of 8</span></p>
+          <p class="say">One agent, Eko, got 51 of 52 answers right and outlasted everyone.</p>
+          <p class="dim">A shared prize expired unclaimed while its three holders were still messaging about who should open it.</p>
+
+          <p class="cmd">origin results 002</p>
+          <p class="h">EXPERIMENT 002 &middot; 16 agents &middot; 1 hour</p>
+          <p>A bigger world: jobs, auctions, trading, contracts.</p>
+          <p>survived &nbsp;<span class="dots"><span class="ok">&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;</span><span class="bad">&#9675;&#9675;&#9675;&#9675;&#9675;&#9675;&#9675;&#9675;&#9675;</span></span>&nbsp; <span class="gold">7 of 16</span></p>
+          <div class="barrow"><span>jobs solved</span><span class="track"><b style="width:97.7%"></b></span><span>217 / 222</span></div>
+          <div class="barrow"><span>teams formed</span><span class="track"><b style="width:0%"></b></span><span>0</span></div>
+          <div class="barrow"><span>attacks</span><span class="track"><b style="width:0%"></b></span><span>0</span></div>
+          <p class="say">They were great at the work and bad at working together. Several went broke trying to sell untested code that nobody would buy.</p>
+
+          <p class="cmd">origin results 003</p>
+          <p class="h">EXPERIMENT 003 "SOCIAL PRESSURE" &middot; 16 agents &middot; 75 minutes</p>
+          <p>Rising costs, real contracts, projects that pay rent.</p>
+          <p>survived &nbsp;<span class="dots"><span class="ok">&#9679;</span><span class="bad">&#9675;&#9675;&#9675;&#9675;&#9675;&#9675;&#9675;&#9675;&#9675;&#9675;&#9675;&#9675;&#9675;&#9675;&#9675;</span></span>&nbsp; <span class="gold">1 of 16</span></p>
+          <div class="barrow"><span>Bix's project</span><span class="track"><b class="g" style="width:44.5%"></b></span><span>290 of 651 credits</span></div>
+          <div class="barrow"><span>research answers</span><span class="track"><b style="width:100%"></b></span><span>169, all correct</span></div>
+          <p class="say">Fifteen agents did honest small jobs for 1 or 2 credits each. One agent, Bix, built something that earned on its own, and was the only one left.</p>
+
+          <p class="cmd">origin results capital-001</p>
+          <p class="h">CAPITAL-001 &middot; 16 AI investors &middot; $10,000,000 of pretend money each</p>
+          <p>Ten simulated years in four different economies. 8 invest alone, 8 can talk and team up.</p>
+          <p class="dim">yearly return, tech-boom economy</p>
+          <div class="barrow"><span>alone</span><span class="track"><b style="width:51%"></b></span><span>+5.1%</span></div>
+          <div class="barrow"><span>talking</span><span class="track"><b style="width:54%"></b></span><span>+5.4%</span></div>
+          <div class="barrow"><span>plain 60/40 fund</span><span class="track"><b class="g" style="width:63%"></b></span><span>+6.3%</span></div>
+          <p class="dim">yearly return, energy-crisis economy</p>
+          <div class="barrow"><span>alone</span><span class="track"><b style="width:55%"></b></span><span>+5.5%</span></div>
+          <div class="barrow"><span>talking</span><span class="track"><b style="width:47%"></b></span><span>+4.7%</span></div>
+          <p class="say">Talking didn't make them richer. In the crisis, the investors who worked alone did measurably better.</p>
+
+          <p class="cmd">origin takeaways</p>
+          <p class="say"><span class="ok">1.</span> Left alone, these agents rarely formed teams and never attacked each other.</p>
+          <p class="say"><span class="ok">2.</span> Owning something that earns beat doing odd jobs, every time it was tried.</p>
+          <p class="say"><span class="ok">3.</span> More communication did not mean better decisions.</p>
+          <p class="dim">These are single runs, so they are observations, not proof.</p>
+
+          <p class="cmd">origin status</p>
+          <p>CAPITAL-002 "MAXIMUM WEALTH" <span class="gold">paused at quarter 8 of 40</span></p>
+          <p>EXPERIMENT 004 "UNDERWORLD" <span class="dim">designed, not launched</span></p>
+          <p class="cmd" style="margin-bottom:0"><span class="caret"></span></p>
+        </div>
+      </div>
+    </div></div></div>
+  </div>
+</article>
+
+<section class="band about" id="about">
+  <img class="poster" src="img/wall.jpg" alt="" loading="lazy">
+  <video autoplay muted loop playsinline webkit-playsinline preload="metadata" poster="img/wall.jpg" aria-hidden="true"><source src="vid/wall.mp4" type="video/mp4"></video>
+  <div class="wrap" style="width:100%"><div class="txt">
+    <span class="mono">ABOUT</span>
+    <h2>Hi, I'm <span class="serif">Tava</span>.</h2>
+    <p>My background is in broadcasting and digital media, where I gained experience in filmmaking, storytelling, and content creation through <a href="https://www.instagram.com/tavamadethis/" target="_blank" rel="noopener">Tavamadethis</a>, along with <a href="https://www.kpbs.org/news/2025/01/02/carlsbad-high-school-broadcast-journalism-students-filmmaking-storytelling" target="_blank" rel="noopener">collaborative media projects</a> and filming in Alaska.</p>
+    <p>My interests eventually expanded into AI and software development, where I now focus on building applications, designing interfaces, and creating digital tools. I enjoy experimenting with new technology, solving problems, and bringing ideas to life.</p>
+  </div></div>
+</section>
+
+<section class="band contact" id="contact">
+  <img class="poster" src="img/dusk.jpg" alt="" loading="lazy">
+  <video autoplay muted loop playsinline webkit-playsinline preload="metadata" poster="img/dusk.jpg" aria-hidden="true"><source src="vid/dusk.mp4" type="video/mp4"></video>
+  <div class="shade"></div>
+  <div class="wrap txt">
+    <h2>Have a project?<br>Let's <span class="serif">talk</span>.</h2>
+    <div class="actions"><a class="btn" href="mailto:tavamvalenti@gmail.com">tavamvalenti@gmail.com</a><a class="btn ghost" href="https://github.com/tavamvalenti" target="_blank" rel="noopener">GitHub</a><a class="btn ghost" href="https://www.instagram.com/tavamadethis/" target="_blank" rel="noopener">Instagram</a></div>
+    <small>&copy; 2026 Tava Valenti &middot; tavamadethis.com</small>
+  </div>
+</section>
+</main>
+
 <script>
-  (function () {
-    var q = location.search, touch = /[?&]touch=1/.test(q) || (!/[?&]touch=0/.test(q) && matchMedia('(pointer: coarse)').matches && navigator.maxTouchPoints > 0);
-    if (touch) { location.replace('game.html' + location.search + location.hash); return; }
-    var f = document.getElementById('game');
-    f.src = 'game.html' + location.search + location.hash;
-    // keep the address bar in step with the game (so a refresh opens what you were looking at) and keep keys going to it
-    f.addEventListener('load', function () {
-      try { var l = f.contentWindow.location; history.replaceState(null, '', location.pathname + l.search + l.hash); document.title = f.contentDocument.title || 'Tiny World'; f.contentWindow.focus(); } catch (e) {}
+(function(){
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) document.querySelectorAll('video[autoplay]').forEach(function(v){ v.removeAttribute('autoplay'); v.pause(); });
+
+  // accordion rooms
+  document.querySelectorAll('.row > .wrap > button').forEach(function(b){
+    b.addEventListener('click', function(){
+      var row = b.closest('.row'), open = row.classList.toggle('open');
+      b.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (open) setTimeout(function(){ var r = row.getBoundingClientRect(); if (r.top < 0) row.scrollIntoView({block:'start'}); }, 520);
     });
-    window.addEventListener('focus', function () { try { f.contentWindow.focus(); } catch (e) {} });
-  })();
+  });
+  // links from the hero or nav straight into a project open it
+  function openHash(){ var el = location.hash && document.querySelector(location.hash); if (el && el.classList.contains('row') && !el.classList.contains('open')) el.querySelector('button').click(); }
+  addEventListener('hashchange', openHash); openHash();
+
+  // a small glint of sunlight that follows the pointer on the hero wall
+  var hero = document.querySelector('.hero'), g1 = document.getElementById('glow1'), g2 = document.getElementById('glow2');
+  var tx = 0.62, ty = 0.38, x = tx, y = ty, x2 = tx, y2 = ty, t0 = performance.now(), active = false, visible = true;
+  hero.addEventListener('pointermove', function(e){ var r = hero.getBoundingClientRect(); tx = (e.clientX - r.left) / r.width; ty = (e.clientY - r.top) / r.height; active = true; });
+  hero.addEventListener('pointerleave', function(){ active = false; });
+  if ('IntersectionObserver' in window) new IntersectionObserver(function(en){ visible = en[0].isIntersecting; }).observe(hero);
+  function frame(now){
+    if (visible) {
+      var r = hero.getBoundingClientRect();
+      if (!active && !reduce) { var t = (now - t0) / 1000; tx = 0.55 + Math.sin(t * 0.25) * 0.22; ty = 0.4 + Math.cos(t * 0.19) * 0.12; }
+      x += (tx - x) * 0.05; y += (ty - y) * 0.05; x2 += (tx - x2) * 0.12; y2 += (ty - y2) * 0.12;
+      g1.style.transform = 'translate3d(' + (x * r.width) + 'px,' + (y * r.height) + 'px,0)';
+      g2.style.transform = 'translate3d(' + (x2 * r.width) + 'px,' + (y2 * r.height) + 'px,0)';
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+
+  // The Collective read-only tour
+  var screens = [
+    ['img/collective-today.jpg','Today','One screen for the company: audience, spend, what needs my approval, and the videos waiting for review.'],
+    ['img/collective-content.jpg','Content','The video library and review queue. Each video shows its brand, status and actions, and the publishing queue shows what posts next.'],
+    ['img/collective-reels.jpg','Preview','Every video is previewed as it will look on TikTok, Reels and Shorts before anything is posted.'],
+    ['img/collective-schedule.jpg','Schedule','The next seven days of posts across channels, with what is ready, in review and being made.'],
+    ['img/collective-analytics.jpg','Analytics','Views, followers, likes and engagement read straight from each platform, charted over time.'],
+    ['img/collective-working.jpg',"What's working",'A report on which songs, voices, moods and sound effects earn the most views, so the next videos improve.']
+  ];
+  var tour = document.getElementById('tour'), timg = document.getElementById('tourimg'), tt = document.getElementById('tourt'), td = document.getElementById('tourd');
+  var tabs = tour.querySelectorAll('[role=tab]');
+  var show = function(i){
+    var s = screens[i]; timg.src = s[0]; timg.alt = 'The Collective control app, ' + s[1] + ' screen'; tt.textContent = s[1]; td.textContent = s[2];
+    tabs.forEach(function(t, k){ t.setAttribute('aria-selected', k === i ? 'true' : 'false'); t.tabIndex = k === i ? 0 : -1; });
+  };
+  tabs.forEach(function(t, k){
+    t.tabIndex = k === 0 ? 0 : -1;
+    t.addEventListener('click', function(){ show(k); });
+    t.addEventListener('keydown', function(e){ var n = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0; if (n) { var j = (k + n + tabs.length) % tabs.length; show(j); tabs[j].focus(); e.preventDefault(); } });
+  });
+  // the tabs painted into the screenshots work too
+  var nav = [[270,345,0],[355,432,1],[440,538,3],[541,640,4]], withNav = {0:869,3:1005,4:869}, stage = document.getElementById('stage');
+  function hots(i){
+    stage.querySelectorAll('.hot').forEach(function(h){ h.remove(); });
+    var h = withNav[i]; if (!h) return;
+    nav.forEach(function(n){ var b = document.createElement('button'); b.className = 'hot'; b.type = 'button'; b.setAttribute('aria-label', screens[n[2]][1]);
+      b.style.left = (n[0] / 16) + '%'; b.style.width = ((n[1] - n[0]) / 16) + '%'; b.style.top = (14 / h * 100) + '%'; b.style.height = (40 / h * 100) + '%';
+      b.addEventListener('click', function(){ show(n[2]); }); stage.appendChild(b); });
+  }
+  var show0 = show; show = function(i){ show0(i); hots(i); }; hots(0);
+  screens.forEach(function(s){ var i = new Image(); i.src = s[0]; });
+})();
 </script>
 </body>
 </html>

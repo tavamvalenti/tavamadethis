@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tiny World</title>
+<!-- installable: "Add to Home Screen" opens it full screen like an app -->
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="assets/icons/icon-180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Tiny World">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="theme-color" content="#07080a">
+<style>
+  html,body{margin:0;height:100%;background:#07080a;overflow:hidden}
+  #game{position:fixed;inset:0;width:100%;height:100%;border:0;display:block;background:#07080a}
+</style>
+</head>
+<body>
+<!-- The game runs in this frame. Full screen belongs to this outer page, so it stays on when the game reloads itself
+     to go back to the menu (pressing Esc). Phones and tablets go straight to the game page. -->
+<iframe id="game" title="Tiny World" allow="fullscreen; autoplay; pointer-lock; gamepad; clipboard-write" allowfullscreen></iframe>
+<script>
+  (function () {
+    var q = location.search, touch = /[?&]touch=1/.test(q) || (!/[?&]touch=0/.test(q) && matchMedia('(pointer: coarse)').matches && navigator.maxTouchPoints > 0);
+    if (touch) { location.replace('game.html' + location.search + location.hash); return; }
+    var f = document.getElementById('game');
+    f.src = 'game.html' + location.search + location.hash;
+    // keep the address bar in step with the game (so a refresh opens what you were looking at) and keep keys going to it
+    f.addEventListener('load', function () {
+      try { var l = f.contentWindow.location; history.replaceState(null, '', location.pathname + l.search + l.hash); document.title = f.contentDocument.title || 'Tiny World'; f.contentWindow.focus(); } catch (e) {}
+    });
+    window.addEventListener('focus', function () { try { f.contentWindow.focus(); } catch (e) {} });
+  })();
+</script>
+</body>
+</html>

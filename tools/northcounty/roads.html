@@ -6,8 +6,8 @@
 <style>body { margin: 0; background: #ddd; } canvas { display: block; }</style>
 <canvas id="c"></canvas>
 <script type="module">
-import { NC, BOUNDS, isLand, eastEdge } from '../../js/ncgeo.js';
-import { ROADS } from '../../js/northcounty.js';
+import { NC, BOUNDS, isLand, eastEdge } from '../../tiny-world/js/ncgeo.js';
+import { ROADS } from '../../tiny-world/js/northcounty.js';
 const q = new URLSearchParams(location.search), z0 = +(q.get('z0') ?? BOUNDS.z0), z1 = +(q.get('z1') ?? BOUNDS.z1), K = +(q.get('k') ?? 1.2);
 const x0 = BOUNDS.x0, x1 = BOUNDS.x1, c = document.getElementById('c');
 c.width = (x1 - x0) * K; c.height = (z1 - z0) * K;
