@@ -1,0 +1,1002 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex, nofollow"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>SD Onewheel Rentals Redesign</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='540 250 690 380'%3E%3Crect x='540' y='250' width='690' height='380' rx='90' fill='%230c2a3a'/%3E%3Ccircle cx='884' cy='438' r='142' fill='none' stroke='%23fff6e8' stroke-width='36'/%3E%3Cpath d='M565 506C560 514 568 514 578 512L1150 417C1170 413 1188 400 1198 382C1207 366 1210 358 1194 358L638 451C622 454 608 460 598 472Z' fill='%23ff6a3d' stroke='%230c2a3a' stroke-width='14'/%3E%3C/svg%3E">
+<style>
+/* Layout concept: motion hero, alternating photo/copy bands on sand, deep-ocean bands for pricing and notes. Sub-pages (offers, for sale, blog, terms) swap in on the hash. */
+:root{
+  --sand:#fff6e8; --sand-2:#fbead0; --ink:#0c2a3a; --ink-2:#47606e;
+  --ocean:#0c2a3a; --ocean-2:#143d52; --coral:#ff6a3d; --coral-2:#ff9a3d; --coral-ink:#b8330f; --teal:#16b8b0;
+  --card:#ffffff; --line:rgba(12,42,58,.14); --on-ocean:#f4efe4; --on-ocean-2:#a9c4cf;
+  --display:'Bricolage Grotesque','Avenir Next','Trebuchet MS',sans-serif;
+  --body:'Figtree','Avenir Next',system-ui,sans-serif;
+  --r:22px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --sand:#0a1c27; --sand-2:#0f2836; --ink:#f4efe4; --ink-2:#a9c4cf;
+  --ocean:#06131b; --ocean-2:#0d2633; --coral:#ff7a4f; --coral-2:#ffa24f; --coral-ink:#ff9a78; --teal:#2fd0c8;
+  --card:#122f3f; --line:rgba(244,239,228,.16); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --sand:#0a1c27; --sand-2:#0f2836; --ink:#f4efe4; --ink-2:#a9c4cf;
+  --ocean:#06131b; --ocean-2:#0d2633; --coral:#ff7a4f; --coral-2:#ffa24f; --coral-ink:#ff9a78; --teal:#2fd0c8;
+  --card:#122f3f; --line:rgba(244,239,228,.16); color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{background:var(--sand);color:var(--ink);font:400 17px/1.6 var(--body);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0}
+h1,h2,h3{font-family:var(--display);line-height:1.04;letter-spacing:-.02em;text-wrap:balance;margin:0}
+h2{font-size:clamp(2rem,4.6vw,3.4rem);font-weight:800}
+h3{font-size:1.35rem;font-weight:700}
+p{margin:0}
+a{color:inherit}
+button{font-family:inherit}
+:focus-visible{outline:3px solid var(--teal);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1180px;margin:0 auto}
+.eyebrow{font:600 .78rem/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--coral-ink)}
+section{padding-block:clamp(56px,9vw,112px)}
+.full{margin-inline:calc(-1*max(16px,env(safe-area-inset-left,0px)));padding-inline:max(16px,env(safe-area-inset-left,0px))}
+
+/* buttons */
+.btn{text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:.5rem;font:700 1rem/1 var(--body);padding:1rem 1.5rem;border-radius:999px;background:var(--sand-2);color:var(--ink);text-decoration:none;border:0;cursor:pointer;transition:transform .2s,box-shadow .2s,background .2s}
+.btn.ghost{background:transparent;color:inherit;border:1.5px solid currentColor}
+.btn.ghost:hover{background:rgba(255,255,255,.14)}
+.btn-book{position:relative;overflow:hidden;isolation:isolate;display:inline-flex;align-items:center;justify-content:space-between;gap:1rem;white-space:nowrap;text-decoration:none;font:800 1.06rem/1 var(--display);letter-spacing:.01em;padding:.8rem .8rem .8rem 1.7rem;border-radius:999px;color:#1a0a04;background:linear-gradient(120deg,var(--coral-2),var(--coral) 55%,#ff4d6a);box-shadow:0 1px 0 rgba(255,255,255,.55) inset,0 -3px 0 rgba(120,30,0,.28) inset,0 14px 30px -10px rgba(255,106,61,.75),0 0 0 0 rgba(255,106,61,.5);animation:pulse 2.8s ease-out infinite;transition:transform .25s cubic-bezier(.3,1.6,.5,1),box-shadow .25s,filter .25s}
+.btn-book::before{content:"";position:absolute;z-index:-1;top:0;left:-70%;width:45%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.65),transparent);transform:skewX(-20deg);transition:left .6s ease}
+.btn-book .ar{flex:none;display:grid;place-items:center;width:42px;height:42px;border-radius:50%;background:#1a0a04;color:var(--coral-2);transition:transform .3s cubic-bezier(.3,1.6,.5,1)}
+.btn-book .ar svg{width:16px;height:16px}
+.btn-book:hover{transform:translateY(-4px) scale(1.04);filter:saturate(1.15);box-shadow:0 1px 0 rgba(255,255,255,.6) inset,0 -3px 0 rgba(120,30,0,.28) inset,0 22px 40px -10px rgba(255,106,61,.9),0 0 0 8px rgba(255,106,61,.18);animation:none}
+.btn-book:hover::before{left:130%}
+.btn-book:hover .ar{transform:translateX(5px) rotate(-45deg)}
+.btn-book:active{transform:translateY(1px) scale(.95);box-shadow:0 1px 0 rgba(255,255,255,.4) inset,0 -1px 0 rgba(120,30,0,.3) inset,0 6px 14px -8px rgba(255,106,61,.9);transition-duration:.08s}
+.btn-book .rip{position:absolute;z-index:-1;border-radius:50%;background:rgba(255,255,255,.7);transform:scale(0);animation:rip .65s ease-out forwards;pointer-events:none}
+.btn-book.sm{font-size:.92rem;padding:.5rem .5rem .5rem 1.15rem;gap:.7rem}
+.btn-book.sm .ar{width:32px;height:32px}.btn-book.sm .ar svg{width:14px;height:14px}
+.btn-book.lg{font-size:1.2rem;padding:.9rem .9rem .9rem 2.1rem;gap:1.5rem}
+.btn-book.lg .ar{width:52px;height:52px}.btn-book.lg .ar svg{width:20px;height:20px}
+@keyframes pulse{0%{box-shadow:0 1px 0 rgba(255,255,255,.55) inset,0 -3px 0 rgba(120,30,0,.28) inset,0 14px 30px -10px rgba(255,106,61,.75),0 0 0 0 rgba(255,106,61,.55)}70%,100%{box-shadow:0 1px 0 rgba(255,255,255,.55) inset,0 -3px 0 rgba(120,30,0,.28) inset,0 14px 30px -10px rgba(255,106,61,.75),0 0 0 18px rgba(255,106,61,0)}}
+@keyframes rip{to{transform:scale(3.2);opacity:0}}
+.fab{position:fixed;z-index:25;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateY(140%);opacity:0;transition:transform .4s cubic-bezier(.3,1.4,.5,1),opacity .3s}
+.fab.on{transform:none;opacity:1}
+
+/* ribbon + nav */
+.ribbon{padding-block:.55rem;background:var(--ocean);color:var(--on-ocean);font-size:.84rem;display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap;text-align:center}
+.ribbon a{color:var(--coral);font-weight:700}
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;padding-block:.65rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;background:color-mix(in srgb,var(--sand) 88%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--sand)}
+.logo{font:800 1.15rem/1 var(--display);text-decoration:none;display:flex;align-items:center;gap:.55rem;white-space:nowrap}
+.links{display:flex;gap:1.2rem;font-weight:600;font-size:.94rem}
+.links a{text-decoration:none;opacity:.78;padding-block:.3rem;border-bottom:2px solid transparent}
+.links a:hover{opacity:1;color:var(--coral-ink)}
+.links a[aria-current="page"]{opacity:1;border-color:var(--coral)}
+.navr{display:flex;align-items:center;gap:.6rem}
+.burger{display:none;width:44px;height:44px;border-radius:50%;border:1.5px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;place-items:center}
+.burger svg{width:20px;height:20px}
+@media(max-width:520px){.hide-s{display:none}.btn-book.sm{padding-left:1rem}}
+.menu{display:none}
+@media(max-width:1020px){.links{display:none}.burger{display:grid}
+  .menu{position:absolute;left:0;right:0;top:100%;background:var(--sand);border-bottom:1px solid var(--line);padding:.6rem max(16px,env(safe-area-inset-left,0px)) 1rem;flex-direction:column}
+  .menu.open{display:flex}.menu a{padding:.8rem 0;font:700 1.15rem var(--display);text-decoration:none;border-bottom:1px solid var(--line)}}
+
+/* hero */
+.hero{position:relative;padding:0;min-height:min(86vh,760px);color:#fff7ea;overflow:hidden;display:grid;align-items:end;background:#0c2a3a}
+.hero video,.hero .poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(6,19,27,.2) 0%,rgba(6,19,27,.38) 35%,rgba(6,19,27,.9) 100%)}
+.hero .in{position:relative;z-index:2;max-width:1180px;margin:0 auto;width:100%;padding:clamp(80px,14vw,160px) 0 clamp(36px,5vw,64px);display:grid;gap:1.6rem}
+.hero h1{font-size:clamp(2.8rem,9vw,7.2rem);font-weight:800;max-width:11ch;letter-spacing:-.035em}
+.hero h1 em{font-style:normal;color:var(--coral)}
+.hero p.lede{font-size:clamp(1.05rem,1.8vw,1.3rem);max-width:46ch;color:#fff0dc}
+.cta{display:flex;gap:1rem;flex-wrap:wrap;align-items:center}
+.chips{display:flex;gap:.6rem;flex-wrap:wrap}
+.chip{font-weight:600;font-size:.88rem;padding:.5rem .9rem;border-radius:999px;background:rgba(255,246,232,.16);backdrop-filter:blur(10px);border:1px solid rgba(255,246,232,.3)}
+
+/* facts */
+.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border-radius:var(--r);overflow:hidden;margin-top:-40px;position:relative;z-index:3;border:1px solid var(--line)}
+.fact{background:var(--card);padding:1.4rem 1.4rem 1.5rem}
+.fact b{display:block;font:800 clamp(1.8rem,3.4vw,2.6rem)/1 var(--display);color:var(--coral-ink);margin-bottom:.35rem;font-variant-numeric:tabular-nums}
+.fact span{font-size:.92rem;color:var(--ink-2)}
+@media(max-width:760px){.facts{grid-template-columns:1fr 1fr}}
+
+.head{display:grid;gap:.9rem;max-width:780px;margin-bottom:2.6rem}
+.head p{color:var(--ink-2);font-size:1.08rem}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
+@media(max-width:900px){.cards{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;transition:transform .3s,box-shadow .3s}
+.card:hover{transform:translateY(-6px);box-shadow:0 24px 44px -24px rgba(12,42,58,.45)}
+.card .ph{aspect-ratio:4/3;overflow:hidden}
+.card .ph img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s}
+.card:hover .ph img{transform:scale(1.06)}
+.card .tx{padding:1.4rem 1.5rem 1.6rem;display:grid;gap:.8rem;min-width:0;flex:1;align-content:start}
+.card .tx p{color:var(--ink-2);font-size:.98rem}
+.spec{display:flex;flex-wrap:wrap;gap:.4rem}
+.spec span{font-size:.8rem;font-weight:600;padding:.3rem .65rem;border-radius:999px;background:var(--sand-2)}
+.rate{display:flex;gap:1rem;padding-top:.9rem;border-top:1px dashed var(--line);margin-top:auto}
+.rate div{flex:1;font-size:.78rem;color:var(--ink-2)}
+.rate b{display:block;font:800 1.5rem/1.1 var(--display);color:var(--ink);font-variant-numeric:tabular-nums}
+.tag{font:700 .7rem/1 var(--body);letter-spacing:.1em;text-transform:uppercase;color:#1a0a04;background:var(--coral);padding:.35rem .6rem;border-radius:999px;justify-self:start}
+
+.split{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(1.6rem,5vw,4.5rem);align-items:center}
+@media(max-width:860px){.split{grid-template-columns:1fr}}
+.split>img{width:100%;border-radius:var(--r);display:block}
+.split .copy{display:grid;gap:1.1rem;min-width:0}
+.split .copy p{color:var(--ink-2)}
+.ticks{list-style:none;padding:0;margin:.4rem 0 0;display:grid;gap:.6rem}
+.ticks li{padding-left:1.8rem;position:relative}
+.ticks li::before{content:"";position:absolute;left:0;top:.45em;width:.95rem;height:.95rem;border-radius:50%;background:var(--teal)}
+.band{background:var(--sand-2)}
+
+/* video showcase */
+.vid{position:relative;display:block;border-radius:var(--r);overflow:hidden;aspect-ratio:16/9;background:#000;text-decoration:none;box-shadow:0 30px 60px -30px rgba(12,42,58,.7)}
+.vid img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s,filter .4s}
+.vid:hover img{transform:scale(1.04);filter:brightness(.85)}
+.vid .play{position:absolute;inset:0;display:grid;place-items:center}
+.vid .play span{width:88px;height:62px;border-radius:18px;background:#ff1f1f;display:grid;place-items:center;box-shadow:0 14px 34px -8px rgba(0,0,0,.6);transition:transform .3s cubic-bezier(.3,1.6,.5,1)}
+.vid:hover .play span{transform:scale(1.14)}
+.vid .play svg{width:30px;height:30px;color:#fff;margin-left:3px}
+.vid .cap{position:absolute;left:0;right:0;bottom:0;padding:1.2rem 1.2rem .9rem;background:linear-gradient(0deg,rgba(0,0,0,.7),transparent);color:#fff;font:700 .95rem var(--body);display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+
+/* tours */
+.tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.6rem}
+.tab{font:700 .95rem/1 var(--body);padding:.85rem 1.2rem;border-radius:999px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;transition:transform .2s}
+.tab:hover{transform:translateY(-2px)}
+.tab[aria-selected="true"]{background:var(--coral);color:#1a0a04;border-color:var(--coral)}
+.tour{display:grid;grid-template-columns:1.2fr 1fr;border-radius:var(--r);overflow:hidden;background:var(--card);border:1px solid var(--line)}
+@media(max-width:860px){.tour{grid-template-columns:1fr}}
+.tour .pic{position:relative;min-height:340px;background:linear-gradient(135deg,var(--ocean-2),var(--teal))}
+.tour .pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.tour .pic .soon{position:absolute;inset:0;display:grid;place-items:center;color:var(--on-ocean);font:700 1.1rem var(--display);text-align:center;padding:1rem}
+.tour .info{padding:clamp(1.4rem,3vw,2.4rem);display:grid;gap:1rem;align-content:center;min-width:0}
+.tour .info p{color:var(--ink-2)}
+.tour dl{display:grid;grid-template-columns:auto 1fr;gap:.4rem 1.2rem;margin:0;font-size:.96rem}
+.tour dt{color:var(--ink-2)}.tour dd{margin:0;font-weight:600}
+
+/* ocean / pricing */
+.ocean{background:var(--ocean);color:var(--on-ocean)}
+.ocean .eyebrow{color:var(--coral)}
+.ocean .head p{color:var(--on-ocean-2)}
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:2.4rem}
+@media(max-width:860px){.price-grid{grid-template-columns:1fr}}
+.pcard{background:var(--ocean-2);border:1px solid rgba(244,239,228,.14);border-radius:var(--r);padding:1.6rem;display:grid;gap:1rem;min-width:0}
+.pcard h3{font-size:1.2rem}
+.pcard small{color:var(--on-ocean-2);display:block;margin-top:.2rem}
+.pcard ul{list-style:none;margin:0;padding:0;display:grid;gap:.55rem}
+.pcard li{display:flex;justify-content:space-between;gap:1rem;padding-bottom:.55rem;border-bottom:1px solid rgba(244,239,228,.1)}
+.pcard li b{font:800 1.3rem/1 var(--display);font-variant-numeric:tabular-nums}
+.est{display:grid;grid-template-columns:1.3fr 1fr;gap:1.4rem;background:var(--sand);color:var(--ink);border-radius:calc(var(--r) + 6px);padding:clamp(1.2rem,3vw,2.2rem)}
+@media(max-width:860px){.est{grid-template-columns:1fr}}
+.ctrl{display:grid;gap:1.1rem;min-width:0}
+.ctrl fieldset{border:0;padding:0;margin:0;display:grid;gap:.5rem;min-width:0}
+.ctrl legend{font:700 .78rem/1 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);padding:0;margin-bottom:.5rem}
+.seg{display:flex;flex-wrap:wrap;gap:.45rem}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg label{padding:.65rem 1rem;border-radius:999px;border:1.5px solid var(--line);font-weight:600;font-size:.92rem;cursor:pointer;background:var(--card)}
+.seg input:checked+label{background:var(--coral);color:#1a0a04;border-color:var(--coral);box-shadow:0 8px 18px -10px var(--coral)}.seg label{transition:transform .2s,background .2s}.seg label:hover{transform:translateY(-2px)}
+.seg input:focus-visible+label{outline:3px solid var(--teal);outline-offset:2px}
+.row{display:flex;gap:1rem;align-items:center;flex-wrap:wrap}
+.dim{visibility:hidden}
+#fDays{min-height:2.2rem}
+input[type=range]{accent-color:var(--coral);width:min(260px,100%)}
+.stepper{display:inline-flex;align-items:center;border:1.5px solid var(--line);border-radius:999px;background:var(--card);width:max-content}
+.stepper button{width:40px;height:40px;border:0;background:none;font:700 1.2rem var(--body);color:var(--ink);cursor:pointer;border-radius:50%}
+.stepper output{min-width:2ch;text-align:center;font-weight:700;font-variant-numeric:tabular-nums}
+.tgl{position:relative;display:inline-flex;align-items:center;gap:.75rem;padding:.6rem 1.1rem .6rem .6rem;border-radius:999px;border:1.5px solid var(--line);background:var(--card);cursor:pointer;font-weight:600;font-size:.95rem;transition:border-color .25s,background .25s,transform .2s,box-shadow .25s}
+.tgl:hover{transform:translateY(-2px)}
+.tgl b{color:var(--coral-ink);font-weight:800}
+.tgl input{position:absolute;opacity:0;pointer-events:none}
+.tgl .box{flex:none;width:28px;height:28px;border-radius:10px;border:2px solid var(--ink-2);display:grid;place-items:center;transition:background .25s,border-color .25s,box-shadow .3s}
+.tgl .box svg{width:18px;height:18px;fill:none;stroke:#1a0a04;stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:26;stroke-dashoffset:26;transition:stroke-dashoffset .35s ease .1s}
+.tgl input:checked+.box{background:linear-gradient(135deg,var(--coral-2),var(--coral));border-color:transparent;box-shadow:0 0 0 6px rgba(255,106,61,.2);animation:pop .4s cubic-bezier(.3,1.6,.5,1)}
+.tgl input:checked+.box svg{stroke-dashoffset:0}
+.tgl:has(input:checked){border-color:var(--coral);background:color-mix(in srgb,var(--coral) 12%,var(--card))}
+.tgl:active{transform:scale(.97)}
+.tgl input:focus-visible+.box{outline:3px solid var(--teal);outline-offset:3px}
+@keyframes pop{0%{transform:scale(.7)}55%{transform:scale(1.28)}100%{transform:scale(1)}}
+.check{display:flex;gap:.6rem;align-items:center;font-weight:600;font-size:.95rem}
+.check input{width:20px;height:20px;accent-color:var(--coral)}
+.total{background:var(--ocean);color:var(--on-ocean);border-radius:var(--r);padding:1.6rem;display:grid;gap:.9rem;align-content:start;min-width:0}
+.total .big{font:800 clamp(2.8rem,6vw,4.4rem)/1 var(--display);color:var(--coral);font-variant-numeric:tabular-nums}
+.total ul{list-style:none;margin:0;padding:0;display:grid;gap:.4rem;font-size:.95rem;min-height:5.6rem;align-content:start}
+.total li{display:flex;justify-content:space-between;gap:1rem;color:var(--on-ocean-2)}
+.total li b{color:var(--on-ocean);font-variant-numeric:tabular-nums}
+.total small{color:var(--on-ocean-2);font-size:.8rem}
+.info-box{margin-top:1.6rem;background:var(--ocean-2);border-radius:var(--r);padding:1.4rem 1.6rem;border:1px solid rgba(244,239,228,.14);display:grid;gap:.4rem}
+.info-box b{color:var(--coral)}
+
+/* location */
+.loc{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.6rem,5vw,4rem);align-items:center}
+@media(max-width:860px){.loc{grid-template-columns:1fr}}
+.mapbox{position:relative;border-radius:var(--r);overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 60px -34px rgba(12,42,58,.6);max-width:520px;width:100%;justify-self:center}
+.mapbox img{width:100%;display:block}
+.mapbox .cover{position:absolute;left:8%;top:50%;width:41%;height:13%;border-radius:12px;background:var(--coral);color:#1a0a04;font:800 clamp(.7rem,1.7vw,.92rem)/1.15 var(--display);display:grid;place-items:center;text-align:center;padding:.3rem;box-shadow:0 8px 20px -8px rgba(0,0,0,.5)}
+.mapbox .pin{position:absolute;left:53.5%;top:70.5%;width:16px;height:16px;margin:-8px 0 0 -8px;border-radius:50%;background:var(--coral);border:3px solid #fff}
+.mapbox .pin::after{content:"";position:absolute;inset:-12px;border-radius:50%;border:2px solid var(--coral);animation:ping 2s ease-out infinite}
+@keyframes ping{0%{transform:scale(.4);opacity:1}100%{transform:scale(1.6);opacity:0}}
+.locl{display:grid;gap:1.3rem;min-width:0}
+.rule{display:grid;grid-template-columns:auto 1fr;gap:1rem;align-items:start}
+.rule i{width:44px;height:44px;border-radius:14px;background:var(--sand-2);display:grid;place-items:center;color:var(--coral-ink)}
+.rule i svg{width:22px;height:22px}
+.rule b{display:block;font:700 1.08rem var(--display)}
+.rule span{color:var(--ink-2);font-size:.97rem}
+
+/* steps */
+.stepper2{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;position:relative;counter-reset:s}
+.stepper2::before{content:"";position:absolute;left:12.5%;right:12.5%;top:38px;height:3px;background:repeating-linear-gradient(90deg,var(--coral) 0 10px,transparent 10px 20px);opacity:.7}
+@media(max-width:900px){.stepper2{grid-template-columns:1fr 1fr;row-gap:2rem}.stepper2::before{display:none}}
+@media(max-width:520px){.stepper2{grid-template-columns:1fr}}
+.st{text-align:center;display:grid;gap:.7rem;justify-items:center;position:relative;min-width:0;counter-increment:s}
+.st .ic{position:relative;width:78px;height:78px;border-radius:50%;background:var(--card);border:3px solid var(--coral);display:grid;place-items:center;color:var(--coral-ink);transition:transform .35s cubic-bezier(.3,1.6,.5,1),background .3s,color .3s}
+.st:hover .ic{transform:translateY(-6px) rotate(-6deg);background:var(--coral);color:#1a0a04}
+.st .ic svg{width:34px;height:34px}
+.st .ic::after{content:counter(s);position:absolute;top:-8px;right:-8px;width:28px;height:28px;border-radius:50%;background:var(--ocean);color:var(--on-ocean);font:800 .85rem/28px var(--display)}
+.st h3{font-size:1.2rem}
+.st p{color:var(--ink-2);font-size:.96rem;max-width:26ch}
+.st p a{font-weight:700;color:var(--coral-ink)}
+
+/* reviews */
+.rv{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:clamp(1.4rem,4vw,3.4rem);align-items:start}
+@media(max-width:960px){.rv{grid-template-columns:1fr}}
+.rv-side{display:grid;gap:1.2rem;position:sticky;top:96px}
+@media(max-width:960px){.rv-side{position:static}}
+.stars{color:#f5b400;letter-spacing:.12em;font-size:1.2rem}
+.gbadge{display:inline-flex;align-items:center;gap:.5rem;font-weight:700;font-size:.9rem}
+.gbadge i{width:22px;height:22px;border-radius:50%;background:#fff;color:#4285f4;display:grid;place-items:center;font:800 .8rem var(--body);font-style:normal;border:1px solid var(--line)}
+.fil{display:flex;flex-wrap:wrap;gap:.45rem}
+.fil button{padding:.55rem .95rem;border-radius:999px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);font:700 .88rem var(--body);cursor:pointer;transition:transform .2s}
+.fil button:hover{transform:translateY(-2px)}
+.fil button[aria-pressed="true"]{background:var(--coral);color:#1a0a04;border-color:var(--coral)}
+.arrows{display:flex;gap:.6rem;align-items:center}
+.arrows button{width:50px;height:50px;border-radius:50%;border:1.5px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;display:grid;place-items:center;transition:transform .2s,background .2s}
+.arrows button:hover{background:var(--coral);color:#1a0a04;transform:scale(1.08)}
+.arrows button:active{transform:scale(.92)}
+.arrows svg{width:20px;height:20px}
+.prog{height:4px;border-radius:4px;background:var(--line);overflow:hidden}
+.prog i{display:block;height:100%;width:10%;background:linear-gradient(90deg,var(--coral-2),var(--coral));border-radius:4px;transition:width .15s}
+.track{display:flex;gap:1.1rem;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:.5rem .2rem 1.4rem;scrollbar-width:none;cursor:grab;align-items:stretch}
+.track::-webkit-scrollbar{display:none}
+.track.drag{scroll-snap-type:none;scroll-behavior:auto;cursor:grabbing;user-select:none}
+.rc{flex:0 0 min(400px,84%);scroll-snap-align:start;border-radius:26px;padding:1.6rem 1.6rem 1.3rem;display:flex;flex-direction:column;gap:1rem;background:var(--card);border:1px solid var(--line);transition:transform .35s cubic-bezier(.3,1.4,.5,1),box-shadow .35s;position:relative;min-width:0}
+.rc:hover{transform:translateY(-8px) rotate(-.6deg);box-shadow:0 30px 50px -30px rgba(12,42,58,.55)}
+.rc.v2{background:var(--ocean);color:var(--on-ocean);border-color:transparent}
+.rc.v3{background:var(--sand-2)}
+.rc .q{font:800 4.6rem/.6 var(--display);color:var(--coral);height:2rem}
+.rc blockquote{margin:0;font-size:1.06rem;line-height:1.62;flex:1}
+.rc .more{font-weight:700;font-size:.88rem;color:var(--coral-ink);text-decoration:none}
+.rc.v2 .more{color:var(--coral)}
+.rc .who{display:flex;align-items:center;gap:.8rem;padding-top:1rem;border-top:1px solid var(--line)}
+.rc.v2 .who{border-color:rgba(244,239,228,.16)}
+.rc .who img{width:52px;height:52px;border-radius:50%;object-fit:cover;flex:none;background:var(--sand-2);position:relative}
+.rc .who .nm{font:700 1.02rem/1.2 var(--display);min-width:0;overflow-wrap:anywhere}
+.rc .who small{display:block;opacity:.7;font-size:.82rem;margin-top:.15rem}
+.rc .who .st5{margin-left:auto;color:#f5b400;font-size:.9rem;letter-spacing:.06em;white-space:nowrap}
+.gdot{position:absolute;right:1.3rem;top:1.3rem;width:26px;height:26px;border-radius:50%;background:#fff;color:#4285f4;display:grid;place-items:center;font:800 .8rem var(--body);box-shadow:0 2px 8px rgba(0,0,0,.2)}
+
+/* gallery */
+.gal{display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:clamp(120px,17vw,200px);gap:.8rem}
+.gal figure{margin:0;border-radius:18px;overflow:hidden;position:relative;background:var(--sand-2)}
+.gal img,.gal video{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s}
+.gal figure:hover img{transform:scale(1.06)}
+.gal figcaption{position:absolute;left:.7rem;bottom:.7rem;font:600 .78rem var(--body);color:#fff7ea;background:rgba(6,19,27,.6);backdrop-filter:blur(8px);padding:.3rem .65rem;border-radius:999px}
+.g1{grid-column:span 7;grid-row:span 2}.g2{grid-column:span 5}.g3{grid-column:span 5}.g4{grid-column:span 4}.g5{grid-column:span 4}.g6{grid-column:span 4}
+@media(max-width:700px){.g1{grid-column:span 12}.g2,.g3{grid-column:span 6}.g4,.g5,.g6{grid-column:span 12}.gal{grid-auto-rows:clamp(140px,40vw,220px)}}
+.ig{display:inline-flex;align-items:center;gap:.6rem;font:700 1rem var(--body);padding:.85rem 1.2rem;border-radius:999px;text-decoration:none;color:#fff;background:linear-gradient(45deg,#f9a03f,#ee2a7b 50%,#6228d7);transition:transform .25s cubic-bezier(.3,1.6,.5,1)}
+.ig:hover{transform:translateY(-3px) scale(1.04)}.ig:active{transform:scale(.96)}
+.ig svg{width:20px;height:20px}
+.headrow{display:flex;justify-content:space-between;align-items:flex-end;gap:1rem;flex-wrap:wrap;margin-bottom:2.2rem}
+.headrow .head{margin-bottom:0}
+
+/* teasers */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem}
+@media(max-width:860px){.two{grid-template-columns:1fr}}
+.teaser{display:grid;gap:.8rem;border-radius:var(--r);padding:clamp(1.4rem,3vw,2.2rem);text-decoration:none;color:#1a0a04;background:var(--coral);transition:transform .3s}
+.teaser:hover{transform:translateY(-5px)}
+.teaser.alt{background:var(--teal)}
+.teaser b{font:800 clamp(1.8rem,3.4vw,2.6rem)/1.05 var(--display)}
+.teaser span.go{font-weight:800;display:inline-flex;gap:.4rem}
+
+/* faq */
+details{border-bottom:1px solid var(--line);padding:1.1rem 0}
+summary{cursor:pointer;font:700 1.1rem/1.35 var(--display);list-style:none;display:flex;justify-content:space-between;gap:1rem}
+summary::after{content:"+";font-size:1.5rem;line-height:1;color:var(--coral-ink);transition:transform .25s}
+details[open] summary::after{transform:rotate(45deg)}
+summary::-webkit-details-marker{display:none}
+details p{margin-top:.7rem;color:var(--ink-2);max-width:70ch}
+
+/* sub-pages */
+.view[hidden]{display:none!important}
+.phead{background:var(--ocean);color:var(--on-ocean);padding-block:clamp(48px,8vw,96px)}
+.phead .wrap{display:grid;gap:1rem}
+.phead h1{font-size:clamp(2.4rem,6.4vw,5rem);font-weight:800;letter-spacing:-.03em;max-width:16ch}
+.phead p{color:var(--on-ocean-2);max-width:60ch;font-size:1.1rem}
+.phead .eyebrow{color:var(--coral)}
+.offgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.4rem}
+@media(max-width:760px){.offgrid{grid-template-columns:1fr}}
+.off{border-radius:var(--r);padding:clamp(1.5rem,3vw,2.2rem);display:grid;gap:.7rem;align-content:start;background:var(--coral);color:#1a0a04;position:relative;overflow:hidden;min-width:0;transition:transform .3s}
+.off:hover{transform:translateY(-5px) rotate(-.4deg)}
+.off.t{background:var(--teal)}
+.off.o{background:var(--ocean);color:var(--on-ocean)}
+.off.x{background:var(--card);color:var(--ink);border:1.5px dashed var(--line)}
+.off.x:hover{transform:none}
+.off .big{font:800 clamp(2.6rem,6vw,4.4rem)/1 var(--display);letter-spacing:-.03em}
+.off .st-pill{justify-self:start;font:800 .72rem/1 var(--body);letter-spacing:.1em;text-transform:uppercase;padding:.4rem .7rem;border-radius:999px;background:rgba(26,10,4,.85);color:#fff}
+.off.o .st-pill{background:var(--coral);color:#1a0a04}
+.off.x .st-pill{background:var(--sand-2);color:var(--ink-2)}
+.off p{font-size:1rem;opacity:.9}
+.how2{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2.4rem}
+@media(max-width:760px){.how2{grid-template-columns:1fr}}
+.how2 div{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:1.3rem}
+.how2 b{display:block;font:700 1.1rem var(--display);margin-bottom:.3rem}
+.how2 span{color:var(--ink-2);font-size:.95rem}
+.cband{border-radius:calc(var(--r) + 8px);padding:clamp(2rem,5vw,3.6rem);background:linear-gradient(120deg,var(--ocean-2),var(--ocean));color:var(--on-ocean);display:flex;gap:1.6rem;justify-content:space-between;align-items:center;flex-wrap:wrap;margin-top:3rem}
+.cband h2{font-size:clamp(1.8rem,4vw,2.8rem);max-width:16ch}
+
+.inv{display:grid;grid-template-columns:repeat(2,1fr);gap:1.4rem}
+@media(max-width:820px){.inv{grid-template-columns:1fr}}
+.item{background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;transition:transform .3s,box-shadow .3s}
+.item:hover{transform:translateY(-6px);box-shadow:0 24px 44px -24px rgba(12,42,58,.45)}
+.item .ph{aspect-ratio:4/3;overflow:hidden;position:relative}
+.item .ph img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s}
+.item:hover .ph img{transform:scale(1.05)}
+.item .price{position:absolute;right:1rem;top:1rem;font:800 1.7rem/1 var(--display);padding:.6rem .9rem;border-radius:14px;background:var(--coral);color:#1a0a04;font-variant-numeric:tabular-nums;box-shadow:0 10px 24px -10px rgba(0,0,0,.5)}
+.item .tx{padding:1.5rem;display:grid;gap:.8rem;min-width:0}
+.item .tx p{color:var(--ink-2)}
+.partner{display:grid;grid-template-columns:1fr 1.1fr;gap:0;border-radius:var(--r);overflow:hidden;background:var(--ocean);color:var(--on-ocean);margin-top:1.4rem}
+@media(max-width:820px){.partner{grid-template-columns:1fr}}
+.partner img{width:100%;height:100%;object-fit:cover;display:block;min-height:260px}
+.partner .tx{padding:clamp(1.5rem,4vw,2.8rem);display:grid;gap:1rem;align-content:center}
+.partner p{color:var(--on-ocean-2)}
+.code{display:inline-flex;align-items:center;gap:.7rem;font:800 1.5rem var(--display);padding:.6rem 1rem;border-radius:14px;border:2px dashed var(--coral);color:var(--coral);letter-spacing:.08em;width:max-content;max-width:100%}
+.code button{font:700 .8rem var(--body);padding:.4rem .7rem;border-radius:999px;border:0;background:var(--coral);color:#1a0a04;cursor:pointer;letter-spacing:0}
+.pay{display:flex;gap:.5rem;flex-wrap:wrap}
+.pay span{font-weight:700;font-size:.85rem;padding:.4rem .8rem;border-radius:999px;background:var(--sand-2)}
+
+.blogtop{display:grid;grid-template-columns:1.3fr 1fr;border-radius:var(--r);overflow:hidden;background:var(--ocean);color:var(--on-ocean);text-decoration:none;margin-bottom:1.4rem;transition:transform .3s}
+.blogtop:hover{transform:translateY(-5px)}
+@media(max-width:820px){.blogtop{grid-template-columns:1fr}}
+.blogtop img{width:100%;height:100%;object-fit:cover;display:block;min-height:260px}
+.blogtop .tx{padding:clamp(1.5rem,4vw,2.8rem);display:grid;gap:1rem;align-content:center}
+.blogtop h2{font-size:clamp(1.8rem,3.6vw,2.8rem)}
+.blogtop p{color:var(--on-ocean-2)}
+.meta{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;font-size:.85rem;opacity:.85}
+.cat{font:700 .7rem/1 var(--body);letter-spacing:.08em;text-transform:uppercase;padding:.35rem .6rem;border-radius:999px;background:var(--coral);color:#1a0a04}
+.posts{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
+@media(max-width:960px){.posts{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.posts{grid-template-columns:1fr}}
+.post{background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;text-decoration:none;display:flex;flex-direction:column;transition:transform .3s,box-shadow .3s}
+.post:hover{transform:translateY(-6px);box-shadow:0 24px 44px -24px rgba(12,42,58,.45)}
+.post .ph{aspect-ratio:16/10;overflow:hidden}
+.post .ph img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s}
+.post:hover .ph img{transform:scale(1.06)}
+.post .tx{padding:1.3rem;display:grid;gap:.7rem;align-content:start;flex:1;min-width:0}
+.post h3{font-size:1.25rem}
+.post p{color:var(--ink-2);font-size:.95rem}
+.post .go{font-weight:800;color:var(--coral-ink);margin-top:auto;font-size:.92rem}
+.post[hidden]{display:none}
+
+.terms{display:grid;grid-template-columns:minmax(0,260px) minmax(0,1fr);gap:clamp(1.4rem,4vw,3.4rem);align-items:start}
+@media(max-width:900px){.terms{grid-template-columns:1fr}}
+.toc{position:sticky;top:96px;display:grid;gap:.2rem;font-weight:600;font-size:.95rem}
+@media(max-width:900px){.toc{position:static}}
+.toc a{text-decoration:none;padding:.5rem .8rem;border-radius:10px;color:var(--ink-2)}
+.toc a:hover{background:var(--sand-2);color:var(--ink)}
+.glance{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:2.4rem}
+@media(max-width:900px){.glance{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.glance{grid-template-columns:1fr}}
+.gl{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:1.2rem;display:grid;gap:.5rem;align-content:start}
+.gl i{width:38px;height:38px;border-radius:12px;background:var(--sand-2);color:var(--coral-ink);display:grid;place-items:center}
+.gl i svg{width:20px;height:20px}
+.gl b{font:700 1.02rem/1.25 var(--display)}
+.gl span{color:var(--ink-2);font-size:.9rem}
+.clause{display:grid;grid-template-columns:auto 1fr;gap:1.1rem;padding:1.5rem 0;border-top:1px solid var(--line)}
+.clause .n{font:800 1.4rem/1 var(--display);color:var(--coral-ink);width:2.2rem}
+.clause h3{font-size:1.2rem;margin-bottom:.5rem}
+.clause p{color:var(--ink-2);max-width:68ch}
+.note{background:var(--sand-2);border-radius:var(--r);padding:1.2rem 1.4rem;font-size:.95rem;color:var(--ink-2);margin-bottom:1.6rem}
+.rel{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-top:1rem}
+@media(max-width:620px){.rel{grid-template-columns:1fr}}
+.rel div{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:1rem 1.1rem;font-size:.95rem}
+.rel b{display:block;font:700 1rem var(--display)}
+.rel span{color:var(--ink-2)}
+
+/* closing cta */
+.endcta{padding-block:clamp(40px,6vw,80px)}
+.endbox{position:relative;border-radius:calc(var(--r) + 10px);overflow:hidden;color:#fff7ea;min-height:420px;display:grid;align-items:end}
+.endbox img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.endbox::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(6,19,27,.88) 0%,rgba(6,19,27,.55) 55%,rgba(6,19,27,.15) 100%)}
+.endin{position:relative;z-index:2;padding:clamp(1.6rem,5vw,3.6rem);display:grid;gap:1.1rem;max-width:620px}
+.endin h2{font-size:clamp(2rem,4.8vw,3.6rem)}
+.endin p{color:#fff0dc;font-size:1.1rem}
+.callus{font-weight:600;color:#fff0dc}.callus b{color:#fff;font-weight:800}
+/* newsletter */
+.news{display:grid;grid-template-columns:1fr 1.1fr;gap:2rem;align-items:center}
+@media(max-width:820px){.news{grid-template-columns:1fr}}
+.news form{display:grid;grid-template-columns:1fr 1fr auto;gap:.6rem}
+@media(max-width:620px){.news form{grid-template-columns:1fr}}
+.news input{font:500 1rem var(--body);padding:.95rem 1.1rem;border-radius:999px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);min-width:0}
+.news button{border:0;padding:.95rem 1.5rem;border-radius:999px;background:var(--ocean);color:var(--on-ocean);font:800 1rem var(--display);cursor:pointer;transition:transform .2s}
+.news button:hover{transform:translateY(-2px)}.news button:active{transform:scale(.95)}
+.news .msg{grid-column:1/-1;font-weight:600;color:var(--coral-ink);min-height:1.5em}
+
+/* notes */
+.notes table{width:100%;border-collapse:collapse;font-size:.95rem}
+.notes th,.notes td{text-align:left;padding:.8rem .9rem;border-bottom:1px solid rgba(244,239,228,.14);vertical-align:top}
+.notes th{font:700 .74rem var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--on-ocean-2)}
+.notes td:first-child{font-weight:700;white-space:nowrap}
+.scroll{overflow-x:auto;border-radius:var(--r);border:1px solid rgba(244,239,228,.14);background:var(--ocean-2)}
+.scroll table{min-width:760px}
+.pill{display:inline-block;font:700 .72rem/1 var(--body);padding:.3rem .55rem;border-radius:999px;background:var(--coral);color:#1a0a04}
+.pill.ok{background:var(--teal)}
+.approve{margin-top:2rem;display:flex;gap:1rem;align-items:center;flex-wrap:wrap}
+
+footer{padding-block:3rem 2.4rem;background:var(--ocean);color:var(--on-ocean);border-top:1px solid rgba(244,239,228,.14)}
+footer .wrap{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:2rem}
+@media(max-width:760px){footer .wrap{grid-template-columns:1fr}}
+footer h3{font-size:1rem;margin-bottom:.7rem;color:var(--coral)}
+footer p,footer li{color:var(--on-ocean-2);font-size:.95rem}
+footer ul{list-style:none;margin:0;padding:0;display:grid;gap:.4rem}
+.sel{user-select:all}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important;animation:none!important}.hero video,.gal video{display:none}}
+
+/* ---- brand mark: a wheel and a board ---- */
+.mk{display:inline-block;flex:none;width:46px;height:24px;line-height:0;color:inherit;--bar:var(--coral)}
+.mk svg{width:100%;height:100%;display:block;overflow:hidden}
+.mk .rg,.mk .bar{transition:transform .5s cubic-bezier(.3,1.5,.5,1)}
+.mk .rg{transform-box:fill-box;transform-origin:center}
+.mk .bar{transform-box:fill-box;transform-origin:center}
+.mk .sp{opacity:0}
+.logo:hover .mk .rg,.mk.go .rg{animation:wspin .9s cubic-bezier(.2,.7,.2,1)}
+.logo:hover .mk .sp,.mk.go .sp{opacity:1}
+.logo:hover .mk .bar,.mk.go .bar{animation:nudge .9s ease-in-out}
+@keyframes wspin{to{transform:rotate(720deg)}}
+@keyframes nudge{0%{transform:none}30%{transform:translateX(9px) rotate(-3deg)}65%{transform:translateX(-4px) rotate(1.5deg)}100%{transform:none}}
+.logo .mk{width:48px;height:25px}
+.eyebrow{display:inline-flex;align-items:center;gap:.6rem}
+.eyebrow .mk{width:30px;height:16px;--bar:currentColor;opacity:.9}
+.eyebrow .mk .bar{transform:translateX(-26px);opacity:0;transition:transform .8s cubic-bezier(.2,.9,.3,1),opacity .4s}
+.eyebrow.in .mk .bar{transform:none;opacity:1}
+.mk.wm{position:absolute;z-index:1;width:min(46vw,520px);height:auto;aspect-ratio:668/340;right:-4%;top:50%;translate:0 -50%;opacity:.09;color:#fff;pointer-events:none}
+.phead,.endbox{position:relative;overflow:hidden}
+.phead .wrap{position:relative;z-index:2}
+.endbox .mk.wm{opacity:.14;right:3%;top:40%}
+.hero .mk.wm{opacity:.16;right:5%;top:42%;width:min(44vw,600px);z-index:1;transition:transform .3s ease-out;animation:floaty 7s ease-in-out infinite}
+@keyframes floaty{0%,100%{translate:0 -50%}50%{translate:0 calc(-50% - 14px)}}
+@media(max-width:700px){.hero .mk.wm{width:78vw;right:-14%;top:26%;opacity:.14}.mk.wm{width:80vw}}
+/* splash */
+.splash{position:fixed;inset:0;z-index:100;background:var(--sand);display:grid;place-items:center;pointer-events:none;animation:splashout 1.9s ease forwards;color:var(--ink)}
+.splash .mk{width:min(40vw,200px);height:auto;aspect-ratio:668/340}
+.splash .rg circle:first-child{stroke-dasharray:893;stroke-dashoffset:893;animation:draw .9s .1s cubic-bezier(.6,0,.3,1) forwards}
+.splash .bar.fg{opacity:0;animation:slidein .7s .7s cubic-bezier(.2,.9,.3,1) forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes slidein{from{transform:translateX(-160px);opacity:0}to{transform:none;opacity:1}}
+@keyframes splashout{0%,78%{opacity:1;visibility:visible}100%{opacity:0;visibility:hidden}}
+/* glide band */
+.glide{background:var(--ocean);color:var(--on-ocean);padding-top:clamp(48px,7vw,88px);overflow:hidden;position:relative}
+.glide .gtxt{display:grid;gap:.9rem;max-width:620px;position:relative;z-index:2}
+.glide .gtxt p{color:var(--on-ocean-2)}
+.glide .eyebrow{color:var(--coral)}
+.gwrap{position:relative;margin-top:-1.5rem;touch-action:pan-y;cursor:pointer;user-select:none;-webkit-user-select:none}
+.gsvg{display:block;width:100%;height:auto}
+.gsvg .grd{fill:var(--ocean-2)}
+.gsvg .gl{fill:none;stroke:var(--teal);stroke-width:3;stroke-linecap:round}
+.gsvg .dash{fill:none;stroke:rgba(244,239,228,.2);stroke-width:2;stroke-dasharray:2 16;stroke-linecap:round}
+.ghint{position:absolute;right:0;top:.2rem;font:600 .78rem/1 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--on-ocean-2);display:flex;gap:.5rem;align-items:center}
+.ghint i{width:8px;height:8px;border-radius:50%;background:var(--coral);animation:pulse 1.6s infinite;box-shadow:0 0 0 0 rgba(255,106,61,.6)}
+@keyframes pulse{70%{box-shadow:0 0 0 10px rgba(255,106,61,0)}100%{box-shadow:0 0 0 0 rgba(255,106,61,0)}}
+@media(max-width:700px){.ghint{position:static;margin-top:1rem}.gwrap{margin-top:0}}
+/* footer mark */
+.fmk{display:flex;align-items:center;gap:.7rem}
+.fmk .mk{width:84px;height:43px;cursor:pointer;color:var(--on-ocean)}
+</style>
+
+<div class="splash" id="splash" aria-hidden="true"><span class="mk" data-splash="1"></span></div>
+<header class="nav full">
+  <a class="logo" href="#top"><span class="mk"></span>SD Onewheel Rentals</a>
+  <nav class="links" aria-label="Main">
+    <a href="#rentals" data-p="home">Rentals</a><a href="#tours" data-p="home">Tours</a><a href="#pricing" data-p="home">Pricing</a><a href="#reviews" data-p="home">Reviews</a><a href="#offers" data-p="offers">Offers</a><a href="#for-sale" data-p="for-sale">For sale</a><a href="#blog" data-p="blog">Blog</a>
+  </nav>
+  <div class="navr">
+    <a class="btn-book sm" href="https://calendly.com/sdonewheel" target="_blank" rel="noopener"><span>Book<span class="hide-s"> a rental</span></span><span class="ar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+    <button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  </div>
+  <nav class="menu" id="menu" aria-label="Mobile">
+    <a href="#rentals">Rentals</a><a href="#tours">Tours</a><a href="#pricing">Pricing</a><a href="#reviews">Reviews</a><a href="#offers">Offers</a><a href="#for-sale">For sale</a><a href="#blog">Blog</a><a href="#faq">FAQ</a><a href="#terms">Terms and conditions</a>
+  </nav>
+</header>
+
+<main id="top">
+
+<!-- ============ HOME ============ -->
+<div class="view" data-view="home">
+<div class="hero full" id="hero">
+  <img class="poster" src="img/hero-coronado.jpg" alt="Five riders on electric scooters along the Coronado bayfront with the San Diego skyline behind them">
+  <video id="heroVid" autoplay muted loop playsinline preload="auto" poster="img/hero-coronado.jpg" aria-hidden="true"><source src="vid/hero.mp4" type="video/mp4"></video>
+  <span class="mk wm" id="heroMk"></span>
+  <div class="in">
+    <span class="eyebrow" style="color:#ffc79e">Onewheel &amp; e-scooter rentals · guided tours · San Diego</span>
+    <h1>Float through <em>America's finest city.</em></h1>
+    <p class="lede">Rent a Onewheel or a Segway e-scooter by the half day, full day or week, or join a guided scooter tour. Free lesson and helmet with every rental.</p>
+    <div class="cta"><a class="btn-book lg" href="https://calendly.com/sdonewheel" target="_blank" rel="noopener"><span>Book a rental</span><span class="ar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a><a class="btn ghost" href="#pricing" style="padding:1.25rem 1.6rem">See pricing</a></div>
+    <div class="chips"><span class="chip">From $49 for 4 hours</span><span class="chip">Delivery &amp; pickup $25 flat</span><span class="chip">Pickup free at Liberty Station</span></div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="facts" aria-label="Quick facts">
+    <div class="fact"><b>19 mph</b><span>Top speed on Onewheel GT and Segway scooters</span></div>
+    <div class="fact"><b>30 min</b><span>Free Onewheel lesson, helmet and safety gear included</span></div>
+    <div class="fact"><b>1.5 hr</b><span>Local-guided scooter tours with free group photos</span></div>
+    <div class="fact"><b>$25</b><span>Flat delivery and pickup, total, not per item</span></div>
+  </div>
+</div>
+
+<section class="glide full" id="glide"><div class="wrap">
+  <div class="gtxt"><span class="eyebrow">Feel the float</span><h2>Smooth is the whole point.</h2><p>That is the feeling you rent. Steer with your cursor or finger, and tap to pop a trick.</p></div>
+  <div class="gwrap" id="gwrap"><span class="ghint"><i></i>Try it</span>
+    <svg class="gsvg" id="gsvg" viewBox="0 0 1200 300" preserveAspectRatio="xMidYMax meet" role="img" aria-label="The logo gliding along rolling hills like a rider on a Onewheel">
+      <path class="grd" d="M0 300V222C140 150 300 148 450 212S760 276 910 204S1110 150 1200 188V300Z"/>
+      <path class="dash" d="M0 250C140 180 300 178 450 242S760 306 910 234S1110 180 1200 218"/>
+      <path class="gl" id="gpath" d="M0 222C140 150 300 148 450 212S760 276 910 204S1110 150 1200 188"/>
+      <g id="gtrail"></g>
+      <ellipse id="gshadow" rx="34" ry="4" fill="#000" opacity=".28"/>
+      <g id="grider"><g id="gtilt"><svg x="-60" y="-59" width="120" height="61" viewBox="552 268 668 340" overflow="visible" id="gmk"></svg></g></g>
+    </svg>
+  </div>
+</div></section>
+
+<section id="rentals"><div class="wrap">
+  <div class="head"><span class="eyebrow">The fleet</span><h2>Pick your ride</h2><p>Not sure which to choose? Start on a GT. It is the easiest Onewheel to learn on. Bringing a friend who would rather not stand on one wheel? Add a scooter.</p></div>
+  <div class="cards">
+    <article class="card"><div class="ph"><img src="img/gt-pint.jpg" alt="Onewheel GT and Pint X boards on a wooden pier"></div><div class="tx"><span class="tag">Best for first timers</span><h3>Onewheel GT</h3><p>Powerful brushless hub motor, extended range and a forgiving feel. Lean forward to go, lean back to slow or stop.</p><div class="spec"><span>19 mph top speed</span><span>25–32 mi range</span><span>Free 30 min lesson</span></div><div class="rate"><div><b>$79</b>Half day</div><div><b>$99</b>Full day</div><div><b>$79</b>Per day, 2+ days</div></div></div></article>
+    <article class="card"><div class="ph"><img src="img/onewheel-balboa.jpg" alt="Two riders on Onewheels in Balboa Park"></div><div class="tx"><span class="tag" style="background:var(--teal)">Compare models</span><h3>Onewheel Pint X</h3><p>The smaller, lighter board. Ask for a Pint X after your GT ride for a real side-by-side comparison before you buy.</p><div class="spec"><span>Compact</span><span>Free 30 min lesson</span><span>Helmet and pads</span></div><div class="rate"><div><b>$79</b>Half day</div><div><b>$99</b>Full day</div><div><b>$79</b>Per day, 2+ days</div></div></div></article>
+    <article class="card"><div class="ph"><img src="img/tour-airspace.jpg" alt="Family group on Segway scooters in front of the San Diego Air and Space Museum"></div><div class="tx"><span class="tag" style="background:var(--sand-2);color:var(--ink)">Folds into any trunk</span><h3>Segway Ninebot scooter</h3><p>Headlight and taillight, speed and battery readout, a lock and a charger. Half the price of the app scooters, and you can ride it anywhere bikes are allowed.</p><div class="spec"><span>19 mph top speed</span><span>18–25 mi range</span><span>Lock included</span></div><div class="rate"><div><b>$49</b>Half day</div><div><b>$69</b>Full day</div><div><b>$59</b>Per day, 2+ days</div></div></div></article>
+  </div>
+</div></section>
+
+<div class="band full"><section id="video"><div class="wrap split">
+  <div class="copy">
+    <span class="eyebrow">Meet the boards</span>
+    <h2>The next generation of Onewheel</h2>
+    <p>The GT and Pint X are the two boards we rent. Watch Onewheel's own introduction, then come ride them for yourself.</p>
+    <div><a class="btn ghost" style="color:var(--ink)" href="https://www.youtube.com/watch?v=6v1h7MvzuYU" target="_blank" rel="noopener">Watch on YouTube</a></div>
+  </div>
+  <a class="vid" href="https://www.youtube.com/watch?v=6v1h7MvzuYU" target="_blank" rel="noopener" aria-label="Watch Introducing Pint X and GT: The Next Generation of Onewheel on YouTube">
+    <img src="img/yt-thumb.jpg" alt="Onewheel GT and Pint X, the next generation of Onewheel">
+    <span class="play"><span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></span>
+    <span class="cap"><span>Introducing Pint X &amp; GT: The Next Generation of Onewheel</span><span style="opacity:.8">Onewheel · YouTube</span></span>
+  </a>
+</div></section></div>
+
+<section id="lesson"><div class="wrap split">
+  <img src="img/lesson.jpg" alt="Jesse teaching a group of riders how to ride a Onewheel on the grass at Liberty Station" loading="lazy">
+  <div class="copy">
+    <span class="eyebrow">Never ridden one?</span>
+    <h2>Up and riding in about an hour</h2>
+    <p>Board sport experience helps but is not required. Most riders feel comfortable and confident within the first hour, and your free 30 minute lesson gets you there.</p>
+    <ul class="ticks">
+      <li>Regenerative braking: lean back and the board slows you down, even on big hills.</li>
+      <li>Pushback tells you when you hit top speed. The nose lifts to say ease off.</li>
+      <li>A companion app shows speed, battery and ride mode.</li>
+      <li>Helmet, knee pads, elbow pads and wrist guards are included.</li>
+    </ul>
+  </div>
+</div></section>
+
+<div class="band full"><section id="tours"><div class="wrap">
+  <div class="head"><span class="eyebrow">Guided e-scooter tours</span><h2>See the city with a local</h2><p>Every tour runs about an hour and a half with a local guide. You learn the history, hear a few odd facts and get photos of your group at each stop, sent to you free afterwards.</p></div>
+  <div class="tabs" role="tablist" aria-label="Tour routes">
+    <button class="tab" role="tab" aria-selected="true" data-t="coronado">Coronado Island</button>
+    <button class="tab" role="tab" aria-selected="false" data-t="balboa">Balboa Park</button>
+    <button class="tab" role="tab" aria-selected="false" data-t="downtown">Downtown Waterfront</button>
+    <button class="tab" role="tab" aria-selected="false" data-t="lajolla">La Jolla</button>
+  </div>
+  <div class="tour" role="tabpanel">
+    <div class="pic" id="tPic"></div>
+    <div class="info">
+      <h3 id="tName" style="font-size:2rem"></h3>
+      <p id="tText"></p>
+      <dl><dt>Length</dt><dd>1.5 hours</dd><dt>Price</dt><dd>$49 per person</dd><dt>Minimum age</dt><dd>12, exceptions for experienced riders</dd><dt>Meeting spot</dt><dd>Sent in your confirmation email</dd></dl>
+      <div><a class="btn-book sm" href="https://calendly.com/sdonewheel" target="_blank" rel="noopener"><span>Reserve a time slot</span><span class="ar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div>
+    </div>
+  </div>
+</div></section></div>
+
+<div class="ocean full" id="pricing"><section><div class="wrap">
+  <div class="head"><span class="eyebrow">Pricing</span><h2>A fun, affordable way to explore San Diego</h2><p>Flat rates, no deposit right now, and one delivery fee no matter how many boards you rent.</p></div>
+  <div class="price-grid">
+    <div class="pcard"><div><h3>Half day</h3><small>Up to 4 hours</small></div><ul><li>E-scooter <b>$49</b></li><li>Onewheel <b>$79</b></li><li>Guided tour <b>$49</b></li></ul></div>
+    <div class="pcard"><div><h3>Full day</h3><small>Up to 24 hours</small></div><ul><li>E-scooter <b>$69</b></li><li>Onewheel <b>$99</b></li><li>Guided tour <b>$49</b></li></ul></div>
+    <div class="pcard"><div><h3>Multi-day</h3><small>Per 24 hours, 2 day minimum, up to 2 weeks</small></div><ul><li>E-scooter <b>$59</b></li><li>Onewheel <b>$79</b></li><li>One week <b>$225 / $325</b></li></ul></div>
+  </div>
+  <div class="est" id="est">
+    <div class="ctrl">
+      <h3 style="font-size:1.6rem">Estimate your trip</h3>
+      <fieldset><legend>What are you riding?</legend><div class="seg" id="sItem">
+        <input type="radio" name="item" id="i1" value="scooter" checked><label for="i1">E-scooter</label>
+        <input type="radio" name="item" id="i2" value="onewheel"><label for="i2">Onewheel GT / Pint X</label>
+        <input type="radio" name="item" id="i3" value="tour"><label for="i3">Guided tour</label></div></fieldset>
+      <fieldset id="fDur"><legend>How long?</legend><div class="seg">
+        <input type="radio" name="dur" id="d1" value="half" checked><label for="d1">Half day</label>
+        <input type="radio" name="dur" id="d2" value="full"><label for="d2">Full day</label>
+        <input type="radio" name="dur" id="d3" value="multi"><label for="d3">Multi-day</label>
+        <input type="radio" name="dur" id="d4" value="week"><label for="d4">One week</label></div>
+        <div class="row dim" id="fDays"><label for="days" style="font-weight:600">Days: <output id="daysOut">3</output></label><input type="range" id="days" min="2" max="14" value="3"></div></fieldset>
+      <fieldset><legend id="qLabel">How many boards or scooters?</legend><div class="stepper"><button type="button" id="qm" aria-label="Fewer">−</button><output id="qty" aria-live="polite">2</output><button type="button" id="qp" aria-label="More">+</button></div></fieldset>
+      <div class="row" id="fOpts"><label class="tgl"><input type="checkbox" id="deliv"><span class="box"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span>Delivery &amp; pickup <b>+$25</b></span></label><label class="tgl"><input type="checkbox" id="mil"><span class="box"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span>Military <b>10% off</b></span></label></div>
+    </div>
+    <div class="total" aria-live="polite">
+      <span class="eyebrow" style="color:var(--on-ocean-2)">Estimated total</span>
+      <div class="big" id="tot">$0</div>
+      <ul id="lines"></ul>
+      <small>Estimate only. Your final total is confirmed when you book.</small>
+      <a class="btn-book" href="https://calendly.com/sdonewheel" target="_blank" rel="noopener"><span>Check availability</span><span class="ar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+    </div>
+  </div>
+</div></section></div>
+
+<section id="location"><div class="wrap loc">
+  <div class="mapbox"><img src="img/map.jpg" alt="Map of Point Loma and Liberty Station in San Diego with the default meeting spot marked" loading="lazy"><div class="cover">Default meeting spot</div><div class="pin"></div></div>
+  <div class="locl">
+    <span class="eyebrow">Important location info</span>
+    <h2>No store. We come to you.</h2>
+    <div class="rule"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></i><div><b>By appointment only</b><span>All rentals and lessons are scheduled. Book same day or ahead.</span></div></div>
+    <div class="rule"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></i><div><b>Liberty Station Park is free</b><span>Our recommended spot for pickup and your lesson, with no fee.</span></div></div>
+    <div class="rule"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/></svg></i><div><b>Or we deliver for $25</b><span>Drop-off, lesson and pickup once you are done. $25 total, not $25 per item. Within 20 miles of downtown.</span></div></div>
+  </div>
+</div></section>
+
+<div class="band full"><section id="how"><div class="wrap">
+  <div class="head" style="max-width:none;text-align:center;justify-items:center"><span class="eyebrow">How it works</span><h2>Four easy steps to riding</h2></div>
+  <div class="stepper2">
+    <div class="st"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg></div><h3>Get in touch</h3><p>Contact us by phone, email, or <a href="https://calendly.com/sdonewheel" target="_blank" rel="noopener">book online</a>. Get your questions answered and check date and time availability.</p></div>
+    <div class="st"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></div><h3>Pick your slot</h3><p>Pick the day and time for your rental or tour. Choose pickup or delivery.</p></div>
+    <div class="st"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 10h19M6 15h4"/></svg></div><h3>Meet and sign</h3><p>Meet at the scheduled time, take care of payment and sign the liability waiver.</p></div>
+    <div class="st"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg></div><h3>Learn and ride</h3><p>Receive your free lesson, helmet and safety gear. Enjoy your rental or tour.</p></div>
+  </div>
+  <div style="display:flex;justify-content:center;margin-top:3rem"><a class="btn-book lg" href="https://calendly.com/sdonewheel" target="_blank" rel="noopener"><span>Schedule your rental or tour</span><span class="ar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div>
+</div></section></div>
+
+<section id="reviews"><div class="wrap">
+  <div class="rv">
+    <div class="rv-side">
+      <span class="eyebrow">What our customers have to say</span>
+      <h2>Riders say it best</h2>
+      <div><div class="stars" aria-label="Five stars">★★★★★</div><span class="gbadge"><i>G</i> Google reviews, shown as written</span></div>
+      <div class="fil" id="fil" role="group" aria-label="Filter reviews"></div>
+      <div class="arrows"><button type="button" id="rPrev" aria-label="Previous review"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button><button type="button" id="rNext" aria-label="Next review"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button><span id="rCount" style="font-weight:700;font-variant-numeric:tabular-nums;color:var(--ink-2)"></span></div>
+      <div class="prog"><i id="rProg"></i></div>
+      <a href="https://search.google.com/local/reviews?placeid=ChIJ___v7iwB3IARUgxAvx6CTbE" target="_blank" rel="noopener" style="font-weight:700;color:var(--coral-ink)">Read every review on Google</a>
+    </div>
+    <div class="track" id="track" tabindex="0" aria-label="Customer reviews"></div>
+  </div>
+</div></section>
+
+<div class="band full"><section id="gallery"><div class="wrap">
+  <div class="headrow"><div class="head"><span class="eyebrow">Real riders, real San Diego</span><h2>Our crew on the water</h2></div>
+  <a class="ig" href="https://www.instagram.com/sdonewheel/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>Follow @sdonewheel</a></div>
+  <div class="gal">
+    <figure class="g1"><img src="img/tour-coronado.jpg" alt="Group on scooters on the lawn at the Hotel del Coronado" loading="lazy"><figcaption>Coronado tour, Hotel del Coronado</figcaption></figure>
+    <figure class="g2"><img src="img/tour-balboa.jpg" alt="Three riders with scooters in front of the Botanical Building in Balboa Park" loading="lazy"><figcaption>Balboa Park</figcaption></figure>
+    <figure class="g3"><video id="fleetVid" autoplay muted loop playsinline preload="auto" poster="img/fleet-pier.jpg" aria-label="Scooter and two Onewheels on a pier with the skyline behind"><source src="vid/fleet.mp4" type="video/mp4"></video><figcaption>The fleet, Embarcadero skyline</figcaption></figure>
+    <figure class="g4"><img src="img/tour-downtown.jpg" alt="Tour group on the downtown waterfront" loading="lazy"><figcaption>Downtown Waterfront</figcaption></figure>
+    <figure class="g5"><img src="img/mixed-group.jpg" alt="Four friends on two scooters and Onewheels along the bay near the Coronado bridge" loading="lazy"><figcaption>Mix and match</figcaption></figure>
+    <figure class="g6"><img src="img/sunset-cliffs.jpg" alt="Rider sitting on the cliffs beside an Onewheel XR" loading="lazy"><figcaption>Sunset Cliffs</figcaption></figure>
+  </div>
+</div></section></div>
+
+<section><div class="wrap two">
+  <a class="teaser" href="#offers"><span class="eyebrow" style="color:#5a1d08">Current offers</span><b>10% off for military. Delivery for $25.</b><span class="go">See all offers →</span></a>
+  <a class="teaser alt" href="#for-sale"><span class="eyebrow" style="color:#07423f">For sale</span><b>Try it, then own it. Used GT from $1,650.</b><span class="go">See what is in stock →</span></a>
+</div></section>
+
+<div class="band full"><section id="faq"><div class="wrap" style="max-width:860px">
+  <div class="head"><span class="eyebrow">Good to know</span><h2>Questions, answered</h2></div>
+  <details><summary>Do you have a store?</summary><p>No. Rentals are by appointment only. Meet at Liberty Station Park or get delivery within 20 miles of downtown San Diego for a flat $25, pickup included.</p></details>
+  <details><summary>How old do I need to be?</summary><p>12 for both Onewheels and scooters, with parental consent and a signed liability waiver. Younger riders with previous experience can be considered. Text or call to ask.</p></details>
+  <details><summary>Can I ride on the beach or boardwalk?</summary><p>No. A city ordinance bans motorized devices on San Diego sand and on the Mission Beach, Pacific Beach and La Jolla boardwalks, and the rental agreement requires you to stay off the beach. Boards are not waterproof. Wet sand or water found at return costs you your deposit, and a board ruined by water is the full $1,800 replacement cost. Everywhere bikes are allowed, including parks, bike paths, sidewalks and trails, is fair game.</p></details>
+  <details><summary>Is there a deposit?</summary><p>Deposits are currently waived. You pay the rental fee and go.</p></details>
+  <details><summary>Is there less than a half-day option?</summary><p>The half day is the minimum charge, but you can return the gear as soon as you like after your lesson. Most riders use the full four hours.</p></details>
+  <details><summary>Is the Onewheel safe?</summary><p>Like any board sport it has real risk, and gear is included to reduce it. Regenerative braking lets you slow down or stop by leaning back, even on hills. Keep your speed and terrain within your comfort level.</p></details>
+  <details><summary>Can I lock up my Onewheel?</summary><p>No. Any lock can be cut. Bring the board inside with you or leave it locked in your car, out of sight. A lost or stolen board is the full $1,800 replacement cost. Scooters can be locked, and a lock is included.</p></details>
+  <details><summary>How do I check speed, battery and mode?</summary><p>Download the Onewheel companion app on your phone. It shows speed, battery and ride mode, and lets you change modes.</p></details>
+  <details><summary>Should I book ahead?</summary><p>Yes, especially for groups. Same-day gear is often available but can run out in busy periods. The booking page shows live availability.</p></details>
+  <details><summary>Why not just use an app scooter?</summary><p>App scooters cost $1 to start plus about 40 cents a minute, roughly $25 an hour, and are geo-restricted around the city. A rental from us costs less than half as much per half day and goes wherever bikes can.</p></details>
+</div></section></div>
+
+<section id="about"><div class="wrap split">
+  <div class="copy">
+    <span class="eyebrow">About us</span>
+    <h2>Started by a snowboarder who got hooked</h2>
+    <p>In 2016 Jesse Currie saw his first Onewheel video and bought one a month later. A snowboarder and surfer, he found the same deep-powder, perfect-wave feeling, available anywhere. Everywhere he rode, people asked what it was and where they could try one.</p>
+    <p>In 2017 he founded San Diego Onewheel Rentals. The goal is simple: give curious people an easy, safe and affordable way to try the sport, and give owners a chance to ride with friends or try before they buy.</p>
+    <p style="color:var(--ink);font-weight:700">Jesse Currie, Owner</p>
+  </div>
+  <img src="img/xr-skyline.jpg" alt="Onewheel XR on a pier with the San Diego skyline" loading="lazy">
+</div></section>
+
+<section class="endcta full" id="ready"><div class="wrap">
+  <div class="endbox"><img src="img/fleet-pier.jpg" alt="" loading="lazy"><div class="endin"><span class="eyebrow" style="color:#ffc79e">Ready when you are</span><h2>Your San Diego ride is one tap away.</h2><p>Free lesson and helmet with every rental. Pickup at Liberty Station is free, or we deliver for a flat $25.</p>
+  <div class="cta"><a class="btn-book lg" href="https://calendly.com/sdonewheel" target="_blank" rel="noopener"><span>Book a rental</span><span class="ar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a><span class="callus">or call <b class="sel">619-786-2614</b></span></div></div></div>
+</div></section>
+</div>
+
+<!-- ============ OFFERS ============ -->
+<div class="view" data-view="offers" hidden>
+  <div class="phead full"><div class="wrap"><span class="eyebrow">Current offers and promotions</span><h1>Ride for less</h1><p>Mention an offer when you book and we apply it. A free lesson and helmet come with every rental.</p></div></div>
+  <section><div class="wrap">
+    <div class="offgrid">
+      <div class="off"><span class="st-pill">Never expires</span><div class="big">10% off</div><h3>Military discount</h3><p>Ten percent off any rental. Mention this promotion to receive the discount.</p></div>
+      <div class="off t"><span class="st-pill">Standing rate</span><div class="big">$25</div><h3>Delivery and pickup</h3><p>Flat fee to your location. About half the price of an Uber. Covers drop-off, your lesson and pickup, and is $25 total, not per item.</p></div>
+      <div class="off o"><span class="st-pill">Every rental</span><div class="big">Free</div><h3>Lesson, helmet and safety gear</h3><p>A free 30 minute Onewheel lesson, helmet, pads and a charger come with every rental. Liberty Station Park pickup has no fee.</p></div>
+      <div class="off x"><span class="st-pill">Ended Dec 30, 2025</span><div class="big" style="color:var(--ink-2)">$5 off</div><h3>Weekday discount</h3><p>Monday to Thursday, $5 off any rental. This offer has ended. The current site still lists it, so the client can renew it with a new date or remove it.</p></div>
+    </div>
+    <div class="how2"><div><b>1. Pick your offer</b><span>Military discount applies to any rental.</span></div><div><b>2. Mention it when you book</b><span>Say it in your booking note, by phone or by text.</span></div><div><b>3. Ride</b><span>We apply the discount when you meet us.</span></div></div>
+    <div class="cband"><h2>Get your free lesson and helmet</h2><a class="btn-book lg" href="https://calendly.com/sdonewheel" target="_blank" rel="noopener"><span>Book a rental</span><span class="ar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div>
+  </div></section>
+</div>
+
+<!-- ============ FOR SALE ============ -->
+<div class="view" data-view="for-sale" hidden>
+  <div class="phead full"><div class="wrap"><span class="eyebrow">Sales</span><h1>Used Onewheel GT, Pint X and e-scooter inventory</h1><p>We often have more than one of each for sale, so ask what is in stock. We accept Venmo, PayPal, cash or credit card. Call or text to take one for a test ride.</p></div></div>
+  <section><div class="wrap">
+    <div class="inv">
+      <article class="item"><div class="ph"><img src="img/s1.jpg" alt="Used Onewheel GT on top of its box with the charger"><span class="price">$1,650</span></div><div class="tx"><h3>Used Onewheel GT</h3><p>Great shape with around 900 miles on the odometer. About 9 months old. Comes with the box and charger. Everything on the board is stock.</p><div class="spec"><span>~900 miles</span><span>~9 months old</span><span>Box and charger</span><span>All stock</span></div></div></article>
+      <article class="item"><div class="ph"><img src="img/s2.jpg" alt="Used Segway Ninebot Max G30LP electric scooter"><span class="price">$400</span></div><div class="tx"><h3>Used Segway Ninebot Max G30LP</h3><p>In perfect working condition, with normal wear and tear but otherwise great shape. About 8 months old. Comes with the box and charger.</p><div class="spec"><span>~8 months old</span><span>Box and charger</span><span>Works perfectly</span></div></div></article>
+    </div>
+    <div class="partner">
+      <img src="img/s3.jpg" alt="Segway scooter and Onewheel GT, XR and Pint X on a pier" loading="lazy">
+      <div class="tx"><span class="eyebrow" style="color:var(--coral)">New boards</span><h2 style="font-size:clamp(1.8rem,3.6vw,2.6rem)">New Onewheel GT and Pint X</h2><p>Available through our partner store, Eze Ryders, at 4051 Voltaire St. Use this code at checkout, in store or online, for a free set of rail guards with a new board.</p>
+        <div class="code"><span id="codeTxt">SDOW</span><button type="button" id="codeBtn">Copy</button></div></div>
+    </div>
+    <div class="info-box" style="background:var(--card);color:var(--ink);border-color:var(--line)"><b style="color:var(--coral-ink)">Interested in a used board or scooter?</b><p style="color:var(--ink-2)">Call or text <span class="sel" style="font-weight:700;color:var(--ink)">619-786-2614</span>, or email <span class="sel" style="font-weight:700;color:var(--ink)">SDonewheel@gmail.com</span>.</p><div class="pay" style="margin-top:.6rem"><span>Venmo</span><span>PayPal</span><span>Cash</span><span>Credit card</span></div></div>
+  </div></section>
+</div>
+
+<!-- ============ BLOG ============ -->
+<div class="view" data-view="blog" hidden>
+  <div class="phead full"><div class="wrap"><span class="eyebrow">Our blog</span><h1>Resources, videos and tutorials</h1><p>Guides for renting, riding and choosing a board in San Diego, written by Jesse. Articles open on the current site for now.</p></div></div>
+  <section><div class="wrap">
+    <a class="blogtop" href="https://sdonewheel.com/best-places-to-onewheel-in-san-diego/" target="_blank" rel="noopener"><img src="img/b1.jpg" alt="Rider on a Onewheel in San Diego"><div class="tx"><div class="meta"><span class="cat">Featured</span><span>Jesse C · Nov 10, 2026</span></div><h2>Best Places to Onewheel in San Diego (2027)</h2><p>San Diego is arguably one of the best places in the country to explore on a Onewheel, solowheel, scooter, or other electric rideable. With year round good weather, water everywhere you turn, and bike paths galore, you can spend countless hours cruising around without...</p><span class="go" style="font-weight:800;color:var(--coral)">Read article →</span></div></a>
+    <div class="fil" id="bfil" style="margin:2rem 0 1.4rem" role="group" aria-label="Filter articles"></div>
+    <div class="posts" id="posts">
+      <a class="post" data-c="Scooter Rental" href="https://sdonewheel.com/scooter-rental-san-diego/" target="_blank" rel="noopener"><div class="ph"><img src="img/b2.jpg" alt="" loading="lazy"></div><div class="tx"><div class="meta"><span class="cat">Scooter Rental</span><span>Nov 10, 2026</span></div><h3>Scooter Rental San Diego Guide (2027)</h3><p>Although all app based companies like Bird and Lime have now left San Diego, local companies like ours still rent E-Scooters With the increased cost and hassle of permits and regulations, it seems that app based scooter rental companies like Bird, Lime, Spin, and...</p><span class="go">Read article →</span></div></a>
+      <a class="post" data-c="Onewheel Rental" href="https://sdonewheel.com/onewheel-rental-san-diego-guide/" target="_blank" rel="noopener"><div class="ph"><img src="img/b3.jpg" alt="" loading="lazy"></div><div class="tx"><div class="meta"><span class="cat">Onewheel Rental</span><span>Nov 10, 2026</span></div><h3>Onewheel Rental San Diego Guide (2027)</h3><p>San Diego is by far one of the best places to rent and ride a Onewheel in the USA. With hundreds of miles of coastline to explore, bike paths galore, and year-round perfect weather, San Diego has it all, and there’s no better way to explore it than on a Onewheel...</p><span class="go">Read article →</span></div></a>
+      <a class="post" data-c="Onewheel Rental" href="https://sdonewheel.com/how-to-rent-a-onewheel-in-san-diego/" target="_blank" rel="noopener"><div class="ph"><img src="img/b4.jpg" alt="" loading="lazy"></div><div class="tx"><div class="meta"><span class="cat">Onewheel Rental</span><span>Jan 4, 2024</span></div><h3>How to Rent a Onewheel in San Diego</h3><p>The Onewheel electric hoverboard/skateboard is something you may have seen someone riding around town or floating around the internet and you probably wondered what that thing was and how you could try one for yourself. So what is a Onewheel anyway? To put it simply,...</p><span class="go">Read article →</span></div></a>
+      <a class="post" data-c="Onewheel Pint" href="https://sdonewheel.com/onewheel-pint-mini-board/" target="_blank" rel="noopener"><div class="ph"><img src="img/b5.jpg" alt="" loading="lazy"></div><div class="tx"><div class="meta"><span class="cat">Onewheel Pint</span><span>Mar 13, 2019</span></div><h3>Onewheel Pint Mini Board</h3><p>Yesterday came an announcement by Future Motion of their newest board, the Onewheel Pint. This was an interesting move by Future Motion and one that wasn't a complete surprise considering the rise of other mini boards such as the Boosted Board mini. It seems people...</p><span class="go">Read article →</span></div></a>
+      <a class="post" data-c="Onewheel XR" href="https://sdonewheel.com/onewheel-vs-boosted-board/" target="_blank" rel="noopener"><div class="ph"><img src="img/b6.jpg" alt="" loading="lazy"></div><div class="tx"><div class="meta"><span class="cat">Onewheel XR</span><span>Apr 17, 2018</span></div><h3>Onewheel Plus VS Boosted Board V2</h3><p>Ahhhh, the age old question, Onewheel or a Boosted Board, which is better? You probably think I’m biased since I own a Onewheel rental business but that’s actually not the case. Before I started my business, I was debating between the Onewheel Plus or Boosted Board...</p><span class="go">Read article →</span></div></a>
+    </div>
+    <div class="info-box" style="margin-top:2rem;background:var(--card);color:var(--ink);border-color:var(--line)"><b style="color:var(--coral-ink)">See every post</b><p style="color:var(--ink-2)">The full archive lives at <a href="https://sdonewheel.com/blog/" target="_blank" rel="noopener" style="font-weight:700;color:var(--ink)">sdonewheel.com/blog</a>.</p></div>
+  </div></section>
+</div>
+
+<!-- ============ TERMS ============ -->
+<div class="view" data-view="terms" hidden>
+  <div class="phead full"><div class="wrap"><span class="eyebrow">Terms and conditions</span><h1>Rental and damage liability waiver</h1><p>You sign this agreement when you meet us for your rental or tour. Read it first so there are no surprises.</p></div></div>
+  <section><div class="wrap terms">
+    <nav class="toc" aria-label="On this page"><a href="#t-summary">At a glance</a><a href="#t-agreement">Full agreement</a><a href="#t-related">Related policies</a></nav>
+    <div>
+      <div id="t-summary">
+        <div class="glance">
+          <div class="gl"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/></svg></i><b>You accept the risks</b><span>You accept liability for damage or injury while using the equipment.</span></div>
+          <div class="gl"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg></i><b>You waive the right to sue</b><span>You give up the right to a court action for injury, property loss or death.</span></div>
+          <div class="gl"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 14a7 7 0 0 1 14 0v2H5z"/><path d="M3 19h18"/></svg></i><b>Use your safety gear</b><span>Pads, wrist guards and a helmet are provided. Using them properly is on you.</span></div>
+          <div class="gl"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.4 2.4-2.6-.6-.6-2.6z"/></svg></i><b>Damage and loss are yours</b><span>You pay for damaged, lost or misplaced equipment, and any recovery costs.</span></div>
+          <div class="gl"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></i><b>Return on time</b><span>Daily late fees apply. Full retail price after 5 days past the rental term.</span></div>
+          <div class="gl"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></svg></i><b>No drugs or alcohol</b><span>Do not operate the equipment under the influence.</span></div>
+        </div>
+      </div>
+      <div id="t-agreement">
+        <div class="note">This is the current agreement, reformatted for readability. The wording is unchanged. The section titles are added for navigation only.</div>
+        <div class="clause"><span class="n">1</span><div><h3>Liability and waiver</h3><p>I hereby agree that by renting any equipment from San Diego Onewheel Rentals, I accept liability for any damages or injury that may occur while using any of the equipment, regardless of its condition, rented from San Diego Onewheel Rentals. By signing this agreement I understand that I am waiving my right to bring a court of action to recover compensation or obtain any other remedy for any injury to myself, my property, or my death, however caused, arising out of my use of any equipment from San Diego Onewheel Rentals. I understand that there are inherent risks associated with the activities offered by San Diego Onewheel Rentals including but not limited to Onewheel electric skateboard use.</p></div></div>
+        <div class="clause"><span class="n">2</span><div><h3>Safety equipment and release</h3><p>I understand that equipment and safety devices are provided for my use (such as knee pads, elbow pads, wrist guards, and helmet). I agree that I will be solely responsible for proper use of safety and other equipment and procedures. It is my responsibility to inspect all equipment. I, the undersigned user or guardian of user, HEREBY RELEASE on behalf of myself, my heirs, representatives, managers, successors, executors and administrators of San Diego Onewheel Rentals its owners, officers, agents, and employees from any cause of action, claims, or demands whatsoever including, but not limited to, a claim of negligence.</p></div></div>
+        <div class="clause"><span class="n">3</span><div><h3>Damage, loss and recovery costs</h3><p>I also agree that if equipment is damaged, lost or misplaced that I rent from San Diego Onewheel Rentals I will pay for the losses or damages. I agree that if San Diego Onewheel Rentals incurs any cost associated with recovery of payment for damages or losses (such as court costs, collection costs and/or attorney costs) that I will reimburse or pay San Diego Onewheel Rentals for these costs as well as the cost of the damaged items.</p></div></div>
+        <div class="clause"><span class="n">4</span><div><h3>Repair or replacement</h3><p>It is solely the discretion of San Diego Onewheel Rentals to determine if damaged equipment will be repaired or replaced at the renter’s expense.</p></div></div>
+        <div class="clause"><span class="n">5</span><div><h3>Late returns</h3><p>I agree that San Diego Onewheel Rentals can charge my account daily late fees for any rental not returned on the due date with or without my consent.</p></div></div>
+        <div class="clause"><span class="n">6</span><div><h3>Equipment not returned</h3><p>I agree that San Diego Onewheel Rentals can charge the full retail price of any rental product not returned within 5-days of the expiration of the rental term without my consent.</p></div></div>
+        <div class="clause"><span class="n">7</span><div><h3>Proper use</h3><p>I (renters) am responsible for ensuring all equipment is properly used and attached. I also agree to not operate the equipment under the influence of drugs or alcohol.</p></div></div>
+        <div class="clause"><span class="n">8</span><div><h3>Binding agreement</h3><p>I understand that the terms of this agreement are legally binding and I certify that I am signing this agreement, after having carefully read it, of my own free will.</p></div></div>
+      </div>
+      <div id="t-related" style="margin-top:2.4rem">
+        <h3 style="font-size:1.5rem">Related policies from our FAQ</h3>
+        <div class="rel">
+          <div><b>$1,800 replacement cost</b><span>If a Onewheel is lost, stolen or ruined by water.</span></div>
+          <div><b>Keep off the sand</b><span>City ordinance bans motorized devices on beaches and the Mission Beach, Pacific Beach and La Jolla boardwalks.</span></div>
+          <div><b>Minimum age 12</b><span>With parental consent and a signed waiver. Exceptions for experienced younger riders.</span></div>
+          <div><b>No deposit right now</b><span>Deposits are currently waived.</span></div>
+        </div>
+      </div>
+    </div>
+  </div></section>
+</div>
+
+<!-- shared newsletter -->
+<div class="band full"><section style="padding-block:clamp(40px,6vw,72px)"><div class="wrap news">
+  <div><h3 style="font-size:1.7rem">Get occasional news, updates and special offers</h3><p style="color:var(--ink-2);margin-top:.5rem">A few emails a year, no spam.</p></div>
+  <form id="newsForm" novalidate><input id="nName" name="name" type="text" placeholder="Name" aria-label="Name" autocomplete="name"><input id="nMail" name="email" type="email" placeholder="Email" aria-label="Email" autocomplete="email"><button type="submit">Subscribe</button><div class="msg" id="nMsg" role="status"></div></form>
+</div></section></div>
+</main>
+
+<footer class="full"><div class="wrap">
+  <div><a class="logo" href="#top" style="color:var(--on-ocean)"><span class="mk"></span>SD Onewheel Rentals</a><p style="margin-top:.8rem;max-width:34ch">Onewheel and e-scooter rentals and guided tours across San Diego, by appointment. Free lesson and helmet with every rental.</p></div>
+  <div><h3>Contact</h3><ul><li>Phone: <span class="sel">619-786-2614</span></li><li>Email: <span class="sel">SDonewheel@gmail.com</span></li><li><a href="https://www.instagram.com/sdonewheel/" target="_blank" rel="noopener">Instagram @SDonewheel</a></li><li>Facebook @SDonewheel</li></ul></div>
+  <div><h3>Explore</h3><ul><li><a href="#rentals">Rentals</a></li><li><a href="#tours">Tours</a></li><li><a href="#pricing">Pricing</a></li><li><a href="#offers">Offers</a></li><li><a href="#for-sale">For sale</a></li><li><a href="#blog">Blog</a></li><li><a href="#faq">FAQ</a></li><li><a href="#terms">Terms and conditions</a></li></ul><p style="margin-top:1rem;font-size:.82rem">© 2026 San Diego Onewheel Rentals</p></div>
+</div></footer>
+
+<a class="btn-book fab" id="fab" href="https://calendly.com/sdonewheel" target="_blank" rel="noopener"><span>Book a rental</span><span class="ar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+
+<script>
+(function(){
+  function $(i){return document.getElementById(i)}
+  var PAGES=['offers','for-sale','blog','terms'];
+
+  // router
+  function route(){
+    var h=decodeURIComponent((location.hash||'').slice(1));
+    var v=PAGES.indexOf(h)>-1?h:'home';
+    [].forEach.call(document.querySelectorAll('.view'),function(el){el.hidden=el.getAttribute('data-view')!==v});
+    [].forEach.call(document.querySelectorAll('.links a'),function(a){a.removeAttribute('aria-current');if(v!=='home'&&a.getAttribute('href')==='#'+v)a.setAttribute('aria-current','page')});
+    $('menu').classList.remove('open');$('burger').setAttribute('aria-expanded','false');
+    if(v==='home'&&h&&h!=='top'){var el=document.getElementById(h);if(el)setTimeout(function(){el.scrollIntoView()},30)}
+    else window.scrollTo(0,0);
+    setFab();
+  }
+  window.addEventListener('hashchange',route);
+  $('burger').addEventListener('click',function(){var o=$('menu').classList.toggle('open');this.setAttribute('aria-expanded',o)});
+
+
+  // brand mark
+  var BAR="M565 506C560 514 568 514 578 512L1150 417C1170 413 1188 400 1198 382C1207 366 1210 358 1194 358L638 451C622 454 608 460 598 472Z";
+  var mkN=0;
+  function mkSvg(o){o=o||{};var id='mk'+(mkN++);
+    return '<svg viewBox="552 268 668 340" aria-hidden="true"><defs><linearGradient id="g'+id+'" x1="0" y1="0" x2="1" y2="0"><stop offset="0" style="stop-color:var(--coral-2)"/><stop offset="1" style="stop-color:var(--coral)"/></linearGradient>'+
+    '<mask id="'+id+'" maskUnits="userSpaceOnUse" x="480" y="200" width="800" height="480"><rect x="480" y="200" width="800" height="480" fill="#fff"/><path class="bar" d="'+BAR+'" fill="#000" stroke="#000" stroke-width="34" stroke-linejoin="round"/></mask></defs>'+
+    '<g class="rg" mask="url(#'+id+')"><circle cx="884" cy="438" r="142" fill="none" stroke="currentColor" stroke-width="36"/><circle class="sp" cx="884" cy="438" r="142" fill="none" stroke="var(--coral-2)" stroke-width="36" stroke-dasharray="150 743" stroke-dashoffset="0"/></g>'+
+    '<path class="bar fg" d="'+BAR+'" fill="'+(o.flat?'var(--bar)':'url(#g'+id+')')+'"/></svg>'}
+  function fillMk(root){[].forEach.call((root||document).querySelectorAll('.mk:not([data-f])'),function(el){el.setAttribute('data-f','1');el.innerHTML=mkSvg({flat:el.closest('.eyebrow')})})}
+  // eyebrows get a little mark, watermarks go on page headers and the closing card
+  [].forEach.call(document.querySelectorAll('.eyebrow'),function(e){e.insertAdjacentHTML('afterbegin','<span class="mk"></span>')});
+  [].forEach.call(document.querySelectorAll('.phead,.endbox'),function(e){e.insertAdjacentHTML('beforeend','<span class="mk wm"></span>')});
+  var fm=document.querySelector('footer .wrap > div');if(fm)fm.insertAdjacentHTML('beforeend','<div class="fmk" style="margin-top:1.4rem"><span class="mk" title="Pop a trick"></span></div>');
+  fillMk();
+  var gmk=$('gmk');if(gmk)gmk.innerHTML=mkSvg().replace(/^<svg[^>]*>/,'').replace(/<\/svg>$/,'');
+  // little tricks on hover/tap
+  document.addEventListener('pointerenter',function(e){},true);
+  function trick(m){m.classList.remove('go');void m.offsetWidth;m.classList.add('go');setTimeout(function(){m.classList.remove('go')},800)}
+  document.addEventListener('pointerover',function(e){var m=e.target.closest&&e.target.closest('.mk:not(.wm)');if(m&&!m.closest('.logo')&&!m.contains(e.relatedTarget))trick(m)});
+  document.addEventListener('click',function(e){var m=e.target.closest&&e.target.closest('.mk:not(.wm)');if(m)trick(m)});
+  // eyebrow marks glide in as you scroll
+  if('IntersectionObserver' in window){var eo=new IntersectionObserver(function(es){es.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');eo.unobserve(x.target)}})},{threshold:.6});
+    [].forEach.call(document.querySelectorAll('.eyebrow'),function(e){eo.observe(e)})}else{[].forEach.call(document.querySelectorAll('.eyebrow'),function(e){e.classList.add('in')})}
+  setTimeout(function(){var sp=$('splash');if(sp)sp.remove()},2100);
+  // hero mark leans toward the pointer
+  var hero=$('hero'),hmk=$('heroMk');
+  if(hero&&hmk&&matchMedia('(hover:hover)').matches){hero.addEventListener('pointermove',function(e){var r=hero.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;hmk.style.transform='translate('+(x*-40)+'px,'+(y*-24)+'px) rotate('+(x*6)+'deg)'});hero.addEventListener('pointerleave',function(){hmk.style.transform=''})}
+
+  // the glide: the mark rides rolling hills like a Onewheel
+  (function(){
+    var path=$('gpath'),rider=$('grider'),tilt=$('gtilt'),shadow=$('gshadow'),trail=$('gtrail'),wrap=$('gwrap'),svg=$('gsvg');if(!path||!rider)return;
+    var L=path.getTotalLength(),u=.12,dir=1,v=0,target=null,hop=0,hv=0,spin=0,spinV=0,run=false,last=0,pos=[],NS='http://www.w3.org/2000/svg',dots=[],lean=0;
+    for(var i=0;i<14;i++){var c=document.createElementNS(NS,'circle');c.setAttribute('r',String(5-i*.3));c.setAttribute('fill','#ff9a3d');c.setAttribute('opacity','0');trail.appendChild(c);dots.push(c)}
+    function frame(t){if(!run)return;var dt=Math.min(.05,(t-last)/1000||.016);last=t;
+      var p0=path.getPointAtLength(u*L),p1=path.getPointAtLength(Math.min(L,u*L+3)),ang=Math.atan2(p1.y-p0.y,p1.x-p0.x);
+      var slope=Math.sin(ang);
+      if(target!==null){var d=target-u;v+=(Math.max(-.35,Math.min(.35,d*3))-v)*Math.min(1,dt*5)}
+      else{if(u>.93)dir=-1;if(u<.07)dir=1;var want=dir*(.11+slope*dir*.12);v+=(want-v)*Math.min(1,dt*2.5)}
+      u=Math.max(.02,Math.min(.98,u+v*dt));
+      hv-=dt*2600;hop+=hv*dt;if(hop<0){hop=0;hv=0}
+      spin+=spinV*dt;if(spin>=360||spin<=-360){spin=0;spinV=0}
+      lean+=((-v*70)-lean)*Math.min(1,dt*6);
+      var a=ang*57.3+lean*.5+spin;
+      var y=p0.y-hop;
+      rider.setAttribute('transform','translate('+p0.x.toFixed(1)+' '+y.toFixed(1)+')');
+      tilt.setAttribute('transform','rotate('+a.toFixed(1)+')');
+      shadow.setAttribute('cx',p0.x.toFixed(1));shadow.setAttribute('cy',(p0.y+2).toFixed(1));shadow.setAttribute('opacity',(.3-Math.min(.2,hop/260)).toFixed(2));
+      pos.unshift([p0.x,y]);if(pos.length>14)pos.pop();
+      var sp=Math.min(1,Math.abs(v)*5);
+      for(var i=0;i<dots.length;i++){var q=pos[i*1];if(!q){continue}var k=dots[i];k.setAttribute('cx',q[0].toFixed(1));k.setAttribute('cy',(q[1]-3).toFixed(1));k.setAttribute('opacity',((1-i/14)*.5*sp).toFixed(2))}
+      requestAnimationFrame(frame)}
+    function start(){if(run)return;run=true;last=performance.now();requestAnimationFrame(frame)}
+    if('IntersectionObserver' in window){new IntersectionObserver(function(es){es.forEach(function(x){if(x.isIntersecting)start();else run=false})},{threshold:.05}).observe(wrap)}else start();
+    function px(e){var r=svg.getBoundingClientRect();return Math.max(.04,Math.min(.96,(e.clientX-r.left)/r.width))}
+    wrap.addEventListener('pointermove',function(e){if(e.pointerType==='mouse'||e.buttons)target=px(e)});
+    wrap.addEventListener('pointerleave',function(){target=null});
+    wrap.addEventListener('pointerdown',function(e){target=px(e);hv=620;spinV=spinV||(v>=0?-520:520)});
+    wrap.addEventListener('pointerup',function(e){if(e.pointerType!=='mouse')setTimeout(function(){target=null},700)});
+  })();
+
+  // floating book button
+  function setFab(){var f=$('fab');f.classList.toggle('on',window.scrollY>520)}
+  window.addEventListener('scroll',setFab,{passive:true});
+
+  // ripple on book buttons
+  document.addEventListener('pointerdown',function(e){var b=e.target.closest&&e.target.closest('.btn-book');if(!b)return;var r=b.getBoundingClientRect(),s=Math.max(r.width,r.height),sp=document.createElement('span');sp.className='rip';sp.style.width=sp.style.height=s+'px';sp.style.left=(e.clientX-r.left-s/2)+'px';sp.style.top=(e.clientY-r.top-s/2)+'px';b.appendChild(sp);setTimeout(function(){sp.remove()},700)});
+
+  // videos fall back to posters
+  ['heroVid','fleetVid'].forEach(function(id){var v=$(id);if(!v)return;var s=v.querySelector('source');if(s)s.addEventListener('error',function(){v.style.display='none'});var p=v.play&&v.play();if(p&&p.catch)p.catch(function(){})});
+
+  // tours
+  var T={
+    coronado:{n:'Coronado Island',t:'Ride Coronado Island with the downtown skyline across the bay. Your guide shares the history and interesting facts at each major stop and photographs the group.',i:'img/tour-coronado.jpg',a:'Tour group on scooters at the Hotel del Coronado'},
+    balboa:{n:'Balboa Park',t:'Cruise the park’s Spanish Colonial plazas, gardens and museums, including the Botanical Building and the Air & Space Museum, with a local who knows the stories.',i:'img/tour-balboa.jpg',a:'Three riders in front of the Botanical Building'},
+    downtown:{n:'Downtown Waterfront',t:'Ride the Embarcadero with the harbor beside you and the skyline above. Your guide stops at the major sights for history, interesting facts and group photos.',i:'img/tour-downtown.jpg',a:'Tour group on the Embarcadero with a cruise ship behind'},
+    lajolla:{n:'La Jolla',t:'Our fourth guided route, through La Jolla. Led by a local, with stops at the major sights, a bit of history and group photos sent to you afterwards.',i:'img/tour-lajolla.jpg',a:'Aerial view of La Jolla coastline with the beach and homes at sunset'}
+  };
+  var tabs=[].slice.call(document.querySelectorAll('.tab'));
+  function showTour(k){var d=T[k];tabs.forEach(function(b){b.setAttribute('aria-selected',b.dataset.t===k)});
+    $('tName').textContent=d.n;$('tText').textContent=d.t;
+    $('tPic').innerHTML=d.i?'<img src="'+d.i+'" alt="'+d.a+'">':'<div class="soon">La Jolla photo coming soon</div>'}
+  tabs.forEach(function(b){b.addEventListener('click',function(){showTour(b.dataset.t)})});showTour('coronado');
+
+  // estimator
+  var R={scooter:{half:49,full:69,multi:59,week:225},onewheel:{half:79,full:99,multi:79,week:325}};
+  var q=2;
+  function val(n){return document.querySelector('input[name="'+n+'"]:checked').value}
+  function money(n){return '$'+(Math.round(n*100)/100).toLocaleString('en-US',{minimumFractionDigits:n%1?2:0,maximumFractionDigits:2})}
+  function calc(){
+    var item=val('item'),dur=val('dur'),tour=item==='tour',L=[],sub=0;
+    $('fDur').classList.toggle('dim',tour);$('fDays').classList.toggle('dim',tour||dur!=='multi');
+    $('qLabel').textContent=tour?'How many riders?':(item==='scooter'?'How many scooters?':'How many boards?');
+    $('deliv').disabled=tour;$('deliv').parentNode.style.opacity=tour?.4:1;$('mil').disabled=tour;$('mil').parentNode.style.opacity=tour?.4:1;
+    var days=+$('days').value;$('daysOut').textContent=days;
+    if(tour){sub=49*q;L.push([q+' rider'+(q>1?'s':'')+' × $49',49*q])}
+    else{
+      var unit,lbl;
+      if(dur==='multi'){unit=R[item].multi*days;lbl=days+' days × $'+R[item].multi}
+      else if(dur==='week'){unit=R[item].week;lbl='One week'}
+      else{unit=R[item][dur];lbl=dur==='half'?'Half day':'Full day'}
+      sub=unit*q;L.push([q+' × '+lbl+' ($'+unit+' each)',sub]);
+      if($('mil').checked){var d=sub*.1;L.push(['Military 10% off',-d]);sub-=d}
+      if($('deliv').checked){sub+=25;L.push(['Delivery & pickup, flat',25])}
+    }
+    $('tot').textContent=money(sub);
+    $('lines').innerHTML=L.map(function(l){return '<li><span>'+l[0]+'</span><b>'+(l[1]<0?'−':'')+money(Math.abs(l[1]))+'</b></li>'}).join('');
+    $('qty').textContent=q;
+  }
+  $('est').addEventListener('input',calc);
+  $('qm').onclick=function(){q=Math.max(1,q-1);calc()};$('qp').onclick=function(){q=Math.min(12,q+1);calc()};
+  calc();
+
+  // reviews
+  var RV=[{"n": "Eve Novak", "d": "23 Jun 22", "t": "Everything was smooth and pleasant. We didn't know what to expect, but were happy with absolutely everything. Jesse is both casual and professional, knowledgeable and helpful. We learned how to use the one wheel, and important safety tips, then", "c": true, "a": "img/av/av00.jpg", "g": ["onewheel"]}, {"n": "Aaron Feil", "d": "21 Jun 22", "t": "Great experience, very memorable for our family. Did a mix of scooters and hoverboards. Jesse did a great job instructing the group on the hoverboards which was new to everyone but we had no issues and the scooters were perfect for those less", "c": true, "a": "img/av/av01.jpg", "g": ["onewheel", "scooter"]}, {"n": "Hyung Money", "d": "24 May 22", "t": "My friend and I had a great time riding on these onewheels. I had no prior riding experience, but Jesse clearly explained and demonstrated how to ride them. We were already comfortable riding and maneuvering them after only 30 minutes of practice.", "c": true, "a": "img/av/av02.jpg", "g": ["onewheel"]}, {"n": "Bria Bohanon", "d": "29 Jun 22", "t": "I had such a fun time riding the Onewheel. Jesse gave me a great beginner lesson and I felt comfortable riding around Liberty Station. He is really easy to talk to and answered all of my questions. Jesse also let me demo the Pint, which is similar", "c": true, "a": "img/av/av03.jpg", "g": ["onewheel"]}, {"n": "Charles", "d": "06 Jan 20", "t": "Fantastic experience renting from Jesse again. This is the best way to experience Onewheel in San Diego. Could not recommend his business more, and will continue to rent from him the next time I’m in town!", "c": false, "a": "img/av/av04.jpg", "g": ["onewheel"]}, {"n": "Rob Hall", "d": "27 Jun 22", "t": "I am a seasoned OneWheel rider and these OneWheels were perfect for our trip. Very convenient, went out of his way to get us our OneWheels and then picked them up when we needed to drop them. Excellent rental service.", "c": false, "a": "img/av/av05.jpg", "g": ["onewheel", "delivery"]}, {"n": "Richard", "d": "14 Jul 22", "t": "Jesse was an amazing instructor. We quickly picked up how to Onewheel, and before you knew it we were cruising through San Diego! Ask for the gentle assist package and you won’t be disappointed! My wife really enjoyed his extra attention and", "c": true, "a": "img/av/av06.jpg", "g": ["onewheel", "delivery"]}, {"n": "Mike TwentyOne", "d": "11 Jul 22", "t": "Super easy to arrange and pay. Jesse was great the lessons were a huge help! It's a cool product and definitely a cool experience.", "c": false, "a": "img/av/av07.jpg", "g": []}, {"n": "Mark Lyons", "d": "08 Jul 22", "t": "Wow! My Experience renting a OneWheel XR from Jesse was GREAT. I was visiting family in San Diego and wanted to try a OneWheel. We planned to have him drop it off and train me to “float” at a place near where I was visiting, outside the city.", "c": true, "a": "img/av/av08.jpg", "g": ["onewheel", "delivery"]}, {"n": "Joshua Wolff", "d": "19 Jul 22", "t": "Absolute must if you’re at a conference. I was there for the ESRI User Conference. Jesse dropped off where we were grabbing a bit and picked up at the conference closing party up at Balboa park. I’d cruise to the conference and get to sleep in", "c": true, "a": "img/av/av09.jpg", "g": ["delivery"]}, {"n": "Dennis Moynihan", "d": "18 Jul 22", "t": "Jesse offers a great service with the lesson and the rental, and the trail he recommended was awesome and great for beginners.", "c": false, "a": "img/av/av10.jpg", "g": []}, {"n": "Greg S", "d": "14 Jul 22", "t": "Excellent equipment, and included helmets and locks. We rented 4 e-scooters for 2 days, a great way to see San Diego. Jesse delivered directly to our hotel and gave us a quick safety demo that was very helpful for my kids. Highly recommend.", "c": false, "a": "img/av/av11.jpg", "g": ["scooter", "delivery"]}, {"n": "TABITHA MITCHELL", "d": "27 Oct 22", "t": "It was extremely easy to rent onewheels from Jesse! He was highly responsive, on time, advised on great places to float, and just overall fantastic service! We decided to rent another day for onewheels and an escooter (San Diego has so many", "c": true, "a": "img/av/av12.jpg", "g": ["onewheel", "scooter"]}, {"n": "Rock", "d": "18 Nov 22", "t": "Jesse is Awesome!! He delivered 2 Onewheel GT's for the day. My boys had the best time together, riding most of the day. I give Jesse 10 out of 5 stars for not only being a great person, but also really professional. I recommend San Diego Onewheel", "c": true, "a": "img/av/av13.jpg", "g": ["onewheel", "delivery"]}, {"n": "Neil W", "d": "18 Nov 22", "t": "Jesse was great!! He delivered the onewheel on time and was very professional!!", "c": false, "a": "img/av/av14.jpg", "g": ["onewheel", "delivery"]}, {"n": "Robert Waller", "d": "18 Oct 22", "t": "Wife and I enjoyed the OneWheel Rental. It was great and the default meet place in Point Loma was the perfect spot for beginners and ample free parking was available. We had a great time, first timers!", "c": false, "a": "img/av/av15.jpg", "g": ["onewheel"]}, {"n": "Mark Sigel", "d": "21 Oct 22", "t": "Awesome experience!! Great service and great time with the boards!! We had five boards for two days . . . Jesse could not have been more accommodating or helpful!! The equipment was safe and we saw a ton of San Diego on them. Would definitely do", "c": true, "a": "img/av/av16.jpg", "g": ["onewheel"]}, {"n": "Richard Bohme", "d": "24 Oct 22", "t": "Did a great job dropping off and picking up the XR. A great way to see Mission Beach.", "c": false, "a": "img/av/av17.jpg", "g": ["onewheel", "delivery"]}, {"n": "P B", "d": "05 Oct 22", "t": "My team from work had a blast touring around on these. Jesse was punctual, friendly, and knowledgeable. He was also super patient in giving me a crash course in not crashing on the Onewheel. 5 stars across the board, would recommend without", "c": true, "a": "img/av/av18.jpg", "g": ["onewheel"]}, {"n": "Katrina Neveri", "d": "06 Oct 22", "t": "I highly recommend Jesse’s business! If you don’t want to overpay to rent scooters in the city, this is the business you should use. Bird was too expensive for our budget, and they are always super banged up! Jesse’s scooters were in great", "c": true, "a": "img/av/av19.jpg", "g": ["scooter"]}, {"n": "Michael Lavin", "d": "15 Oct 22", "t": "Jesse was terrific!! Gave great instruction. We wanted to take this course to see if we liked the one wheeles. They are super fun and will definitely buy some based off of this course", "c": false, "a": "img/av/av20.jpg", "g": ["onewheel"]}, {"n": "Brandon Askins", "d": "03 Oct 22", "t": "Great rentals! Board was fully charged, instructions were great, 5/5 stars.", "c": false, "a": "img/av/av21.jpg", "g": ["onewheel"]}, {"n": "MikeLV426", "d": "04 Oct 22", "t": "Jesse was kind enough to help me out last minute with renting an XR. Turned my boring work trip into an awesome adventure. Highly recommended!", "c": false, "a": "img/av/av22.jpg", "g": ["onewheel"]}, {"n": "Al T", "d": "04 Oct 22", "t": "The rental service was great, and Jesse explained how to use the one wheels perfectly for us first timers. He also provided safety gear and chargers so we could be out as long as we wanted. I will definitely do this again if I am in the San Diego", "c": true, "a": "img/av/av23.jpg", "g": ["onewheel"]}, {"n": "Carla Pineda", "d": "06 Sep 22", "t": "Very nice tour on scooter! Great experience visiting very interesting and beautiful places. I strongly recommend this tour in San Diego!", "c": false, "a": "img/av/av24.jpg", "g": ["scooter", "tour"]}, {"n": "Logan Gillis", "d": "06 Sep 22", "t": "It was a great experience, Jesse was very nice and provided a lot of crucial information about how the Onewheel's work and things to be wary of if it's your first time on a onewheel as well as getting you comfortable on the board in about 30 minutes", "c": true, "a": "img/av/av25.jpg", "g": ["onewheel"]}, {"n": "Nuria Ledezma Raymond", "d": "06 Sep 22", "t": "Jesse is the best guide ever, it was the best way to get to know Balboa Park. 100% recommend it. He took amazing pictures and videos, was really interesting and fun!", "c": false, "a": "img/av/av26.jpg", "g": ["tour"]}, {"n": "Andy Mah", "d": "24 Aug 22", "t": "We rented e-scooters from Jesse for the day and it was one of the highlights of our trip to San Diego. Meeting Jesse to get the scooters was super easy and he was great at communicating before and after the rental. What a great way to see the", "c": true, "a": "img/av/av27.jpg", "g": ["scooter"]}, {"n": "Chris Scott", "d": "24 Aug 22", "t": "We had a great time riding the scooters provided by San Diego Onewheel Rentals. Jessie was very friendly and helpful, allowing us to extend our rental period with no problems. He was flexible in where we met making sure that we got the most out", "c": true, "a": "img/av/av28.jpg", "g": ["onewheel", "scooter"]}, {"n": "Christina Hall", "d": "04 Sep 22", "t": "During a solo birthday trip to San Diego, I was committed to seeing as much as possible with ease; Jesse made this happen. We explored Coronado Island and although we didn't have a large group, he ensured that I was able to take as many pictures and", "c": true, "a": "img/av/av29.jpg", "g": []}, {"n": "Justin Borodinsky", "d": "24 Jul 22", "t": "This place is amazing. Jesse personally made my weekend awesome. I was visiting San Diego and lost the keys to my rental car on a Friday, and wasn't going to be able to find them or have the car towed till Monday. I called up this place, and Jesse", "c": true, "a": "img/av/av30.jpg", "g": []}, {"n": "Tracy Corner", "d": "08 Aug 22", "t": "I highly recommend this business. The owner Jesse is very responsive and professional. He brought the scooters to us at the planned time and place, provided all the necessary equipment and made sure we knew how to operate the scooters. The scooters", "c": true, "a": "img/av/av31.jpg", "g": ["scooter", "delivery"]}, {"n": "Christiaan Corry", "d": "04 Aug 22", "t": "Great way to spend a day. I had long wondered about a Onewheel and this was the experience I was after. A lesson followed by 4 hours of cruising! Couldn't have asked for more. Excellent service!", "c": false, "a": "img/av/av32.jpg", "g": ["onewheel"]}, {"n": "Anthony", "d": "12 Jun 18", "t": "THIS BOARD IS INSANE!! If you haven’t tried a Onewheel, do yourself a favor a rent one from these guys. One of the coolest things I have ever been on hands down. I tried my buddies boosted board a while back in my opinion the Onewheel blows", "c": true, "a": "img/av/av33.jpg", "g": ["onewheel"]}, {"n": "Nathaniel Westphal", "d": "02 Aug 22", "t": "An all around fantastic experience! Well worth the price and superior customer service. I’d recommend this to anyone going to SD!", "c": false, "a": "img/av/av34.jpg", "g": []}, {"n": "Katherine D", "d": "26 Jul 22", "t": "We rented the scooters for 4 days. We stored them in our hotel overnight and when not in use. This made getting around Coronado and San Diego simple and super fun. We were able to take them on the ferry, parked them while at the zoo, shopping, or", "c": true, "a": "img/av/av35.jpg", "g": ["scooter", "delivery"]}, {"n": "Kyle Romero", "d": "18 Jun 18", "t": "Jesse was a prompt communicator and gave a good lesson that allowed me to get accustomed to the Onewheel. And then I had a great day exploring SD with the Onewheel and he even picked it up from me at the end of the day. Great service and would", "c": true, "a": "img/av/av36.jpg", "g": ["onewheel", "delivery"]}, {"n": "Anita Bokil", "d": "13 Jun 18", "t": "“First timer on this board and I have to say, overall awesome experience :) I have some board sport experience which im sure helped a bit but the lesson was very necessary, lol. Jesse was super patient with me and made sure I felt comfortable", "c": true, "a": "img/av/av37.jpg", "g": ["onewheel"]}, {"n": "Matthew Dickey", "d": "12 Jun 18", "t": "For the last few months I've been researching Onewheels and wanted to test one out before dropping $1,500. This was the perfect experience to \"try before you buy\". Jesse hooked it up huge. He met me at my hotel to deliver the board because I was just", "c": true, "a": "img/av/av38.jpg", "g": ["onewheel", "delivery"]}, {"n": "Jenna Trethewey", "d": "21 Jun 18", "t": "Wanted to rent the one wheel before deciding to purchase. Met with Jesse to learn the basics. It was a quick 30 minute over view, which is all you need. Took the one wheel to a couple skate parks to test it out. I had a blast playing around", "c": true, "a": "img/av/av39.jpg", "g": ["onewheel"]}, {"n": "Jeff Scott", "d": "20 Jun 18", "t": "Very awesome experience. I loved every minute of my rental and San Diego onewheel rentals was super accommodating and very responsive to emails. It was awesome making plans with them. Rental was perfect.", "c": false, "a": "img/av/av40.jpg", "g": ["onewheel"]}, {"n": "D S", "d": "19 Jun 18", "t": "I've been riding electric longboards for a while but I kept coming back to the Onewheel. Like others, I wanted to try one before I commit to buying it. If you have been thinking about trying one just do it. It really is a one of a kind experience.", "c": true, "a": "img/av/av41.jpg", "g": ["onewheel"]}];
+  var track=$('track'),filt='all';
+  function esc(s){return s.replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  var GL='https://search.google.com/local/reviews?placeid=ChIJ___v7iwB3IARUgxAvx6CTbE';
+  function render(){
+    var list=RV.filter(function(r){return filt==='all'||r.g.indexOf(filt)>-1});
+    track.innerHTML=list.map(function(r,i){var v=i%3===1?' v2':(i%3===2?' v3':'');
+      return '<article class="rc'+v+'"><span class="gdot" aria-hidden="true">G</span><div class="q" aria-hidden="true">“</div><blockquote>'+esc(r.t)+(r.c?'…':'')+'</blockquote>'+(r.c?'<a class="more" href="'+GL+'" target="_blank" rel="noopener">Read full review on Google</a>':'')+'<div class="who"><img src="'+r.a+'" alt="" loading="lazy" width="52" height="52"><div class="nm">'+esc(r.n)+'<small>'+esc(r.d)+'</small></div><span class="st5" aria-label="5 stars">★★★★★</span></div></article>'}).join('');
+    track.scrollLeft=0;$('rCount').textContent=list.length+' reviews';prog();
+  }
+  function prog(){var m=track.scrollWidth-track.clientWidth;$('rProg').style.width=(m>0?Math.max(8,track.scrollLeft/m*100):100)+'%'}
+  var F=[['all','All'],['onewheel','Onewheel'],['scooter','Scooters'],['delivery','Delivery']];
+  $('fil').innerHTML=F.map(function(f){var n=f[0]==='all'?RV.length:RV.filter(function(r){return r.g.indexOf(f[0])>-1}).length;return '<button type="button" data-f="'+f[0]+'" aria-pressed="'+(f[0]==='all')+'">'+f[1]+' <span style="opacity:.6">'+n+'</span></button>'}).join('');
+  $('fil').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;filt=b.dataset.f;[].forEach.call($('fil').children,function(x){x.setAttribute('aria-pressed',x===b)});render()});
+  function step(d){var c=track.querySelector('.rc');if(!c)return;track.scrollBy({left:d*(c.offsetWidth+17),behavior:'smooth'})}
+  $('rPrev').onclick=function(){step(-1)};$('rNext').onclick=function(){step(1)};
+  track.addEventListener('scroll',prog,{passive:true});
+  track.addEventListener('keydown',function(e){if(e.key==='ArrowRight'){step(1);e.preventDefault()}if(e.key==='ArrowLeft'){step(-1);e.preventDefault()}});
+  var dn=false,sx=0,sl=0,moved=false;
+  track.addEventListener('pointerdown',function(e){if(e.pointerType!=='mouse'||e.target.closest('a'))return;dn=true;moved=false;sx=e.clientX;sl=track.scrollLeft});
+  window.addEventListener('pointermove',function(e){if(!dn)return;var dx=e.clientX-sx;if(Math.abs(dx)>4){moved=true;track.classList.add('drag')}track.scrollLeft=sl-dx});
+  window.addEventListener('pointerup',function(){if(!dn)return;dn=false;track.classList.remove('drag')});
+  window.addEventListener('resize',prog);
+  render();
+
+  // blog filter
+  var cats=['All'];[].forEach.call(document.querySelectorAll('.post'),function(p){var c=p.getAttribute('data-c');if(cats.indexOf(c)<0)cats.push(c)});
+  $('bfil').innerHTML=cats.map(function(c,i){return '<button type="button" data-c="'+c+'" aria-pressed="'+(i===0)+'">'+c+'</button>'}).join('');
+  $('bfil').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;[].forEach.call($('bfil').children,function(x){x.setAttribute('aria-pressed',x===b)});[].forEach.call(document.querySelectorAll('.post'),function(p){p.hidden=!(b.dataset.c==='All'||p.getAttribute('data-c')===b.dataset.c)})});
+
+  // promo code copy
+  $('codeBtn').addEventListener('click',function(){var t=$('codeTxt').textContent,b=this;function ok(){b.textContent='Copied';setTimeout(function(){b.textContent='Copy'},1600)}
+    try{navigator.clipboard.writeText(t).then(ok,function(){var r=document.createRange();r.selectNodeContents($('codeTxt'));var s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='Selected'})}catch(e){var r=document.createRange();r.selectNodeContents($('codeTxt'));var s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='Selected'}});
+
+  // newsletter (preview only)
+  $('newsForm').addEventListener('submit',function(e){e.preventDefault();var m=$('nMail').value.trim(),n=$('nName').value.trim();
+    $('nMsg').textContent=/^\S+@\S+\.\S+$/.test(m)?('Thanks'+(n?', '+n:'')+'. This form is a preview and is not connected to a mailing list yet.'):'Enter a valid email address.'});
+
+  route();
+})();
+</script>
+
+</body></html>
