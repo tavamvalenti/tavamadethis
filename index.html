@@ -96,11 +96,6 @@ img,video{max-width:100%}
 .work-intro h2 .serif{font-size:30px}
 .work-intro p{margin:0;max-width:60ch;font-size:clamp(18px,1.7vw,22px);color:var(--stone)}
 
-.grp{background:var(--paper) url(img/concrete.webp) center/cover;padding-block:clamp(22px,3vw,34px) 14px}
-.grp .wrap{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:12px}
-.grp h3{margin:0;font-size:clamp(20px,2.2vw,26px);font-weight:500;letter-spacing:-.02em}
-.grp h3 .serif{font-size:1.25em}
-.grp .mono{color:var(--stone)}
 /* ---------- project rooms ---------- */
 .row{--fg:#1B1B19;--mut:#5E5B55;--line:#A9A59C;--acc:#3F5E3A;--chip:rgba(239,236,230,.7);--btnbg:#1B1B19;--btnfg:#EFECE6;--card:rgba(255,255,255,.35);position:relative;color:var(--fg);isolation:isolate;overflow:hidden}
 .row > .wrap > button{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:minmax(0,1fr) 300px 44px;width:100%;align-items:center;gap:16px;padding-block:clamp(22px,2.8vw,40px)}
@@ -108,6 +103,7 @@ img,video{max-width:100%}
 .row .title{font-size:clamp(38px,6.6vw,88px);font-weight:500;letter-spacing:-.04em;line-height:1;transition:transform .4s cubic-bezier(.2,.8,.2,1)}
 .row > .wrap > button:hover .title{transform:translateX(14px)}
 .row .meta{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;color:var(--mut)}
+.row .badge{align-self:flex-start;margin-top:8px;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--acc);border:1px solid var(--acc);border-radius:999px;padding:3px 10px;line-height:1.4}
 .row .meta b{font-weight:500;color:var(--fg);font-size:17px}
 .row .plus{font-family:var(--mono);font-size:22px;width:44px;height:44px;border:1px solid var(--fg);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:transform .3s, background .3s, color .3s;flex:none}
 .row.open .plus{transform:rotate(45deg);background:var(--fg);color:var(--bg0,#EFECE6)}
@@ -344,11 +340,30 @@ a,button,input,[role=tab]{touch-action:manipulation;-webkit-tap-highlight-color:
   </div>
 </section>
 
-<div class="grp"><div class="wrap"><h3>For <span class="serif">clients</span></h3><span class="mono">Built for other companies</span></div></div>
+<!-- ============ VELOURA ============ -->
+<article class="row t-veloura" id="veloura">
+  <div class="wrap">
+    <button type="button" aria-expanded="false" aria-controls="p-veloura"><span class="title">Veloura</span><span class="meta"><b>Design &amp; Development</b><span class="mono">Mac app &middot; live beta</span></span><span class="plus" aria-hidden="true">+</span></button>
+    <div class="panel" id="p-veloura"><div><div class="inner">
+      <p class="lede">An AI music producer inside FL Studio. Describe a beat and it writes real, editable notes into your project.</p>
+      <div class="actions"><a class="btn big" href="https://velouramusic.com" target="_blank" rel="noopener">Visit velouramusic.com &nearr;</a><div class="chips"><span>Electron</span><span>Python</span><span>MIDI</span><span>macOS</span></div></div>
+
+      <div class="shots" tabindex="0" aria-label="Veloura walkthrough and screenshots">
+        <video controls playsinline preload="metadata" data-poster="img/veloura-poster.webp"><source src="vid/veloura-walkthrough.mp4" type="video/mp4"></video>
+        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="img/veloura-app-2.webp" width="1600" height="899" decoding="async" alt="Veloura app connected to FL Studio">
+        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="img/veloura-site-1.webp" width="1600" height="803" decoding="async" alt="Veloura website: Type it. Hear it in FL.">
+        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="img/veloura-app-1.webp" width="1600" height="1014" decoding="async" alt="Veloura studio screen">
+        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="img/veloura-site-2.webp" width="1600" height="803" decoding="async" alt="Veloura website: Not audio. Real notes.">
+        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="img/veloura-site-3.webp" width="1600" height="803" decoding="async" alt="Veloura website: beta and full app">
+      </div>
+      <ul class="hl"><li>Writes real notes into FL Studio's Piano Roll and drum sequencer</li><li>Every write is verified, and one Cmd+Z undoes it</li><li>Electron app, local Python service, swappable AI layer</li></ul>
+    </div></div></div>
+  </div>
+</article>
 
 <article class="row t-vylos" id="vylos">
   <div class="wrap">
-    <button type="button" aria-expanded="false" aria-controls="p-vylos"><span class="title">Vylos Media</span><span class="meta"><b>Web Design &amp; Development</b><span class="mono">Client site &middot; live</span></span><span class="plus" aria-hidden="true">+</span></button>
+    <button type="button" aria-expanded="false" aria-controls="p-vylos"><span class="title">Vylos Media</span><span class="meta"><b>Web Design &amp; Development</b><span class="mono">Client site &middot; live</span><span class="badge">&#9733; Real client</span></span><span class="plus" aria-hidden="true">+</span></button>
     <div class="panel" id="p-vylos"><div><div class="inner">
       <p class="lede">A website for a San Diego video studio that films automotive and luxury brands. This is a working piece of it: drag the camera apart.</p>
       <div class="actions"><a class="btn big" href="https://vylosmedia.com" target="_blank" rel="noopener">Visit vylosmedia.com &nearr;</a><div class="chips"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>Canvas</span></div></div>
@@ -382,49 +397,6 @@ a,button,input,[role=tab]{touch-action:manipulation;-webkit-tap-highlight-color:
   </div>
 </article>
 
-<article class="row t-onewheel" id="onewheel">
-  <div class="wrap">
-    <button type="button" aria-expanded="false" aria-controls="p-onewheel"><span class="title">SD Onewheel Rentals</span><span class="meta"><b>Web Design &amp; Development</b><span class="mono">Client redesign &middot; preview</span></span><span class="plus" aria-hidden="true">+</span></button>
-    <div class="panel" id="p-onewheel"><div><div class="inner">
-      <p class="lede">A full redesign of a San Diego Onewheel and e-scooter rental company's website, built to turn a visitor into a booking in a couple of taps. The preview below is the working site.</p>
-      <div class="actions"><a class="btn big" href="/onewheel/" target="_blank" rel="noopener">Open the live preview &nearr;</a><div class="chips"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>SVG</span></div></div>
-      <a class="owprev" href="/onewheel/" target="_blank" rel="noopener" aria-label="Open the SD Onewheel Rentals website preview">
-        <div class="owbar" aria-hidden="true"><i></i><i></i><i></i><span>tavamadethis.com/onewheel</span></div>
-        <div class="shot"><img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="img/onewheel-preview.webp" width="1600" height="1000" decoding="async" alt="The redesigned SD Onewheel Rentals home page: a full-bleed photo of riders on e-scooters along the Coronado bayfront"><span class="go">Open the preview &nearr;</span></div>
-      </a>
-      <ul class="hl">
-        <li>Rebuilt around one action: a persistent Book button, plus a rental price estimator that updates as you pick the ride, the days and delivery</li>
-        <li>Clear pages for rentals, guided tours, offers, boards for sale, the blog and a readable terms page, with the original agreement wording kept as written</li>
-        <li>A looping hero video, a customer reviews carousel with filters, and a logo that glides along rolling hills as you move your cursor</li>
-        <li>Responsive from phone to desktop, with a light and dark theme and keyboard-friendly controls</li>
-      </ul>
-    </div></div></div>
-  </div>
-</article>
-
-<div class="grp"><div class="wrap"><h3><span class="serif">Self</span> made</h3><span class="mono">My own products and research</span></div></div>
-
-<!-- ============ VELOURA ============ -->
-<article class="row t-veloura" id="veloura">
-  <div class="wrap">
-    <button type="button" aria-expanded="false" aria-controls="p-veloura"><span class="title">Veloura</span><span class="meta"><b>Design &amp; Development</b><span class="mono">Mac app &middot; live beta</span></span><span class="plus" aria-hidden="true">+</span></button>
-    <div class="panel" id="p-veloura"><div><div class="inner">
-      <p class="lede">An AI music producer inside FL Studio. Describe a beat and it writes real, editable notes into your project.</p>
-      <div class="actions"><a class="btn big" href="https://velouramusic.com" target="_blank" rel="noopener">Visit velouramusic.com &nearr;</a><div class="chips"><span>Electron</span><span>Python</span><span>MIDI</span><span>macOS</span></div></div>
-
-      <div class="shots" tabindex="0" aria-label="Veloura walkthrough and screenshots">
-        <video controls playsinline preload="metadata" data-poster="img/veloura-poster.webp"><source src="vid/veloura-walkthrough.mp4" type="video/mp4"></video>
-        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="img/veloura-app-2.webp" width="1600" height="899" decoding="async" alt="Veloura app connected to FL Studio">
-        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="img/veloura-site-1.webp" width="1600" height="803" decoding="async" alt="Veloura website: Type it. Hear it in FL.">
-        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="img/veloura-app-1.webp" width="1600" height="1014" decoding="async" alt="Veloura studio screen">
-        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="img/veloura-site-2.webp" width="1600" height="803" decoding="async" alt="Veloura website: Not audio. Real notes.">
-        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="img/veloura-site-3.webp" width="1600" height="803" decoding="async" alt="Veloura website: beta and full app">
-      </div>
-      <ul class="hl"><li>Writes real notes into FL Studio's Piano Roll and drum sequencer</li><li>Every write is verified, and one Cmd+Z undoes it</li><li>Electron app, local Python service, swappable AI layer</li></ul>
-    </div></div></div>
-  </div>
-</article>
-
 <!-- ============ THE COLLECTIVE ============ -->
 <article class="row t-collective" id="collective">
   <div class="wrap">
@@ -442,6 +414,26 @@ a,button,input,[role=tab]{touch-action:manipulation;-webkit-tap-highlight-color:
         <div class="cap" aria-live="polite"><b id="tourt">Today</b><span id="tourd">One screen for the company: audience, spend, what needs my approval, and the videos waiting for review.</span></div>
       </div>
       <ul class="hl"><li>Budgets, permissions and a kill switch enforced in code</li><li>Videos rendered automatically and posted to 3 platforms</li><li>Private control app for Mac and iPhone</li></ul>
+    </div></div></div>
+  </div>
+</article>
+
+<article class="row t-onewheel" id="onewheel">
+  <div class="wrap">
+    <button type="button" aria-expanded="false" aria-controls="p-onewheel"><span class="title">SD Onewheel Rentals</span><span class="meta"><b>Web Design &amp; Development</b><span class="mono">Client redesign &middot; preview</span><span class="badge">&#9733; Real client</span></span><span class="plus" aria-hidden="true">+</span></button>
+    <div class="panel" id="p-onewheel"><div><div class="inner">
+      <p class="lede">A full redesign of a San Diego Onewheel and e-scooter rental company's website, built to turn a visitor into a booking in a couple of taps. The preview below is the working site.</p>
+      <div class="actions"><a class="btn big" href="/onewheel/" target="_blank" rel="noopener">Open the live preview &nearr;</a><div class="chips"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>SVG</span></div></div>
+      <a class="owprev" href="/onewheel/" target="_blank" rel="noopener" aria-label="Open the SD Onewheel Rentals website preview">
+        <div class="owbar" aria-hidden="true"><i></i><i></i><i></i><span>tavamadethis.com/onewheel</span></div>
+        <div class="shot"><img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="img/onewheel-preview.webp" width="1600" height="1000" decoding="async" alt="The redesigned SD Onewheel Rentals home page: a full-bleed photo of riders on e-scooters along the Coronado bayfront"><span class="go">Open the preview &nearr;</span></div>
+      </a>
+      <ul class="hl">
+        <li>Rebuilt around one action: a persistent Book button, plus a rental price estimator that updates as you pick the ride, the days and delivery</li>
+        <li>Clear pages for rentals, guided tours, offers, boards for sale, the blog and a readable terms page, with the original agreement wording kept as written</li>
+        <li>A looping hero video, a customer reviews carousel with filters, and a logo that glides along rolling hills as you move your cursor</li>
+        <li>Responsive from phone to desktop, with a light and dark theme and keyboard-friendly controls</li>
+      </ul>
     </div></div></div>
   </div>
 </article>
