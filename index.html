@@ -19,9 +19,9 @@ if(q.length>1||sa||!own)location.replace('/tiny-world/'+q+h);})();
 <meta property="og:url" content="https://tavamadethis.com/">
 <meta property="og:image" content="https://tavamadethis.com/img/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" type="image/png" sizes="32x32" href="/img/icon-32.png">
-<link rel="icon" type="image/png" sizes="192x192" href="/img/icon-192.png">
-<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/icon-32.png?v=2">
+<link rel="icon" type="image/png" sizes="192x192" href="/img/icon-192.png?v=2">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png?v=2">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
 /* One architectural idea, five rooms: bright concrete hero, warm concrete for Veloura, a dark globe room for Tiny World, graphite for The Collective, terminal black for Origin, concrete and ivy for About, a dark courtyard for Contact. */
@@ -33,6 +33,7 @@ if(q.length>1||sa||!own)location.replace('/tiny-world/'+q+h);})();
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+html{background:#8b857a;overscroll-behavior-y:none}
 body{margin:0;background:var(--concrete);color:var(--ink);font-family:var(--display);font-size:17px;line-height:1.5;overflow-x:hidden}
 a{color:inherit}
 img,video{max-width:100%}
@@ -209,7 +210,7 @@ img,video{max-width:100%}
 
 /* ---------- bands ---------- */
 .band{position:relative;overflow:hidden;isolation:isolate}
-.about{background:var(--paper);border-top:1px solid var(--line);padding-block:clamp(72px,9vw,140px)}
+.about{background:linear-gradient(180deg,rgba(241,238,232,.93) 0%,rgba(229,225,217,.88) 55%,rgba(216,211,201,.9) 100%),url(img/concrete.jpg) center/cover;border-top:1px solid var(--line);padding-block:clamp(72px,9vw,140px) clamp(96px,11vw,170px)}
 .about .wrap{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(24px,5vw,88px);align-items:start}
 @media(max-width:820px){.about .wrap{grid-template-columns:minmax(0,1fr)}}
 .about .col{display:grid;gap:18px}
@@ -217,6 +218,7 @@ img,video{max-width:100%}
 .about p{margin:0;font-size:clamp(17px,1.45vw,20px);max-width:58ch;color:#34322e}
 .about a{text-decoration-thickness:1px;text-underline-offset:3px}
 .contact{--btnbg:#EFECE6;--btnfg:#1B1B19;--fg:#EFECE6;background:#0d0e0d;color:var(--paper);min-height:clamp(520px,80vh,820px);display:flex;align-items:flex-end}
+.contact::before{content:"";position:absolute;inset:0 0 auto 0;height:clamp(120px,16vw,220px);z-index:1;pointer-events:none;background:linear-gradient(180deg,#d8d3c9,rgba(216,211,201,.6) 40%,rgba(216,211,201,0))}
 .contact .shade{position:absolute;inset:0;background:linear-gradient(0deg, rgba(10,12,16,.55) 0%, rgba(10,12,16,0) 55%)}
 .contact .txt{position:relative;z-index:2;padding-block:clamp(40px,7vw,96px) max(28px, env(safe-area-inset-bottom, 0px));display:grid;gap:26px;width:100%}
 .contact h2{margin:0;font-size:clamp(52px,10vw,150px);line-height:.9;letter-spacing:-.045em;font-weight:600}
@@ -404,6 +406,11 @@ img,video{max-width:100%}
 (function(){
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   
+
+  // rubber-band overscroll shows a colour that matches the end of the page you are near, so there is never a white gap
+  var rootEl = document.documentElement;
+  function edge(){ var nearEnd = scrollY + innerHeight / 2 > rootEl.scrollHeight / 2; rootEl.style.backgroundColor = nearEnd ? '#0b0e13' : '#8b857a'; }
+  addEventListener('scroll', edge, { passive: true }); addEventListener('resize', edge); edge();
 
   // accordion rooms
   document.querySelectorAll('.row > .wrap > button').forEach(function(b){
