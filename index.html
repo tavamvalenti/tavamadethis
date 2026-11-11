@@ -54,7 +54,9 @@ img,video{max-width:100%}
 /* ---------- hero ---------- */
 .hero{position:relative;height:clamp(560px,94vh,1000px);overflow:hidden;background:#b9b3a8;isolation:isolate}
 @supports (height:100svh){.hero{height:clamp(560px,94svh,1000px)}}
-.hero video,.hero .poster,.band video,.band .poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero video,.hero .poster,.band video,.band .poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:translate3d(0,var(--py,0px),0) scale(1.1);will-change:transform}
+.fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1}
+.hero .fx{z-index:1}
 /* the cursor light is now a small glint: soft, low, and it only brightens what is already lit */
 .glow{position:absolute;left:0;top:0;width:300px;height:300px;margin:-150px 0 0 -150px;border-radius:50%;pointer-events:none;
   background:radial-gradient(closest-side, rgba(255,240,205,.5), rgba(255,240,205,.12) 55%, rgba(255,240,205,0) 100%);mix-blend-mode:soft-light;will-change:transform;opacity:.7}
@@ -222,14 +224,14 @@ img,video{max-width:100%}
 .contact .btn{background:var(--paper);color:var(--ink);border-color:var(--paper)}
 .contact .btn.ghost{background:transparent;color:var(--paper);border-color:var(--paper)}
 .contact small{font-family:var(--mono);font-size:12px;color:#B9BDB4}
-@media (prefers-reduced-motion: reduce){.name span{animation:none}.caret{animation:none}.t-tiny .btn{animation:none}html{scroll-behavior:auto}}
+@media (prefers-reduced-motion: reduce){.hero video,.hero .poster,.band video,.band .poster{transform:none;will-change:auto}.name span{animation:none}.caret{animation:none}.t-tiny .btn{animation:none}html{scroll-behavior:auto}}
 </style>
 </head>
 <body>
 <header class="hero" id="top">
   <img class="poster" src="img/hero.jpg" alt="">
   <video autoplay muted loop playsinline webkit-playsinline preload="auto" poster="img/hero.jpg" aria-hidden="true"><source src="vid/hero-hd.mp4" type="video/mp4" media="(min-width:1100px)"><source src="vid/hero-m.mp4" type="video/mp4"></video>
-  <div class="glow" id="glow1"></div><div class="glow two" id="glow2"></div>
+  <canvas class="fx" aria-hidden="true"></canvas><div class="glow" id="glow1"></div><div class="glow two" id="glow2"></div>
   <nav class="wrap" aria-label="Main">
     <a href="#top" class="pill brand"><i class="logo" aria-hidden="true"></i>tavamadethis</a>
     <span class="pill links"><a href="#work">Work</a><a href="#about">About</a><a href="#contact">Contact</a></span>
@@ -382,6 +384,7 @@ img,video{max-width:100%}
 <section class="band about" id="about">
   <img class="poster" src="img/wall.jpg" alt="" loading="lazy">
   <video autoplay muted loop playsinline webkit-playsinline preload="metadata" poster="img/wall.jpg" aria-hidden="true"><source src="vid/wall-hd.mp4" type="video/mp4" media="(min-width:1100px)"><source src="vid/wall-m.mp4" type="video/mp4"></video>
+  <canvas class="fx" aria-hidden="true"></canvas>
   <div class="wrap" style="width:100%"><div class="txt">
     <span class="mono abt"><i class="logo faint" aria-hidden="true"></i>ABOUT</span>
     <h2>My <span class="serif">story</span></h2>
@@ -393,7 +396,7 @@ img,video{max-width:100%}
 <section class="band contact" id="contact">
   <img class="poster" src="img/dusk.jpg" alt="" loading="lazy">
   <video autoplay muted loop playsinline webkit-playsinline preload="metadata" poster="img/dusk.jpg" aria-hidden="true"><source src="vid/dusk-hd.mp4" type="video/mp4" media="(min-width:1100px)"><source src="vid/dusk-m.mp4" type="video/mp4"></video>
-  <div class="shade"></div>
+  <div class="shade"></div><canvas class="fx" aria-hidden="true"></canvas>
   <div class="wrap txt">
     <h2>Have a project?<br>Let's <span class="serif">talk</span>.</h2>
     <div class="actions"><a class="btn" href="mailto:tavamvalenti@gmail.com">tavamvalenti@gmail.com</a><a class="btn ghost" href="https://github.com/tavamvalenti" target="_blank" rel="noopener">GitHub</a><a class="btn ghost" href="https://www.instagram.com/tavamadethis/" target="_blank" rel="noopener">Instagram</a></div>
@@ -405,12 +408,68 @@ img,video{max-width:100%}
 <script>
 (function(){
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduce) document.querySelectorAll('video[autoplay]').forEach(function(v){ v.removeAttribute('autoplay'); v.pause(); });
+  if (reduce) { document.querySelectorAll('video[autoplay]').forEach(function(v){ v.removeAttribute('autoplay'); v.pause(); }); document.querySelectorAll('canvas.fx').forEach(function(c){ c.style.display='none'; }); document.documentElement.classList.add('calm'); }
 
-  // play background loops only while they are on screen
-  if ('IntersectionObserver' in window && !reduce) {
-    var vio = new IntersectionObserver(function(en){ en.forEach(function(e){ var v = e.target; if (e.isIntersecting) { var pr = v.play(); if (pr && pr.catch) pr.catch(function(){}); } else v.pause(); }); }, { rootMargin: '200px' });
-    document.querySelectorAll('video[autoplay]').forEach(function(v){ vio.observe(v); });
+  // ---- scroll-reactive scenery: leaves ruffle while you scroll and settle when you stop ----
+  var scenes = [].slice.call(document.querySelectorAll('.hero, .band')).map(function(sec){
+    var cv = sec.querySelector('canvas.fx'), v = sec.querySelector('video');
+    return { sec: sec, v: v, cv: cv, ctx: cv && cv.getContext('2d'), on: false, ps: [], w: 0, h: 0, acc: 0, dusk: sec.classList.contains('contact') };
+  });
+  var energy = 0.7, lastY = scrollY, lastT = performance.now(), lastFrame = lastT, dpr = Math.min(devicePixelRatio || 1, 2);
+  var sio = ('IntersectionObserver' in window) ? new IntersectionObserver(function(en){ en.forEach(function(e){ scenes.forEach(function(sc){ if (sc.sec === e.target) { sc.on = e.isIntersecting; if (!sc.on && sc.v) sc.v.pause(); } }); }); }, { rootMargin: '120px' }) : null;
+  scenes.forEach(function(sc){ if (sio) sio.observe(sc.sec); else sc.on = true; });
+  function fit(sc){ if (!sc.cv) return; var r = sc.sec.getBoundingClientRect(); sc.w = r.width; sc.h = r.height; sc.cv.width = Math.round(r.width * dpr); sc.cv.height = Math.round(r.height * dpr); }
+  scenes.forEach(fit); addEventListener('resize', function(){ dpr = Math.min(devicePixelRatio || 1, 2); scenes.forEach(fit); });
+  function spawn(sc){
+    var fromRight = Math.random() < 0.6, firefly = sc.dusk && Math.random() < 0.55;
+    sc.ps.push({ x: fromRight ? sc.w * (0.45 + Math.random() * 0.6) : Math.random() * sc.w * 0.4, y: -10 + Math.random() * sc.h * 0.5,
+      vx: -20 - Math.random() * 40, vy: 10 + Math.random() * 30, r: Math.random() * 6.28, vr: (Math.random() - .5) * 3, s: firefly ? 2 + Math.random() * 2 : 6 + Math.random() * 8,
+      life: 0, max: 2.4 + Math.random() * 2, ph: Math.random() * 6.28, firefly: firefly,
+      c: firefly ? '255,226,150' : (Math.random() < .5 ? '132,176,74' : '178,208,92') });
+  }
+  function drawScene(sc, dt, now){
+    var ctx = sc.ctx; if (!ctx) return;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, sc.w, sc.h);
+    if (energy > 0.06 && sc.ps.length < 46) { sc.acc += energy * 16 * dt; while (sc.acc >= 1) { spawn(sc); sc.acc -= 1; } }
+    var calm = energy < 0.05;
+    for (var i = sc.ps.length - 1; i >= 0; i--) {
+      var p = sc.ps[i]; p.life += dt * (calm ? 3.2 : 1);
+      if (p.life >= p.max) { sc.ps.splice(i, 1); continue; }
+      var k = 1 + energy * 2.2;
+      p.x += (p.vx * k + Math.sin(now / 420 + p.ph) * 22 * energy) * dt; p.y += (p.vy * k) * dt; p.r += p.vr * dt * (1 + energy);
+      var a = Math.sin(Math.PI * p.life / p.max); a = a * (p.firefly ? .9 : .8);
+      ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.r); ctx.globalAlpha = a;
+      if (p.firefly) { var g = ctx.createRadialGradient(0, 0, 0, 0, 0, p.s * 3); g.addColorStop(0, 'rgba(' + p.c + ',.95)'); g.addColorStop(1, 'rgba(' + p.c + ',0)'); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(0, 0, p.s * 3, 0, 6.28); ctx.fill(); }
+      else { ctx.fillStyle = 'rgba(' + p.c + ',1)'; ctx.beginPath(); ctx.moveTo(0, -p.s); ctx.bezierCurveTo(p.s * .9, -p.s * .4, p.s * .7, p.s * .7, 0, p.s); ctx.bezierCurveTo(-p.s * .7, p.s * .7, -p.s * .9, -p.s * .4, 0, -p.s); ctx.fill(); ctx.strokeStyle = 'rgba(60,90,30,.45)'; ctx.lineWidth = .8; ctx.beginPath(); ctx.moveTo(0, -p.s); ctx.lineTo(0, p.s); ctx.stroke(); }
+      ctx.restore();
+    }
+  }
+  function tick(now){
+    var dt = Math.min(0.05, (now - lastFrame) / 1000); lastFrame = now;
+    var y = scrollY, dy = Math.abs(y - lastY), dts = Math.max(1, now - lastT); lastY = y; lastT = now;
+    var target = Math.min(1, (dy / dts) / 1.6);              // px per ms, 1.6 = a brisk scroll
+    energy = target > energy ? energy + (target - energy) * 0.35 : energy * Math.pow(0.04, dt);  // quick to rise, settles in about a second
+    if (energy < 0.015) energy = 0;
+    var vh = innerHeight;
+    scenes.forEach(function(sc){
+      if (!sc.on) return;
+      var r = sc.sec.getBoundingClientRect();
+      sc.sec.style.setProperty('--py', ((sc.sec.classList.contains('hero') ? -r.top : (vh / 2 - (r.top + r.height / 2))) * -0.09).toFixed(1) + 'px');
+      var v = sc.v;
+      if (v) {
+        if (energy > 0.04) { var rate = Math.min(3, 0.35 + energy * 2.6); if (Math.abs(v.playbackRate - rate) > 0.04) v.playbackRate = rate; if (v.paused) { var pr = v.play(); if (pr && pr.catch) pr.catch(function(){}); } }
+        else if (!v.paused) v.pause();
+      }
+      drawScene(sc, dt, now);
+    });
+    // the carved name drifts a touch slower than the wall, like it is set into it
+    if (nameEl && scenes[0].on) nameEl.style.transform = 'translate3d(0,' + (scrollY * 0.05).toFixed(1) + 'px,0)';
+    requestAnimationFrame(tick);
+  }
+  var nameEl = document.querySelector('.name');
+  if (!reduce) {
+    scenes.forEach(function(sc){ if (sc.v) { sc.v.pause(); sc.v.playbackRate = 0.5; } });
+    requestAnimationFrame(tick);
   }
 
   // accordion rooms
