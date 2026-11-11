@@ -1,9 +1,9 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex, nofollow"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>SD Onewheel Rentals Redesign</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
+<link rel="preload" href="fonts/figtree.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin>
+<style>@font-face{font-family:'Bricolage Grotesque';font-style:normal;font-weight:500;font-display:swap;src:url(fonts/bricolage-grotesque.woff2) format('woff2')}@font-face{font-family:'Bricolage Grotesque';font-style:normal;font-weight:700;font-display:swap;src:url(fonts/bricolage-grotesque.woff2) format('woff2')}@font-face{font-family:'Bricolage Grotesque';font-style:normal;font-weight:800;font-display:swap;src:url(fonts/bricolage-grotesque.woff2) format('woff2')}@font-face{font-family:'Figtree';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/figtree.woff2) format('woff2')}@font-face{font-family:'Figtree';font-style:normal;font-weight:500;font-display:swap;src:url(fonts/figtree.woff2) format('woff2')}@font-face{font-family:'Figtree';font-style:normal;font-weight:600;font-display:swap;src:url(fonts/figtree.woff2) format('woff2')}@font-face{font-family:'Figtree';font-style:normal;font-weight:700;font-display:swap;src:url(fonts/figtree.woff2) format('woff2')}</style>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='540 250 690 380'%3E%3Crect x='540' y='250' width='690' height='380' rx='90' fill='%230c2a3a'/%3E%3Ccircle cx='884' cy='438' r='142' fill='none' stroke='%23fff6e8' stroke-width='36'/%3E%3Cpath d='M565 506C560 514 568 514 578 512L1150 417C1170 413 1188 400 1198 382C1207 366 1210 358 1194 358L638 451C622 454 608 460 598 472Z' fill='%23ff6a3d' stroke='%230c2a3a' stroke-width='14'/%3E%3C/svg%3E">
 <style>
 /* Layout concept: motion hero, alternating photo/copy bands on sand, deep-ocean bands for pricing and notes. Sub-pages (offers, for sale, blog, terms) swap in on the hash. */
@@ -509,8 +509,8 @@ footer ul{list-style:none;margin:0;padding:0;display:grid;gap:.4rem}
 <!-- ============ HOME ============ -->
 <div class="view" data-view="home">
 <div class="hero full" id="hero">
-  <img class="poster" src="img/hero-coronado.jpg" alt="Five riders on electric scooters along the Coronado bayfront with the San Diego skyline behind them">
-  <video id="heroVid" autoplay muted loop playsinline preload="auto" poster="img/hero-coronado.jpg" aria-hidden="true"><source src="vid/hero.mp4" type="video/mp4"></video>
+  <img class="poster" src="img/hero-coronado.webp" alt="Five riders on electric scooters along the Coronado bayfront with the San Diego skyline behind them">
+  <video id="heroVid" autoplay muted loop playsinline preload="auto" poster="img/hero-coronado.webp" aria-hidden="true"><source src="vid/hero.mp4" type="video/mp4"></video>
   <span class="mk wm" id="heroMk"></span>
   <div class="in">
     <span class="eyebrow" style="color:#ffc79e">Onewheel &amp; e-scooter rentals · guided tours · San Diego</span>
@@ -547,9 +547,9 @@ footer ul{list-style:none;margin:0;padding:0;display:grid;gap:.4rem}
 <section id="rentals"><div class="wrap">
   <div class="head"><span class="eyebrow">The fleet</span><h2>Pick your ride</h2><p>Not sure which to choose? Start on a GT. It is the easiest Onewheel to learn on. Bringing a friend who would rather not stand on one wheel? Add a scooter.</p></div>
   <div class="cards">
-    <article class="card"><div class="ph"><img src="img/gt-pint.jpg" alt="Onewheel GT and Pint X boards on a wooden pier"></div><div class="tx"><span class="tag">Best for first timers</span><h3>Onewheel GT</h3><p>Powerful brushless hub motor, extended range and a forgiving feel. Lean forward to go, lean back to slow or stop.</p><div class="spec"><span>19 mph top speed</span><span>25–32 mi range</span><span>Free 30 min lesson</span></div><div class="rate"><div><b>$79</b>Half day</div><div><b>$99</b>Full day</div><div><b>$79</b>Per day, 2+ days</div></div></div></article>
-    <article class="card"><div class="ph"><img src="img/onewheel-balboa.jpg" alt="Two riders on Onewheels in Balboa Park"></div><div class="tx"><span class="tag" style="background:var(--teal)">Compare models</span><h3>Onewheel Pint X</h3><p>The smaller, lighter board. Ask for a Pint X after your GT ride for a real side-by-side comparison before you buy.</p><div class="spec"><span>Compact</span><span>Free 30 min lesson</span><span>Helmet and pads</span></div><div class="rate"><div><b>$79</b>Half day</div><div><b>$99</b>Full day</div><div><b>$79</b>Per day, 2+ days</div></div></div></article>
-    <article class="card"><div class="ph"><img src="img/tour-airspace.jpg" alt="Family group on Segway scooters in front of the San Diego Air and Space Museum"></div><div class="tx"><span class="tag" style="background:var(--sand-2);color:var(--ink)">Folds into any trunk</span><h3>Segway Ninebot scooter</h3><p>Headlight and taillight, speed and battery readout, a lock and a charger. Half the price of the app scooters, and you can ride it anywhere bikes are allowed.</p><div class="spec"><span>19 mph top speed</span><span>18–25 mi range</span><span>Lock included</span></div><div class="rate"><div><b>$49</b>Half day</div><div><b>$69</b>Full day</div><div><b>$59</b>Per day, 2+ days</div></div></div></article>
+    <article class="card"><div class="ph"><img src="img/gt-pint.webp" alt="Onewheel GT and Pint X boards on a wooden pier"></div><div class="tx"><span class="tag">Best for first timers</span><h3>Onewheel GT</h3><p>Powerful brushless hub motor, extended range and a forgiving feel. Lean forward to go, lean back to slow or stop.</p><div class="spec"><span>19 mph top speed</span><span>25–32 mi range</span><span>Free 30 min lesson</span></div><div class="rate"><div><b>$79</b>Half day</div><div><b>$99</b>Full day</div><div><b>$79</b>Per day, 2+ days</div></div></div></article>
+    <article class="card"><div class="ph"><img src="img/onewheel-balboa.webp" alt="Two riders on Onewheels in Balboa Park"></div><div class="tx"><span class="tag" style="background:var(--teal)">Compare models</span><h3>Onewheel Pint X</h3><p>The smaller, lighter board. Ask for a Pint X after your GT ride for a real side-by-side comparison before you buy.</p><div class="spec"><span>Compact</span><span>Free 30 min lesson</span><span>Helmet and pads</span></div><div class="rate"><div><b>$79</b>Half day</div><div><b>$99</b>Full day</div><div><b>$79</b>Per day, 2+ days</div></div></div></article>
+    <article class="card"><div class="ph"><img src="img/tour-airspace.webp" alt="Family group on Segway scooters in front of the San Diego Air and Space Museum"></div><div class="tx"><span class="tag" style="background:var(--sand-2);color:var(--ink)">Folds into any trunk</span><h3>Segway Ninebot scooter</h3><p>Headlight and taillight, speed and battery readout, a lock and a charger. Half the price of the app scooters, and you can ride it anywhere bikes are allowed.</p><div class="spec"><span>19 mph top speed</span><span>18–25 mi range</span><span>Lock included</span></div><div class="rate"><div><b>$49</b>Half day</div><div><b>$69</b>Full day</div><div><b>$59</b>Per day, 2+ days</div></div></div></article>
   </div>
 </div></section>
 
@@ -561,14 +561,14 @@ footer ul{list-style:none;margin:0;padding:0;display:grid;gap:.4rem}
     <div><a class="btn ghost" style="color:var(--ink)" href="https://www.youtube.com/watch?v=6v1h7MvzuYU" target="_blank" rel="noopener">Watch on YouTube</a></div>
   </div>
   <a class="vid" href="https://www.youtube.com/watch?v=6v1h7MvzuYU" target="_blank" rel="noopener" aria-label="Watch Introducing Pint X and GT: The Next Generation of Onewheel on YouTube">
-    <img src="img/yt-thumb.jpg" alt="Onewheel GT and Pint X, the next generation of Onewheel">
+    <img src="img/yt-thumb.webp" alt="Onewheel GT and Pint X, the next generation of Onewheel">
     <span class="play"><span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></span>
     <span class="cap"><span>Introducing Pint X &amp; GT: The Next Generation of Onewheel</span><span style="opacity:.8">Onewheel · YouTube</span></span>
   </a>
 </div></section></div>
 
 <section id="lesson"><div class="wrap split">
-  <img src="img/lesson.jpg" alt="Jesse teaching a group of riders how to ride a Onewheel on the grass at Liberty Station" loading="lazy">
+  <img src="img/lesson.webp" alt="Jesse teaching a group of riders how to ride a Onewheel on the grass at Liberty Station" loading="lazy">
   <div class="copy">
     <span class="eyebrow">Never ridden one?</span>
     <h2>Up and riding in about an hour</h2>
@@ -635,7 +635,7 @@ footer ul{list-style:none;margin:0;padding:0;display:grid;gap:.4rem}
 </div></section></div>
 
 <section id="location"><div class="wrap loc">
-  <div class="mapbox"><img src="img/map.jpg" alt="Map of Point Loma and Liberty Station in San Diego with the default meeting spot marked" loading="lazy"><div class="cover">Default meeting spot</div><div class="pin"></div></div>
+  <div class="mapbox"><img src="img/map.webp" alt="Map of Point Loma and Liberty Station in San Diego with the default meeting spot marked" loading="lazy"><div class="cover">Default meeting spot</div><div class="pin"></div></div>
   <div class="locl">
     <span class="eyebrow">Important location info</span>
     <h2>No store. We come to you.</h2>
@@ -675,12 +675,12 @@ footer ul{list-style:none;margin:0;padding:0;display:grid;gap:.4rem}
   <div class="headrow"><div class="head"><span class="eyebrow">Real riders, real San Diego</span><h2>Our crew on the water</h2></div>
   <a class="ig" href="https://www.instagram.com/sdonewheel/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>Follow @sdonewheel</a></div>
   <div class="gal">
-    <figure class="g1"><img src="img/tour-coronado.jpg" alt="Group on scooters on the lawn at the Hotel del Coronado" loading="lazy"><figcaption>Coronado tour, Hotel del Coronado</figcaption></figure>
-    <figure class="g2"><img src="img/tour-balboa.jpg" alt="Three riders with scooters in front of the Botanical Building in Balboa Park" loading="lazy"><figcaption>Balboa Park</figcaption></figure>
-    <figure class="g3"><video id="fleetVid" autoplay muted loop playsinline preload="auto" poster="img/fleet-pier.jpg" aria-label="Scooter and two Onewheels on a pier with the skyline behind"><source src="vid/fleet.mp4" type="video/mp4"></video><figcaption>The fleet, Embarcadero skyline</figcaption></figure>
-    <figure class="g4"><img src="img/tour-downtown.jpg" alt="Tour group on the downtown waterfront" loading="lazy"><figcaption>Downtown Waterfront</figcaption></figure>
-    <figure class="g5"><img src="img/mixed-group.jpg" alt="Four friends on two scooters and Onewheels along the bay near the Coronado bridge" loading="lazy"><figcaption>Mix and match</figcaption></figure>
-    <figure class="g6"><img src="img/sunset-cliffs.jpg" alt="Rider sitting on the cliffs beside an Onewheel XR" loading="lazy"><figcaption>Sunset Cliffs</figcaption></figure>
+    <figure class="g1"><img src="img/tour-coronado.webp" alt="Group on scooters on the lawn at the Hotel del Coronado" loading="lazy"><figcaption>Coronado tour, Hotel del Coronado</figcaption></figure>
+    <figure class="g2"><img src="img/tour-balboa.webp" alt="Three riders with scooters in front of the Botanical Building in Balboa Park" loading="lazy"><figcaption>Balboa Park</figcaption></figure>
+    <figure class="g3"><video id="fleetVid" muted loop playsinline preload="none" poster="img/fleet-pier.webp" aria-label="Scooter and two Onewheels on a pier with the skyline behind"><source src="vid/fleet.mp4" type="video/mp4"></video><figcaption>The fleet, Embarcadero skyline</figcaption></figure>
+    <figure class="g4"><img src="img/tour-downtown.webp" alt="Tour group on the downtown waterfront" loading="lazy"><figcaption>Downtown Waterfront</figcaption></figure>
+    <figure class="g5"><img src="img/mixed-group.webp" alt="Four friends on two scooters and Onewheels along the bay near the Coronado bridge" loading="lazy"><figcaption>Mix and match</figcaption></figure>
+    <figure class="g6"><img src="img/sunset-cliffs.webp" alt="Rider sitting on the cliffs beside an Onewheel XR" loading="lazy"><figcaption>Sunset Cliffs</figcaption></figure>
   </div>
 </div></section></div>
 
@@ -711,11 +711,11 @@ footer ul{list-style:none;margin:0;padding:0;display:grid;gap:.4rem}
     <p>In 2017 he founded San Diego Onewheel Rentals. The goal is simple: give curious people an easy, safe and affordable way to try the sport, and give owners a chance to ride with friends or try before they buy.</p>
     <p style="color:var(--ink);font-weight:700">Jesse Currie, Owner</p>
   </div>
-  <img src="img/xr-skyline.jpg" alt="Onewheel XR on a pier with the San Diego skyline" loading="lazy">
+  <img src="img/xr-skyline.webp" alt="Onewheel XR on a pier with the San Diego skyline" loading="lazy">
 </div></section>
 
 <section class="endcta full" id="ready"><div class="wrap">
-  <div class="endbox"><img src="img/fleet-pier.jpg" alt="" loading="lazy"><div class="endin"><span class="eyebrow" style="color:#ffc79e">Ready when you are</span><h2>Your San Diego ride is one tap away.</h2><p>Free lesson and helmet with every rental. Pickup at Liberty Station is free, or we deliver for a flat $25.</p>
+  <div class="endbox"><img src="img/fleet-pier.webp" alt="" loading="lazy"><div class="endin"><span class="eyebrow" style="color:#ffc79e">Ready when you are</span><h2>Your San Diego ride is one tap away.</h2><p>Free lesson and helmet with every rental. Pickup at Liberty Station is free, or we deliver for a flat $25.</p>
   <div class="cta"><a class="btn-book lg" href="https://calendly.com/sdonewheel" target="_blank" rel="noopener"><span>Book a rental</span><span class="ar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a><span class="callus">or call <b class="sel">619-786-2614</b></span></div></div></div>
 </div></section>
 </div>
@@ -740,11 +740,11 @@ footer ul{list-style:none;margin:0;padding:0;display:grid;gap:.4rem}
   <div class="phead full"><div class="wrap"><span class="eyebrow">Sales</span><h1>Used Onewheel GT, Pint X and e-scooter inventory</h1><p>We often have more than one of each for sale, so ask what is in stock. We accept Venmo, PayPal, cash or credit card. Call or text to take one for a test ride.</p></div></div>
   <section><div class="wrap">
     <div class="inv">
-      <article class="item"><div class="ph"><img src="img/s1.jpg" alt="Used Onewheel GT on top of its box with the charger"><span class="price">$1,650</span></div><div class="tx"><h3>Used Onewheel GT</h3><p>Great shape with around 900 miles on the odometer. About 9 months old. Comes with the box and charger. Everything on the board is stock.</p><div class="spec"><span>~900 miles</span><span>~9 months old</span><span>Box and charger</span><span>All stock</span></div></div></article>
-      <article class="item"><div class="ph"><img src="img/s2.jpg" alt="Used Segway Ninebot Max G30LP electric scooter"><span class="price">$400</span></div><div class="tx"><h3>Used Segway Ninebot Max G30LP</h3><p>In perfect working condition, with normal wear and tear but otherwise great shape. About 8 months old. Comes with the box and charger.</p><div class="spec"><span>~8 months old</span><span>Box and charger</span><span>Works perfectly</span></div></div></article>
+      <article class="item"><div class="ph"><img src="img/s1.webp" alt="Used Onewheel GT on top of its box with the charger"><span class="price">$1,650</span></div><div class="tx"><h3>Used Onewheel GT</h3><p>Great shape with around 900 miles on the odometer. About 9 months old. Comes with the box and charger. Everything on the board is stock.</p><div class="spec"><span>~900 miles</span><span>~9 months old</span><span>Box and charger</span><span>All stock</span></div></div></article>
+      <article class="item"><div class="ph"><img src="img/s2.webp" alt="Used Segway Ninebot Max G30LP electric scooter"><span class="price">$400</span></div><div class="tx"><h3>Used Segway Ninebot Max G30LP</h3><p>In perfect working condition, with normal wear and tear but otherwise great shape. About 8 months old. Comes with the box and charger.</p><div class="spec"><span>~8 months old</span><span>Box and charger</span><span>Works perfectly</span></div></div></article>
     </div>
     <div class="partner">
-      <img src="img/s3.jpg" alt="Segway scooter and Onewheel GT, XR and Pint X on a pier" loading="lazy">
+      <img src="img/s3.webp" alt="Segway scooter and Onewheel GT, XR and Pint X on a pier" loading="lazy">
       <div class="tx"><span class="eyebrow" style="color:var(--coral)">New boards</span><h2 style="font-size:clamp(1.8rem,3.6vw,2.6rem)">New Onewheel GT and Pint X</h2><p>Available through our partner store, Eze Ryders, at 4051 Voltaire St. Use this code at checkout, in store or online, for a free set of rail guards with a new board.</p>
         <div class="code"><span id="codeTxt">SDOW</span><button type="button" id="codeBtn">Copy</button></div></div>
     </div>
@@ -756,14 +756,14 @@ footer ul{list-style:none;margin:0;padding:0;display:grid;gap:.4rem}
 <div class="view" data-view="blog" hidden>
   <div class="phead full"><div class="wrap"><span class="eyebrow">Our blog</span><h1>Resources, videos and tutorials</h1><p>Guides for renting, riding and choosing a board in San Diego, written by Jesse. Articles open on the current site for now.</p></div></div>
   <section><div class="wrap">
-    <a class="blogtop" href="https://sdonewheel.com/best-places-to-onewheel-in-san-diego/" target="_blank" rel="noopener"><img src="img/b1.jpg" alt="Rider on a Onewheel in San Diego"><div class="tx"><div class="meta"><span class="cat">Featured</span><span>Jesse C · Nov 10, 2026</span></div><h2>Best Places to Onewheel in San Diego (2027)</h2><p>San Diego is arguably one of the best places in the country to explore on a Onewheel, solowheel, scooter, or other electric rideable. With year round good weather, water everywhere you turn, and bike paths galore, you can spend countless hours cruising around without...</p><span class="go" style="font-weight:800;color:var(--coral)">Read article →</span></div></a>
+    <a class="blogtop" href="https://sdonewheel.com/best-places-to-onewheel-in-san-diego/" target="_blank" rel="noopener"><img src="img/b1.webp" alt="Rider on a Onewheel in San Diego"><div class="tx"><div class="meta"><span class="cat">Featured</span><span>Jesse C · Nov 10, 2026</span></div><h2>Best Places to Onewheel in San Diego (2027)</h2><p>San Diego is arguably one of the best places in the country to explore on a Onewheel, solowheel, scooter, or other electric rideable. With year round good weather, water everywhere you turn, and bike paths galore, you can spend countless hours cruising around without...</p><span class="go" style="font-weight:800;color:var(--coral)">Read article →</span></div></a>
     <div class="fil" id="bfil" style="margin:2rem 0 1.4rem" role="group" aria-label="Filter articles"></div>
     <div class="posts" id="posts">
-      <a class="post" data-c="Scooter Rental" href="https://sdonewheel.com/scooter-rental-san-diego/" target="_blank" rel="noopener"><div class="ph"><img src="img/b2.jpg" alt="" loading="lazy"></div><div class="tx"><div class="meta"><span class="cat">Scooter Rental</span><span>Nov 10, 2026</span></div><h3>Scooter Rental San Diego Guide (2027)</h3><p>Although all app based companies like Bird and Lime have now left San Diego, local companies like ours still rent E-Scooters With the increased cost and hassle of permits and regulations, it seems that app based scooter rental companies like Bird, Lime, Spin, and...</p><span class="go">Read article →</span></div></a>
-      <a class="post" data-c="Onewheel Rental" href="https://sdonewheel.com/onewheel-rental-san-diego-guide/" target="_blank" rel="noopener"><div class="ph"><img src="img/b3.jpg" alt="" loading="lazy"></div><div class="tx"><div class="meta"><span class="cat">Onewheel Rental</span><span>Nov 10, 2026</span></div><h3>Onewheel Rental San Diego Guide (2027)</h3><p>San Diego is by far one of the best places to rent and ride a Onewheel in the USA. With hundreds of miles of coastline to explore, bike paths galore, and year-round perfect weather, San Diego has it all, and there’s no better way to explore it than on a Onewheel...</p><span class="go">Read article →</span></div></a>
-      <a class="post" data-c="Onewheel Rental" href="https://sdonewheel.com/how-to-rent-a-onewheel-in-san-diego/" target="_blank" rel="noopener"><div class="ph"><img src="img/b4.jpg" alt="" loading="lazy"></div><div class="tx"><div class="meta"><span class="cat">Onewheel Rental</span><span>Jan 4, 2024</span></div><h3>How to Rent a Onewheel in San Diego</h3><p>The Onewheel electric hoverboard/skateboard is something you may have seen someone riding around town or floating around the internet and you probably wondered what that thing was and how you could try one for yourself. So what is a Onewheel anyway? To put it simply,...</p><span class="go">Read article →</span></div></a>
-      <a class="post" data-c="Onewheel Pint" href="https://sdonewheel.com/onewheel-pint-mini-board/" target="_blank" rel="noopener"><div class="ph"><img src="img/b5.jpg" alt="" loading="lazy"></div><div class="tx"><div class="meta"><span class="cat">Onewheel Pint</span><span>Mar 13, 2019</span></div><h3>Onewheel Pint Mini Board</h3><p>Yesterday came an announcement by Future Motion of their newest board, the Onewheel Pint. This was an interesting move by Future Motion and one that wasn't a complete surprise considering the rise of other mini boards such as the Boosted Board mini. It seems people...</p><span class="go">Read article →</span></div></a>
-      <a class="post" data-c="Onewheel XR" href="https://sdonewheel.com/onewheel-vs-boosted-board/" target="_blank" rel="noopener"><div class="ph"><img src="img/b6.jpg" alt="" loading="lazy"></div><div class="tx"><div class="meta"><span class="cat">Onewheel XR</span><span>Apr 17, 2018</span></div><h3>Onewheel Plus VS Boosted Board V2</h3><p>Ahhhh, the age old question, Onewheel or a Boosted Board, which is better? You probably think I’m biased since I own a Onewheel rental business but that’s actually not the case. Before I started my business, I was debating between the Onewheel Plus or Boosted Board...</p><span class="go">Read article →</span></div></a>
+      <a class="post" data-c="Scooter Rental" href="https://sdonewheel.com/scooter-rental-san-diego/" target="_blank" rel="noopener"><div class="ph"><img src="img/b2.webp" alt="" loading="lazy"></div><div class="tx"><div class="meta"><span class="cat">Scooter Rental</span><span>Nov 10, 2026</span></div><h3>Scooter Rental San Diego Guide (2027)</h3><p>Although all app based companies like Bird and Lime have now left San Diego, local companies like ours still rent E-Scooters With the increased cost and hassle of permits and regulations, it seems that app based scooter rental companies like Bird, Lime, Spin, and...</p><span class="go">Read article →</span></div></a>
+      <a class="post" data-c="Onewheel Rental" href="https://sdonewheel.com/onewheel-rental-san-diego-guide/" target="_blank" rel="noopener"><div class="ph"><img src="img/b3.webp" alt="" loading="lazy"></div><div class="tx"><div class="meta"><span class="cat">Onewheel Rental</span><span>Nov 10, 2026</span></div><h3>Onewheel Rental San Diego Guide (2027)</h3><p>San Diego is by far one of the best places to rent and ride a Onewheel in the USA. With hundreds of miles of coastline to explore, bike paths galore, and year-round perfect weather, San Diego has it all, and there’s no better way to explore it than on a Onewheel...</p><span class="go">Read article →</span></div></a>
+      <a class="post" data-c="Onewheel Rental" href="https://sdonewheel.com/how-to-rent-a-onewheel-in-san-diego/" target="_blank" rel="noopener"><div class="ph"><img src="img/b4.webp" alt="" loading="lazy"></div><div class="tx"><div class="meta"><span class="cat">Onewheel Rental</span><span>Jan 4, 2024</span></div><h3>How to Rent a Onewheel in San Diego</h3><p>The Onewheel electric hoverboard/skateboard is something you may have seen someone riding around town or floating around the internet and you probably wondered what that thing was and how you could try one for yourself. So what is a Onewheel anyway? To put it simply,...</p><span class="go">Read article →</span></div></a>
+      <a class="post" data-c="Onewheel Pint" href="https://sdonewheel.com/onewheel-pint-mini-board/" target="_blank" rel="noopener"><div class="ph"><img src="img/b5.webp" alt="" loading="lazy"></div><div class="tx"><div class="meta"><span class="cat">Onewheel Pint</span><span>Mar 13, 2019</span></div><h3>Onewheel Pint Mini Board</h3><p>Yesterday came an announcement by Future Motion of their newest board, the Onewheel Pint. This was an interesting move by Future Motion and one that wasn't a complete surprise considering the rise of other mini boards such as the Boosted Board mini. It seems people...</p><span class="go">Read article →</span></div></a>
+      <a class="post" data-c="Onewheel XR" href="https://sdonewheel.com/onewheel-vs-boosted-board/" target="_blank" rel="noopener"><div class="ph"><img src="img/b6.webp" alt="" loading="lazy"></div><div class="tx"><div class="meta"><span class="cat">Onewheel XR</span><span>Apr 17, 2018</span></div><h3>Onewheel Plus VS Boosted Board V2</h3><p>Ahhhh, the age old question, Onewheel or a Boosted Board, which is better? You probably think I’m biased since I own a Onewheel rental business but that’s actually not the case. Before I started my business, I was debating between the Onewheel Plus or Boosted Board...</p><span class="go">Read article →</span></div></a>
     </div>
     <div class="info-box" style="margin-top:2rem;background:var(--card);color:var(--ink);border-color:var(--line)"><b style="color:var(--coral-ink)">See every post</b><p style="color:var(--ink-2)">The full archive lives at <a href="https://sdonewheel.com/blog/" target="_blank" rel="noopener" style="font-weight:700;color:var(--ink)">sdonewheel.com/blog</a>.</p></div>
   </div></section>
@@ -912,14 +912,14 @@ footer ul{list-style:none;margin:0;padding:0;display:grid;gap:.4rem}
   document.addEventListener('pointerdown',function(e){var b=e.target.closest&&e.target.closest('.btn-book');if(!b)return;var r=b.getBoundingClientRect(),s=Math.max(r.width,r.height),sp=document.createElement('span');sp.className='rip';sp.style.width=sp.style.height=s+'px';sp.style.left=(e.clientX-r.left-s/2)+'px';sp.style.top=(e.clientY-r.top-s/2)+'px';b.appendChild(sp);setTimeout(function(){sp.remove()},700)});
 
   // videos fall back to posters
-  ['heroVid','fleetVid'].forEach(function(id){var v=$(id);if(!v)return;var s=v.querySelector('source');if(s)s.addEventListener('error',function(){v.style.display='none'});var p=v.play&&v.play();if(p&&p.catch)p.catch(function(){})});
+  ['heroVid'].forEach(function(id){var v=$(id);if(!v)return;var s=v.querySelector('source');if(s)s.addEventListener('error',function(){v.style.display='none'});var p=v.play&&v.play();if(p&&p.catch)p.catch(function(){})});
 
   // tours
   var T={
-    coronado:{n:'Coronado Island',t:'Ride Coronado Island with the downtown skyline across the bay. Your guide shares the history and interesting facts at each major stop and photographs the group.',i:'img/tour-coronado.jpg',a:'Tour group on scooters at the Hotel del Coronado'},
-    balboa:{n:'Balboa Park',t:'Cruise the park’s Spanish Colonial plazas, gardens and museums, including the Botanical Building and the Air & Space Museum, with a local who knows the stories.',i:'img/tour-balboa.jpg',a:'Three riders in front of the Botanical Building'},
-    downtown:{n:'Downtown Waterfront',t:'Ride the Embarcadero with the harbor beside you and the skyline above. Your guide stops at the major sights for history, interesting facts and group photos.',i:'img/tour-downtown.jpg',a:'Tour group on the Embarcadero with a cruise ship behind'},
-    lajolla:{n:'La Jolla',t:'Our fourth guided route, through La Jolla. Led by a local, with stops at the major sights, a bit of history and group photos sent to you afterwards.',i:'img/tour-lajolla.jpg',a:'Aerial view of La Jolla coastline with the beach and homes at sunset'}
+    coronado:{n:'Coronado Island',t:'Ride Coronado Island with the downtown skyline across the bay. Your guide shares the history and interesting facts at each major stop and photographs the group.',i:'img/tour-coronado.webp',a:'Tour group on scooters at the Hotel del Coronado'},
+    balboa:{n:'Balboa Park',t:'Cruise the park’s Spanish Colonial plazas, gardens and museums, including the Botanical Building and the Air & Space Museum, with a local who knows the stories.',i:'img/tour-balboa.webp',a:'Three riders in front of the Botanical Building'},
+    downtown:{n:'Downtown Waterfront',t:'Ride the Embarcadero with the harbor beside you and the skyline above. Your guide stops at the major sights for history, interesting facts and group photos.',i:'img/tour-downtown.webp',a:'Tour group on the Embarcadero with a cruise ship behind'},
+    lajolla:{n:'La Jolla',t:'Our fourth guided route, through La Jolla. Led by a local, with stops at the major sights, a bit of history and group photos sent to you afterwards.',i:'img/tour-lajolla.webp',a:'Aerial view of La Jolla coastline with the beach and homes at sunset'}
   };
   var tabs=[].slice.call(document.querySelectorAll('.tab'));
   function showTour(k){var d=T[k];tabs.forEach(function(b){b.setAttribute('aria-selected',b.dataset.t===k)});
@@ -994,6 +994,9 @@ footer ul{list-style:none;margin:0;padding:0;display:grid;gap:.4rem}
   // newsletter (preview only)
   $('newsForm').addEventListener('submit',function(e){e.preventDefault();var m=$('nMail').value.trim(),n=$('nName').value.trim();
     $('nMsg').textContent=/^\S+@\S+\.\S+$/.test(m)?('Thanks'+(n?', '+n:'')+'. This form is a preview and is not connected to a mailing list yet.'):'Enter a valid email address.'});
+
+  // fleet video only plays while it is on screen
+  var fv=$('fleetVid');if(fv){var fs=fv.querySelector('source');if(fs)fs.addEventListener('error',function(){fv.style.display='none'});if('IntersectionObserver' in window){new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting){var p=fv.play();if(p&&p.catch)p.catch(function(){})}else fv.pause()})},{rootMargin:'200px'}).observe(fv)}else{var p2=fv.play();if(p2&&p2.catch)p2.catch(function(){})}}
 
   route();
 })();
