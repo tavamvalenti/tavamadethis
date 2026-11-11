@@ -4,7 +4,7 @@
 // friend qualifies (300 XP played). Rewards are collected through the server (once each, ever, from any device) and
 // paid into the Cash wallet only when the server says the reward is new.
 const RKEY = 'tinyworld.ref';
-export const SITE = 'https://tavamadethis.com/';
+export const SITE = 'https://tavamadethis.com/tiny-world/';
 export const REWARDS = { share: { amount: 3000, need: 1 }, five: { amount: 10000, need: 5 } };
 export const DEFAULT_MSG = 'Come check out Tiny World — an interactive miniature destruction sandbox where you can explore cities, cause chaos, play mini-games, and compete with other players. Try it here: {link}';
 
