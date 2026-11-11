@@ -102,7 +102,8 @@ img,video{max-width:100%}
 .js .sig{clip-path:inset(0 100% 0 0);transition:clip-path 1.7s cubic-bezier(.65,0,.25,1) .15s}
 .js .sigwrap.in .sig{clip-path:inset(0 0 0 0)}
 @media(prefers-reduced-motion:reduce){.js .sig{clip-path:none;transition:none}}
-.sig-about{width:clamp(150px,17vw,230px);color:#1B1B19;opacity:.82;margin:10px 0 0 -6px}
+.me{margin:28px 0 0;width:clamp(180px,22vw,300px)}
+.me img{display:block;width:100%;height:auto;border-radius:2px;box-shadow:0 1px 0 rgba(27,26,23,.08),0 14px 30px -18px rgba(27,26,23,.45)}
 .sig-hero{color:#1B1A17;opacity:.8;width:clamp(120px,15vw,240px)}
 .hero .sigpos{position:absolute;left:0;right:0;z-index:2;bottom:calc(clamp(120px,19vh,190px) + clamp(54px,12.6vw,224px)*.95);display:flex;justify-content:flex-end;pointer-events:none}
 @media(max-width:700px){.hero .sigpos{bottom:calc(clamp(130px,20vh,180px) + 42vw)}}
@@ -542,11 +543,10 @@ a,button,input,[role=tab]{touch-action:manipulation;-webkit-tap-highlight-color:
 
 <section class="band about" id="about">
   <div class="wrap">
-    <div class="col"><span class="mono abt"><i class="logo faint" aria-hidden="true"></i>ABOUT</span><h2>My <span class="serif">story</span></h2></div>
+    <div class="col"><span class="mono abt"><i class="logo faint" aria-hidden="true"></i>ABOUT</span><h2>My <span class="serif">story</span></h2><figure class="me"><img src="img/tava.webp" alt="Portrait of Tava Valenti" width="900" height="1125" loading="lazy" decoding="async"></figure></div>
     <div class="col">
       <p>My background is in broadcasting and digital media, where I gained experience in filmmaking, storytelling, and content creation through <a href="https://www.instagram.com/tavamadethis/" target="_blank" rel="noopener">Tavamadethis</a>, along with <a href="https://www.kpbs.org/news/2025/01/02/carlsbad-high-school-broadcast-journalism-students-filmmaking-storytelling" target="_blank" rel="noopener">collaborative media projects</a> and filming in Alaska.</p>
       <p>My interests eventually expanded into AI and software development, where I now focus on building applications, designing interfaces, and creating digital tools. I enjoy experimenting with new technology, solving problems, and bringing ideas to life.</p>
-    <span class="sigwrap sig-about"><span class="sig" role="img" aria-label="Tava Valenti's signature"></span></span>
     </div>
   </div>
 </section>
