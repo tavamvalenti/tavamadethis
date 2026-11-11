@@ -9,7 +9,7 @@ if(q.length>1||sa||!own)location.replace('/tiny-world/'+q+h);})();
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Tava Valenti | Developer &amp; Designer</title>
-<meta name="description" content="Tava Valenti builds software, AI tools and digital experiences. Selected work: Veloura, Tiny World, The Collective, Project Origin and Vylos Media.">
+<meta name="description" content="Tava Valenti builds software, AI tools and digital experiences. Selected work: Veloura, Tiny World, The Collective, Project Origin, Vylos Media and SD Onewheel Rentals.">
 <link rel="canonical" href="https://tavamadethis.com/">
 <meta name="theme-color" content="#D8D4CC">
 <meta property="og:type" content="website">
@@ -262,6 +262,19 @@ img,video{max-width:100%}
 .contact .btn.ghost{background:transparent;color:var(--paper);border-color:var(--paper)}
 .contact small{font-family:var(--mono);font-size:12px;color:#B9BDB4}
 @media (prefers-reduced-motion: reduce){.name span{animation:none}.caret{animation:none}.t-tiny .btn{animation:none}html{scroll-behavior:auto}}
+/* SD Onewheel Rentals: deep ocean with coral, the client's own palette */
+.t-onewheel{--fg:#F4EFE4;--mut:#A9C4CF;--line:rgba(244,239,228,.2);--acc:#FF7A4F;--chip:rgba(244,239,228,.06);--btnbg:#FF7A4F;--btnfg:#1A0A04;--card:rgba(244,239,228,.05);--bg0:#06131B;
+  background:radial-gradient(70% 90% at 85% 0%,rgba(22,184,176,.14),transparent 70%),#06131B}
+.t-onewheel .title{font-family:'Inter Tight',sans-serif;font-weight:700;letter-spacing:-.045em}
+.t-onewheel .panel .inner{max-width:1180px}
+.owprev{display:block;text-decoration:none;color:inherit;border:1px solid rgba(255,255,255,.14);border-radius:14px;overflow:hidden;background:#0c2a3a;box-shadow:0 30px 70px rgba(0,0,0,.5);min-width:0}
+.owbar{display:flex;align-items:center;gap:7px;padding:10px 14px;background:#0a1f2b;border-bottom:1px solid rgba(255,255,255,.08)}
+.owbar i{width:10px;height:10px;border-radius:50%;background:#ffffff26}
+.owbar span{flex:1;margin-left:10px;text-align:center;font-family:var(--mono);font-size:12px;color:#A9C4CF;background:#ffffff0f;border-radius:999px;padding:4px 12px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.owprev img{display:block;width:100%;height:auto;transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+.owprev .shot{overflow:hidden;position:relative}
+.owprev:hover img{transform:scale(1.025)}
+.owprev .go{position:absolute;right:16px;bottom:16px;background:#FF7A4F;color:#1A0A04;font-weight:600;font-size:15px;padding:10px 18px;border-radius:999px}
 </style>
 </head>
 <body>
@@ -449,6 +462,26 @@ img,video{max-width:100%}
         </div>
       </div>
       <ul class="hl"><li>Designed and built end to end: pages, copy and an enquiry form</li><li>Scroll-driven camera animation: 96 frames drawn to a canvas and tied to scroll position</li><li>Instagram film previews that play only while on screen</li></ul>
+    </div></div></div>
+  </div>
+</article>
+
+<article class="row t-onewheel" id="onewheel">
+  <div class="wrap">
+    <button type="button" aria-expanded="false" aria-controls="p-onewheel"><span class="title">SD Onewheel Rentals</span><span class="meta"><b>Web Design &amp; Development</b><span class="mono">Client redesign &middot; preview</span></span><span class="plus" aria-hidden="true">+</span></button>
+    <div class="panel" id="p-onewheel"><div><div class="inner">
+      <p class="lede">A full redesign of a San Diego Onewheel and e-scooter rental company's website, built to turn a visitor into a booking in a couple of taps. The preview below is the working site.</p>
+      <div class="actions"><a class="btn big" href="/onewheel/" target="_blank" rel="noopener">Open the live preview &nearr;</a><div class="chips"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>SVG</span></div></div>
+      <a class="owprev" href="/onewheel/" target="_blank" rel="noopener" aria-label="Open the SD Onewheel Rentals website preview">
+        <div class="owbar" aria-hidden="true"><i></i><i></i><i></i><span>tavamadethis.com/onewheel</span></div>
+        <div class="shot"><img src="img/onewheel-preview.jpg" alt="The redesigned SD Onewheel Rentals home page: a full-bleed photo of riders on e-scooters along the Coronado bayfront" width="1600" height="1000" loading="lazy"><span class="go">Open the preview &nearr;</span></div>
+      </a>
+      <ul class="hl">
+        <li>Rebuilt around one action: a persistent Book button, plus a rental price estimator that updates as you pick the ride, the days and delivery</li>
+        <li>Clear pages for rentals, guided tours, offers, boards for sale, the blog and a readable terms page, with the original agreement wording kept as written</li>
+        <li>A looping hero video, a customer reviews carousel with filters, and a logo that glides along rolling hills as you move your cursor</li>
+        <li>Responsive from phone to desktop, with a light and dark theme and keyboard-friendly controls</li>
+      </ul>
     </div></div></div>
   </div>
 </article>
