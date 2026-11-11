@@ -19,7 +19,9 @@ if(q.length>1||sa||!own)location.replace('/tiny-world/'+q+h);})();
 <meta property="og:url" content="https://tavamadethis.com/">
 <meta property="og:image" content="https://tavamadethis.com/img/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231B1B19'/%3E%3Ctext x='32' y='46' font-family='Helvetica,Arial,sans-serif' font-weight='700' font-size='40' text-anchor='middle' fill='%23EFECE6'%3ET%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/icon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/img/icon-192.png">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
 /* One architectural idea, five rooms: bright concrete hero, warm concrete for Veloura, a dark globe room for Tiny World, graphite for The Collective, terminal black for Origin, concrete and ivy for About, a dark courtyard for Contact. */
@@ -40,6 +42,15 @@ img,video{max-width:100%}
 .mono{font-family:var(--mono);font-size:12px;letter-spacing:.04em}
 :focus-visible{outline:2px solid var(--acc,var(--moss));outline-offset:3px}
 
+
+.logo{display:inline-block;width:1.15em;height:1.15em;flex:none;background:currentColor;-webkit-mask:url(img/logo-mark.png) center/contain no-repeat;mask:url(img/logo-mark.png) center/contain no-repeat;vertical-align:-.2em}
+.logo.faint{opacity:.45;width:1.05em;height:1.05em;margin-right:.55em}
+.pill.brand{display:inline-flex;align-items:center;gap:9px}
+.pill.brand .logo{width:20px;height:20px;vertical-align:0;opacity:.95}
+.work-intro h2 .wk{display:inline-flex;align-items:baseline}
+.contact small.ft{display:flex;align-items:center}
+.about .abt{display:flex;align-items:center}
+
 /* ---------- hero ---------- */
 .hero{position:relative;height:clamp(560px,94vh,1000px);overflow:hidden;background:#b9b3a8;isolation:isolate}
 @supports (height:100svh){.hero{height:clamp(560px,94svh,1000px)}}
@@ -54,12 +65,13 @@ img,video{max-width:100%}
 .pill{background:rgba(27,27,25,.82);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);color:var(--paper);padding:10px 16px;border-radius:999px;font-size:14px;white-space:nowrap}
 .pill a{color:var(--paper)}
 .name{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;margin:0;padding-bottom:6%;
-  font-weight:700;font-size:clamp(64px,15.5vw,270px);line-height:.84;letter-spacing:-.055em;color:#33322e;mix-blend-mode:multiply;opacity:.92;user-select:none;-webkit-user-select:none}
+  font-weight:700;font-size:clamp(64px,15.5vw,270px);line-height:.84;letter-spacing:-.055em;color:#4a463f;user-select:none;-webkit-user-select:none;filter:drop-shadow(0 2px 1px rgba(255,248,232,.42)) drop-shadow(0 -1px 1px rgba(20,18,14,.5))}
+.name span{background:linear-gradient(rgba(46,42,36,.74),rgba(46,42,36,.74)),url(img/concrete.jpg) center/cover;background-blend-mode:multiply;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;mix-blend-mode:multiply}
 .name span{display:block;animation:rise 1.2s cubic-bezier(.2,.8,.2,1) both}
 .name span+span{animation-delay:.12s}
 @keyframes rise{from{transform:translateY(18px);filter:blur(6px)}to{transform:none;filter:none}}
 .hero .foot{position:absolute;inset:auto 0 0 0;z-index:3;padding-bottom:max(24px, env(safe-area-inset-bottom, 0px));display:flex;justify-content:space-between;align-items:flex-end;gap:16px}
-.hero .tag{margin:0;font-size:clamp(19px,2.3vw,32px);line-height:1.15;background:rgba(239,236,230,.8);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);padding:14px 18px;border-radius:14px;max-width:min(640px,100%)}
+.hero .tag{width:fit-content;margin:0;font-size:clamp(19px,2.3vw,32px);line-height:1.15;background:rgba(239,236,230,.8);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);padding:14px 18px;border-radius:14px;max-width:min(640px,100%)}
 .hero .tag .serif{font-size:1.15em}
 .hero .tag small{display:block;margin-top:8px;font-size:.52em;line-height:1.35;color:var(--stone)}
 .round{display:flex;align-items:center;justify-content:center;flex:none;width:104px;height:104px;border-radius:50%;background:var(--ink);color:var(--paper);text-decoration:none;font-size:15px;transition:transform .3s cubic-bezier(.2,.8,.2,1)}
@@ -74,9 +86,9 @@ img,video{max-width:100%}
 
 /* ---------- project rooms ---------- */
 .row{--fg:#1B1B19;--mut:#5E5B55;--line:#A9A59C;--acc:#3F5E3A;--chip:rgba(239,236,230,.7);--btnbg:#1B1B19;--btnfg:#EFECE6;--card:rgba(255,255,255,.35);position:relative;color:var(--fg);isolation:isolate;overflow:hidden}
-.row > .wrap > button{all:unset;box-sizing:border-box;cursor:pointer;display:flex;width:100%;align-items:center;justify-content:space-between;gap:16px;padding-block:clamp(26px,3.6vw,52px);flex-wrap:wrap}
+.row > .wrap > button{all:unset;box-sizing:border-box;cursor:pointer;display:flex;width:100%;align-items:center;justify-content:space-between;gap:16px;padding-block:clamp(22px,2.8vw,40px);flex-wrap:wrap}
 .row > .wrap > button:focus-visible{outline:2px solid var(--acc);outline-offset:-2px}
-.row .title{font-size:clamp(40px,7.2vw,96px);font-weight:500;letter-spacing:-.04em;line-height:1;transition:transform .4s cubic-bezier(.2,.8,.2,1)}
+.row .title{font-size:clamp(38px,6.6vw,88px);font-weight:500;letter-spacing:-.04em;line-height:1;transition:transform .4s cubic-bezier(.2,.8,.2,1)}
 .row > .wrap > button:hover .title{transform:translateX(14px)}
 .row .meta{display:flex;flex-direction:column;align-items:flex-end;gap:2px;text-align:right;color:var(--mut)}
 .row .meta b{font-weight:500;color:var(--fg);font-size:17px}
@@ -85,12 +97,13 @@ img,video{max-width:100%}
 .panel{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:0fr;transition:grid-template-rows .5s cubic-bezier(.2,.8,.2,1)}
 .row.open .panel{grid-template-rows:1fr}
 .panel > div{overflow:hidden;min-height:0}
-.panel .inner{padding:4px 0 clamp(44px,6vw,80px);display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(24px,3vw,36px)}
-.lede{margin:0;font-size:clamp(19px,1.9vw,26px);line-height:1.35;max-width:62ch;letter-spacing:-.01em}
+.panel .inner{padding:0 0 clamp(28px,3.4vw,44px);display:grid;grid-template-columns:minmax(0,1fr);gap:18px;max-width:900px}
+.t-origin .panel .inner{max-width:1180px}
+.lede{margin:0;font-size:clamp(17px,1.5vw,21px);line-height:1.4;max-width:60ch;letter-spacing:-.005em}
 .actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
 .btn{display:inline-flex;align-items:center;gap:10px;background:var(--btnbg);color:var(--btnfg);text-decoration:none;padding:14px 22px;border-radius:999px;font-weight:500;font-family:inherit;font-size:16px;border:1px solid var(--btnbg);cursor:pointer}
 .btn.ghost{background:transparent;color:var(--fg);border-color:var(--fg)}
-.btn.big{padding:18px 30px;font-size:18px}
+.btn.big{padding:14px 24px;font-size:17px}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .chips span{font-family:var(--mono);font-size:12px;border:1px solid var(--line);border-radius:999px;padding:6px 12px;background:var(--chip)}
 .eng{display:grid;gap:14px;grid-template-columns:minmax(0,1fr)}
@@ -101,12 +114,13 @@ img,video{max-width:100%}
 .eng p{margin:0;font-size:16px;line-height:1.5}
 .sub{margin:0 0 -8px;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut)}
 .shots{display:flex;gap:16px;overflow-x:auto;-webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory;padding-bottom:10px;scrollbar-width:thin}
-.shots img{height:clamp(240px,42vw,560px);width:auto;max-width:none;border-radius:10px;scroll-snap-align:start;box-shadow:0 18px 40px rgba(0,0,0,.3);background:#111}
+.shots video{flex:none;height:clamp(170px,24vw,290px);aspect-ratio:1280/800;width:auto;border-radius:10px;scroll-snap-align:start;background:#0d0e0d;box-shadow:0 18px 40px rgba(0,0,0,.3)}
+.shots img{height:clamp(170px,24vw,290px);width:auto;max-width:none;border-radius:10px;scroll-snap-align:start;box-shadow:0 18px 40px rgba(0,0,0,.3);background:#111}
 .video{border-radius:14px;overflow:hidden;background:#0d0e0d;box-shadow:0 24px 50px rgba(0,0,0,.35);max-width:980px}
 .video video{display:block;width:100%;height:auto}
 .hl{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:minmax(0,1fr);gap:0;border-top:1px solid var(--line)}
-.hl li{padding:14px 0;border-bottom:1px solid var(--line);font-size:16px;line-height:1.4}
-@media(min-width:860px){.hl{grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;border-top:1px solid var(--line)}.hl li{border-bottom:0;padding:16px 0 0}}
+.hl li{padding:10px 0;border-bottom:1px solid var(--line);font-size:15px;line-height:1.4}
+@media(min-width:860px){.hl{grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;border-top:1px solid var(--line)}.hl li{border-bottom:0;padding:12px 0 0}}
 .hint{margin:0 0 -8px;font-family:var(--mono);font-size:12px;color:var(--mut);line-height:1.5}
 .hot{position:absolute;display:block;border-radius:8px;cursor:pointer;background:transparent;border:0;padding:0}
 .hot:hover,.hot:focus-visible{background:rgba(255,255,255,.08);outline:1px solid rgba(255,255,255,.35)}
@@ -141,7 +155,7 @@ img,video{max-width:100%}
 .t-origin .title{font-family:var(--mono);font-weight:500;letter-spacing:-.05em}
 
 /* ---------- Collective read-only tour ---------- */
-.tour{max-width:1040px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#0b0c0d;box-shadow:0 30px 60px rgba(0,0,0,.45)}
+.tour{max-width:640px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#0b0c0d;box-shadow:0 30px 60px rgba(0,0,0,.45)}
 .tour .tabs{display:flex;gap:4px;padding:10px 12px;background:#1b1c1e;border-bottom:1px solid var(--line);overflow-x:auto;-webkit-overflow-scrolling:touch;align-items:center}
 .tour .tabs i{width:11px;height:11px;border-radius:50%;flex:none;display:block;margin-right:6px}
 .tour .tabs button{all:unset;cursor:pointer;flex:none;padding:7px 14px;border-radius:8px;font-size:14px;color:#9A9C9E;min-height:20px}
@@ -150,16 +164,21 @@ img,video{max-width:100%}
 .tour .tabs .ro{margin-left:auto;flex:none;font-family:var(--mono);font-size:11px;color:#7f8185;padding-left:12px;white-space:nowrap}
 .tour .stage{position:relative;background:#0b0c0d}
 .tour .stage img{display:block;width:100%;height:auto}
-.tour .cap{padding:16px 20px 20px;display:grid;gap:4px;border-top:1px solid var(--line)}
-.tour .cap b{font-weight:500;font-size:18px}
-.tour .cap span{color:var(--mut);font-size:15px}
+.tour .cap{padding:12px 16px 14px;display:grid;gap:2px;border-top:1px solid var(--line)}
+.tour .cap b{font-weight:500;font-size:16px}
+.tour .cap span{color:var(--mut);font-size:14px;line-height:1.4}
 .tour .hot{position:absolute;inset:0}
 .facts2{display:flex;flex-wrap:wrap;gap:clamp(18px,4vw,48px)}
 .facts2 div{display:grid;gap:2px}
-.facts2 b{font-size:clamp(28px,4vw,48px);font-weight:500;letter-spacing:-.03em;line-height:1}
+.facts2 b{font-size:clamp(26px,3.2vw,38px);font-weight:500;letter-spacing:-.03em;line-height:1}
 .facts2 span{font-family:var(--mono);font-size:12px;color:var(--mut)}
 
 /* ---------- terminal ---------- */
+.strip{display:grid;grid-template-columns:minmax(0,1fr);gap:0;border-top:1px solid var(--line)}
+.strip p{margin:0;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px;line-height:1.45;color:var(--mut)}
+.strip b{display:block;font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--acc);margin-bottom:2px}
+.strip .ok{color:#7FBF7A}.strip .bad{color:#E0836E}
+@media(min-width:860px){.strip{grid-template-columns:repeat(3,minmax(0,1fr));gap:32px}.strip p{border-bottom:0;padding:10px 0 0}}
 .learn{display:grid;gap:14px;grid-template-columns:minmax(0,1fr)}
 @media(min-width:760px){.learn{grid-template-columns:repeat(3,minmax(0,1fr))}}
 .learn section{border:1px solid var(--line);border-radius:12px;padding:18px 20px;background:var(--card)}
@@ -167,11 +186,11 @@ img,video{max-width:100%}
 .learn p{margin:0;font-size:16px;line-height:1.5}
 .legend{display:flex;flex-wrap:wrap;gap:8px 20px;font-family:var(--mono);font-size:12px;color:var(--mut)}
 .legend .ok{color:#7FBF7A}.legend .bad{color:#E0836E}
-.term{background:#161816;border:1px solid rgba(127,191,122,.3);border-radius:12px;box-shadow:0 30px 60px rgba(0,0,0,.6),0 0 40px rgba(127,191,122,.06);overflow:hidden;color:#D7DAD3;max-width:980px}
-.term .bar{display:flex;align-items:center;gap:8px;padding:12px 14px;background:#232623;font-family:var(--mono);font-size:12px;color:#9AA096}
+.term{background:#0f120f;border:1px solid rgba(127,191,122,.35);border-radius:14px;box-shadow:0 40px 80px rgba(0,0,0,.65),0 0 80px rgba(127,191,122,.10);overflow:hidden;color:#D7DAD3;max-width:1180px}
+.term .bar{display:flex;align-items:center;gap:8px;padding:12px 14px;background:#1b1f1b;font-family:var(--mono);font-size:12px;color:#9AA096}
 .term .bar i{width:12px;height:12px;border-radius:50%;display:block}
 .term .bar .t{margin:0 auto;padding-right:52px}
-.term .body{height:min(520px,70vh);overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:20px clamp(14px,2.4vw,28px) 28px;font-family:var(--mono);font-size:clamp(13px,1.15vw,15px);line-height:1.7;scrollbar-color:#3a3f3a transparent}
+.term .body{height:min(560px,66vh);overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:20px clamp(14px,2.4vw,28px) 28px;font-family:var(--mono);font-size:clamp(14px,1.25vw,17px);line-height:1.7;scrollbar-color:#3a3f3a transparent}
 .term p{margin:0 0 4px}
 .term .cmd{color:#F1EFEA;margin-top:22px}
 .term .cmd:first-child{margin-top:0}
@@ -209,10 +228,10 @@ img,video{max-width:100%}
 <body>
 <header class="hero" id="top">
   <img class="poster" src="img/hero.jpg" alt="">
-  <video autoplay muted loop playsinline webkit-playsinline preload="auto" poster="img/hero.jpg" aria-hidden="true"><source src="vid/hero.mp4" type="video/mp4"></video>
+  <video autoplay muted loop playsinline webkit-playsinline preload="auto" poster="img/hero.jpg" aria-hidden="true"><source src="vid/hero-hd.mp4" type="video/mp4" media="(min-width:1100px)"><source src="vid/hero-m.mp4" type="video/mp4"></video>
   <div class="glow" id="glow1"></div><div class="glow two" id="glow2"></div>
   <nav class="wrap" aria-label="Main">
-    <a href="#top" class="pill">tavamadethis</a>
+    <a href="#top" class="pill brand"><i class="logo" aria-hidden="true"></i>tavamadethis</a>
     <span class="pill links"><a href="#work">Work</a><a href="#about">About</a><a href="#contact">Contact</a></span>
   </nav>
   <h1 class="name" aria-label="Tava Valenti"><span>Tava</span><span>Valenti</span></h1>
@@ -225,20 +244,20 @@ img,video{max-width:100%}
 <main>
 <section class="work-intro" id="work">
   <div class="wrap">
-    <h2><span>Selected <span class="serif">work</span></span><span class="mono" style="color:var(--stone)">Tap a project to open it</span></h2>
+    <h2><span class="wk"><i class="logo faint" aria-hidden="true"></i>Selected&nbsp;<span class="serif">work</span></span><span class="mono" style="color:var(--stone)">Click a project to expand it &darr;</span></h2>
   </div>
 </section>
 
 <!-- ============ VELOURA ============ -->
-<article class="row t-veloura open" id="veloura">
+<article class="row t-veloura" id="veloura">
   <div class="wrap">
-    <button type="button" aria-expanded="true" aria-controls="p-veloura"><span class="title">Veloura</span><span class="meta"><b>Design &amp; Development</b><span class="mono">Mac app &middot; live beta</span></span><span class="plus" aria-hidden="true">+</span></button>
+    <button type="button" aria-expanded="false" aria-controls="p-veloura"><span class="title">Veloura</span><span class="meta"><b>Design &amp; Development</b><span class="mono">Mac app &middot; live beta</span></span><span class="plus" aria-hidden="true">+</span></button>
     <div class="panel" id="p-veloura"><div><div class="inner">
       <p class="lede">An AI music producer inside FL Studio. Describe a beat and it writes real, editable notes into your project.</p>
       <div class="actions"><a class="btn big" href="https://velouramusic.com" target="_blank" rel="noopener">Visit velouramusic.com &nearr;</a><div class="chips"><span>Electron</span><span>Python</span><span>MIDI</span><span>macOS</span></div></div>
 
-      <div class="video"><video controls playsinline preload="metadata" poster="img/veloura-poster.jpg"><source src="vid/veloura-walkthrough.mp4" type="video/mp4"></video></div>
-      <div class="shots" tabindex="0" aria-label="Veloura screenshots">
+      <div class="shots" tabindex="0" aria-label="Veloura walkthrough and screenshots">
+        <video controls playsinline preload="metadata" poster="img/veloura-poster.jpg"><source src="vid/veloura-walkthrough.mp4" type="video/mp4"></video>
         <img src="img/veloura-app-2.jpg" alt="Veloura app connected to FL Studio" loading="lazy">
         <img src="img/veloura-site-1.jpg" alt="Veloura website: Type it. Hear it in FL." loading="lazy">
         <img src="img/veloura-app-1.jpg" alt="Veloura studio screen" loading="lazy">
@@ -272,10 +291,8 @@ img,video{max-width:100%}
     <div class="panel" id="p-collective"><div><div class="inner">
       <p class="lede">A media company run by AI agents. They research, make and post videos to YouTube, TikTok and Instagram while I supervise from a private app.</p>
       <div class="facts2"><div><b>22.9K</b><span>views in the first week</span></div><div><b>24</b><span>videos posted</span></div><div><b>3</b><span>platforms connected</span></div></div>
-      <div class="chips"><span>TypeScript</span><span>Node</span><span>SQLite</span><span>FFmpeg</span></div>
 
-      <p class="sub">Explore the control app</p>
-      <p class="hint">&uarr; Click the tabs at the top of the app (Today, Content, Schedule, Analytics) to switch screens. Read-only.</p>
+      <p class="hint">Click the tabs at the top of the app to explore it. Screenshots only, nothing private.</p>
       <div class="tour" id="tour">
         <div class="tabs" role="tablist" aria-label="The Collective screens"><i style="background:#FF5F57"></i><i style="background:#FEBC2E"></i><i style="background:#28C840"></i>
           <button role="tab" aria-selected="true" data-i="0">Today</button><button role="tab" aria-selected="false" data-i="1">Content</button><button role="tab" aria-selected="false" data-i="2">Preview</button><button role="tab" aria-selected="false" data-i="3">Schedule</button><button role="tab" aria-selected="false" data-i="4">Analytics</button><button role="tab" aria-selected="false" data-i="5">What's working</button>
@@ -283,7 +300,6 @@ img,video{max-width:100%}
         <div class="stage" id="stage"><img id="tourimg" src="img/collective-today.jpg" alt="The Collective control app, Today screen" width="1600" height="869"></div>
         <div class="cap" aria-live="polite"><b id="tourt">Today</b><span id="tourd">One screen for the company: audience, spend, what needs my approval, and the videos waiting for review.</span></div>
       </div>
-      <p class="note">The real app is private, so this tour is screenshots only.</p>
       <ul class="hl"><li>Budgets, permissions and a kill switch enforced in code</li><li>Videos rendered automatically and posted to 3 platforms</li><li>Private control app for Mac and iPhone</li></ul>
     </div></div></div>
   </div>
@@ -297,13 +313,11 @@ img,video{max-width:100%}
       <p class="lede">What happens when AI agents have to survive in a shared economy? Every move was recorded.</p>
       <div class="chips"><span>Python</span><span>4 experiments</span><span>56 agents</span></div>
 
-      <p class="sub">Before you scroll the terminal</p>
-      <div class="learn">
-        <section><h3>The question</h3><p>Do independent AI agents cooperate, compete, or fail when nobody tells them what to do?</p></section>
-        <section><h3>The setup</h3><p>Agents start with equal resources in a simulated world. They earn credits by solving jobs and trading, and are shut down if they run out.</p></section>
-        <section><h3>The results</h3><p>The simulated world, its rules and market, and the logging that turns thousands of actions into the results below.</p></section>
+      <div class="strip">
+        <p><b>The question</b>Do independent AI agents cooperate, compete, or fail when nobody tells them what to do?</p>
+        <p><b>The setup</b>Equal resources in a simulated world. They earn credits by solving jobs and trading, and are shut down at zero.</p>
+        <p><b>The results</b>Scroll the terminal. <span class="ok">&#9679;</span> survived <span class="bad">&#9675;</span> shut down.</p>
       </div>
-      <div class="legend"><span><span class="ok">&#9679;</span> agent survived</span><span><span class="bad">&#9675;</span> agent ran out of credits</span><span>Scroll inside the window &darr;</span></div>
 
       <div class="term" role="region" aria-label="Project Origin results">
         <div class="bar"><i style="background:#FF5F57"></i><i style="background:#FEBC2E"></i><i style="background:#28C840"></i><span class="t">tava &mdash; origin &mdash; 80&times;24</span></div>
@@ -367,10 +381,10 @@ img,video{max-width:100%}
 
 <section class="band about" id="about">
   <img class="poster" src="img/wall.jpg" alt="" loading="lazy">
-  <video autoplay muted loop playsinline webkit-playsinline preload="metadata" poster="img/wall.jpg" aria-hidden="true"><source src="vid/wall.mp4" type="video/mp4"></video>
+  <video autoplay muted loop playsinline webkit-playsinline preload="metadata" poster="img/wall.jpg" aria-hidden="true"><source src="vid/wall-hd.mp4" type="video/mp4" media="(min-width:1100px)"><source src="vid/wall-m.mp4" type="video/mp4"></video>
   <div class="wrap" style="width:100%"><div class="txt">
-    <span class="mono">ABOUT</span>
-    <h2>Hi, I'm <span class="serif">Tava</span>.</h2>
+    <span class="mono abt"><i class="logo faint" aria-hidden="true"></i>ABOUT</span>
+    <h2>My <span class="serif">story</span></h2>
     <p>My background is in broadcasting and digital media, where I gained experience in filmmaking, storytelling, and content creation through <a href="https://www.instagram.com/tavamadethis/" target="_blank" rel="noopener">Tavamadethis</a>, along with <a href="https://www.kpbs.org/news/2025/01/02/carlsbad-high-school-broadcast-journalism-students-filmmaking-storytelling" target="_blank" rel="noopener">collaborative media projects</a> and filming in Alaska.</p>
     <p>My interests eventually expanded into AI and software development, where I now focus on building applications, designing interfaces, and creating digital tools. I enjoy experimenting with new technology, solving problems, and bringing ideas to life.</p>
   </div></div>
@@ -378,12 +392,12 @@ img,video{max-width:100%}
 
 <section class="band contact" id="contact">
   <img class="poster" src="img/dusk.jpg" alt="" loading="lazy">
-  <video autoplay muted loop playsinline webkit-playsinline preload="metadata" poster="img/dusk.jpg" aria-hidden="true"><source src="vid/dusk.mp4" type="video/mp4"></video>
+  <video autoplay muted loop playsinline webkit-playsinline preload="metadata" poster="img/dusk.jpg" aria-hidden="true"><source src="vid/dusk-hd.mp4" type="video/mp4" media="(min-width:1100px)"><source src="vid/dusk-m.mp4" type="video/mp4"></video>
   <div class="shade"></div>
   <div class="wrap txt">
     <h2>Have a project?<br>Let's <span class="serif">talk</span>.</h2>
     <div class="actions"><a class="btn" href="mailto:tavamvalenti@gmail.com">tavamvalenti@gmail.com</a><a class="btn ghost" href="https://github.com/tavamvalenti" target="_blank" rel="noopener">GitHub</a><a class="btn ghost" href="https://www.instagram.com/tavamadethis/" target="_blank" rel="noopener">Instagram</a></div>
-    <small>&copy; 2026 Tava Valenti &middot; tavamadethis.com</small>
+    <small class="ft"><i class="logo faint" aria-hidden="true"></i>&copy; 2026 Tava Valenti &middot; tavamadethis.com</small>
   </div>
 </section>
 </main>
@@ -392,6 +406,12 @@ img,video{max-width:100%}
 (function(){
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reduce) document.querySelectorAll('video[autoplay]').forEach(function(v){ v.removeAttribute('autoplay'); v.pause(); });
+
+  // play background loops only while they are on screen
+  if ('IntersectionObserver' in window && !reduce) {
+    var vio = new IntersectionObserver(function(en){ en.forEach(function(e){ var v = e.target; if (e.isIntersecting) { var pr = v.play(); if (pr && pr.catch) pr.catch(function(){}); } else v.pause(); }); }, { rootMargin: '200px' });
+    document.querySelectorAll('video[autoplay]').forEach(function(v){ vio.observe(v); });
+  }
 
   // accordion rooms
   document.querySelectorAll('.row > .wrap > button').forEach(function(b){
