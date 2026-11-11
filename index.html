@@ -56,10 +56,6 @@ img,video{max-width:100%}
 .hero{position:relative;height:clamp(560px,94vh,1000px);overflow:hidden;background:#b9b3a8;isolation:isolate}
 @supports (height:100svh){.hero{height:clamp(560px,94svh,1000px)}}
 .hero video,.hero .poster,.band video,.band .poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-/* the cursor light is now a small glint: soft, low, and it only brightens what is already lit */
-.glow{position:absolute;left:0;top:0;width:300px;height:300px;margin:-150px 0 0 -150px;border-radius:50%;pointer-events:none;
-  background:radial-gradient(closest-side, rgba(255,240,205,.5), rgba(255,240,205,.12) 55%, rgba(255,240,205,0) 100%);mix-blend-mode:soft-light;will-change:transform;opacity:.7}
-.glow.two{width:110px;height:110px;margin:-55px 0 0 -55px;background:radial-gradient(closest-side, rgba(255,248,230,.28), rgba(255,248,230,0) 100%);mix-blend-mode:screen;opacity:.6}
 .hero nav{position:absolute;inset:0 0 auto 0;z-index:3;padding-block:max(20px, env(safe-area-inset-top, 0px));display:flex;justify-content:space-between;align-items:center;gap:10px}
 .hero nav a{text-decoration:none;font-weight:500}
 .hero nav .links{display:flex;gap:clamp(14px,3vw,28px)}
@@ -231,7 +227,7 @@ img,video{max-width:100%}
 <body>
 <header class="hero" id="top">
   <img class="poster" src="img/hero.jpg" alt="" fetchpriority="high">
-<div class="glow" id="glow1"></div><div class="glow two" id="glow2"></div>
+
   <nav class="wrap" aria-label="Main">
     <a href="#top" class="pill brand"><i class="logo" aria-hidden="true"></i>tavamadethis</a>
     <span class="pill links"><a href="#work">Work</a><a href="#about">About</a><a href="#contact">Contact</a></span>
@@ -423,24 +419,6 @@ img,video{max-width:100%}
   // links from the hero or nav straight into a project open it
   function openHash(){ var el = location.hash && document.querySelector(location.hash); if (el && el.classList.contains('row') && !el.classList.contains('open')) el.querySelector('button').click(); }
   addEventListener('hashchange', openHash); openHash();
-
-  // a small glint of sunlight that follows the pointer on the hero wall
-  var hero = document.querySelector('.hero'), g1 = document.getElementById('glow1'), g2 = document.getElementById('glow2');
-  var tx = 0.62, ty = 0.38, x = tx, y = ty, x2 = tx, y2 = ty, t0 = performance.now(), active = false, visible = true;
-  hero.addEventListener('pointermove', function(e){ var r = hero.getBoundingClientRect(); tx = (e.clientX - r.left) / r.width; ty = (e.clientY - r.top) / r.height; active = true; });
-  hero.addEventListener('pointerleave', function(){ active = false; });
-  if ('IntersectionObserver' in window) new IntersectionObserver(function(en){ visible = en[0].isIntersecting; }).observe(hero);
-  function frame(now){
-    if (visible) {
-      var r = hero.getBoundingClientRect();
-      if (!active && !reduce) { var t = (now - t0) / 1000; tx = 0.55 + Math.sin(t * 0.25) * 0.22; ty = 0.4 + Math.cos(t * 0.19) * 0.12; }
-      x += (tx - x) * 0.05; y += (ty - y) * 0.05; x2 += (tx - x2) * 0.12; y2 += (ty - y2) * 0.12;
-      g1.style.transform = 'translate3d(' + (x * r.width) + 'px,' + (y * r.height) + 'px,0)';
-      g2.style.transform = 'translate3d(' + (x2 * r.width) + 'px,' + (y2 * r.height) + 'px,0)';
-    }
-    requestAnimationFrame(frame);
-  }
-  requestAnimationFrame(frame);
 
   // The Collective read-only tour
   var screens = [
