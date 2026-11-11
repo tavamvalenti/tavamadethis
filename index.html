@@ -9,7 +9,7 @@ if(q.length>1||sa||!own)location.replace('/tiny-world/'+q+h);})();
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Tava Valenti | Developer &amp; Designer</title>
-<meta name="description" content="Tava Valenti builds software, AI tools and digital experiences. Selected work: Veloura, Tiny World, The Collective and Project Origin.">
+<meta name="description" content="Tava Valenti builds software, AI tools and digital experiences. Selected work: Veloura, Tiny World, The Collective, Project Origin and Vylos Media.">
 <link rel="canonical" href="https://tavamadethis.com/">
 <meta name="theme-color" content="#D8D4CC">
 <meta property="og:type" content="website">
@@ -22,7 +22,7 @@ if(q.length>1||sa||!own)location.replace('/tiny-world/'+q+h);})();
 <link rel="icon" type="image/png" sizes="32x32" href="/img/icon-32.png?v=2">
 <link rel="icon" type="image/png" sizes="192x192" href="/img/icon-192.png?v=2">
 <link rel="apple-touch-icon" href="/img/apple-touch-icon.png?v=2">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&family=Inter:wght@400;500&display=swap">
 <style>
 /* One architectural idea, five rooms: bright concrete hero, warm concrete for Veloura, a dark globe room for Tiny World, graphite for The Collective, terminal black for Origin, concrete and ivy for About, a dark courtyard for Contact. */
 :root{
@@ -149,6 +149,46 @@ img,video{max-width:100%}
 .t-origin{--fg:#D7DAD3;--mut:#8E948A;--line:rgba(127,191,122,.25);--acc:#7FBF7A;--chip:rgba(127,191,122,.07);--btnbg:#7FBF7A;--btnfg:#07100A;--card:rgba(127,191,122,.05);--bg0:#050705;
   background:repeating-linear-gradient(0deg,rgba(127,191,122,.035) 0 1px,transparent 1px 4px),#050705}
 .t-origin .title{font-family:var(--mono);font-weight:500;letter-spacing:-.05em}
+/* Vylos Media: warm black with champagne, the client's own palette */
+.t-vylos{--fg:#EDE6D8;--mut:#A39A88;--line:rgba(205,187,152,.25);--acc:#CDBB98;--chip:rgba(205,187,152,.07);--btnbg:#CDBB98;--btnfg:#14110C;--card:rgba(205,187,152,.05);--bg0:#0C0A08;
+  background:radial-gradient(70% 90% at 85% 0%,rgba(205,187,152,.10),transparent 70%),#0C0A08}
+.t-vylos .title{font-family:'Instrument Serif',Georgia,serif;font-weight:400;letter-spacing:-.025em}
+.t-vylos .panel .inner{max-width:1180px}
+.vwin{--vbg:#0a0a0b;--vtx:#ecebe7;--vmu:#9a988f;--vdim:#5c5b58;--vac:#c8b58e;--vln:rgba(255,255,255,.09);background:var(--vbg);color:var(--vtx);border:1px solid rgba(255,255,255,.12);border-radius:14px;overflow:hidden;box-shadow:0 30px 70px rgba(0,0,0,.55);font-family:Inter,'Inter Tight',sans-serif;min-width:0}
+.vnav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px clamp(16px,3vw,32px);border-bottom:1px solid var(--vln);background:rgba(10,10,11,.9)}
+.vbrand{display:flex;align-items:center;gap:12px;font:500 12px/1 Inter,sans-serif;letter-spacing:.3em;text-transform:uppercase;color:var(--vtx);text-decoration:none}
+.vbrand img{width:28px;height:28px;border-radius:50%}
+.vlinks{display:flex;gap:clamp(14px,2.6vw,32px);font-size:13px;color:var(--vmu)}
+.vbtn{display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 18px;border-radius:999px;background:var(--vtx);color:#0a0a0b;font:500 13px/1 Inter,sans-serif;text-decoration:none;white-space:nowrap;transition:background .3s}
+.vbtn:hover{background:var(--vac)}
+.vkit{background:#050506;display:grid;grid-template-columns:minmax(240px,340px) minmax(0,1fr);gap:clamp(20px,3.5vw,56px);align-items:center;padding:clamp(24px,4vw,56px) clamp(16px,3vw,40px)}
+.veyebrow{margin:0;display:flex;align-items:center;gap:12px;font:500 11px/1 Inter,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:var(--vmu)}
+.veyebrow::before{content:"";width:24px;height:1px;background:var(--vac)}
+.vh{margin:20px 0 16px;font:300 clamp(30px,3.4vw,46px)/1.05 Fraunces,Georgia,serif;letter-spacing:-.02em}
+.vh em{font-style:italic;color:var(--vac);font-weight:300}
+.vp{margin:0;color:var(--vmu);font-size:15px;line-height:1.5}
+.vprog{display:flex;align-items:center;gap:14px;margin-top:28px;font:500 11px/1 Inter,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:var(--vdim)}
+.vprog .bar{flex:1;height:1px;background:var(--vln);position:relative;overflow:hidden}
+.vprog .bar i{position:absolute;inset:0;background:var(--vac);transform-origin:left;transform:scaleX(0)}
+.vlabels{list-style:none;margin:24px 0 0;padding:0;display:grid}
+.vlabels li{display:grid;grid-template-columns:1fr auto;gap:12px;padding:11px 0;border-top:1px solid var(--vln);font-size:13px;color:var(--vdim);transition:color .4s}
+.vlabels li:last-child{border-bottom:1px solid var(--vln)}
+.vlabels li.on{color:var(--vtx)}.vlabels li.on span:last-child{color:var(--vac)}
+.vstage{position:relative;aspect-ratio:16/9;width:100%;min-width:0;cursor:ew-resize;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.vstage canvas{width:100%;height:100%;display:block}
+.vstage::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at center,transparent 55%,#050506 100%)}
+.vload{position:absolute;inset:0;display:grid;place-items:center;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--vdim);z-index:1}
+.vload[hidden]{display:none}
+.vctl{display:flex;align-items:center;gap:16px;padding:0 clamp(16px,3vw,40px) clamp(18px,2.4vw,28px);background:#050506;font:500 11px/1 Inter,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:var(--vmu)}
+.vctl input{flex:1;min-width:0;accent-color:var(--vac);height:28px;cursor:ew-resize}
+.vctl span{white-space:nowrap}
+.vwork{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--vln)}
+.vwork>div{padding:26px clamp(14px,2.4vw,32px) 30px}
+.vwork>div+div{border-left:1px solid var(--vln)}
+.vwork .k{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--vdim)}
+.vwork h4{margin:12px 0 8px;font:300 24px/1.1 Fraunces,Georgia,serif;letter-spacing:-.01em}
+.vwork p{margin:0;color:var(--vmu);font-size:14px;line-height:1.5}
+@media(max-width:760px){.vkit{grid-template-columns:minmax(0,1fr);gap:14px}.vp,.vlabels{display:none}.vh{margin-bottom:0}.vprog{margin-top:14px}.vlinks{display:none}.vwork{display:none}}
 
 /* ---------- Collective read-only tour ---------- */
 .tour{max-width:640px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#0b0c0d;box-shadow:0 30px 60px rgba(0,0,0,.45)}
@@ -377,6 +417,43 @@ img,video{max-width:100%}
   </div>
 </article>
 
+<article class="row t-vylos" id="vylos">
+  <div class="wrap">
+    <button type="button" aria-expanded="false" aria-controls="p-vylos"><span class="title">Vylos Media</span><span class="meta"><b>Web Design &amp; Development</b><span class="mono">Client site &middot; live</span></span><span class="plus" aria-hidden="true">+</span></button>
+    <div class="panel" id="p-vylos"><div><div class="inner">
+      <p class="lede">A website for a San Diego video studio that films automotive and luxury brands. This is a working piece of it: drag the camera apart.</p>
+      <div class="actions"><a class="btn big" href="https://vylosmedia.com" target="_blank" rel="noopener">Visit vylosmedia.com &nearr;</a><div class="chips"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>Canvas</span></div></div>
+      <div class="vwin" id="vwin">
+        <div class="vnav"><a class="vbrand" href="https://vylosmedia.com" target="_blank" rel="noopener"><img src="img/vylos/icon.jpg" alt="" width="28" height="28">Vylos Media</a><span class="vlinks" aria-hidden="true"><span>Work</span><span>Pricing</span><span>FAQ</span><span>About</span></span><a class="vbtn" href="https://vylosmedia.com" target="_blank" rel="noopener">Start a project &rarr;</a></div>
+        <div class="vkit">
+          <div class="vcopy">
+            <p class="veyebrow">Behind every frame</p>
+            <h3 class="vh">Engineered <em>to the screw.</em></h3>
+            <p class="vp">Every Vylos film is shot on the Sony &alpha;6700. Drag to take it apart.</p>
+            <div class="vprog"><span class="pct">000</span><span class="bar"><i></i></span><span>Exploded</span></div>
+            <ul class="vlabels">
+              <li data-at="0.12"><span>Body fasteners</span><span>Released</span></li>
+              <li data-at="0.3"><span>E 16&ndash;50mm optics</span><span>f/3.5&ndash;5.6</span></li>
+              <li data-at="0.5"><span>Top plate &amp; controls</span><span>Mg alloy</span></li>
+              <li data-at="0.7"><span>APS-C sensor &middot; 5-axis IBIS</span><span>26 MP</span></li>
+              <li data-at="0.88"><span>BIONZ XR &middot; display &middot; EVF</span><span>4K 120p</span></li>
+            </ul>
+          </div>
+          <div class="vstage" role="img" aria-label="Sony a6700 camera taking itself apart into an exploded view. Drag or use the slider."><canvas></canvas><div class="vload">Loading</div></div>
+        </div>
+        <div class="vctl"><span>Drag to take it apart</span><input type="range" min="0" max="100" value="0" aria-label="Take the camera apart"></div>
+        <div class="vwork">
+          <div><span class="k">Capture</span><h4>Sony &alpha;6700</h4><p>4K up to 120p in 10-bit 4:2:2 with S-Log3, so motion stays fluid and color holds up in the grade.</p></div>
+          <div><span class="k">Edit</span><h4>Final Cut Pro</h4><p>Every cut is built by hand. Nothing is templated, and every edit is shaped around your brand.</p></div>
+          <div><span class="k">Finish</span><h4>Color &amp; delivery</h4><p>Graded for a consistent, cinematic look and delivered in every format you post to, captions included.</p></div>
+        </div>
+      </div>
+      <ul class="hl"><li>Designed and built end to end: pages, copy and an enquiry form</li><li>Scroll-driven camera animation: 96 frames drawn to a canvas and tied to scroll position</li><li>Instagram film previews that play only while on screen</li></ul>
+    </div></div></div>
+  </div>
+</article>
+
+
 <section class="band about" id="about">
   <div class="wrap">
     <div class="col"><span class="mono abt"><i class="logo faint" aria-hidden="true"></i>ABOUT</span><h2>My <span class="serif">story</span></h2></div>
@@ -419,6 +496,49 @@ img,video{max-width:100%}
   // links from the hero or nav straight into a project open it
   function openHash(){ var el = location.hash && document.querySelector(location.hash); if (el && el.classList.contains('row') && !el.classList.contains('open')) el.querySelector('button').click(); }
   addEventListener('hashchange', openHash); openHash();
+
+  // Vylos: the real 96-frame camera animation, drawn to a canvas. Drag, use the slider, or just watch it open.
+  (function(){
+    var win = document.getElementById('vwin'); if (!win) return;
+    var canvas = win.querySelector('canvas'), ctx = canvas.getContext('2d'), stage = win.querySelector('.vstage');
+    var slider = win.querySelector('.vctl input'), bar = win.querySelector('.vprog .bar i'), pct = win.querySelector('.vprog .pct');
+    var labels = [].slice.call(win.querySelectorAll('.vlabels li')), load = win.querySelector('.vload');
+    var N = 96, frames = new Array(N), p = 0, cur = -1, started = false, auto = 0;
+    function name(i){ return 'img/vylos/f' + String(i + 1).padStart(3, '0') + '.jpg'; }
+    function near(i){ for (var k = 0; k < N; k++) { var a = frames[i - k], b = frames[i + k]; if (a && a.complete && a.naturalWidth) return a; if (b && b.complete && b.naturalWidth) return b; } }
+    function draw(){
+      var i = Math.min(N - 1, Math.max(0, Math.round(p * (N - 1)))), img = frames[i] && frames[i].complete && frames[i].naturalWidth ? frames[i] : near(i);
+      if (!img || !canvas.width) return;
+      if (i === cur && img === frames[i]) return; cur = i;
+      var cw = canvas.width, ch = canvas.height, sc = Math.max(cw / img.naturalWidth, ch / img.naturalHeight), w = img.naturalWidth * sc, h = img.naturalHeight * sc;
+      ctx.clearRect(0, 0, cw, ch); ctx.drawImage(img, (cw - w) / 2, (ch - h) / 2, w, h);
+    }
+    function ui(){
+      draw(); bar.style.transform = 'scaleX(' + p + ')'; pct.textContent = String(Math.round(p * 100)).padStart(3, '0'); slider.value = Math.round(p * 100);
+      labels.forEach(function(li){ li.classList.toggle('on', p >= +li.dataset.at); });
+    }
+    function set(v){ p = Math.min(1, Math.max(0, v)); ui(); }
+    function fit(){ var r = canvas.getBoundingClientRect(), d = Math.min(devicePixelRatio || 1, 2); if (!r.width) return; canvas.width = Math.round(r.width * d); canvas.height = Math.round(r.height * d); cur = -1; draw(); }
+    function loadFrames(){
+      var order = [], seen = {}; [4, 2, 1].forEach(function(st){ for (var i = 0; i < N; i += st) if (!seen[i]) { seen[i] = 1; order.push(i); } });
+      order.forEach(function(i){ var im = new Image(); im.decoding = 'async'; im.onload = function(){ load.hidden = true; if (cur < 0 || Math.abs(i - Math.round(p * (N - 1))) < 3) { cur = -1; draw(); } }; im.src = name(i); frames[i] = im; });
+    }
+    function play(){
+      var t0 = performance.now(), dur = 3400, id = ++auto;
+      (function step(now){ if (id !== auto) return; var t = Math.min(1, (now - t0) / dur), e = t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; set(e); if (t < 1) requestAnimationFrame(step); })(t0);
+    }
+    function stop(){ auto++; }
+    slider.addEventListener('input', function(){ stop(); set(slider.value / 100); });
+    var drag = null;
+    stage.addEventListener('pointerdown', function(e){ stop(); drag = { x: e.clientX, p: p, id: e.pointerId }; try { stage.setPointerCapture(e.pointerId); } catch (x) {} });
+    stage.addEventListener('pointermove', function(e){ if (!drag) return; set(drag.p + (e.clientX - drag.x) / (stage.getBoundingClientRect().width * 0.7)); });
+    ['pointerup', 'pointercancel'].forEach(function(n){ stage.addEventListener(n, function(){ drag = null; }); });
+    if ('ResizeObserver' in window) new ResizeObserver(fit).observe(canvas); else addEventListener('resize', fit);
+    if ('IntersectionObserver' in window) new IntersectionObserver(function(en){
+      if (en[0].isIntersecting && !started) { started = true; fit(); loadFrames(); if (!reduce) setTimeout(play, 500); }
+    }, { threshold: 0.25 }).observe(win);
+    else { started = true; fit(); loadFrames(); }
+  })();
 
   // The Collective read-only tour
   var screens = [
