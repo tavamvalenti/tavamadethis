@@ -103,6 +103,9 @@ img,video{max-width:100%}
 .js .sigwrap.in .sig{clip-path:inset(0 0 0 0)}
 @media(prefers-reduced-motion:reduce){.js .sig{clip-path:none;transition:none}}
 .sig-about{width:clamp(150px,17vw,230px);color:#1B1B19;opacity:.82;margin:10px 0 0 -6px}
+.sig-hero{color:#1B1A17;opacity:.8;width:clamp(120px,15vw,240px)}
+.hero .sigpos{position:absolute;left:0;right:0;z-index:2;bottom:calc(clamp(120px,19vh,190px) + clamp(54px,12.6vw,224px)*.95);display:flex;justify-content:flex-end;pointer-events:none}
+@media(max-width:700px){.hero .sigpos{bottom:calc(clamp(130px,20vh,180px) + 42vw)}}
 .sig-contact{width:clamp(130px,14vw,210px);color:var(--paper);opacity:.9;justify-self:end;margin:-4px 4px 0 0}
 /* ---------- project rooms ---------- */
 .row{--fg:#1B1B19;--mut:#5E5B55;--line:#A9A59C;--acc:#3F5E3A;--chip:rgba(239,236,230,.7);--btnbg:#1B1B19;--btnfg:#EFECE6;--card:rgba(255,255,255,.35);position:relative;color:var(--fg);isolation:isolate;overflow:hidden}
@@ -335,6 +338,7 @@ a,button,input,[role=tab]{touch-action:manipulation;-webkit-tap-highlight-color:
     <span class="pill links"><a href="#work">Work</a><a href="#about">About</a><a href="#contact">Contact</a></span>
   </nav>
   <h1 class="name wrap" aria-label="Tava Valenti"><span>Tava</span> <span>Valenti</span></h1>
+  <div class="sigpos wrap"><span class="sigwrap sig-hero"><span class="sig" role="img" aria-label="Tava Valenti's signature"></span></span></div>
   <div class="foot wrap">
     <p class="tag">Building <span class="serif">software</span>, <span class="serif">AI tools</span> and digital experiences.<small>Independent developer &amp; designer based in California.</small></p>
     <a class="round" href="#work">Work &darr;</a>
