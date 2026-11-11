@@ -96,6 +96,14 @@ img,video{max-width:100%}
 .work-intro h2 .serif{font-size:30px}
 .work-intro p{margin:0;max-width:60ch;font-size:clamp(18px,1.7vw,22px);color:var(--stone)}
 
+/* ---------- signature ---------- */
+.sigwrap{display:block;transform:rotate(-3deg);transform-origin:left center}
+.sig{display:block;width:100%;aspect-ratio:2310/984;background:currentColor;-webkit-mask:url(img/signature.svg) center/contain no-repeat;mask:url(img/signature.svg) center/contain no-repeat}
+.js .sig{clip-path:inset(0 100% 0 0);transition:clip-path 1.7s cubic-bezier(.65,0,.25,1) .15s}
+.js .sigwrap.in .sig{clip-path:inset(0 0 0 0)}
+@media(prefers-reduced-motion:reduce){.js .sig{clip-path:none;transition:none}}
+.sig-about{width:clamp(150px,17vw,230px);color:#1B1B19;opacity:.82;margin:10px 0 0 -6px}
+.sig-contact{width:clamp(130px,14vw,210px);color:var(--paper);opacity:.9;justify-self:end;margin:-4px 4px 0 0}
 /* ---------- project rooms ---------- */
 .row{--fg:#1B1B19;--mut:#5E5B55;--line:#A9A59C;--acc:#3F5E3A;--chip:rgba(239,236,230,.7);--btnbg:#1B1B19;--btnfg:#EFECE6;--card:rgba(255,255,255,.35);position:relative;color:var(--fg);isolation:isolate;overflow:hidden}
 .row > .wrap > button{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:minmax(0,1fr) 300px 44px;width:100%;align-items:center;gap:16px;padding-block:clamp(22px,2.8vw,40px)}
@@ -534,6 +542,7 @@ a,button,input,[role=tab]{touch-action:manipulation;-webkit-tap-highlight-color:
     <div class="col">
       <p>My background is in broadcasting and digital media, where I gained experience in filmmaking, storytelling, and content creation through <a href="https://www.instagram.com/tavamadethis/" target="_blank" rel="noopener">Tavamadethis</a>, along with <a href="https://www.kpbs.org/news/2025/01/02/carlsbad-high-school-broadcast-journalism-students-filmmaking-storytelling" target="_blank" rel="noopener">collaborative media projects</a> and filming in Alaska.</p>
       <p>My interests eventually expanded into AI and software development, where I now focus on building applications, designing interfaces, and creating digital tools. I enjoy experimenting with new technology, solving problems, and bringing ideas to life.</p>
+    <span class="sigwrap sig-about"><span class="sig" role="img" aria-label="Tava Valenti's signature"></span></span>
     </div>
   </div>
 </section>
@@ -544,12 +553,18 @@ a,button,input,[role=tab]{touch-action:manipulation;-webkit-tap-highlight-color:
   <div class="wrap txt">
     <h2>Have a project?<br>Let's <span class="serif">talk</span>.</h2>
     <div class="actions"><a class="btn" href="mailto:tavamvalenti@gmail.com">tavamvalenti@gmail.com</a><a class="btn ghost" href="https://github.com/tavamvalenti" target="_blank" rel="noopener">GitHub</a><a class="btn ghost" href="https://www.instagram.com/tavamadethis/" target="_blank" rel="noopener">Instagram</a></div>
+    <span class="sigwrap sig-contact"><span class="sig" role="img" aria-label="Tava Valenti's signature"></span></span>
     <small class="ft"><i class="logo faint" aria-hidden="true"></i>&copy; 2026 Tava Valenti &middot; tavamadethis.com</small>
   </div>
 </section>
 </main>
 
 <script>
+(function(){
+  document.documentElement.classList.add('js');
+  var sigs=document.querySelectorAll('.sigwrap');
+  if('IntersectionObserver' in window){var so=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');so.unobserve(e.target)}})},{threshold:.6});sigs.forEach(function(el){so.observe(el)})}else{sigs.forEach(function(el){el.classList.add('in')})}
+})();
 (function(){
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   
