@@ -1,4 +1,5 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex, nofollow"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>SD Onewheel Rentals Redesign</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preload" href="fonts/figtree.woff2" as="font" type="font/woff2" crossorigin>
@@ -224,7 +225,7 @@ input[type=range]{accent-color:var(--coral);width:min(260px,100%)}
 .stepper2{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;position:relative;counter-reset:s}
 .stepper2::before{content:"";position:absolute;left:12.5%;right:12.5%;top:38px;height:3px;background:repeating-linear-gradient(90deg,var(--coral) 0 10px,transparent 10px 20px);opacity:.7}
 @media(max-width:900px){.stepper2{grid-template-columns:1fr 1fr;row-gap:2rem}.stepper2::before{display:none}}
-@media(max-width:520px){.stepper2{grid-template-columns:1fr}}
+@media(max-width:520px){.stepper2{grid-template-columns:1fr 1fr}}
 .st{text-align:center;display:grid;gap:.7rem;justify-items:center;position:relative;min-width:0;counter-increment:s}
 .st .ic{position:relative;width:78px;height:78px;border-radius:50%;background:var(--card);border:3px solid var(--coral);display:grid;place-items:center;color:var(--coral-ink);transition:transform .35s cubic-bezier(.3,1.6,.5,1),background .3s,color .3s}
 .st:hover .ic{transform:translateY(-6px) rotate(-6deg);background:var(--coral);color:#1a0a04}
@@ -487,11 +488,60 @@ footer ul{list-style:none;margin:0;padding:0;display:grid;gap:.4rem}
 /* footer mark */
 .fmk{display:flex;align-items:center;gap:.7rem}
 .fmk .mk{width:84px;height:43px;cursor:pointer;color:var(--on-ocean)}
+
+/* ---- phone ---- */
+.mbar,.mq{display:none}
+@media(max-width:700px){
+  html{scroll-padding-top:64px;-webkit-text-size-adjust:100%}
+  body{font-size:16px;padding-bottom:calc(84px + env(safe-area-inset-bottom,0px));-webkit-tap-highlight-color:transparent}
+  input,select,textarea{font-size:16px!important}
+  section{padding-block:44px}
+  h2{font-size:clamp(1.75rem,8.4vw,2.25rem)}
+  .head{margin-bottom:1.5rem;gap:.7rem}.head p{font-size:1rem}
+  .splash,.glide,.mk.wm,.fab,.hero video{display:none!important}
+  /* nav */
+  .nav{padding-block:.5rem}
+  .logo{font-size:1rem;gap:.45rem}.logo .mk{width:42px;height:22px}
+  .navr{gap:.45rem}.nav .btn-book.sm{display:none}
+  .burger{width:46px;height:46px}
+  .menu{max-height:calc(100svh - 60px);overflow:auto;padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}
+  .menu a{padding:1rem 0;font-size:1.4rem}
+  .menu .mq{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-top:1.2rem}
+  .menu .mq a{border:1.5px solid var(--line);border-radius:16px;padding:.9rem;text-align:center;font:700 1rem var(--body);background:var(--card)}
+  .menu .mq a:last-child{grid-column:span 2}
+  /* hero */
+  .hero{min-height:min(84svh,680px)}
+  .hero .in{padding:64px max(16px,env(safe-area-inset-left,0px)) 22px;gap:1rem}
+  .hero .eyebrow{font-size:.68rem;line-height:1.35;letter-spacing:.1em}.hero .eyebrow .mk{display:none}
+  .hero h1{font-size:clamp(2.5rem,12.5vw,3.5rem);max-width:10ch}
+  .hero p.lede{font-size:1rem;max-width:none}
+  .cta{flex-direction:column;align-items:stretch;gap:.7rem}
+  .cta .btn{justify-content:center;width:100%}
+  .btn-book.lg{width:100%}
+  .chips{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-inline:-16px;padding-inline:16px}
+  .chips::-webkit-scrollbar{display:none}.chip{white-space:nowrap;flex:none}
+  .facts{grid-template-columns:1fr 1fr;margin-top:-20px}
+  .fact{padding:1rem}.fact b{font-size:1.7rem}.fact span{font-size:.82rem;line-height:1.35}
+  /* swipe rows */
+  .tabs{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-inline:-16px;padding-inline:16px}
+  .tabs::-webkit-scrollbar{display:none}.tab{flex:none;padding:.9rem 1.15rem}
+  /* bottom action bar */
+  .mbar{display:grid;grid-template-columns:1fr 1fr 1.7fr;gap:.5rem;position:fixed;left:0;right:0;bottom:0;z-index:30;padding:.6rem max(12px,env(safe-area-inset-right,0px)) calc(.6rem + env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px));background:color-mix(in srgb,var(--sand) 90%,transparent);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid var(--line)}
+  .mbar .mb{display:flex;align-items:center;justify-content:center;gap:.4rem;height:52px;border-radius:999px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);font:700 .95rem var(--body);text-decoration:none}
+  .mbar .mb svg{width:18px;height:18px}
+  .mbar .btn-book{height:52px;padding:0 .45rem 0 1.1rem;width:auto;gap:.5rem}.mbar .btn-book .ar{width:40px;height:40px}
+  footer{padding-bottom:2rem}
+  .stepper2{grid-template-columns:1fr 1fr;gap:1.6rem .9rem;align-items:start}
+  .st .ic{width:64px;height:64px}.st .ic svg{width:28px;height:28px}.st h3{font-size:1.05rem}.st p{font-size:.88rem}
+  .price-grid{gap:.8rem}
+  .price-grid>*{padding:1.1rem 1.2rem!important}
+  .endbox{min-height:360px}
+}
 </style>
 
 <div class="splash" id="splash" aria-hidden="true"><span class="mk" data-splash="1"></span></div>
 <header class="nav full">
-  <a class="logo" href="#top"><span class="mk"></span>SD Onewheel Rentals</a>
+  <a class="logo" href="#top"><span class="mk"></span>SD Onewheel<span class="hide-s">&nbsp;Rentals</span></a>
   <nav class="links" aria-label="Main">
     <a href="#rentals" data-p="home">Rentals</a><a href="#tours" data-p="home">Tours</a><a href="#pricing" data-p="home">Pricing</a><a href="#reviews" data-p="home">Reviews</a><a href="#offers" data-p="offers">Offers</a><a href="#for-sale" data-p="for-sale">For sale</a><a href="#blog" data-p="blog">Blog</a>
   </nav>
@@ -501,6 +551,7 @@ footer ul{list-style:none;margin:0;padding:0;display:grid;gap:.4rem}
   </div>
   <nav class="menu" id="menu" aria-label="Mobile">
     <a href="#rentals">Rentals</a><a href="#tours">Tours</a><a href="#pricing">Pricing</a><a href="#reviews">Reviews</a><a href="#offers">Offers</a><a href="#for-sale">For sale</a><a href="#blog">Blog</a><a href="#faq">FAQ</a><a href="#terms">Terms and conditions</a>
+  <div class="mq"><a href="tel:+16197862614">Call us</a><a href="sms:+16197862614">Text us</a><a href="https://www.instagram.com/sdonewheel/" target="_blank" rel="noopener">Instagram @SDonewheel</a></div>
   </nav>
 </header>
 
@@ -822,6 +873,7 @@ footer ul{list-style:none;margin:0;padding:0;display:grid;gap:.4rem}
   <div><h3>Explore</h3><ul><li><a href="#rentals">Rentals</a></li><li><a href="#tours">Tours</a></li><li><a href="#pricing">Pricing</a></li><li><a href="#offers">Offers</a></li><li><a href="#for-sale">For sale</a></li><li><a href="#blog">Blog</a></li><li><a href="#faq">FAQ</a></li><li><a href="#terms">Terms and conditions</a></li></ul><p style="margin-top:1rem;font-size:.82rem">© 2026 San Diego Onewheel Rentals</p></div>
 </div></footer>
 
+<div class="mbar" id="mbar"><a class="mb" href="tel:+16197862614"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>Call</a><a class="mb" href="sms:+16197862614"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L3 21l1.9-5.4A8 8 0 1 1 21 12z"/></svg>Text</a><a class="btn-book sm" href="https://calendly.com/sdonewheel" target="_blank" rel="noopener"><span>Book now</span><span class="ar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div>
 <a class="btn-book fab" id="fab" href="https://calendly.com/sdonewheel" target="_blank" rel="noopener"><span>Book a rental</span><span class="ar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
 
 <script>

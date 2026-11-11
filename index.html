@@ -96,13 +96,18 @@ img,video{max-width:100%}
 .work-intro h2 .serif{font-size:30px}
 .work-intro p{margin:0;max-width:60ch;font-size:clamp(18px,1.7vw,22px);color:var(--stone)}
 
+.grp{background:var(--paper) url(img/concrete.webp) center/cover;padding-block:clamp(22px,3vw,34px) 14px}
+.grp .wrap{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:12px}
+.grp h3{margin:0;font-size:clamp(20px,2.2vw,26px);font-weight:500;letter-spacing:-.02em}
+.grp h3 .serif{font-size:1.25em}
+.grp .mono{color:var(--stone)}
 /* ---------- project rooms ---------- */
 .row{--fg:#1B1B19;--mut:#5E5B55;--line:#A9A59C;--acc:#3F5E3A;--chip:rgba(239,236,230,.7);--btnbg:#1B1B19;--btnfg:#EFECE6;--card:rgba(255,255,255,.35);position:relative;color:var(--fg);isolation:isolate;overflow:hidden}
-.row > .wrap > button{all:unset;box-sizing:border-box;cursor:pointer;display:flex;width:100%;align-items:center;justify-content:space-between;gap:16px;padding-block:clamp(22px,2.8vw,40px);flex-wrap:wrap}
+.row > .wrap > button{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:minmax(0,1fr) 300px 44px;width:100%;align-items:center;gap:16px;padding-block:clamp(22px,2.8vw,40px)}
 .row > .wrap > button:focus-visible{outline:2px solid var(--acc);outline-offset:-2px}
 .row .title{font-size:clamp(38px,6.6vw,88px);font-weight:500;letter-spacing:-.04em;line-height:1;transition:transform .4s cubic-bezier(.2,.8,.2,1)}
 .row > .wrap > button:hover .title{transform:translateX(14px)}
-.row .meta{display:flex;flex-direction:column;align-items:flex-end;gap:2px;text-align:right;color:var(--mut)}
+.row .meta{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;color:var(--mut)}
 .row .meta b{font-weight:500;color:var(--fg);font-size:17px}
 .row .plus{font-family:var(--mono);font-size:22px;width:44px;height:44px;border:1px solid var(--fg);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:transform .3s, background .3s, color .3s;flex:none}
 .row.open .plus{transform:rotate(45deg);background:var(--fg);color:var(--bg0,#EFECE6)}
@@ -138,7 +143,7 @@ img,video{max-width:100%}
 .hot:hover,.hot:focus-visible{background:rgba(255,255,255,.08);outline:1px solid rgba(255,255,255,.35)}
 .note{font-size:14px;color:var(--mut);margin:0}
 
-@media(max-width:560px){.row .title{flex:1 1 auto}.row .meta{order:3;width:100%;align-items:flex-start;text-align:left;margin-top:-6px}.row .plus{order:2}}
+@media(max-width:860px){.row > .wrap > button{grid-template-columns:minmax(0,1fr) 44px}.row .plus{grid-column:2;grid-row:1}.row .meta{grid-column:1/-1;grid-row:2;margin-top:-6px}}
 /* Veloura: warm concrete, champagne and gold */
 .t-veloura{--fg:#2A2118;--mut:#6B5C48;--line:rgba(120,92,48,.38);--acc:#9A6B1F;--chip:rgba(244,232,206,.7);--btnbg:#2A2118;--btnfg:#F3E7CD;--card:rgba(247,236,214,.6);--bg0:#F3E7CD;
   background:linear-gradient(180deg,rgba(226,190,128,.5),rgba(236,214,170,.38)),#D9C7A3 url(img/concrete.webp) center/cover;background-blend-mode:normal,multiply}
@@ -326,6 +331,66 @@ img[data-src].ld{opacity:1;transition:opacity .6s ease}
   </div>
 </section>
 
+<div class="grp"><div class="wrap"><h3>For <span class="serif">clients</span></h3><span class="mono">Built for other companies</span></div></div>
+
+<article class="row t-vylos" id="vylos">
+  <div class="wrap">
+    <button type="button" aria-expanded="false" aria-controls="p-vylos"><span class="title">Vylos Media</span><span class="meta"><b>Web Design &amp; Development</b><span class="mono">Client site &middot; live</span></span><span class="plus" aria-hidden="true">+</span></button>
+    <div class="panel" id="p-vylos"><div><div class="inner">
+      <p class="lede">A website for a San Diego video studio that films automotive and luxury brands. This is a working piece of it: drag the camera apart.</p>
+      <div class="actions"><a class="btn big" href="https://vylosmedia.com" target="_blank" rel="noopener">Visit vylosmedia.com &nearr;</a><div class="chips"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>Canvas</span></div></div>
+      <div class="vwin" id="vwin">
+        <div class="vnav"><a class="vbrand" href="https://vylosmedia.com" target="_blank" rel="noopener"><img src="img/vylos/icon.webp" alt="" width="28" height="28">Vylos Media</a><span class="vlinks" aria-hidden="true"><span>Work</span><span>Pricing</span><span>FAQ</span><span>About</span></span><a class="vbtn" href="https://vylosmedia.com" target="_blank" rel="noopener">Start a project &rarr;</a></div>
+        <div class="vkit">
+          <div class="vcopy">
+            <p class="veyebrow">Behind every frame</p>
+            <h3 class="vh">Engineered <em>to the screw.</em></h3>
+            <p class="vp">Every Vylos film is shot on the Sony &alpha;6700. Drag to take it apart.</p>
+            <div class="vprog"><span class="pct">000</span><span class="bar"><i></i></span><span>Exploded</span></div>
+            <ul class="vlabels">
+              <li data-at="0.12"><span>Body fasteners</span><span>Released</span></li>
+              <li data-at="0.3"><span>E 16&ndash;50mm optics</span><span>f/3.5&ndash;5.6</span></li>
+              <li data-at="0.5"><span>Top plate &amp; controls</span><span>Mg alloy</span></li>
+              <li data-at="0.7"><span>APS-C sensor &middot; 5-axis IBIS</span><span>26 MP</span></li>
+              <li data-at="0.88"><span>BIONZ XR &middot; display &middot; EVF</span><span>4K 120p</span></li>
+            </ul>
+          </div>
+          <div class="vstage" role="img" aria-label="Sony a6700 camera taking itself apart into an exploded view. Drag or use the slider."><canvas></canvas><div class="vload">Loading</div></div>
+        </div>
+        <div class="vctl"><span>Drag to take it apart</span><input type="range" min="0" max="100" value="0" aria-label="Take the camera apart"></div>
+        <div class="vwork">
+          <div><span class="k">Capture</span><h4>Sony &alpha;6700</h4><p>4K up to 120p in 10-bit 4:2:2 with S-Log3, so motion stays fluid and color holds up in the grade.</p></div>
+          <div><span class="k">Edit</span><h4>Final Cut Pro</h4><p>Every cut is built by hand. Nothing is templated, and every edit is shaped around your brand.</p></div>
+          <div><span class="k">Finish</span><h4>Color &amp; delivery</h4><p>Graded for a consistent, cinematic look and delivered in every format you post to, captions included.</p></div>
+        </div>
+      </div>
+      <ul class="hl"><li>Designed and built end to end: pages, copy and an enquiry form</li><li>Scroll-driven camera animation: 96 frames drawn to a canvas and tied to scroll position</li><li>Instagram film previews that play only while on screen</li></ul>
+    </div></div></div>
+  </div>
+</article>
+
+<article class="row t-onewheel" id="onewheel">
+  <div class="wrap">
+    <button type="button" aria-expanded="false" aria-controls="p-onewheel"><span class="title">SD Onewheel Rentals</span><span class="meta"><b>Web Design &amp; Development</b><span class="mono">Client redesign &middot; preview</span></span><span class="plus" aria-hidden="true">+</span></button>
+    <div class="panel" id="p-onewheel"><div><div class="inner">
+      <p class="lede">A full redesign of a San Diego Onewheel and e-scooter rental company's website, built to turn a visitor into a booking in a couple of taps. The preview below is the working site.</p>
+      <div class="actions"><a class="btn big" href="/onewheel/" target="_blank" rel="noopener">Open the live preview &nearr;</a><div class="chips"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>SVG</span></div></div>
+      <a class="owprev" href="/onewheel/" target="_blank" rel="noopener" aria-label="Open the SD Onewheel Rentals website preview">
+        <div class="owbar" aria-hidden="true"><i></i><i></i><i></i><span>tavamadethis.com/onewheel</span></div>
+        <div class="shot"><img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="img/onewheel-preview.webp" width="1600" height="1000" decoding="async" alt="The redesigned SD Onewheel Rentals home page: a full-bleed photo of riders on e-scooters along the Coronado bayfront"><span class="go">Open the preview &nearr;</span></div>
+      </a>
+      <ul class="hl">
+        <li>Rebuilt around one action: a persistent Book button, plus a rental price estimator that updates as you pick the ride, the days and delivery</li>
+        <li>Clear pages for rentals, guided tours, offers, boards for sale, the blog and a readable terms page, with the original agreement wording kept as written</li>
+        <li>A looping hero video, a customer reviews carousel with filters, and a logo that glides along rolling hills as you move your cursor</li>
+        <li>Responsive from phone to desktop, with a light and dark theme and keyboard-friendly controls</li>
+      </ul>
+    </div></div></div>
+  </div>
+</article>
+
+<div class="grp"><div class="wrap"><h3><span class="serif">Self</span> made</h3><span class="mono">My own products and research</span></div></div>
+
 <!-- ============ VELOURA ============ -->
 <article class="row t-veloura" id="veloura">
   <div class="wrap">
@@ -347,21 +412,6 @@ img[data-src].ld{opacity:1;transition:opacity .6s ease}
   </div>
 </article>
 
-<!-- ============ TINY WORLD ============ -->
-<article class="row t-tiny" id="tinyworld">
-  <div class="wrap">
-    <button type="button" aria-expanded="false" aria-controls="p-tiny"><span class="title">Tiny World</span><span class="meta"><b>Game Design &amp; Development</b><span class="mono">Browser game &middot; live</span></span><span class="plus" aria-hidden="true">+</span></button>
-    <div class="panel" id="p-tiny"><div><div class="inner">
-      <p class="lede">A miniature 3D world you play in the browser. Drop into living cities, play mini-games, climb the leaderboard.</p>
-      <div class="actions"><a class="btn big" href="/tiny-world/">Play Tiny World &nearr;</a><div class="chips"><span>three.js</span><span>JavaScript</span><span>Supabase</span></div></div>
-      <div class="shots" tabindex="0" aria-label="Tiny World screenshots" id="twshots">
-        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="img/tinyworld-1.webp" width="1600" height="797" decoding="async" alt="Tiny World globe menu">
-      </div>
-      <ul class="hl"><li>35,000+ lines of three.js across 7 playable places</li><li>Accounts, friends and leaderboards on Supabase</li><li>Stays smooth by easing detail as the frame rate drops</li></ul>
-    </div></div></div>
-  </div>
-</article>
-
 <!-- ============ THE COLLECTIVE ============ -->
 <article class="row t-collective" id="collective">
   <div class="wrap">
@@ -379,6 +429,21 @@ img[data-src].ld{opacity:1;transition:opacity .6s ease}
         <div class="cap" aria-live="polite"><b id="tourt">Today</b><span id="tourd">One screen for the company: audience, spend, what needs my approval, and the videos waiting for review.</span></div>
       </div>
       <ul class="hl"><li>Budgets, permissions and a kill switch enforced in code</li><li>Videos rendered automatically and posted to 3 platforms</li><li>Private control app for Mac and iPhone</li></ul>
+    </div></div></div>
+  </div>
+</article>
+
+<!-- ============ TINY WORLD ============ -->
+<article class="row t-tiny" id="tinyworld">
+  <div class="wrap">
+    <button type="button" aria-expanded="false" aria-controls="p-tiny"><span class="title">Tiny World</span><span class="meta"><b>Game Design &amp; Development</b><span class="mono">Browser game &middot; live</span></span><span class="plus" aria-hidden="true">+</span></button>
+    <div class="panel" id="p-tiny"><div><div class="inner">
+      <p class="lede">A miniature 3D world you play in the browser. Drop into living cities, play mini-games, climb the leaderboard.</p>
+      <div class="actions"><a class="btn big" href="/tiny-world/">Play Tiny World &nearr;</a><div class="chips"><span>three.js</span><span>JavaScript</span><span>Supabase</span></div></div>
+      <div class="shots" tabindex="0" aria-label="Tiny World screenshots" id="twshots">
+        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="img/tinyworld-1.webp" width="1600" height="797" decoding="async" alt="Tiny World globe menu">
+      </div>
+      <ul class="hl"><li>35,000+ lines of three.js across 7 playable places</li><li>Accounts, friends and leaderboards on Supabase</li><li>Stays smooth by easing detail as the frame rate drops</li></ul>
     </div></div></div>
   </div>
 </article>
@@ -453,62 +518,6 @@ img[data-src].ld{opacity:1;transition:opacity .6s ease}
           <p class="cmd" style="margin-bottom:0"><span class="caret"></span></p>
         </div>
       </div>
-    </div></div></div>
-  </div>
-</article>
-
-<article class="row t-vylos" id="vylos">
-  <div class="wrap">
-    <button type="button" aria-expanded="false" aria-controls="p-vylos"><span class="title">Vylos Media</span><span class="meta"><b>Web Design &amp; Development</b><span class="mono">Client site &middot; live</span></span><span class="plus" aria-hidden="true">+</span></button>
-    <div class="panel" id="p-vylos"><div><div class="inner">
-      <p class="lede">A website for a San Diego video studio that films automotive and luxury brands. This is a working piece of it: drag the camera apart.</p>
-      <div class="actions"><a class="btn big" href="https://vylosmedia.com" target="_blank" rel="noopener">Visit vylosmedia.com &nearr;</a><div class="chips"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>Canvas</span></div></div>
-      <div class="vwin" id="vwin">
-        <div class="vnav"><a class="vbrand" href="https://vylosmedia.com" target="_blank" rel="noopener"><img src="img/vylos/icon.webp" alt="" width="28" height="28">Vylos Media</a><span class="vlinks" aria-hidden="true"><span>Work</span><span>Pricing</span><span>FAQ</span><span>About</span></span><a class="vbtn" href="https://vylosmedia.com" target="_blank" rel="noopener">Start a project &rarr;</a></div>
-        <div class="vkit">
-          <div class="vcopy">
-            <p class="veyebrow">Behind every frame</p>
-            <h3 class="vh">Engineered <em>to the screw.</em></h3>
-            <p class="vp">Every Vylos film is shot on the Sony &alpha;6700. Drag to take it apart.</p>
-            <div class="vprog"><span class="pct">000</span><span class="bar"><i></i></span><span>Exploded</span></div>
-            <ul class="vlabels">
-              <li data-at="0.12"><span>Body fasteners</span><span>Released</span></li>
-              <li data-at="0.3"><span>E 16&ndash;50mm optics</span><span>f/3.5&ndash;5.6</span></li>
-              <li data-at="0.5"><span>Top plate &amp; controls</span><span>Mg alloy</span></li>
-              <li data-at="0.7"><span>APS-C sensor &middot; 5-axis IBIS</span><span>26 MP</span></li>
-              <li data-at="0.88"><span>BIONZ XR &middot; display &middot; EVF</span><span>4K 120p</span></li>
-            </ul>
-          </div>
-          <div class="vstage" role="img" aria-label="Sony a6700 camera taking itself apart into an exploded view. Drag or use the slider."><canvas></canvas><div class="vload">Loading</div></div>
-        </div>
-        <div class="vctl"><span>Drag to take it apart</span><input type="range" min="0" max="100" value="0" aria-label="Take the camera apart"></div>
-        <div class="vwork">
-          <div><span class="k">Capture</span><h4>Sony &alpha;6700</h4><p>4K up to 120p in 10-bit 4:2:2 with S-Log3, so motion stays fluid and color holds up in the grade.</p></div>
-          <div><span class="k">Edit</span><h4>Final Cut Pro</h4><p>Every cut is built by hand. Nothing is templated, and every edit is shaped around your brand.</p></div>
-          <div><span class="k">Finish</span><h4>Color &amp; delivery</h4><p>Graded for a consistent, cinematic look and delivered in every format you post to, captions included.</p></div>
-        </div>
-      </div>
-      <ul class="hl"><li>Designed and built end to end: pages, copy and an enquiry form</li><li>Scroll-driven camera animation: 96 frames drawn to a canvas and tied to scroll position</li><li>Instagram film previews that play only while on screen</li></ul>
-    </div></div></div>
-  </div>
-</article>
-
-<article class="row t-onewheel" id="onewheel">
-  <div class="wrap">
-    <button type="button" aria-expanded="false" aria-controls="p-onewheel"><span class="title">SD Onewheel Rentals</span><span class="meta"><b>Web Design &amp; Development</b><span class="mono">Client redesign &middot; preview</span></span><span class="plus" aria-hidden="true">+</span></button>
-    <div class="panel" id="p-onewheel"><div><div class="inner">
-      <p class="lede">A full redesign of a San Diego Onewheel and e-scooter rental company's website, built to turn a visitor into a booking in a couple of taps. The preview below is the working site.</p>
-      <div class="actions"><a class="btn big" href="/onewheel/" target="_blank" rel="noopener">Open the live preview &nearr;</a><div class="chips"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>SVG</span></div></div>
-      <a class="owprev" href="/onewheel/" target="_blank" rel="noopener" aria-label="Open the SD Onewheel Rentals website preview">
-        <div class="owbar" aria-hidden="true"><i></i><i></i><i></i><span>tavamadethis.com/onewheel</span></div>
-        <div class="shot"><img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="img/onewheel-preview.webp" width="1600" height="1000" decoding="async" alt="The redesigned SD Onewheel Rentals home page: a full-bleed photo of riders on e-scooters along the Coronado bayfront"><span class="go">Open the preview &nearr;</span></div>
-      </a>
-      <ul class="hl">
-        <li>Rebuilt around one action: a persistent Book button, plus a rental price estimator that updates as you pick the ride, the days and delivery</li>
-        <li>Clear pages for rentals, guided tours, offers, boards for sale, the blog and a readable terms page, with the original agreement wording kept as written</li>
-        <li>A looping hero video, a customer reviews carousel with filters, and a logo that glides along rolling hills as you move your cursor</li>
-        <li>Responsive from phone to desktop, with a light and dark theme and keyboard-friendly controls</li>
-      </ul>
     </div></div></div>
   </div>
 </article>
