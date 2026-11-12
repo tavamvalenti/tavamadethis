@@ -353,6 +353,7 @@ img,video{max-width:100%}
 .retrack input::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:#FBF8F2;border:1px solid rgba(0,0,0,.15);box-shadow:0 4px 14px rgba(0,0,0,.25);margin-top:-9.5px}
 .retrack input::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:#FBF8F2;border:1px solid rgba(0,0,0,.15);box-shadow:0 4px 14px rgba(0,0,0,.25)}
 .retrack input:focus-visible{outline:2px solid #A9743B;outline-offset:4px;border-radius:6px}
+.renote{margin:-6px 0 0;font-size:12px;color:var(--mut)}
 .remedia{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(14px,2vw,22px)}
 .recard{margin:0;display:grid;gap:10px;min-width:0}
 .recard figcaption{display:flex;justify-content:space-between;gap:12px;font-size:14px;color:var(--mut)}
@@ -375,6 +376,37 @@ img,video{max-width:100%}
 .resite .go{position:absolute;right:12px;bottom:12px;background:#24201A;color:#F7F2E9;font-weight:500;font-size:13.5px;padding:9px 16px;border-radius:999px}
 @media(max-width:760px){.rekit{grid-template-columns:minmax(0,1fr);gap:14px;padding-top:18px}.rep,.rephase,.relinks{display:none}.reh{margin-bottom:0}.reclock{margin-top:8px}.remedia{grid-template-columns:minmax(0,1fr)}.retrack .lab{display:none}}
 @media(max-width:700px),(pointer:coarse){.retrack input{height:44px}.rebtn{height:42px}}
+
+/* custom video controls (shared look for the film players) */
+.vcw{-webkit-tap-highlight-color:transparent}
+.vcw video{cursor:pointer}
+.vcw:fullscreen,.vcw:-webkit-full-screen{width:100%;height:100%;aspect-ratio:auto;border-radius:0;background:#000}
+.vcw:fullscreen video,.vcw:-webkit-full-screen video{object-fit:contain}
+.vc{position:absolute;left:0;right:0;bottom:0;z-index:2;display:flex;align-items:center;gap:clamp(8px,1.4vw,14px);padding:34px clamp(12px,2vw,22px) clamp(10px,1.5vw,16px);background:linear-gradient(180deg,rgba(18,14,9,0),rgba(18,14,9,.6));color:#FBF8F2;opacity:0;transform:translateY(6px);pointer-events:none;transition:opacity .35s,transform .35s}
+.vcw.vc-show .vc{opacity:1;transform:none;pointer-events:auto}
+.vc button{all:unset;box-sizing:border-box;flex:none;display:grid;place-items:center;width:36px;height:36px;border-radius:50%;cursor:pointer;color:#FBF8F2;opacity:.9;transition:background .25s,transform .25s,opacity .25s}
+.vc button:hover{opacity:1;background:rgba(255,255,255,.16)}
+.vc button:focus-visible{outline:2px solid #E2B97A;outline-offset:2px}
+.vc .pp{width:40px;height:40px;background:rgba(251,248,242,.95);color:#24201A;opacity:1}
+.vc .pp:hover{background:#fff;transform:scale(1.06)}
+.vc svg{width:18px;height:18px;display:block;fill:currentColor}
+.vc .pp svg{width:16px;height:16px}
+.vc .ic-pause,.vc .ic-off,.vc .ic-exit{display:none}
+.vcw.vc-playing .vc .ic-play{display:none}.vcw.vc-playing .vc .ic-pause{display:block}
+.vcw.vc-muted .vc .ic-on{display:none}.vcw.vc-muted .vc .ic-off{display:block}
+.vcw.vc-full .vc .ic-enter{display:none}.vcw.vc-full .vc .ic-exit{display:block}
+.vc .tm{flex:none;font:500 12px/1 Inter,system-ui,sans-serif;letter-spacing:.06em;font-variant-numeric:tabular-nums;white-space:nowrap;opacity:.92;min-width:76px}
+.vc input{flex:1;min-width:40px;margin:0;height:28px;background:transparent;-webkit-appearance:none;appearance:none;cursor:pointer;--p:0%}
+.vc input::-webkit-slider-runnable-track{height:3px;border-radius:3px;background:linear-gradient(90deg,#E2B97A var(--p),rgba(255,255,255,.3) var(--p))}
+.vc input::-moz-range-track{height:3px;border-radius:3px;background:rgba(255,255,255,.3)}
+.vc input::-moz-range-progress{height:3px;border-radius:3px;background:#E2B97A}
+.vc input::-webkit-slider-thumb{-webkit-appearance:none;width:13px;height:13px;margin-top:-5px;border-radius:50%;background:#FBF8F2;border:0;box-shadow:0 2px 8px rgba(0,0,0,.35);transition:transform .2s}
+.vc input::-moz-range-thumb{width:13px;height:13px;border:0;border-radius:50%;background:#FBF8F2;box-shadow:0 2px 8px rgba(0,0,0,.35)}
+.vc input:hover::-webkit-slider-thumb,.vc input:focus-visible::-webkit-slider-thumb{transform:scale(1.3)}
+.vc input:focus-visible{outline:2px solid #E2B97A;outline-offset:4px;border-radius:4px}
+@media(pointer:coarse){.vc button{width:44px;height:44px}.vc .pp{width:46px;height:46px}.vc input{height:44px}.vc input::-webkit-slider-thumb{width:16px;height:16px;margin-top:-6.5px}}
+@media(max-width:520px){.vc .tm{display:none}}
+@media(prefers-reduced-motion:reduce){.vc{transition:none}}
 
 /* smoothness */
 html{scroll-behavior:smooth;scroll-padding-top:12px}
@@ -543,12 +575,12 @@ a,button,input,[role=tab]{touch-action:manipulation;-webkit-tap-highlight-color:
 
 <article class="row t-realestate" id="realestate">
   <div class="wrap">
-    <button type="button" aria-expanded="false" aria-controls="p-realestate"><span class="title">Real Estate</span><span class="meta"><b>Listing Film &amp; Property Site</b><span class="mono">Rancho Santa Fe &middot; sample</span></span><span class="plus" aria-hidden="true">+</span></button>
+    <button type="button" aria-expanded="false" aria-controls="p-realestate"><span class="title">Real Estate</span><span class="meta"><b>Listing Film &amp; Property Site</b><span class="mono">Listing package &middot; sample</span></span><span class="plus" aria-hidden="true">+</span></button>
     <div class="panel" id="p-realestate"><div><div class="inner">
-      <p class="lede">A listing film for an estate in Rancho Santa Fe, and the single-property website that could sit behind it. Drag the light from afternoon to evening.</p>
+      <p class="lede">What a listing could get: a short film, an interactive day-to-night view and a website built just for the home. Drag the light from afternoon to evening.</p>
       <div class="actions"><a class="btn big" href="/realestate/" target="_blank" rel="noopener">Open the sample site &nearr;</a><div class="chips"><span>Listing film</span><span>Sound design</span><span>HTML</span><span>CSS</span><span>Canvas</span></div></div>
       <div class="rewin" id="rewin">
-        <div class="renav"><a class="rebrand" href="/realestate/" target="_blank" rel="noopener"><b>Clubhouse Drive</b><span>Rancho Santa Fe</span></a><span class="relinks" aria-hidden="true"><span>Residence</span><span>Film</span><span>Gallery</span><span>Details</span></span><a class="rebtn" href="/realestate/#tour" target="_blank" rel="noopener">Request a tour</a></div>
+        <div class="renav"><a class="rebrand" href="/realestate/" target="_blank" rel="noopener"><b>The Residence</b><span>Your listing here</span></a><span class="relinks" aria-hidden="true"><span>Residence</span><span>Film</span><span>Gallery</span><span>Details</span></span><a class="rebtn" href="/realestate/#tour" target="_blank" rel="noopener">Request a tour</a></div>
         <div class="rekit">
           <div>
             <p class="reeyebrow">Day to night</p>
@@ -569,17 +601,18 @@ a,button,input,[role=tab]{touch-action:manipulation;-webkit-tap-highlight-color:
       </div>
       <div class="remedia">
         <figure class="recard">
-          <div class="refilm" id="refilm"><video playsinline preload="none" data-poster="img/realestate/poster.webp" width="1280" height="720"><source src="vid/realestate-film.mp4" type="video/mp4"></video><button class="play" type="button" aria-label="Play the listing film"><span><i></i>Play the film &middot; 0:23</span></button></div>
+          <div class="refilm" id="refilm"><video playsinline preload="none" data-poster="img/realestate/poster.webp" width="1280" height="720"><source src="vid/realestate-film-tab.mp4" type="video/mp4"></video><button class="play" type="button" aria-label="Play the listing film"><span><i></i>Play the film &middot; 0:23</span></button></div>
           <figcaption><b>The listing film</b><span>Sound on</span></figcaption>
         </figure>
         <figure class="recard">
           <a class="resite" href="/realestate/" target="_blank" rel="noopener" aria-label="Open the sample property site">
-            <div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>tavamadethis.com/realestate</span></div>
-            <div class="shot"><img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="img/realestate/site-preview.webp" width="1600" height="1000" decoding="async" alt="The sample property site: a hero photo of the estate above its pool, with the address and key details"><span class="go">Open the site &nearr;</span></div>
+            <div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>yourlisting.com</span></div>
+            <div class="shot"><img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="img/realestate/site-preview-tab.webp" width="1600" height="1000" decoding="async" alt="The sample property site: a hero photo of the home above its pool, with its key details"><span class="go">Open the site &nearr;</span></div>
           </a>
-          <figcaption><b>The property site</b><span>A sample for a <a href="https://www.redfin.com/CA/Rancho-Santa-Fe/6253-Clubhouse-Dr-92067/home/4485897" target="_blank" rel="noopener" style="color:inherit">real listing &nearr;</a></span></figcaption>
+          <figcaption><b>The property site</b><span>Open the full sample</span></figcaption>
         </figure>
       </div>
+      <p class="renote">Shown with a real home that was on the market, used here as an example.</p>
       <ul class="hl"><li>A listing film from the air to the front door and out to the pool at night, finished with quiet sound design and titles</li><li>Day to night: 41 frames from the film's transition drawn to a canvas and blended as you drag</li><li>A one-property site an agent can send buyers: film, gallery, details and a tour request</li></ul>
     </div></div></div>
   </div>
@@ -816,6 +849,54 @@ a,button,input,[role=tab]{touch-action:manipulation;-webkit-tap-highlight-color:
     else { started = true; fit(); loadFrames(); }
   })();
 
+
+  // custom film controls: play/pause, scrubber, time, sound, fullscreen. Same behaviour as the native ones, in the site's look.
+  function vcInit(wrap, video, start){
+    var I = { play: '<svg class="ic-play" viewBox="0 0 24 24"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg>', pause: '<svg class="ic-pause" viewBox="0 0 24 24"><rect x="6" y="5" width="4.2" height="14" rx="1.2"/><rect x="13.8" y="5" width="4.2" height="14" rx="1.2"/></svg>',
+      on: '<svg class="ic-on" viewBox="0 0 24 24"><path d="M4 9.5v5h3.6l4.6 3.8a.8.8 0 0 0 1.3-.6V6.3a.8.8 0 0 0-1.3-.6L7.6 9.5z"/><path d="M16.2 8.6a5 5 0 0 1 0 6.8M18.6 6.2a8.4 8.4 0 0 1 0 11.6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>', off: '<svg class="ic-off" viewBox="0 0 24 24"><path d="M4 9.5v5h3.6l4.6 3.8a.8.8 0 0 0 1.3-.6V6.3a.8.8 0 0 0-1.3-.6L7.6 9.5z"/><path d="M16.5 9.5l5 5M21.5 9.5l-5 5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>',
+      enter: '<svg class="ic-enter" viewBox="0 0 24 24"><path d="M4 9V5a1 1 0 0 1 1-1h4M20 9V5a1 1 0 0 0-1-1h-4M4 15v4a1 1 0 0 0 1 1h4M20 15v4a1 1 0 0 1-1 1h-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>', exit: '<svg class="ic-exit" viewBox="0 0 24 24"><path d="M9 4v4a1 1 0 0 1-1 1H4M15 4v4a1 1 0 0 0 1 1h4M9 20v-4a1 1 0 0 0-1-1H4M15 20v-4a1 1 0 0 1 1-1h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>' };
+    var bar = document.createElement('div'); bar.className = 'vc';
+    bar.innerHTML = '<button type="button" class="pp" aria-label="Play">' + I.play + I.pause + '</button><span class="tm" aria-hidden="true">0:00 / 0:00</span><input type="range" min="0" max="1000" value="0" step="1" aria-label="Seek"><button type="button" class="mu" aria-label="Mute">' + I.on + I.off + '</button><button type="button" class="fs" aria-label="Full screen">' + I.enter + I.exit + '</button>';
+    wrap.appendChild(bar); wrap.classList.add('vcw');
+    var pp = bar.querySelector('.pp'), tm = bar.querySelector('.tm'), rg = bar.querySelector('input'), mu = bar.querySelector('.mu'), fs = bar.querySelector('.fs'), hide = 0, seeking = false;
+    function fmt(s){ s = Math.max(0, Math.floor(s || 0)); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); }
+    function paint(){
+      var d = video.duration || 0, c = video.currentTime || 0, f = d ? c / d : 0;
+      if (!seeking) { rg.value = Math.round(f * 1000); rg.style.setProperty('--p', (f * 100).toFixed(2) + '%'); }
+      tm.textContent = fmt(c) + ' / ' + fmt(d); rg.setAttribute('aria-valuetext', fmt(c) + ' of ' + fmt(d));
+    }
+    function reveal(){ wrap.classList.add('vc-show'); clearTimeout(hide); if (!video.paused && !video.ended) hide = setTimeout(function(){ if (!bar.contains(document.activeElement) || !document.activeElement.matches(':focus-visible')) wrap.classList.remove('vc-show'); }, 2600); }
+    function state(){ var pl = !video.paused && !video.ended; wrap.classList.toggle('vc-playing', pl); pp.setAttribute('aria-label', pl ? 'Pause' : 'Play'); reveal(); }
+    function toggle(){ if (video.paused || video.ended) { if (video.ended) video.currentTime = 0; var pr = video.play(); if (pr && pr.catch) pr.catch(function(){}); } else video.pause(); }
+    function begin(){ wrap.classList.add('on'); toggle(); }
+    if (start) start.addEventListener('click', begin);
+    pp.addEventListener('click', toggle);
+    video.addEventListener('click', toggle);
+    ['play', 'pause', 'ended'].forEach(function(n){ video.addEventListener(n, state); });
+    ['timeupdate', 'loadedmetadata', 'durationchange'].forEach(function(n){ video.addEventListener(n, paint); });
+    rg.addEventListener('input', function(){ seeking = true; var d = video.duration || 0; if (d) { video.currentTime = rg.value / 1000 * d; } rg.style.setProperty('--p', (rg.value / 10) + '%'); tm.textContent = fmt(rg.value / 1000 * d) + ' / ' + fmt(d); });
+    rg.addEventListener('change', function(){ seeking = false; paint(); });
+    ['pointerup', 'pointercancel', 'blur'].forEach(function(n){ rg.addEventListener(n, function(){ seeking = false; }); });
+    mu.addEventListener('click', function(){ video.muted = !video.muted; });
+    video.addEventListener('volumechange', function(){ wrap.classList.toggle('vc-muted', video.muted || video.volume === 0); mu.setAttribute('aria-label', video.muted ? 'Unmute' : 'Mute'); });
+    function isFull(){ return document.fullscreenElement === wrap || document.webkitFullscreenElement === wrap; }
+    fs.addEventListener('click', function(){
+      if (isFull()) { (document.exitFullscreen || document.webkitExitFullscreen).call(document); }
+      else if (wrap.requestFullscreen) wrap.requestFullscreen().catch(function(){});
+      else if (wrap.webkitRequestFullscreen) wrap.webkitRequestFullscreen();
+      else if (video.webkitEnterFullscreen) video.webkitEnterFullscreen();
+    });
+    if (!document.fullscreenEnabled && !document.webkitFullscreenEnabled && !video.webkitEnterFullscreen) fs.hidden = true;
+    ['fullscreenchange', 'webkitfullscreenchange'].forEach(function(n){ document.addEventListener(n, function(){ wrap.classList.toggle('vc-full', isFull()); fs.setAttribute('aria-label', isFull() ? 'Exit full screen' : 'Full screen'); }); });
+    ['pointermove', 'pointerdown', 'focusin'].forEach(function(n){ wrap.addEventListener(n, reveal); });
+    wrap.addEventListener('pointerleave', function(e){ if (e.pointerType === 'mouse' && !video.paused) { clearTimeout(hide); hide = setTimeout(function(){ wrap.classList.remove('vc-show'); }, 700); } });
+    wrap.addEventListener('keydown', function(e){
+      if (!wrap.classList.contains('on') || e.target.closest('button,input')) return;
+      if (e.key === ' ' || e.key === 'k') { e.preventDefault(); toggle(); } else if (e.key === 'm') { video.muted = !video.muted; } else if (e.key === 'f') fs.click();
+    });
+    wrap.tabIndex = -1; video.removeAttribute('controls'); paint();
+  }
+
   // Real Estate: the day to night transition, 41 frames blended on a canvas. Drag, use the slider, or watch it play once.
   (function(){
     var win = document.getElementById('rewin'); if (!win) return;
@@ -861,7 +942,7 @@ a,button,input,[role=tab]{touch-action:manipulation;-webkit-tap-highlight-color:
     }, { threshold: 0.3 }).observe(stage);
     else { started = true; fit(); loadFrames(); ui(); poster(); }
     // the film plays in place, with sound, only when asked
-    fw.querySelector('.play').addEventListener('click', function(){ fw.classList.add('on'); fv.poster = fv.dataset.poster; fv.controls = true; fv.play(); });
+    fv.poster = fv.dataset.poster; vcInit(fw, fv, fw.querySelector('.play'));
   })();
 
   // The Collective read-only tour
