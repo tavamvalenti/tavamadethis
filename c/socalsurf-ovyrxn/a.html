@@ -1,0 +1,548 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>SoCal Surf Lessons · Mockup A</title>
+<link rel="icon" href="img/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sand:#F5EFE4; --sand-2:#EDE4D3; --ink:#13233F; --ink-2:#3A4A66; --muted:#6B7690;
+  --coral:#E4643B; --coral-d:#C94F28; --sea:#2E6FA8; --line:rgba(19,35,63,.12);
+  --violet:#6B46C1; --blue:#2F80ED;
+  --serif:'Fraunces',Georgia,serif; --sans:'Inter',system-ui,-apple-system,sans-serif;
+  --r:18px; --max:1180px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--sand);color:var(--ink);font:16px/1.6 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+.eyebrow{font:600 12px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--coral)}
+h1,h2,h3{font-family:var(--serif);font-weight:400;letter-spacing:-.02em;line-height:1.05}
+h2{font-size:clamp(36px,5vw,60px)}
+h2 em,h1 em{font-style:italic;color:var(--coral)}
+.btn{display:inline-flex;align-items:center;gap:.5em;padding:15px 26px;border-radius:999px;background:var(--coral);color:#fff;text-decoration:none;font-weight:600;font-size:15px;border:0;cursor:pointer;transition:transform .2s,background .2s}
+.btn:hover{background:var(--coral-d);transform:translateY(-1px)}
+.btn.ghost{background:transparent;color:#fff;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.7)}
+.btn.ghost:hover{background:rgba(255,255,255,.12)}
+.btn.dark{background:var(--ink)}
+.btn.dark:hover{background:#0b1730}
+
+/* nav */
+.nav{position:fixed;inset:0 0 auto;z-index:50;transition:background .3s,box-shadow .3s}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:76px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff;font-family:var(--serif);font-size:20px}
+.brand img{width:46px;height:46px;object-fit:contain;background:#fff;border-radius:50%;padding:3px}
+.links{display:flex;gap:28px;align-items:center}
+.links a{color:#fff;text-decoration:none;font-size:14.5px;font-weight:500;opacity:.9}
+.links a:hover{opacity:1}
+.links .btn{padding:11px 20px;opacity:1}
+.nav.solid{background:rgba(245,239,228,.92);backdrop-filter:blur(12px);box-shadow:0 1px 0 var(--line)}
+.nav.solid .brand,.nav.solid .links a:not(.btn){color:var(--ink)}
+.burger{display:none;background:none;border:0;color:#fff;font-size:26px;cursor:pointer}
+.nav.solid .burger{color:var(--ink)}
+
+/* hero */
+.hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;color:#fff;overflow:hidden}
+.hero img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:60% 40%;transform:scale(1.04);animation:drift 18s ease-out forwards}
+@keyframes drift{to{transform:scale(1)}}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,22,45,.35) 0%,rgba(10,22,45,0) 35%,rgba(10,22,45,.15) 55%,rgba(10,22,45,.75) 100%)}
+.hero .wrap{position:relative;z-index:2;padding-bottom:9vh;width:100%}
+.hero h1{font-size:clamp(52px,9vw,120px);max-width:12ch}
+.hero h1 em{color:#FFD9B8}
+.hero p.lead{font-size:clamp(17px,1.6vw,20px);max-width:44ch;margin:22px 0 32px;opacity:.92}
+.hero .ctas{display:flex;gap:12px;flex-wrap:wrap}
+.hero .meta{display:flex;gap:28px;flex-wrap:wrap;margin-top:48px;padding-top:22px;border-top:1px solid rgba(255,255,255,.3);font-size:14px}
+.hero .meta b{display:block;font-family:var(--serif);font-weight:400;font-size:26px}
+
+/* guarantee */
+.guarantee{background:var(--ink);color:var(--sand);padding:56px 0}
+.guarantee .wrap{display:grid;grid-template-columns:auto 1fr;gap:40px;align-items:center}
+.seal{width:120px;height:120px;border-radius:50%;border:1.5px dashed rgba(245,239,228,.5);display:grid;place-items:center;text-align:center;font:600 11px/1.3 var(--sans);letter-spacing:.14em;text-transform:uppercase;animation:spin 30s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.guarantee p{font-family:var(--serif);font-size:clamp(24px,3vw,36px);line-height:1.2}
+.guarantee p em{color:#FFB48F}
+
+/* intro */
+section{padding:110px 0}
+.intro .wrap{display:grid;grid-template-columns:1.05fr 1fr;gap:70px;align-items:center}
+.intro p{color:var(--ink-2);font-size:17.5px;margin-top:22px}
+.ticks{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:12px 22px;margin-top:30px}
+.ticks li{display:flex;gap:10px;align-items:flex-start;font-weight:500;font-size:15px}
+.ticks li::before{content:"";flex:none;width:20px;height:20px;border-radius:50%;background:var(--coral) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5.5 10.5l3 3 6-7' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");margin-top:2px}
+.collage{position:relative;aspect-ratio:1/1.05}
+.collage img{position:absolute;border-radius:var(--r);object-fit:cover;box-shadow:0 30px 60px -25px rgba(19,35,63,.45)}
+.collage .c1{inset:0 22% 26% 0;width:78%;height:74%}
+.collage .c2{right:0;bottom:0;width:58%;height:52%;border:8px solid var(--sand)}
+.collage .badge{position:absolute;left:6%;bottom:6%;background:#fff;border-radius:14px;padding:14px 18px;display:flex;gap:12px;align-items:center;box-shadow:0 20px 40px -20px rgba(19,35,63,.4);font-size:13px;line-height:1.35}
+.collage .badge img{position:static;width:44px;height:44px;box-shadow:none;border-radius:50%}
+
+/* lessons */
+.lessons{background:#fff}
+.head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-bottom:48px;flex-wrap:wrap}
+.head p{max-width:42ch;color:var(--ink-2)}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.card{border-radius:var(--r);background:var(--sand);overflow:hidden;display:flex;flex-direction:column;transition:transform .3s}
+.card:hover{transform:translateY(-4px)}
+.card .ph{aspect-ratio:4/3;overflow:hidden}
+.card .ph img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.card:hover .ph img{transform:scale(1.04)}
+.card .body{padding:26px;display:flex;flex-direction:column;flex:1}
+.card h3{font-size:28px}
+.card .sub{color:var(--muted);font-size:14px;margin:6px 0 18px}
+.price{display:flex;justify-content:space-between;align-items:baseline;padding:11px 0;border-top:1px solid var(--line);font-size:15px}
+.price b{font-family:var(--serif);font-weight:500;font-size:24px}
+.price small{color:var(--muted);font-size:12px;margin-left:3px}
+.card .btn{margin-top:auto;align-self:flex-start}
+.card .sp{height:18px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px}
+.tabs button{border:0;background:#fff;border-radius:999px;padding:7px 12px;font:600 12.5px var(--sans);color:var(--ink-2);cursor:pointer}
+.tabs button.on{background:var(--ink);color:#fff}
+.tabnote{font-size:12.5px;color:var(--muted);margin-bottom:4px;min-height:19px}
+.allin{margin-top:28px;display:flex;gap:10px 26px;flex-wrap:wrap;justify-content:center;color:var(--ink-2);font-size:14px}
+.allin span::before{content:"✦ ";color:var(--coral)}
+
+/* camps */
+.camps{position:relative;color:#fff;overflow:hidden;padding:0}
+.camps .bgimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:30% 50%}
+.camps::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(13,25,50,.92) 0%,rgba(13,25,50,.75) 45%,rgba(13,25,50,.1) 100%);z-index:1}
+.camps .wrap{position:relative;z-index:2;padding-top:110px;padding-bottom:110px}
+.camps .inner{max-width:560px}
+.camps .eyebrow{color:#FFB48F}
+.camps h2 em{color:#FFD9B8}
+.camps p{opacity:.9;margin:18px 0 28px}
+.camp-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:28px}
+.camp-grid div{background:rgba(255,255,255,.1);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:16px}
+.camp-grid small{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.7;margin-bottom:4px}
+.camp-grid b{font-family:var(--serif);font-weight:400;font-size:22px}
+.weeks{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 28px}
+.weeks span{border:1px solid rgba(255,255,255,.4);border-radius:999px;padding:6px 13px;font-size:13.5px}
+.camps ul{list-style:none;margin:0 0 28px;display:grid;gap:6px;font-size:15px}
+.camps ul li::before{content:"— ";color:#FFB48F}
+
+/* rentals */
+.rentals .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.rent{background:#fff;border-radius:var(--r);padding:28px 24px;border:1px solid var(--line)}
+.rent .ic{width:46px;height:46px;border-radius:12px;background:var(--sand);display:grid;place-items:center;margin-bottom:18px;color:var(--sea)}
+.rent h3{font-size:24px;margin-bottom:14px}
+.rent .row{display:flex;justify-content:space-between;padding:8px 0;border-top:1px solid var(--line);font-size:15px}
+.rent .row b{font-weight:600}
+.rent .note{font-size:13px;color:var(--muted);margin-top:10px}
+.deliver{margin-top:22px;background:var(--ink);color:var(--sand);border-radius:var(--r);padding:22px 28px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+.deliver p{font-family:var(--serif);font-size:22px}
+
+/* story */
+.story{background:var(--sand-2)}
+.story .wrap{display:grid;grid-template-columns:1fr 1.1fr;gap:70px;align-items:center}
+.story .ph{border-radius:var(--r);overflow:hidden;aspect-ratio:4/5}
+.story .ph img{width:100%;height:100%;object-fit:cover}
+.story p{color:var(--ink-2);margin-top:18px}
+.story .sig{display:flex;gap:30px;margin-top:30px;padding-top:24px;border-top:1px solid var(--line)}
+.story .sig b{display:block;font-family:var(--serif);font-weight:400;font-size:38px;color:var(--ink)}
+.story .sig span{font-size:13px;color:var(--muted)}
+
+/* review */
+.review{text-align:center;background:#fff}
+.review blockquote{font-family:var(--serif);font-size:clamp(24px,3.2vw,38px);line-height:1.3;max-width:28ch;margin:24px auto 0}
+.review blockquote::before{content:"“";display:block;font-size:90px;line-height:.6;color:var(--coral)}
+.review cite{display:block;margin-top:26px;font-style:normal;font-weight:600}
+.review cite span{display:block;font-weight:400;color:var(--muted);font-size:14px}
+.stars{color:#F2A33A;letter-spacing:3px;margin-top:6px}
+.certs{display:flex;justify-content:center;gap:40px;align-items:center;margin-top:60px;flex-wrap:wrap}
+.certs div{display:flex;gap:12px;align-items:center;font-size:14px;text-align:left;color:var(--ink-2)}
+.certs img{width:56px;height:56px;object-fit:contain}
+.certs .ins{width:56px;height:56px;border-radius:50%;background:var(--ink);display:grid;place-items:center}
+.certs .ins img{width:40px;height:40px}
+
+/* faq */
+.faq .wrap{display:grid;grid-template-columns:.8fr 1.2fr;gap:70px}
+details{border-top:1px solid var(--line);padding:22px 0}
+details:last-child{border-bottom:1px solid var(--line)}
+summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:20px;font-family:var(--serif);font-size:22px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-family:var(--sans);font-weight:300;font-size:28px;line-height:1;transition:transform .3s;color:var(--coral)}
+details[open] summary::after{transform:rotate(45deg)}
+details p{color:var(--ink-2);margin-top:12px;max-width:60ch}
+
+/* book */
+.book{background:var(--ink);color:var(--sand)}
+.book .wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:60px}
+.book h2 em{color:#FFB48F}
+.book .info{margin-top:30px;display:grid;gap:18px}
+.book .info div{display:flex;gap:14px;align-items:flex-start}
+.book .info svg{flex:none;margin-top:3px;color:#FFB48F}
+.book .info b{display:block;font-weight:600}
+.book .info span{opacity:.75;font-size:14.5px}
+.book .info a{text-decoration:none}
+form{background:var(--sand);color:var(--ink);border-radius:22px;padding:34px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+form .full{grid-column:1/-1}
+label{font-size:12.5px;font-weight:600;color:var(--ink-2);display:grid;gap:6px}
+input,select,textarea{font:15px var(--sans);padding:13px 14px;border-radius:12px;border:1px solid var(--line);background:#fff;color:var(--ink);width:100%}
+textarea{min-height:90px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--coral);outline-offset:1px}
+form .btn{justify-content:center}
+.formnote{font-size:13px;color:var(--muted)}
+.toast{grid-column:1/-1;display:none;background:#fff;border-radius:12px;padding:14px;font-size:14px;border-left:4px solid var(--coral)}
+
+footer{background:#0b1730;color:rgba(245,239,228,.75);padding:56px 0 40px;font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;align-items:flex-start}
+footer .brand{color:var(--sand)}
+footer nav{display:flex;gap:18px;flex-wrap:wrap}
+footer a{text-decoration:none}
+footer a:hover{color:#fff}
+.social{display:flex;gap:10px;margin-top:16px}
+.social a{width:38px;height:38px;border-radius:50%;border:1px solid rgba(245,239,228,.25);display:grid;place-items:center}
+.social a:hover{background:rgba(255,255,255,.08)}
+.copy{width:100%;border-top:1px solid rgba(245,239,228,.12);padding-top:22px;margin-top:20px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:13px}
+
+/* mockup tag */
+.tm{position:fixed;left:16px;bottom:16px;z-index:60;display:flex;align-items:center;gap:8px;background:rgba(19,35,63,.88);color:#fff;text-decoration:none;font:500 12px var(--sans);padding:8px 13px 8px 9px;border-radius:999px;backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.25)}
+.tm i{width:16px;height:16px;background:#fff;-webkit-mask:url(/img/logo-mark.webp) center/contain no-repeat;mask:url(/img/logo-mark.webp) center/contain no-repeat}
+
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .8s ease,transform .8s ease}
+.reveal.in{opacity:1;transform:none}
+
+@media (max-width:980px){
+  .cards,.rentals .grid{grid-template-columns:1fr 1fr}
+  .intro .wrap,.story .wrap,.faq .wrap,.book .wrap{grid-template-columns:1fr;gap:44px}
+  .links a:not(.btn){display:none}
+}
+@media (max-width:640px){
+  section{padding:76px 0}
+  .wrap{padding:0 16px}
+  .cards,.rentals .grid,.ticks{grid-template-columns:1fr}
+  .camp-grid b{font-size:18px}
+  .hero .wrap{padding-top:110px;padding-bottom:40px}
+  .hero h1{font-size:46px}
+  .hero .meta{margin-top:30px}
+  .guarantee .wrap{grid-template-columns:1fr;gap:22px;justify-items:start}
+  .seal{width:92px;height:92px;font-size:9px}
+  form{grid-template-columns:1fr;padding:22px}
+  .brand span{display:none}
+  .hero .meta{gap:18px}
+  .camps::before{background:linear-gradient(180deg,rgba(13,25,50,.55),rgba(13,25,50,.92))}
+  .collage{aspect-ratio:1/1.15}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="brand" href="#top"><img src="img/logo.png" alt="SoCal Surf Lessons logo"><span>SoCal Surf Lessons</span></a>
+    <nav class="links">
+      <a href="#lessons">Lessons</a>
+      <a href="#camps">Kids' Camps</a>
+      <a href="#rentals">Rentals</a>
+      <a href="#about">About</a>
+      <a href="#faq">FAQ</a>
+      <a class="btn" href="#book">Book a lesson</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero" style="padding:0">
+    <img class="bg" src="img/hero.jpg" alt="A surfer riding a wave in Carlsbad">
+    <div class="wrap">
+      <span class="eyebrow" style="color:#FFE6D0;text-shadow:0 1px 8px rgba(10,22,45,.6)">Carlsbad, California · Since 2004</span>
+      <h1 style="margin-top:18px">Catch a wave. <em>Catch the feeling.</em></h1>
+      <p class="lead">Your Carlsbad surf story starts here. Private and group lessons for every age and skill level, taught by local instructors at Lifeguard Tower 30.</p>
+      <div class="ctas">
+        <a class="btn" href="#book">Book your lesson</a>
+        <a class="btn ghost" href="#lessons">See lessons &amp; prices</a>
+      </div>
+      <div class="meta">
+        <div><b>Year-round</b>lessons, every day 8AM–8PM</div>
+        <div><b>Same day</b>appointments available</div>
+        <div><b>$0</b>deposit to book</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="guarantee">
+    <div class="wrap">
+      <div class="seal">Our<br>Guarantee</div>
+      <p>You’ll be up and riding a wave on your first lesson, <em>or your next lesson is on us.</em></p>
+    </div>
+  </div>
+
+  <section class="intro" id="about">
+    <div class="wrap">
+      <div class="reveal">
+        <span class="eyebrow">About us</span>
+        <h2 style="margin-top:16px">Local knowledge. <em>Legendary waves.</em></h2>
+        <p>We teach to your skill level and love teaching beginner to advanced surfers of all ages. We make private and group lessons an unforgettable experience on the best beaches in Carlsbad. Our instructors are experienced local surfers who share a love for the ocean and for teaching.</p>
+        <ul class="ticks">
+          <li>Experienced local instructors</li>
+          <li>Top of the line surfboards &amp; wetsuits</li>
+          <li>Year-round lessons</li>
+          <li>Same day appointments</li>
+          <li>No deposit necessary</li>
+          <li>Licensed, bonded &amp; insured</li>
+        </ul>
+      </div>
+      <div class="collage reveal">
+        <img class="c1" src="img/beach.jpg" alt="Instructors teaching kids to pop up on the sand">
+        <img class="c2" src="img/highfive.jpg" alt="Instructor high-fiving a young surfer">
+        <div class="badge"><img src="img/parks.png" alt="California State Parks seal"><div><b>Certified by</b><br>California State Parks</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="lessons" id="lessons">
+    <div class="wrap">
+      <div class="head reveal">
+        <div><span class="eyebrow">Lessons &amp; pricing</span><h2 style="margin-top:16px">Find your <em>lesson.</em></h2></div>
+        <p>Every lesson starts with 5–10 minutes on the sand, then the rest of your time is in the water with your instructor. You keep the gear for a free hour afterwards.</p>
+      </div>
+      <div class="cards">
+        <article class="card reveal">
+          <div class="ph"><img src="img/adult.jpg" alt="A student standing up on her board"></div>
+          <div class="body">
+            <span class="eyebrow">Kids &amp; adults</span>
+            <h3 style="margin-top:8px">1 Person Private</h3>
+            <p class="sub">Premium surfboard, wetsuit &amp; a local instructor, all to yourself.</p>
+            <div class="price"><span>1.5 hours</span><b>$140</b></div>
+            <div class="price"><span>2 hours</span><b>$185</b></div>
+            <div class="sp"></div>
+            <a class="btn dark" href="#book" data-people="1">Book now</a>
+          </div>
+        </article>
+        <article class="card reveal">
+          <div class="ph"><img src="img/kid.jpg" alt="A young boy surfing with his instructor"></div>
+          <div class="body">
+            <span class="eyebrow">Friends &amp; families</span>
+            <h3 style="margin-top:8px">2–4 Person Private</h3>
+            <p class="sub">Premium surfboards, wetsuits &amp; 1 or 2 local instructors.</p>
+            <div class="tabs" role="tablist" id="ptabs">
+              <button class="on" data-k="2">2 people</button>
+              <button data-k="3a">3 · 1 instr.</button>
+              <button data-k="3b">3 · 2 instr.</button>
+              <button data-k="4">4 people</button>
+            </div>
+            <div class="tabnote" id="pnote">1 instructor</div>
+            <div class="price"><span>1.5 hours</span><b><span id="p15">$90</span><small>/person</small></b></div>
+            <div class="price"><span>2 hours</span><b><span id="p2">$125</span><small>/person</small></b></div>
+            <div class="sp"></div>
+            <a class="btn dark" href="#book" data-people="2">Book now</a>
+          </div>
+        </article>
+        <article class="card reveal">
+          <div class="ph"><img src="img/group.jpg" alt="A group practising on the beach"></div>
+          <div class="body">
+            <span class="eyebrow">Parties, teams &amp; schools</span>
+            <h3 style="margin-top:8px">5–25 Person Group</h3>
+            <p class="sub">Premium surfboards, wetsuits &amp; 2, 3, 4, 5 or 6 local instructors.</p>
+            <div class="price"><span>1.5 hours</span><b>$79<small>/person</small></b></div>
+            <div class="price"><span>2 hours</span><b>$95<small>/person</small></b></div>
+            <div class="sp"></div>
+            <a class="btn dark" href="#book" data-people="5 or more">Book now</a>
+          </div>
+        </article>
+      </div>
+      <div class="allin reveal"><span>Surf fundamentals</span><span>Ocean awareness</span><span>Water safety</span><span>Wave riding skills</span><span>Surf etiquette</span></div>
+    </div>
+  </section>
+
+  <section class="camps" id="camps">
+    <img class="bgimg" src="img/camp.jpg" alt="A young surfer riding a wave">
+    <div class="wrap">
+      <div class="inner reveal">
+        <span class="eyebrow">New · Kids' summer surf camps</span>
+        <h2 style="margin-top:16px">A summer they’ll <em>never forget.</em></h2>
+        <p>For kids ages 7–16 who genuinely want to learn to surf while having a great time in the water. Strictly a surf camp: a 15-minute brief and warm-up, then surfing with a short water break.</p>
+        <div class="camp-grid">
+          <div><small>Ages</small><b>7–16</b></div>
+          <div><small>Days &amp; times</small><b>Mon–Fri · 8:45–11 AM</b></div>
+          <div><small>Drop-in</small><b>$90 / day</b></div>
+          <div><small>Full week</small><b>$390 / week</b></div>
+        </div>
+        <ul>
+          <li>Instruction tailored to each child’s skill level</li>
+          <li>Small groups of 6–12 kids per day</li>
+          <li>Low 3-to-1 student-to-instructor ratio</li>
+          <li>Experienced surfers with teaching experience</li>
+        </ul>
+        <small style="display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.7;margin-bottom:10px">Weeks starting</small>
+        <div class="weeks"><span>July 20</span><span>July 27</span><span>Aug 3</span><span>Aug 10</span><span>Aug 17</span><span>Aug 24</span></div>
+        <a class="btn" href="sms:+17606722770">Call or text to reserve · (760) 672-2770</a>
+        <p style="font-size:13px;margin-top:12px;opacity:.7">Space is limited.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="rentals" id="rentals">
+    <div class="wrap">
+      <div class="head reveal">
+        <div><span class="eyebrow">Rentals</span><h2 style="margin-top:16px">Gear up &amp; <em>paddle out.</em></h2></div>
+        <p>Already surf? Grab a board and a wetsuit by the hour or the day. 2–7 day special rates on everything.</p>
+      </div>
+      <div class="grid">
+        <div class="rent reveal">
+          <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 19C3 13 8 4 19 3c-1 11-8 16-14 16z"/><path d="M8 16L17 6"/></svg></div>
+          <h3>Soft Top Surfboard</h3>
+          <div class="row"><span>2 hours</span><b>$25</b></div>
+          <div class="row"><span>24 hours</span><b>$30</b></div>
+          <p class="note">2–7 day special rates</p>
+        </div>
+        <div class="rent reveal">
+          <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 19C3 13 8 4 19 3c-1 11-8 16-14 16z"/><path d="M14 14l3 4"/></svg></div>
+          <h3>Fiberglass Surfboard</h3>
+          <div class="row"><span>2 hours</span><b>$30</b></div>
+          <div class="row"><span>24 hours</span><b>$35</b></div>
+          <p class="note">2–7 day special rates</p>
+        </div>
+        <div class="rent reveal">
+          <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="6" y="3" width="12" height="18" rx="5"/><path d="M12 21v1"/></svg></div>
+          <h3>Boogie Board</h3>
+          <div class="row"><span>2 hours</span><b>$15</b></div>
+          <div class="row"><span>24 hours</span><b>$20</b></div>
+          <p class="note">2–7 day special rates</p>
+        </div>
+        <div class="rent reveal">
+          <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 3h6l1 4 3 2-1 4h-2v8H8v-8H6L5 9l3-2z"/></svg></div>
+          <h3>Wetsuit</h3>
+          <div class="row"><span>2 hours</span><b>$10</b></div>
+          <div class="row"><span>24 hours</span><b>$15</b></div>
+          <p class="note">2–7 day special rates</p>
+        </div>
+      </div>
+      <div class="deliver reveal">
+        <p>We deliver anywhere in Carlsbad for rentals over $65.</p>
+        <a class="btn" href="#book">Reserve rentals</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="story">
+    <div class="wrap">
+      <div class="ph reveal"><img src="img/highfive.jpg" alt="An instructor high-fiving a young surfer at the water's edge" style="object-position:68% 50%"></div>
+      <div class="reveal">
+        <span class="eyebrow">Meet our staff</span>
+        <h2 style="margin-top:16px">Built on a <em>lifelong love</em> of the ocean.</h2>
+        <p>SoCal Surf Lessons was founded in the summer of 2004 by lifelong waterman Rusty Friesen. A three-year California State Lifeguard, experienced big-wave surfer and bodyboarder, and world traveler, Rusty built the company around his passion for the ocean and sharing the sport of surfing with others.</p>
+        <p>What started as a small local operation has grown into a trusted, year-round surf school. Our instructors bring years of real-world experience from waves across the globe, and more importantly, they’re patient teachers who know how to safely introduce beginners to the ocean while helping experienced surfers improve.</p>
+        <p>Whether it’s your first time on a board or you’re refining your technique, our goal is simple: give you the knowledge, confidence, and stoke to enjoy surfing for life.</p>
+        <div class="sig">
+          <div><b>2004</b><span>Founded in Carlsbad</span></div>
+          <div><b>1000s</b><span>of students taught</span></div>
+          <div><b>3 yrs</b><span>Rusty as a CA State Lifeguard</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="review">
+    <div class="wrap reveal">
+      <span class="eyebrow">What families say</span>
+      <blockquote>Definitely one of those core life memories for my kids; something they’ll never forget. Hands down the best money I’ve spent in a long time.</blockquote>
+      <cite>Rachel Martin<span>Mom of three, ages 15, 13 &amp; 9 · 1.5 hour lesson</span></cite>
+      <div class="certs">
+        <div><img src="img/parks.png" alt="California State Parks seal"><span>Certified by<br><b>California State Parks</b></span></div>
+        <div><span class="ins"><img src="img/insured.png" alt="Licensed, bonded and insured badge"></span><span>Fully<br><b>Licensed, bonded &amp; insured</b></span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq" id="faq">
+    <div class="wrap">
+      <div class="reveal">
+        <span class="eyebrow">FAQ</span>
+        <h2 style="margin-top:16px">Good to <em>know.</em></h2>
+        <p style="color:var(--ink-2);margin-top:18px">Still curious? Call or text us at <a href="tel:+17606722770">760-672-2770</a>.</p>
+      </div>
+      <div class="reveal">
+        <details open><summary>What should I bring with me?</summary><p>Bring a towel, sunscreen, water and come dressed in your bathing suit and ready to catch some waves.</p></details>
+        <details><summary>What is parking like, and how early should I be?</summary><p>Parking is street parking. On weekends and summer days it can be crowded, so plan to be there 10–15 minutes early to find a spot and walk over.</p></details>
+        <details><summary>What should I expect once I’m there?</summary><p>A typical beginner lesson includes about 5–10 minutes of beach instruction. The remaining time you’ll be in the water with your instructor surfing. You’ll also have free 1 hour use of the equipment after the lesson!</p></details>
+        <details><summary>What will I learn at the lesson?</summary><p>Our students learn basic surfing fundamentals, as well as ocean awareness, water safety, wave riding skills, and surf etiquette.</p></details>
+        <details><summary>Are there refunds for bad weather or bad surf?</summary><p>Typically, we don’t take a deposit, and if your lesson is canceled due to weather there is no charge. We do charge for late cancellations and no-shows, as our instructors are still paid for the time.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="book" id="book">
+    <div class="wrap">
+      <div class="reveal">
+        <span class="eyebrow" style="color:#FFB48F">Book your surf lesson</span>
+        <h2 style="margin-top:16px">Ready to catch <em>some waves?</em></h2>
+        <p style="opacity:.8;margin-top:18px">We’ll send a confirmation within 6–12 hours. If you don’t see a reply, check your junk folder or give us a call or text.</p>
+        <div class="info">
+          <div><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s7-6.2 7-12a7 7 0 10-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg><div><b>Lifeguard Tower 30</b><span>Carlsbad, California</span></div></div>
+          <div><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><div><b>Every day</b><span>8AM – 8PM</span></div></div>
+          <div><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2"/></svg><div><b><a href="tel:+17606722770">760-672-2770</a></b><span>Call or text</span></div></div>
+        </div>
+      </div>
+      <form class="reveal" id="bookform">
+        <label>First name<input required autocomplete="given-name"></label>
+        <label>Last name<input required autocomplete="family-name"></label>
+        <label>Email<input type="email" required autocomplete="email"></label>
+        <label>Phone<input type="tel" autocomplete="tel"></label>
+        <label>Length of lesson<select required><option value="">Choose an option</option><option>1.5 HR. Lesson</option><option>2 HR. Lesson</option></select></label>
+        <label>Number of people<select id="people"><option value="">Choose an option</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5 or more</option></select></label>
+        <label>Date<input type="date"></label>
+        <label>Preferred time<select id="times"></select></label>
+        <label class="full">Message<textarea placeholder="Leave us a message… ages, experience, anything we should know."></textarea></label>
+        <button class="btn full" type="submit">Request my lesson</button>
+        <p class="formnote full">No deposit needed. Same day appointments often available.</p>
+        <div class="toast" id="toast">This is a design mockup, so nothing was sent. On the live site this request would go straight to SoCal Surf Lessons.</div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <a class="brand" href="#top"><img src="img/logo.png" alt=""><span>SoCal Surf Lessons</span></a>
+      <p style="margin-top:14px;max-width:34ch">Surf lessons, kids’ camps and rentals at Lifeguard Tower 30, Carlsbad. Every day, 8AM–8PM.</p>
+      <div class="social">
+        <a href="https://www.instagram.com/socalsurflessons/" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/></svg></a>
+        <a href="https://www.facebook.com/socal.surflessons/" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M14 8h3V4h-3a4 4 0 00-4 4v2H8v4h2v8h4v-8h3l1-4h-4V8z"/></svg></a>
+        <a href="https://www.pinterest.com/socalsurf/" aria-label="Pinterest"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M11 8.5c3-1 5.5.6 5 3.4-.4 2.3-2.4 3.3-3.8 2.5M11.5 10l-2 10"/></svg></a>
+        <a href="https://x.com/SoCalSurfLesson" aria-label="X"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.8 3h3.1l-6.8 7.8L22 21h-6.2l-4.9-6.4L5.3 21H2.2l7.3-8.3L2 3h6.3l4.4 5.9L17.8 3zm-1.1 16.2h1.7L7.4 4.7H5.6l11.1 14.5z"/></svg></a>
+      </div>
+    </div>
+    <nav>
+      <a href="#lessons">Lessons</a><a href="#camps">Kids' Camps</a><a href="#rentals">Rentals</a><a href="#about">About</a><a href="#faq">FAQ</a><a href="#book">Book now</a>
+    </nav>
+    <div class="copy">
+      <span>© 2026 SoCal Surf Lessons · Licensed, bonded &amp; insured</span>
+      <nav><a href="https://www.socalsurflessons.com/accessibility-statement">Accessibility</a><a href="https://www.socalsurflessons.com/terms-conditions">Terms &amp; Conditions</a><a href="https://www.socalsurflessons.com/privacy-policy">Privacy Policy</a><a href="https://www.socalsurflessons.com/refund-policy">Refund Policy</a></nav>
+    </div>
+  </div>
+</footer>
+
+<a class="tm" href="./" title="Back to all mockups"><i></i>Mockup A · tavamadethis</a>
+
+<script>
+const nav=document.getElementById('nav');
+const onScroll=()=>nav.classList.toggle('solid',scrollY>40);onScroll();addEventListener('scroll',onScroll,{passive:true});
+
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+const P={'2':['1 instructor','$90','$125'],'3a':['1 instructor','$78','$105'],'3b':['2 instructors','$100','$130'],'4':['2 instructors','$85','$105']};
+document.querySelectorAll('#ptabs button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('#ptabs button').forEach(x=>x.classList.toggle('on',x===b));
+  const [n,a,c]=P[b.dataset.k];pnote.textContent=n;p15.textContent=a;p2.textContent=c;
+  b.closest('.card').querySelector('[data-people]').dataset.people=b.dataset.k[0];
+});
+
+const t=document.getElementById('times');
+t.innerHTML='<option value="">Choose a time</option>';
+for(let m=7*60;m<=18*60+30;m+=30){const h=Math.floor(m/60),mm=m%60,h12=((h+11)%12)+1;t.innerHTML+=`<option>${String(h12).padStart(2,'0')}:${mm?'30':'00'} ${h<12?'AM':'PM'}</option>`}
+
+document.querySelectorAll('[data-people]').forEach(a=>a.addEventListener('click',()=>{document.getElementById('people').value=a.dataset.people}));
+document.getElementById('bookform').addEventListener('submit',e=>{e.preventDefault();document.getElementById('toast').style.display='block'});
+</script>
+</body>
+</html>
