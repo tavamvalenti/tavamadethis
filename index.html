@@ -353,6 +353,7 @@ img,video{max-width:100%}
 .retrack input::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:#FBF8F2;border:1px solid rgba(0,0,0,.15);box-shadow:0 4px 14px rgba(0,0,0,.25);margin-top:-9.5px}
 .retrack input::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:#FBF8F2;border:1px solid rgba(0,0,0,.15);box-shadow:0 4px 14px rgba(0,0,0,.25)}
 .retrack input:focus-visible{outline:2px solid #A9743B;outline-offset:4px;border-radius:6px}
+.renote{margin:-6px 0 0;font-size:12px;color:var(--mut)}
 .remedia{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(14px,2vw,22px)}
 .recard{margin:0;display:grid;gap:10px;min-width:0}
 .recard figcaption{display:flex;justify-content:space-between;gap:12px;font-size:14px;color:var(--mut)}
@@ -543,12 +544,12 @@ a,button,input,[role=tab]{touch-action:manipulation;-webkit-tap-highlight-color:
 
 <article class="row t-realestate" id="realestate">
   <div class="wrap">
-    <button type="button" aria-expanded="false" aria-controls="p-realestate"><span class="title">Real Estate</span><span class="meta"><b>Listing Film &amp; Property Site</b><span class="mono">Rancho Santa Fe &middot; sample</span></span><span class="plus" aria-hidden="true">+</span></button>
+    <button type="button" aria-expanded="false" aria-controls="p-realestate"><span class="title">Real Estate</span><span class="meta"><b>Listing Film &amp; Property Site</b><span class="mono">Listing package &middot; sample</span></span><span class="plus" aria-hidden="true">+</span></button>
     <div class="panel" id="p-realestate"><div><div class="inner">
-      <p class="lede">A listing film for an estate in Rancho Santa Fe, and the single-property website that could sit behind it. Drag the light from afternoon to evening.</p>
+      <p class="lede">What a listing could get: a short film, an interactive day-to-night view and a website built just for the home. Drag the light from afternoon to evening.</p>
       <div class="actions"><a class="btn big" href="/realestate/" target="_blank" rel="noopener">Open the sample site &nearr;</a><div class="chips"><span>Listing film</span><span>Sound design</span><span>HTML</span><span>CSS</span><span>Canvas</span></div></div>
       <div class="rewin" id="rewin">
-        <div class="renav"><a class="rebrand" href="/realestate/" target="_blank" rel="noopener"><b>Clubhouse Drive</b><span>Rancho Santa Fe</span></a><span class="relinks" aria-hidden="true"><span>Residence</span><span>Film</span><span>Gallery</span><span>Details</span></span><a class="rebtn" href="/realestate/#tour" target="_blank" rel="noopener">Request a tour</a></div>
+        <div class="renav"><a class="rebrand" href="/realestate/" target="_blank" rel="noopener"><b>The Residence</b><span>Your listing here</span></a><span class="relinks" aria-hidden="true"><span>Residence</span><span>Film</span><span>Gallery</span><span>Details</span></span><a class="rebtn" href="/realestate/#tour" target="_blank" rel="noopener">Request a tour</a></div>
         <div class="rekit">
           <div>
             <p class="reeyebrow">Day to night</p>
@@ -569,17 +570,18 @@ a,button,input,[role=tab]{touch-action:manipulation;-webkit-tap-highlight-color:
       </div>
       <div class="remedia">
         <figure class="recard">
-          <div class="refilm" id="refilm"><video playsinline preload="none" data-poster="img/realestate/poster.webp" width="1280" height="720"><source src="vid/realestate-film.mp4" type="video/mp4"></video><button class="play" type="button" aria-label="Play the listing film"><span><i></i>Play the film &middot; 0:23</span></button></div>
+          <div class="refilm" id="refilm"><video playsinline preload="none" data-poster="img/realestate/poster.webp" width="1280" height="720"><source src="vid/realestate-film-tab.mp4" type="video/mp4"></video><button class="play" type="button" aria-label="Play the listing film"><span><i></i>Play the film &middot; 0:23</span></button></div>
           <figcaption><b>The listing film</b><span>Sound on</span></figcaption>
         </figure>
         <figure class="recard">
           <a class="resite" href="/realestate/" target="_blank" rel="noopener" aria-label="Open the sample property site">
-            <div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>tavamadethis.com/realestate</span></div>
-            <div class="shot"><img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="img/realestate/site-preview.webp" width="1600" height="1000" decoding="async" alt="The sample property site: a hero photo of the estate above its pool, with the address and key details"><span class="go">Open the site &nearr;</span></div>
+            <div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>yourlisting.com</span></div>
+            <div class="shot"><img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="img/realestate/site-preview-tab.webp" width="1600" height="1000" decoding="async" alt="The sample property site: a hero photo of the home above its pool, with its key details"><span class="go">Open the site &nearr;</span></div>
           </a>
-          <figcaption><b>The property site</b><span>A sample for a <a href="https://www.redfin.com/CA/Rancho-Santa-Fe/6253-Clubhouse-Dr-92067/home/4485897" target="_blank" rel="noopener" style="color:inherit">real listing &nearr;</a></span></figcaption>
+          <figcaption><b>The property site</b><span>Open the full sample</span></figcaption>
         </figure>
       </div>
+      <p class="renote">Shown with a real home that was on the market, used here as an example.</p>
       <ul class="hl"><li>A listing film from the air to the front door and out to the pool at night, finished with quiet sound design and titles</li><li>Day to night: 41 frames from the film's transition drawn to a canvas and blended as you drag</li><li>A one-property site an agent can send buyers: film, gallery, details and a tour request</li></ul>
     </div></div></div>
   </div>
