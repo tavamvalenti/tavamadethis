@@ -1,5 +1,7 @@
 # tavamadethis.com
 
+GitHub repo: `tavamvalenti/tavamadethis` (it was called `tiny-world` until 2026-11-11; GitHub forwards the old address).
+
 Tava Valenti's portfolio. This repository **is** the website: the live site at https://tavamadethis.com serves the repository root as-is (static HTML, no build step).
 
 ## Layout
