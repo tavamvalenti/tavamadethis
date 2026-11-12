@@ -328,6 +328,13 @@ img[data-src].ld{opacity:1;transition:opacity .6s ease}
 .js .rv{opacity:0;transform:translate3d(0,22px,0);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1);transition-delay:var(--rd,0s)}
 .js .rv.in{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){.js .rv{opacity:1;transform:none;transition:none}.hero .name,.hero .sigpos{translate:none}}
+/* ---------- depth (desktop, mouse devices only) ---------- */
+html.depth .hero .poster{scale:1.03;translate:calc(var(--mx,0)*-10px) calc(var(--my,0)*-7px);will-change:translate}
+html.depth .hero .name{translate:calc(var(--mx,0)*7px) calc(var(--py,0px) + var(--my,0)*5px);will-change:translate}
+html.depth .hero .sigpos{translate:calc(var(--mx,0)*16px) calc(var(--py,0px) + var(--my,0)*10px)}
+html.depth .contact .poster{scale:1.2;translate:0 var(--dy,0px);will-change:translate}
+html.depth .about .me,html.depth .work-intro h2,html.depth .about h2,html.depth .contact h2{translate:0 var(--dy,0px);will-change:translate}
+html.smooth{scroll-behavior:auto}
 /* ---------- phones and touch ---------- */
 a,button,input,[role=tab]{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 @media(hover:none){.row > .wrap > button:hover .title{transform:none}}
@@ -591,6 +598,30 @@ a,button,input,[role=tab]{touch-action:manipulation;-webkit-tap-highlight-color:
     addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(upd)}},{passive:true});addEventListener('resize',upd);upd();
     var rv=document.querySelectorAll('.about .col > *,.contact h2,.contact .actions');rv.forEach(function(el,i){el.classList.add('rv');el.style.setProperty('--rd',(i%4)*.08+'s')});
     if('IntersectionObserver' in window){var ro=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');ro.unobserve(e.target)}})},{threshold:.15});rv.forEach(function(el){ro.observe(el)})}else{rv.forEach(function(el){el.classList.add('in')})}
+  })();
+  /* depth + eased scrolling: mouse devices on wide screens only, never with reduced motion */
+  (function(){
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches||!matchMedia('(hover:hover) and (pointer:fine)').matches||innerWidth<=900)return;
+    var root=document.documentElement,hero=document.querySelector('.hero');root.classList.add('depth');
+    var items=[['.about .me',-.07],['.work-intro h2',.05],['.about h2',.04],['.contact h2',.05],['.contact .poster',.07]].map(function(p){var el=document.querySelector(p[0]);return el?{el:el,k:p[1],sec:el.closest('section,header')||el}:null}).filter(Boolean);
+    var tk=false;
+    function layers(){tk=false;var vh=innerHeight;items.forEach(function(it){var r=it.sec.getBoundingClientRect();if(r.bottom<-200||r.top>vh+200)return;var d=((r.top+r.height/2)-vh/2)*it.k;it.el.style.setProperty('--dy',d.toFixed(1)+'px')})}
+    addEventListener('scroll',function(){if(!tk){tk=true;requestAnimationFrame(layers)}},{passive:true});layers();
+    var mx=0,my=0,cx=0,cy=0,run=false;
+    function ptr(){cx+=(mx-cx)*.08;cy+=(my-cy)*.08;hero.style.setProperty('--mx',cx.toFixed(3));hero.style.setProperty('--my',cy.toFixed(3));if(Math.abs(mx-cx)>.001||Math.abs(my-cy)>.001)requestAnimationFrame(ptr);else run=false}
+    hero.addEventListener('pointermove',function(e){var r=hero.getBoundingClientRect();mx=(e.clientX-r.left)/r.width*2-1;my=(e.clientY-r.top)/r.height*2-1;if(!run){run=true;requestAnimationFrame(ptr)}},{passive:true});
+    hero.addEventListener('pointerleave',function(){mx=0;my=0;if(!run){run=true;requestAnimationFrame(ptr)}});
+    /* eased wheel scrolling */
+    root.classList.add('smooth');
+    var cur=scrollY,tgt=scrollY,going=false,last=0;
+    function max(){return root.scrollHeight-innerHeight}
+    function step(t){var dt=Math.min(50,t-(last||t));last=t;var k=1-Math.exp(-dt/110);cur+=(tgt-cur)*k;if(Math.abs(tgt-cur)<.4){cur=tgt;going=false;last=0}scrollTo({top:cur,behavior:'instant'});if(going)requestAnimationFrame(step)}
+    function go(){if(!going){going=true;last=0;requestAnimationFrame(step)}}
+    function inner(el,dy){while(el&&el!==document.body&&el!==root){var cs=getComputedStyle(el);if(/(auto|scroll)/.test(cs.overflowY)&&el.scrollHeight>el.clientHeight+1){if((dy<0&&el.scrollTop>0)||(dy>0&&el.scrollTop<el.scrollHeight-el.clientHeight-1))return true}el=el.parentElement}return false}
+    addEventListener('wheel',function(e){if(e.ctrlKey||e.defaultPrevented||Math.abs(e.deltaX)>Math.abs(e.deltaY))return;if(inner(e.target,e.deltaY))return;
+      var dy=e.deltaMode===1?e.deltaY*32:e.deltaMode===2?e.deltaY*innerHeight:e.deltaY;e.preventDefault();if(!going){cur=tgt=scrollY}tgt=Math.max(0,Math.min(max(),tgt+dy));go()},{passive:false});
+    addEventListener('scroll',function(){if(Math.abs(scrollY-cur)<2)return;if(!going){cur=tgt=scrollY}},{passive:true});
+    document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a||e.defaultPrevented||e.metaKey||e.ctrlKey||e.shiftKey)return;var id=a.getAttribute('href').slice(1);var el=id?document.getElementById(id):document.body;if(!el)return;e.preventDefault();if(!going){cur=scrollY}tgt=Math.max(0,Math.min(max(),id?el.getBoundingClientRect().top+scrollY:0));go();history.replaceState(null,'',id?'#'+id:location.pathname)});
   })();
   var sigs=document.querySelectorAll('.sigwrap');
   if('IntersectionObserver' in window){var so=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');so.unobserve(e.target)}})},{threshold:.6});sigs.forEach(function(el){so.observe(el)})}else{sigs.forEach(function(el){el.classList.add('in')})}
