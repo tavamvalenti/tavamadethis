@@ -1,6 +1,6 @@
 // INVITE FRIENDS: every player's own link (tavamadethis.com/?ref=CODE). A friend who opens it is remembered (here,
 // for two weeks); when they create an account the server is told who sent them, and it decides whether that counts
-// (server/referrals.sql: a genuinely new account, not you, not on your connection, once per friend) and when the
+// (_dev/tiny-world/server/referrals.sql: a genuinely new account, not you, not on your connection, once per friend) and when the
 // friend qualifies (300 XP played). Rewards are collected through the server (once each, ever, from any device) and
 // paid into the Cash wallet only when the server says the reward is new.
 const RKEY = 'tinyworld.ref';

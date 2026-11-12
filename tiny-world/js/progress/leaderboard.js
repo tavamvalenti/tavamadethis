@@ -20,7 +20,7 @@ class SupabaseProvider {
   }
   claim(player, name) { return this.rpc('claim_name', { p_player: player, p_name: name }); }
   submit(s) { return this.rpc('submit_score', { p_player: s.player, p_name: s.name, p_category: s.category, p_map: s.map || '', p_value: s.value, p_evidence: s.evidence || {}, p_version: VERSION }); }
-  // the boards with pictures (server/avatars.sql); the plain ones if that isn't set up
+  // the boards with pictures (_dev/tiny-world/server/avatars.sql); the plain ones if that isn't set up
   async top(category, map, limit) {
     const body = { p_category: category, p_map: map || '', p_limit: limit };
     if (this.noV2) return this.rpc('top_scores', body);
@@ -28,7 +28,7 @@ class SupabaseProvider {
   }
   accountAvatar(player, token, avatar) { return this.rpc('account_set_avatar', { p_player: player, p_token: token, p_avatar: avatar }); }
   mine(category, map, player) { return this.rpc('my_rank', { p_category: category, p_map: map || '', p_player: player }); }
-  // accounts (server/accounts.sql)
+  // accounts (_dev/tiny-world/server/accounts.sql)
   accountCreate(player, name, secret, kind, profile) { return this.rpc('account_create', { p_player: player, p_name: name, p_secret: secret, p_kind: kind, p_profile: profile }); }
   accountLogin(name, secret) { return this.rpc('account_login', { p_name: name, p_secret: secret }); }
   accountSave(player, token, profile, keepalive) { return this.rpc('account_save', { p_player: player, p_token: token, p_profile: profile }, keepalive); }

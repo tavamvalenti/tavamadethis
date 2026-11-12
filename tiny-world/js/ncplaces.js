@@ -1,6 +1,6 @@
 // NORTH COUNTY: three real Carlsbad places, modelled from the owner's photos and placed from OpenStreetMap: each
 // footprint below is the OSM outline (or the geocoded address) run through the map's own projection
-// (tools/northcounty: the coast-aligned frame, 5.5 m a unit, x squeezed x0.4 past 700 m inland), so they sit where
+// (_dev/tiny-world/tools/northcounty: the coast-aligned frame, 5.5 m a unit, x squeezed x0.4 past 700 m inland), so they sit where
 // they are among the real streets.
 //   Pine Avenue Community Park   Pine Ave / Madison St / Harding St / Chestnut Ave (33.1566, -117.3424): the
 //                                Community Center (the white frame, the terracotta tile wall, the balcony), the

@@ -1,6 +1,6 @@
 // FRIENDS: send a request by name (or tap a name in the world chat), accept / decline requests, see who's online,
 // and private messages between friends (only the two of you see them).
-// Accounts only; the server decides everything (server/friends.sql: friend_request / friend_respond / friend_list).
+// Accounts only; the server decides everything (_dev/tiny-world/server/friends.sql: friend_request / friend_respond / friend_list).
 import { CSS as IV_CSS } from './invite-ui.js';
 
 const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));

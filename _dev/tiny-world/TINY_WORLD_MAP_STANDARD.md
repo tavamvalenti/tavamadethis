@@ -305,4 +305,4 @@ Every map plugs into the player's profile:
 - Its named places (`city.named` and the landmarks js/news.js knows) become discoverable places and, where real buildings stand in them, landmarks that count when brought down. Name every landmark.
 - Add its map challenges to `MAP_CHALLENGES` in `js/progress/defs.js` (the three common ones plus at least one tied to something special on that map), and add its key to `MAP_LABELS`.
 - Report real events only: `G.progress.event(id)` for a map's set pieces (the London Eye toppling, icebergs breaking up), `boatSunk()`, `throwLanded()`, and so on. Never award progress from a UI click or a timer.
-- A new activity (race, casino, taxi, boat race) adds its record to `RECORDS` (and the server's `tw_category` list in `server/leaderboard.sql` if it gets a global board), and its challenges, when the activity itself is built.
+- A new activity (race, casino, taxi, boat race) adds its record to `RECORDS` (and the server's `tw_category` list in `_dev/tiny-world/server/leaderboard.sql` if it gets a global board), and its challenges, when the activity itself is built.
