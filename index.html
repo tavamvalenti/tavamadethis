@@ -236,6 +236,40 @@ img,video{max-width:100%}
 .tour .cap b{font-weight:500;font-size:16px}
 .tour .cap span{color:var(--mut);font-size:14px;line-height:1.4}
 .tour .hot{position:absolute;inset:0}
+/* Collective: interactive 3D view chart beside the app tour */
+.t-collective .panel .inner{max-width:1180px}
+.csplit{display:grid;grid-template-columns:minmax(0,1fr);gap:22px;align-items:stretch}
+.cmain{display:grid;grid-template-columns:minmax(0,1fr);gap:18px;align-content:start;min-width:0}
+@media(min-width:1100px){.csplit{grid-template-columns:minmax(0,640px) minmax(0,1fr);gap:clamp(28px,3.4vw,52px)}}
+.g3{position:relative;display:flex;flex-direction:column;min-width:0;border:1px solid var(--line);border-radius:18px;background:radial-gradient(120% 80% at 50% 0%,rgba(255,255,255,.055),transparent 60%),linear-gradient(180deg,#17181a,#0e0f10);box-shadow:0 30px 60px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.05);overflow:hidden;opacity:0;transform:translateY(14px);transition:opacity .8s ease .15s,transform .9s cubic-bezier(.2,.8,.2,1) .15s}
+.row.open .g3{opacity:1;transform:none}
+.g3h{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:18px 18px 0;flex-wrap:wrap}
+.g3k{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut)}
+.g3n{display:block;font-size:clamp(30px,3vw,40px);font-weight:500;letter-spacing:-.035em;line-height:1.05;margin-top:4px;font-variant-numeric:tabular-nums}
+.g3seg{display:flex;background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:999px;padding:3px}
+.g3seg button{all:unset;cursor:pointer;font-family:var(--mono);font-size:11px;padding:6px 11px;border-radius:999px;color:var(--mut);transition:background .3s,color .3s}
+.g3seg button[aria-pressed="true"]{background:#E7E7E4;color:#141516}
+.g3seg button:focus-visible,.g3leg button:focus-visible{outline:2px solid #C9CCD0;outline-offset:2px}
+.g3stage{position:relative;flex:1;min-height:340px;cursor:grab;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.g3stage.drag{cursor:grabbing}
+.g3stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.g3tip{position:absolute;left:0;top:0;pointer-events:none;background:rgba(20,21,22,.92);border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:8px 11px;font-size:13px;line-height:1.35;white-space:nowrap;opacity:0;transform:translate(-50%,calc(-100% - 12px)) scale(.96);transition:opacity .18s,transform .18s;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);box-shadow:0 10px 24px rgba(0,0,0,.4)}
+.g3tip.on{opacity:1;transform:translate(-50%,calc(-100% - 12px)) scale(1)}
+.g3tip b{display:block;font-weight:500;font-size:15px;font-variant-numeric:tabular-nums}
+.g3tip span{font-family:var(--mono);font-size:11px;color:var(--mut)}
+.g3tip i{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:6px;vertical-align:1px}
+.g3drag{position:absolute;right:14px;bottom:10px;font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#6f7175;pointer-events:none;transition:opacity .6s}
+.g3stage.used .g3drag{opacity:0}
+.g3leg{display:flex;flex-wrap:wrap;gap:6px;padding:0 18px}
+.g3leg button{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:7px;font-size:13px;padding:6px 11px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.03);transition:opacity .3s,background .3s,border-color .3s}
+.g3leg button i{width:8px;height:8px;border-radius:50%;background:var(--c);box-shadow:0 0 10px var(--c)}
+.g3leg button em{font-style:normal;font-family:var(--mono);font-size:11px;color:var(--mut)}
+.g3leg button[aria-pressed="false"]{opacity:.42}
+.g3leg button[aria-pressed="false"] i{box-shadow:none}
+.g3leg button:hover{border-color:rgba(255,255,255,.3)}
+.g3f{margin:12px 18px 16px;font-size:12px;line-height:1.45;color:#7f8185}
+@media(max-width:700px){.g3stage{min-height:300px}.g3h{padding:16px 16px 0}.g3leg{padding:0 16px}.g3f{margin:10px 16px 14px}}
+@media(prefers-reduced-motion:reduce){.g3{transition:none;opacity:1;transform:none}}
 .facts2{display:flex;flex-wrap:wrap;gap:clamp(18px,4vw,48px)}
 .facts2 div{display:grid;gap:2px}
 .facts2 b{font-size:clamp(26px,3.2vw,38px);font-weight:500;letter-spacing:-.03em;line-height:1}
@@ -307,6 +341,41 @@ img,video{max-width:100%}
 .owprev .shot{overflow:hidden;position:relative}
 .owprev:hover img{transform:scale(1.025)}
 .owprev .go{position:absolute;right:16px;bottom:16px;background:#FF7A4F;color:#1A0A04;font-weight:600;font-size:15px;padding:10px 18px;border-radius:999px}
+.owfacts{margin-top:4px}
+@media(max-width:700px){.owfacts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.owfacts b{font-size:26px}.owfacts span{font-size:11px;line-height:1.35}.owprev .go{display:none}}
+.owshow .owprev .go{top:14px;bottom:auto;right:14px;font-size:14px;padding:8px 15px;opacity:0;transform:translateY(-4px);transition:opacity .3s,transform .3s}.owshow .owprev:hover .go,.owshow .owprev:focus-visible .go{opacity:1;transform:none}@media(hover:none){.owshow .owprev .go{opacity:1;transform:none}}
+.owgrid{display:grid;grid-template-columns:minmax(0,1fr);gap:22px;align-items:stretch}
+@media(min-width:960px){.owgrid{grid-template-columns:minmax(0,1.12fr) minmax(0,1fr);gap:clamp(24px,3vw,40px)}}
+.owshow{position:relative;padding:0 9% 34px 0;min-width:0;align-self:center}
+.owphone{position:absolute;right:0;bottom:0;width:23%;aspect-ratio:360/779;border-radius:clamp(14px,2vw,24px);overflow:hidden;border:clamp(3px,.45vw,6px) solid #05090c;background:#0c2a3a;box-shadow:0 26px 50px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.12);transition:transform .7s cubic-bezier(.2,.8,.2,1)}
+.owphone img{display:block;width:100%;height:100%;object-fit:cover}
+.owshow:hover .owphone{transform:translateY(-8px) rotate(-1.5deg)}
+.owgame{position:relative;display:flex;flex-direction:column;min-width:0;border:1px solid rgba(255,255,255,.14);border-radius:14px;overflow:hidden;background:linear-gradient(180deg,#0c2a3a,#071a24);box-shadow:0 30px 70px rgba(0,0,0,.45)}
+.owgh{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:20px 20px 0;flex-wrap:wrap}
+.owey{display:flex;align-items:center;gap:8px;font:600 11px/1 var(--sans,inherit);letter-spacing:.14em;text-transform:uppercase;color:#FF7A4F}
+.owey svg{width:26px;height:14px;display:block}
+.owgame h3{margin:10px 0 0;font-family:'Inter Tight',sans-serif;font-weight:700;letter-spacing:-.035em;font-size:clamp(22px,2.2vw,30px);line-height:1.05;color:#F4EFE4}
+.owhud{display:flex;gap:6px}
+.owhud span{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#A9C4CF;border:1px solid rgba(244,239,228,.16);background:rgba(244,239,228,.05);border-radius:999px;padding:6px 11px;white-space:nowrap}
+.owhud b{font-weight:500;color:#F4EFE4;margin-left:4px;font-variant-numeric:tabular-nums;display:inline-block;transition:transform .25s cubic-bezier(.3,1.6,.5,1)}
+.owhud b.bump{transform:scale(1.35);color:#FFA24F}
+.mgwrap{position:relative;flex:1;display:flex;align-items:flex-end;margin-top:6px;touch-action:pan-y;cursor:pointer;user-select:none;-webkit-user-select:none;min-height:200px}
+.mgsvg{display:block;width:100%;height:auto}
+.mgsvg .mgfar{fill:#0f3446;opacity:.7}
+.mgsvg .mggrd{fill:#143d52}
+.mgsvg .mgln{fill:none;stroke:#2fd0c8;stroke-width:3;stroke-linecap:round}
+.mgsvg .mgdash{fill:none;stroke:rgba(244,239,228,.2);stroke-width:2;stroke-dasharray:2 16;stroke-linecap:round}
+.mgsvg .mgsp{opacity:0;transition:opacity .3s}
+.mgsvg.spin .mgsp{opacity:1}
+.mgsvg .orb{transition:opacity .3s}
+.mgsvg .pop{font:700 15px/1 'Inter Tight',sans-serif;fill:#FFA24F;text-anchor:middle}
+.mgwrap .ghint{position:absolute;right:20px;top:4px;font:600 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:#A9C4CF;display:flex;gap:8px;align-items:center;transition:opacity .5s}
+.mgwrap .ghint i{width:8px;height:8px;border-radius:50%;background:#FF7A4F;animation:owpulse 1.6s infinite}
+.mgwrap.used .ghint{opacity:0}
+@keyframes owpulse{0%{box-shadow:0 0 0 0 rgba(255,122,79,.6)}100%{box-shadow:0 0 0 12px rgba(255,122,79,0)}}
+.owgf{margin:0;padding:12px 20px 16px;font-size:13px;line-height:1.45;color:#A9C4CF;border-top:1px solid rgba(255,255,255,.07)}
+@media(max-width:700px){.owshow{padding:0 10% 26px 0}.owgh{padding:16px 16px 0}.owgf{padding:10px 16px 14px}.mgwrap .ghint{right:16px}.mgwrap{min-height:0}}
+@media(prefers-reduced-motion:reduce){.owphone,.owhud b{transition:none}.mgwrap .ghint i{animation:none}}
 
 /* Real Estate: cream and warm white, soft sky, golden wood */
 .t-realestate{--fg:#24201A;--mut:#776D5F;--line:rgba(36,32,26,.16);--acc:#A9743B;--chip:rgba(255,252,246,.6);--btnbg:#24201A;--btnfg:#F7F2E9;--card:rgba(255,252,246,.6);--bg0:#F4EFE6;
@@ -537,6 +606,7 @@ a,button,input,[role=tab]{touch-action:manipulation;-webkit-tap-highlight-color:
   <div class="wrap">
     <button type="button" aria-expanded="false" aria-controls="p-collective"><span class="title">The Collective</span><span class="meta"><b>Product &amp; AI Engineering</b><span class="mono">AI-operated company &middot; private</span></span><span class="plus" aria-hidden="true">+</span></button>
     <div class="panel" id="p-collective"><div><div class="inner">
+      <div class="csplit"><div class="cmain">
       <p class="lede">A media company run by AI agents. They research, make and post videos to YouTube, TikTok and Instagram while I supervise from a private app.</p>
       <div class="facts2"><div><b>22.9K</b><span>views in the first week</span></div><div><b>24</b><span>videos posted</span></div><div><b>3</b><span>platforms connected</span></div></div>
 
@@ -547,6 +617,15 @@ a,button,input,[role=tab]{touch-action:manipulation;-webkit-tap-highlight-color:
           <span class="ro">CLICK A TAB</span></div>
         <div class="stage" id="stage"><img id="tourimg" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="img/collective-today.webp" alt="The Collective control app, Today screen" width="1600" height="869"></div>
         <div class="cap" aria-live="polite"><b id="tourt">Today</b><span id="tourd">One screen for the company: audience, spend, what needs my approval, and the videos waiting for review.</span></div>
+      </div>
+      </div>
+      <aside class="g3" id="g3" aria-label="Interactive 3D chart of views in the first week, by platform">
+        <div class="g3h"><div><span class="g3k">Views &middot; first week</span><b class="g3n" id="g3n">22.9K</b></div>
+          <div class="g3seg" role="group" aria-label="Chart mode"><button type="button" aria-pressed="true" data-m="0">Daily</button><button type="button" aria-pressed="false" data-m="1">Running total</button></div></div>
+        <div class="g3stage" id="g3stage"><canvas aria-hidden="true"></canvas><div class="g3tip" id="g3tip" role="status" aria-live="polite"></div><span class="g3drag" aria-hidden="true">Drag to orbit</span></div>
+        <div class="g3leg" role="group" aria-label="Platforms"><button type="button" aria-pressed="true" data-p="0" style="--c:#6FD3C9"><i></i>TikTok<em>5,763</em></button><button type="button" aria-pressed="true" data-p="1" style="--c:#E8735F"><i></i>YouTube<em>9,912</em></button><button type="button" aria-pressed="true" data-p="2" style="--c:#AE92EC"><i></i>Instagram<em>7,200</em></button></div>
+        <p class="g3f">A 3D sketch of the analytics, not a live feed. Daily split is illustrative; platform totals match the app.</p>
+      </aside>
       </div>
       <ul class="hl"><li>Budgets, permissions and a kill switch enforced in code</li><li>Videos rendered automatically and posted to 3 platforms</li><li>Private control app for Mac and iPhone</li></ul>
     </div></div></div>
@@ -559,10 +638,37 @@ a,button,input,[role=tab]{touch-action:manipulation;-webkit-tap-highlight-color:
     <div class="panel" id="p-onewheel"><div><div class="inner">
       <p class="lede">A full redesign of a San Diego Onewheel and e-scooter rental company's website, built to turn a visitor into a booking in a couple of taps. The preview below is the working site.</p>
       <div class="actions"><a class="btn big" href="/onewheel/" target="_blank" rel="noopener">Open the live preview &nearr;</a><div class="chips"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>SVG</span></div></div>
-      <a class="owprev" href="/onewheel/" target="_blank" rel="noopener" aria-label="Open the SD Onewheel Rentals website preview">
-        <div class="owbar" aria-hidden="true"><i></i><i></i><i></i><span>tavamadethis.com/onewheel</span></div>
-        <div class="shot"><img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="img/onewheel-preview.webp" width="1600" height="1000" decoding="async" alt="The redesigned SD Onewheel Rentals home page: a full-bleed photo of riders on e-scooters along the Coronado bayfront"><span class="go">Open the preview &nearr;</span></div>
-      </a>
+      <div class="facts2 owfacts"><div><b>42</b><span>customer reviews, filterable</span></div><div><b>7</b><span>sections, one booking flow</span></div><div><b>2</b><span>themes, light and dark</span></div></div>
+      <div class="owgrid">
+        <div class="owshow">
+          <a class="owprev" href="/onewheel/" target="_blank" rel="noopener" aria-label="Open the SD Onewheel Rentals website preview">
+            <div class="owbar" aria-hidden="true"><i></i><i></i><i></i><span>tavamadethis.com/onewheel</span></div>
+            <div class="shot"><img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="img/onewheel-desk.webp" width="1200" height="750" decoding="async" alt="The redesigned SD Onewheel Rentals home page: riders on e-scooters along the Coronado bayfront under the headline Float through America's finest city"><span class="go">Open the preview &nearr;</span></div>
+          </a>
+          <a class="owphone" href="/onewheel/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="img/onewheel-phone.webp" width="360" height="779" decoding="async" alt=""></a>
+        </div>
+        <div class="owgame" id="owgame">
+          <div class="owgh"><div><span class="owey"><svg viewBox="552 268 668 340" aria-hidden="true"><circle cx="884" cy="438" r="142" fill="none" stroke="currentColor" stroke-width="36"/><path d="M565 506C560 514 568 514 578 512L1150 417C1170 413 1188 400 1198 382C1207 366 1210 358 1194 358L638 451C622 454 608 460 598 472Z" fill="currentColor"/></svg>Feel the float</span><h3>Smooth is the whole point.</h3></div>
+            <div class="owhud" aria-live="polite"><span>Score <b id="mgs">0</b></span><span>Best <b id="mgb">0</b></span></div></div>
+          <div class="mgwrap" id="mgwrap"><span class="ghint"><i></i>Try it</span>
+            <svg class="mgsvg" id="mgsvg" viewBox="0 0 640 300" preserveAspectRatio="xMidYMax meet" role="img" aria-label="Mini game from the site: steer the logo along rolling hills like a Onewheel, collect the glowing dots and tap to pop a trick">
+              <defs><linearGradient id="mgg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ffa24f"/><stop offset="1" stop-color="#ff7a4f"/></linearGradient>
+                <mask id="mgm" maskUnits="userSpaceOnUse" x="480" y="200" width="800" height="480"><rect x="480" y="200" width="800" height="480" fill="#fff"/><path d="M565 506C560 514 568 514 578 512L1150 417C1170 413 1188 400 1198 382C1207 366 1210 358 1194 358L638 451C622 454 608 460 598 472Z" fill="#000" stroke="#000" stroke-width="34" stroke-linejoin="round"/></mask>
+                <radialGradient id="mgsun"><stop offset="0" stop-color="#ffa24f" stop-opacity=".38"/><stop offset=".45" stop-color="#ff7a4f" stop-opacity=".14"/><stop offset="1" stop-color="#ff7a4f" stop-opacity="0"/></radialGradient></defs>
+              <circle cx="520" cy="110" r="46" fill="url(#mgsun)"/>
+              <path class="mgfar" d="M0 300V196C80 168 150 176 230 190S380 150 470 168S590 196 640 176V300Z"/>
+              <path class="mggrd" d="M0 300V232C80 168 170 166 250 220S410 284 490 220S600 172 640 196V300Z"/>
+              <path class="mgdash" d="M0 262C80 198 170 196 250 250S410 314 490 250S600 202 640 226"/>
+              <path class="mgln" id="mgpath" d="M0 232C80 168 170 166 250 220S410 284 490 220S600 172 640 196"/>
+              <g id="mgorbs"></g><g id="mgtrail"></g>
+              <ellipse id="mgshadow" rx="30" ry="3.5" fill="#000" opacity=".3"/>
+              <g id="mgrider"><g id="mgtilt"><svg x="-52" y="-52" width="104" height="53" viewBox="552 268 668 340" overflow="visible"><g class="mgrg" mask="url(#mgm)"><circle cx="884" cy="438" r="142" fill="none" stroke="#f4efe4" stroke-width="36"/><circle class="mgsp" cx="884" cy="438" r="142" fill="none" stroke="#ffa24f" stroke-width="36" stroke-dasharray="150 743"/></g><path d="M565 506C560 514 568 514 578 512L1150 417C1170 413 1188 400 1198 382C1207 366 1210 358 1194 358L638 451C622 454 608 460 598 472Z" fill="url(#mgg)"/></svg></g></g>
+              <g id="mgpops"></g>
+            </svg>
+          </div>
+          <p class="owgf">Steer with your cursor or finger, tap to pop a trick. A mini version of the playground on the site.</p>
+        </div>
+      </div>
       <ul class="hl">
         <li>Rebuilt around one action: a persistent Book button, plus a rental price estimator that updates as you pick the ride, the days and delivery</li>
         <li>Clear pages for rentals, guided tours, offers, boards for sale, the blog and a readable terms page, with the original agreement wording kept as written</li>
@@ -805,6 +911,195 @@ a,button,input,[role=tab]{touch-action:manipulation;-webkit-tap-highlight-color:
   // links from the hero or nav straight into a project open it
   function openHash(){ var el = location.hash && document.querySelector(location.hash); if (el && el.classList.contains('row') && !el.classList.contains('open')) el.querySelector('button').click(); }
   addEventListener('hashchange', openHash); openHash();
+
+  // The Collective: a 3D bar chart of first-week views, drawn on a canvas. Drag to orbit, hover a bar, toggle platforms.
+  (function(){
+    var box = document.getElementById('g3'); if (!box) return;
+    var row = box.closest('.row'), stage = document.getElementById('g3stage'), cv = stage.querySelector('canvas'), ctx = cv.getContext('2d');
+    var tip = document.getElementById('g3tip'), num = document.getElementById('g3n');
+    var segs = [].slice.call(box.querySelectorAll('.g3seg button')), legs = [].slice.call(box.querySelectorAll('.g3leg button'));
+    var rm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var NAMES = ['TikTok','YouTube','Instagram'], COLS = [[111,211,201],[232,115,95],[174,146,236]], TOT = [5763,9912,7200];
+    var W8 = [[.05,.09,.12,.15,.17,.19,.23],[.03,.06,.10,.14,.19,.22,.26],[.06,.08,.11,.16,.15,.20,.24]];
+    var DAILY = [], CUM = [];
+    W8.forEach(function(w, p){ var sum = w.reduce(function(a,b){return a+b;},0), acc = 0, d = [], c = [];
+      w.forEach(function(x, i){ var v = i < 6 ? Math.round(TOT[p] * x / sum) : TOT[p] - acc; acc += v; d.push(v); c.push(acc); }); DAILY.push(d); CUM.push(c); });
+    var maxD = Math.max.apply(null, DAILY.map(function(d){ return Math.max.apply(null, d); })), maxC = Math.max.apply(null, TOT);
+    var HMAX = 3.1, mode = 0, on = [true,true,true];
+    var bars = [];
+    for (var p = 0; p < 3; p++) for (var d = 0; d < 7; d++) bars.push({ p: p, d: d, x: (d - 3) * 1.0, z: (p - 1) * 1.15, h: 0, v: 0, t0: 0, dim: 1 });
+    function target(b){ if (!on[b.p]) return 0; return mode ? CUM[b.p][b.d] / maxC * HMAX : DAILY[b.p][b.d] / maxD * HMAX * .82; }
+    function val(b){ return mode ? CUM[b.p][b.d] : DAILY[b.p][b.d]; }
+
+    var W = 0, H = 0, DPR = 1, S = 1, CX = 0, CY = 0, F = 12;
+    var yaw = -2.2, pitch = .12, yawV = 0, pitchV = 0, start = 0, lastUser = -1e9, mx = -1, my = -1, hover = null, run = false, raf = 0, began = false, last = 0;
+    var font = getComputedStyle(document.documentElement).getPropertyValue('--mono') || 'monospace';
+    function size(){ var r = stage.getBoundingClientRect(); W = r.width; H = r.height; DPR = Math.min(2, devicePixelRatio || 1);
+      cv.width = Math.round(W * DPR); cv.height = Math.round(H * DPR); S = Math.min(W / (W < 520 ? 9.4 : 7.6), H / 5.2); CX = W / 2; CY = H * .53; }
+    var cy_, sy_, cp_, sp_;
+    function cam(){ cy_ = Math.cos(yaw); sy_ = Math.sin(yaw); cp_ = Math.cos(pitch); sp_ = Math.sin(pitch); }
+    function rot(x, y, z){ var x1 = x * cy_ - z * sy_, z1 = x * sy_ + z * cy_; return [x1, y * cp_ + z1 * sp_, -y * sp_ + z1 * cp_]; }
+    function proj(x, y, z){ var r = rot(x, y - 1.2, z), k = S * F / (F + r[2]); return [CX + r[0] * k, CY - r[1] * k, r[2]]; }
+    var L = (function(){ var v = [-.45, .8, -.4], m = Math.hypot(v[0], v[1], v[2]); return [v[0]/m, v[1]/m, v[2]/m]; })();
+    var FACES = [ // corner indices into [x0|x1][y0|y1][z0|z1] and world normal
+      [[0,0,0],[1,0,0],[1,1,0],[0,1,0], [0,0,-1]], [[1,0,1],[0,0,1],[0,1,1],[1,1,1], [0,0,1]],
+      [[0,0,1],[0,0,0],[0,1,0],[0,1,1], [-1,0,0]], [[1,0,0],[1,0,1],[1,1,1],[1,1,0], [1,0,0]],
+      [[0,1,0],[1,1,0],[1,1,1],[0,1,1], [0,1,0]] ];
+    function rgb(c, k, a){ return 'rgba(' + Math.min(255, c[0]*k|0) + ',' + Math.min(255, c[1]*k|0) + ',' + Math.min(255, c[2]*k|0) + ',' + a + ')'; }
+    function hull(pts){ pts.sort(function(a,b){ return a[0]-b[0] || a[1]-b[1]; }); function cr(o,a,b){ return (a[0]-o[0])*(b[1]-o[1])-(a[1]-o[1])*(b[0]-o[0]); }
+      var lo = [], up = [], i; for (i = 0; i < pts.length; i++){ while (lo.length > 1 && cr(lo[lo.length-2], lo[lo.length-1], pts[i]) <= 0) lo.pop(); lo.push(pts[i]); }
+      for (i = pts.length - 1; i >= 0; i--){ while (up.length > 1 && cr(up[up.length-2], up[up.length-1], pts[i]) <= 0) up.pop(); up.push(pts[i]); }
+      up.pop(); lo.pop(); return lo.concat(up); }
+    function inPoly(x, y, q){ var c = false; for (var i = 0, j = q.length - 1; i < q.length; j = i++){ if ((q[i][1] > y) !== (q[j][1] > y) && x < (q[j][0]-q[i][0]) * (y-q[i][1]) / (q[j][1]-q[i][1]) + q[i][0]) c = !c; } return c; }
+    function fmt(n){ return n >= 1000 ? (n/1000).toFixed(1).replace(/\.0$/,'') + 'K' : String(Math.round(n)); }
+
+    function draw(t){
+      cam(); ctx.setTransform(DPR, 0, 0, DPR, 0, 0); ctx.clearRect(0, 0, W, H);
+      var X0 = -3.75, X1 = 3.75, Z0 = -2.05, Z1 = 2.05, i, j, a, b;
+      // floor plate
+      var fl = [proj(X0,0,Z0), proj(X1,0,Z0), proj(X1,0,Z1), proj(X0,0,Z1)];
+      ctx.beginPath(); fl.forEach(function(q,k){ k ? ctx.lineTo(q[0],q[1]) : ctx.moveTo(q[0],q[1]); }); ctx.closePath();
+      var fg = ctx.createRadialGradient(CX, CY, 0, CX, CY, S * 5); fg.addColorStop(0, 'rgba(255,255,255,.07)'); fg.addColorStop(1, 'rgba(255,255,255,.012)');
+      ctx.fillStyle = fg; ctx.fill(); ctx.strokeStyle = 'rgba(255,255,255,.14)'; ctx.lineWidth = 1; ctx.stroke();
+      ctx.strokeStyle = 'rgba(255,255,255,.055)'; ctx.beginPath();
+      for (i = -3; i <= 3; i++){ a = proj(i + .5 > X1 ? X1 : i + .5, 0, Z0); b = proj(i + .5 > X1 ? X1 : i + .5, 0, Z1); if (i < 3){ ctx.moveTo(a[0],a[1]); ctx.lineTo(b[0],b[1]); } }
+      for (j = -1; j <= 1; j++){ var zz = j * 1.15 + .575; if (j < 1){ a = proj(X0,0,zz); b = proj(X1,0,zz); ctx.moveTo(a[0],a[1]); ctx.lineTo(b[0],b[1]); } }
+      ctx.stroke();
+      // back wall guides on whichever long side is farther from the camera
+      var far = rot(0,0,Z1)[2] > rot(0,0,Z0)[2] ? Z1 : Z0, top = mode ? maxC : maxD / .82, steps = mode ? [2500,5000,7500,10000] : [500,1000,1500,2000];
+      ctx.font = '10px ' + font; ctx.textBaseline = 'middle';
+      steps.forEach(function(v){ var y = v / top * HMAX; if (y > HMAX + .01) return; var p0 = proj(X0, y, far), p1 = proj(X1, y, far);
+        ctx.strokeStyle = 'rgba(255,255,255,.07)'; ctx.setLineDash([2,5]); ctx.beginPath(); ctx.moveTo(p0[0],p0[1]); ctx.lineTo(p1[0],p1[1]); ctx.stroke(); ctx.setLineDash([]);
+        var lp = p0[0] < p1[0] ? p0 : p1; ctx.fillStyle = 'rgba(200,202,206,.45)'; ctx.textAlign = 'right'; ctx.fillText(fmt(v), Math.max(30, lp[0] - 6), lp[1]); });
+      // day labels along the nearer long side
+      var near = far === Z1 ? Z0 - .45 : Z1 + .45; ctx.textAlign = 'center'; ctx.fillStyle = 'rgba(200,202,206,.55)';
+      for (i = 0; i < 7; i++){ a = proj(i - 3, 0, near); ctx.fillText('D' + (i + 1), a[0], a[1] + 4); }
+      // soft shadows, one fill so overlaps don't double up
+      var kx = L[0] / L[1], kz = L[2] / L[1], hw = .28;
+      ctx.beginPath();
+      bars.forEach(function(b){ if (b.h < .01) return; var pts = [], h = Math.max(0, b.h);
+        [[-1,-1],[1,-1],[1,1],[-1,1]].forEach(function(c){ var x = b.x + c[0]*hw, z = b.z + c[1]*hw; var q = proj(x,0,z); pts.push([q[0],q[1]]); q = proj(x - kx*h*.55, 0, z - kz*h*.55); pts.push([q[0],q[1]]); });
+        var hh = hull(pts); hh.forEach(function(q,k){ k ? ctx.lineTo(q[0],q[1]) : ctx.moveTo(q[0],q[1]); }); ctx.closePath(); });
+      ctx.fillStyle = 'rgba(0,0,0,.32)'; ctx.fill();
+      // bars, far to near
+      var list = bars.map(function(b){ return [rot(b.x, b.h/2 - 1.2, b.z)[2], b]; }).sort(function(u, v){ return v[0] - u[0]; });
+      var picks = [], camP = [0, 0, -F];
+      list.forEach(function(e){ var b = e[1]; if (b.h < .004) return; var h = b.h, c = COLS[b.p], hot = hover === b, sameP = hover && hover.p === b.p;
+        var dim = hover ? (hot ? 1 : sameP ? .9 : .38) : 1; b.dim += (dim - b.dim) * .18;
+        var xs = [b.x - hw, b.x + hw], ys = [0, h], zs = [b.z - hw, b.z + hw];
+        FACES.forEach(function(f){ var n = f[4], P = [], C = [0,0,0];
+          for (var k = 0; k < 4; k++){ var w = [xs[f[k][0]], ys[f[k][1]], zs[f[k][2]]]; P.push(proj(w[0], w[1], w[2])); var r = rot(w[0], w[1] - 1.2, w[2]); C[0] += r[0]/4; C[1] += r[1]/4; C[2] += r[2]/4; }
+          var rn = rot(n[0], n[1], n[2]); if ((C[0]-camP[0])*rn[0] + (C[1]-camP[1])*rn[1] + (C[2]-camP[2])*rn[2] >= 0) return;
+          var lit = .42 + .62 * Math.max(0, n[0]*L[0] + n[1]*L[1] + n[2]*L[2]); if (hot) lit *= 1.18;
+          ctx.beginPath(); P.forEach(function(q,k){ k ? ctx.lineTo(q[0],q[1]) : ctx.moveTo(q[0],q[1]); }); ctx.closePath();
+          var al = .92 * b.dim + .04;
+          if (n[1] === 1){ ctx.fillStyle = rgb(c, lit * 1.08, al); }
+          else { var g = ctx.createLinearGradient(0, Math.min(P[2][1], P[3][1]), 0, Math.max(P[0][1], P[1][1])); g.addColorStop(0, rgb(c, lit, al)); g.addColorStop(1, rgb(c, lit * .45, al)); ctx.fillStyle = g; }
+          ctx.fill(); ctx.strokeStyle = hot ? 'rgba(255,255,255,.75)' : 'rgba(255,255,255,' + (n[1] === 1 ? .28 : .07) * b.dim + ')'; ctx.lineWidth = hot ? 1.2 : 1; ctx.stroke();
+          picks.push([P, b]); });
+      });
+      // the hovered platform's trend line across its bar tops
+      if (hover && on[hover.p]){ var c = COLS[hover.p]; ctx.save(); ctx.shadowColor = rgb(c,1,.9); ctx.shadowBlur = 12; ctx.strokeStyle = rgb(c, 1.15, .95); ctx.lineWidth = 2; ctx.beginPath();
+        bars.filter(function(b){ return b.p === hover.p; }).forEach(function(b, k){ var q = proj(b.x, b.h + .14, b.z); k ? ctx.lineTo(q[0],q[1]) : ctx.moveTo(q[0],q[1]); }); ctx.stroke(); ctx.restore();
+        bars.filter(function(b){ return b.p === hover.p; }).forEach(function(b){ var q = proj(b.x, b.h + .14, b.z); ctx.fillStyle = b === hover ? '#fff' : rgb(c, 1.2, 1); ctx.beginPath(); ctx.arc(q[0], q[1], b === hover ? 3.6 : 2.2, 0, 7); ctx.fill(); }); }
+      // pick the front-most face under the pointer
+      var nh = legHover; if (mx >= 0) for (i = picks.length - 1; i >= 0; i--){ if (inPoly(mx, my, picks[i][0])){ nh = picks[i][1]; break; } }
+      if (nh !== hover){ hover = nh; showTip(); }
+      if (hover){ var tq = proj(hover.x, hover.h, hover.z); tip.style.left = Math.max(70, Math.min(W - 70, tq[0])) + 'px'; tip.style.top = Math.max(56, tq[1]) + 'px'; }
+    }
+    function showTip(){ if (!hover){ tip.classList.remove('on'); return; } var c = COLS[hover.p];
+      tip.innerHTML = '<span><i style="background:' + rgb(c,1,1) + '"></i>' + NAMES[hover.p] + ' &middot; day ' + (hover.d + 1) + '</span><b>' + val(hover).toLocaleString('en-US') + ' views</b><span>' + (mode ? 'running total' : 'that day') + '</span>';
+      tip.classList.add('on'); }
+
+    var shown = 0;
+    function total(){ var s = 0; for (var p = 0; p < 3; p++) if (on[p]) s += TOT[p]; return s; }
+    function frame(t){
+      if (!run){ raf = 0; return; } raf = requestAnimationFrame(frame);
+      var dt = Math.min(.05, (t - last) / 1000 || .016); last = t; var e = t - start;
+      // camera: sweeps in, then drifts slowly unless someone is dragging
+      if (!drag){ yaw += yawV * dt; pitch += pitchV * dt; yawV *= Math.pow(.04, dt); pitchV *= Math.pow(.04, dt);
+        if (!rm && t - lastUser > 2600){ var e2 = Math.min(1, e / 1700), ease = 1 - Math.pow(1 - e2, 3), aim = -.62 + .34 * Math.sin(e / 5200), pa = .5 + .05 * Math.sin(e / 3700);
+          if (e2 < 1 && lastUser < 0){ yaw = -2.2 + (aim + 2.2) * ease; pitch = .12 + (pa - .12) * ease; } else { yaw += (aim - yaw) * Math.min(1, dt * .9); pitch += (pa - pitch) * Math.min(1, dt * .9); } } }
+      pitch = Math.max(.14, Math.min(1.05, pitch));
+      bars.forEach(function(b){ if (e < b.t0) return; var T = target(b); if (rm){ b.h = T; return; } var acc = 120 * (T - b.h) - 15 * b.v; b.v += acc * dt; b.h += b.v * dt; if (b.h < 0){ b.h = 0; b.v = 0; } });
+      var want = total(); shown += (want - shown) * (rm ? 1 : Math.min(1, dt * (e < 2000 ? 2.2 : 6))); num.textContent = (shown / 1000).toFixed(1) + 'K';
+      draw(t);
+    }
+    function go(){ if (run || !row.classList.contains('open')) return; run = true; if (!began){ began = true; size(); start = performance.now(); bars.forEach(function(b){ b.t0 = rm ? 0 : 380 + b.d * 75 + b.p * 140; }); if (rm){ yaw = -.62; pitch = .5; } } last = performance.now(); if (!raf) raf = requestAnimationFrame(frame); }
+    function stop(){ run = false; }
+    var vis = false;
+    new IntersectionObserver(function(es){ vis = es[0].isIntersecting; vis ? go() : stop(); }, { threshold: .05 }).observe(box);
+    new MutationObserver(function(){ if (row.classList.contains('open')){ if (vis) setTimeout(go, 120); } else stop(); }).observe(row, { attributes: true, attributeFilter: ['class'] });
+    document.addEventListener('visibilitychange', function(){ document.hidden ? stop() : (vis && go()); });
+    if ('ResizeObserver' in window) new ResizeObserver(function(){ if (began) size(); }).observe(stage); else addEventListener('resize', function(){ if (began) size(); });
+
+    // orbit with mouse or finger (sideways drags only on touch, so the page still scrolls)
+    var legHover = null, drag = false, px0 = 0, py0 = 0, pid = null;
+    stage.addEventListener('pointerdown', function(e){ drag = true; pid = e.pointerId; px0 = e.clientX; py0 = e.clientY; yawV = pitchV = 0; lastUser = performance.now(); stage.classList.add('drag', 'used'); try { stage.setPointerCapture(e.pointerId); } catch(_){} pos(e); });
+    stage.addEventListener('pointermove', function(e){ pos(e); if (!drag || e.pointerId !== pid) return; var dx = e.clientX - px0, dy = e.clientY - py0; px0 = e.clientX; py0 = e.clientY;
+      yaw -= dx * .0085; yawV = -dx * .0085 / .016; if (e.pointerType === 'mouse'){ pitch += dy * .006; pitchV = dy * .006 / .016; } lastUser = performance.now(); });
+    function end(){ drag = false; stage.classList.remove('drag'); lastUser = performance.now(); }
+    stage.addEventListener('pointerup', end); stage.addEventListener('pointercancel', end);
+    stage.addEventListener('pointerleave', function(e){ if (e.pointerType === 'mouse'){ mx = my = -1; } });
+    function pos(e){ var r = stage.getBoundingClientRect(); mx = e.clientX - r.left; my = e.clientY - r.top; }
+
+    segs.forEach(function(b){ b.addEventListener('click', function(){ mode = +b.dataset.m; segs.forEach(function(s){ s.setAttribute('aria-pressed', s === b ? 'true' : 'false'); }); bars.forEach(function(x){ x.v += (Math.random() - .5) * .6; }); if (hover) showTip(); }); });
+    legs.forEach(function(b){ b.addEventListener('click', function(){ var p = +b.dataset.p; if (on[p] && on.filter(Boolean).length === 1) return; on[p] = !on[p]; b.setAttribute('aria-pressed', on[p] ? 'true' : 'false'); });
+      b.addEventListener('pointerenter', function(){ if (on[+b.dataset.p]) { legHover = bars.filter(function(x){ return x.p === +b.dataset.p; })[6]; } });
+      b.addEventListener('pointerleave', function(){ legHover = null; }); });
+  })();
+
+  // SD Onewheel: a mini version of the site's "Feel the float" playground. Steer, collect the glowing dots, tap for a trick.
+  (function(){
+    var wrap = document.getElementById('mgwrap'); if (!wrap) return;
+    var row = wrap.closest('.row'), svg = document.getElementById('mgsvg'), path = document.getElementById('mgpath'), rider = document.getElementById('mgrider'), tilt = document.getElementById('mgtilt');
+    var shadow = document.getElementById('mgshadow'), trail = document.getElementById('mgtrail'), orbsG = document.getElementById('mgorbs'), pops = document.getElementById('mgpops');
+    var sEl = document.getElementById('mgs'), bEl = document.getElementById('mgb'), NS = 'http://www.w3.org/2000/svg';
+    var rm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var L = path.getTotalLength(), u = .1, dir = 1, v = 0, target = null, hop = 0, hv = 0, spin = 0, spinV = 0, run = false, raf = 0, last = 0, lean = 0, pos = [], dots = [], score = 0, best = 0, vis = false;
+    try { best = +localStorage.getItem('owmgBest') || 0; } catch(e){}
+    bEl.textContent = best;
+    for (var i = 0; i < 12; i++){ var c = document.createElementNS(NS, 'circle'); c.setAttribute('r', String(4.4 - i * .3)); c.setAttribute('fill', '#ffa24f'); c.setAttribute('opacity', '0'); trail.appendChild(c); dots.push(c); }
+    var orbs = [.16, .33, .5, .67, .84].map(function(t){ var p = path.getPointAtLength(t * L), g = document.createElementNS(NS, 'g');
+      g.setAttribute('class', 'orb'); g.innerHTML = '<circle r="11" fill="#ffa24f" opacity=".18"/><circle r="4.5" fill="#ffd2a8"/>'; g.setAttribute('transform', 'translate(' + p.x.toFixed(1) + ' ' + (p.y - 30).toFixed(1) + ')');
+      orbsG.appendChild(g); return { x: p.x, y: p.y - 30, g: g, live: true, back: 0, ph: t * 9 }; });
+    function bump(el){ el.classList.remove('bump'); void el.offsetWidth; el.classList.add('bump'); setTimeout(function(){ el.classList.remove('bump'); }, 260); }
+    function add(n, x, y, label){ score += n; sEl.textContent = score; bump(sEl);
+      if (score > best){ best = score; bEl.textContent = best; try { localStorage.setItem('owmgBest', best); } catch(e){} }
+      var t = document.createElementNS(NS, 'text'); t.setAttribute('class', 'pop'); t.setAttribute('x', x.toFixed(1)); t.setAttribute('y', y.toFixed(1)); t.textContent = label; pops.appendChild(t);
+      var t0 = performance.now(); (function up(now){ var k = (now - t0) / 800; if (k >= 1){ t.remove(); return; } t.setAttribute('y', (y - k * 26).toFixed(1)); t.setAttribute('opacity', (1 - k * k).toFixed(2)); requestAnimationFrame(up); })(t0); }
+    function frame(t){ if (!run){ raf = 0; return; } raf = requestAnimationFrame(frame);
+      var dt = Math.min(.05, (t - last) / 1000 || .016); last = t;
+      var p0 = path.getPointAtLength(u * L), p1 = path.getPointAtLength(Math.min(L, u * L + 3)), ang = Math.atan2(p1.y - p0.y, p1.x - p0.x), slope = Math.sin(ang);
+      if (target !== null){ var d = target - u; v += (Math.max(-.4, Math.min(.4, d * 3.2)) - v) * Math.min(1, dt * 5); }
+      else { if (u > .93) dir = -1; if (u < .07) dir = 1; var want = dir * (.12 + slope * dir * .13); v += (want - v) * Math.min(1, dt * 2.5); }
+      u = Math.max(.02, Math.min(.98, u + v * dt));
+      hv -= dt * 2400; hop += hv * dt; if (hop < 0){ hop = 0; hv = 0; }
+      spin += spinV * dt; if (spin >= 360 || spin <= -360){ spin = 0; spinV = 0; svg.classList.remove('spin'); add(3, p0.x, p0.y - hop - 66, '+3 trick'); }
+      lean += ((-v * 70) - lean) * Math.min(1, dt * 6);
+      var y = p0.y - hop;
+      rider.setAttribute('transform', 'translate(' + p0.x.toFixed(1) + ' ' + y.toFixed(1) + ')');
+      tilt.setAttribute('transform', 'rotate(' + (ang * 57.3 + lean * .5 + spin).toFixed(1) + ')');
+      shadow.setAttribute('cx', p0.x.toFixed(1)); shadow.setAttribute('cy', (p0.y + 2).toFixed(1)); shadow.setAttribute('opacity', (.3 - Math.min(.2, hop / 240)).toFixed(2));
+      pos.unshift([p0.x, y]); if (pos.length > 12) pos.pop();
+      var sp = Math.min(1, Math.abs(v) * 5);
+      for (var i = 0; i < dots.length; i++){ var q = pos[i]; if (!q) continue; dots[i].setAttribute('cx', q[0].toFixed(1)); dots[i].setAttribute('cy', (q[1] - 3).toFixed(1)); dots[i].setAttribute('opacity', ((1 - i / 12) * .5 * sp).toFixed(2)); }
+      orbs.forEach(function(o){
+        if (o.live){ if (!rm) o.g.setAttribute('transform', 'translate(' + o.x.toFixed(1) + ' ' + (o.y + Math.sin(t / 420 + o.ph) * 3).toFixed(1) + ')');
+          if (Math.abs(o.x - p0.x) < 16 && Math.abs(o.y - (y - 22)) < 34){ o.live = false; o.back = t + 2600; o.g.setAttribute('opacity', '0'); add(1, o.x, o.y - 12, '+1'); } }
+        else if (t > o.back){ o.live = true; o.g.setAttribute('opacity', '1'); } });
+    }
+    function go(){ if (run || !vis || !row.classList.contains('open') || document.hidden) return; run = true; last = performance.now(); if (!raf) raf = requestAnimationFrame(frame); }
+    function stop(){ run = false; }
+    new IntersectionObserver(function(es){ vis = es[0].isIntersecting; vis ? go() : stop(); }, { threshold: .05 }).observe(wrap);
+    new MutationObserver(function(){ row.classList.contains('open') ? setTimeout(go, 150) : stop(); }).observe(row, { attributes: true, attributeFilter: ['class'] });
+    document.addEventListener('visibilitychange', function(){ document.hidden ? stop() : go(); });
+    function px(e){ var r = svg.getBoundingClientRect(); return Math.max(.04, Math.min(.96, (e.clientX - r.left) / r.width)); }
+    wrap.addEventListener('pointermove', function(e){ if (e.pointerType === 'mouse' || e.buttons) target = px(e); });
+    wrap.addEventListener('pointerleave', function(){ target = null; });
+    wrap.addEventListener('pointerdown', function(e){ wrap.classList.add('used'); target = px(e); if (hop < 4 && !spinV){ hv = 560; spinV = v >= 0 ? -540 : 540; svg.classList.add('spin'); } });
+    wrap.addEventListener('pointerup', function(e){ if (e.pointerType !== 'mouse') setTimeout(function(){ target = null; }, 700); });
+  })();
 
   // Vylos: the real 96-frame camera animation, drawn to a canvas. Drag, use the slider, or just watch it open.
   (function(){
