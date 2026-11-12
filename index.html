@@ -268,7 +268,7 @@ img,video{max-width:100%}
 .g3{background:#0a0b0f;isolation:isolate}
 .g3 > *{position:relative;z-index:1}
 .g3 > .g3bg{position:absolute;z-index:0;inset:-6%;width:112%;height:112%;max-width:none;object-fit:cover;opacity:0;transition:opacity 1.6s ease;animation:g3drift 26s ease-in-out infinite alternate;pointer-events:none}
-.g3 > .g3bg.ld{opacity:.95}
+.g3 > .g3bg.ld{opacity:.8}
 .g3::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:linear-gradient(180deg,rgba(10,11,15,.55) 0%,rgba(10,11,15,0) 26%,rgba(10,11,15,0) 62%,rgba(10,11,15,.7) 100%),radial-gradient(130% 90% at 50% 40%,transparent 55%,rgba(5,6,8,.6) 100%)}
 @keyframes g3drift{0%{transform:translate3d(-1.5%,0,0) scale(1)}100%{transform:translate3d(1.5%,-2%,0) scale(1.06)}}
 @media(prefers-reduced-motion:reduce){.g3 > .g3bg{animation:none}}
@@ -291,7 +291,7 @@ img,video{max-width:100%}
 .g3stage.used .g3drag{opacity:0}
 .g3leg{display:flex;flex-wrap:wrap;gap:6px;padding:0 18px}
 .g3leg button{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:7px;font-size:13px;padding:6px 11px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.03);transition:opacity .3s,background .3s,border-color .3s}
-.g3leg button i{width:8px;height:8px;border-radius:50%;background:var(--c);box-shadow:0 0 10px var(--c)}
+.g3leg button i{width:8px;height:8px;border-radius:50%;background:var(--c3,var(--c));box-shadow:-1.5px 0 0 var(--c2,transparent),0 0 10px var(--c)}
 .g3leg button em{font-style:normal;font-family:var(--mono);font-size:11px;color:var(--mut)}
 .g3leg button[aria-pressed="false"]{opacity:.42}
 .g3leg button[aria-pressed="false"] i{box-shadow:none}
@@ -649,11 +649,11 @@ a,button,input,[role=tab]{touch-action:manipulation;-webkit-tap-highlight-color:
       </div>
       </div>
       <aside class="g3" id="g3" aria-label="Interactive 3D chart of views in the first week, by platform">
-        <img class="g3bg" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="img/g3-aurora.webp" alt="" aria-hidden="true" width="720" height="956" decoding="async">
+        <img class="g3bg" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="img/g3-studio.webp" alt="" aria-hidden="true" width="720" height="956" decoding="async">
         <div class="g3h"><div><span class="g3k">Views &middot; first week</span><b class="g3n" id="g3n">22.9K</b></div>
           <div class="g3seg" role="group" aria-label="Chart mode"><button type="button" aria-pressed="true" data-m="0">Daily</button><button type="button" aria-pressed="false" data-m="1">Running total</button></div></div>
         <div class="g3stage" id="g3stage"><canvas aria-hidden="true"></canvas><div class="g3tip" id="g3tip" role="status" aria-live="polite"></div><span class="g3drag" aria-hidden="true">Drag to orbit</span></div>
-        <div class="g3leg" role="group" aria-label="Platforms"><button type="button" aria-pressed="true" data-p="0" style="--c:#6FD3C9"><i></i>TikTok<em>5,763</em></button><button type="button" aria-pressed="true" data-p="1" style="--c:#E8735F"><i></i>YouTube<em>9,912</em></button><button type="button" aria-pressed="true" data-p="2" style="--c:#AE92EC"><i></i>Instagram<em>7,200</em></button></div>
+        <div class="g3leg" role="group" aria-label="Platforms"><button type="button" aria-pressed="true" data-p="0" style="--c:#25F4EE;--c2:#FE2C55"><i></i>TikTok<em>5,763</em></button><button type="button" aria-pressed="true" data-p="1" style="--c:#FF0033"><i></i>YouTube<em>9,912</em></button><button type="button" aria-pressed="true" data-p="2" style="--c:#E1306C;--c3:linear-gradient(45deg,#FEDA75,#F58529,#DD2A7B,#8134AF)"><i></i>Instagram<em>7,200</em></button></div>
         <p class="g3f">A 3D sketch of the analytics, not a live feed. Daily split is illustrative; platform totals match the app.</p>
       </aside>
       </div>
@@ -986,7 +986,7 @@ a,button,input,[role=tab]{touch-action:manipulation;-webkit-tap-highlight-color:
     var tip = document.getElementById('g3tip'), num = document.getElementById('g3n');
     var segs = [].slice.call(box.querySelectorAll('.g3seg button')), legs = [].slice.call(box.querySelectorAll('.g3leg button'));
     var rm = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var NAMES = ['TikTok','YouTube','Instagram'], COLS = [[111,211,201],[232,115,95],[174,146,236]], TOT = [5763,9912,7200];
+    var IG = [[131,58,180],[221,42,123],[245,133,41],[254,218,117]], NAMES = ['TikTok','YouTube','Instagram'], COLS = [[37,244,238],[255,0,51],[225,48,108]], TOT = [5763,9912,7200];
     var W8 = [[.05,.09,.12,.15,.17,.19,.23],[.03,.06,.10,.14,.19,.22,.26],[.06,.08,.11,.16,.15,.20,.24]];
     var DAILY = [], CUM = [];
     W8.forEach(function(w, p){ var sum = w.reduce(function(a,b){return a+b;},0), acc = 0, d = [], c = [];
@@ -1021,7 +1021,7 @@ a,button,input,[role=tab]{touch-action:manipulation;-webkit-tap-highlight-color:
     function fmt(n){ return n >= 1000 ? (n/1000).toFixed(1).replace(/\.0$/,'') + 'K' : String(Math.round(n)); }
 
     var pat = null, glass = null, T = 0;
-    var motes = []; for (var mi = 0; mi < 34; mi++) motes.push({ x: Math.random() * 8 - 4, y: Math.random() * 4.6, z: Math.random() * 4.4 - 2.2, s: Math.random() * 1.1, ph: Math.random() * 7 });
+    var motes = []; for (var mi = 0; mi < 18; mi++) motes.push({ x: Math.random() * 8 - 4, y: Math.random() * 4.6, z: Math.random() * 4.4 - 2.2, s: Math.random() * 1.1, ph: Math.random() * 7 });
     function sweep(b){ if (rm) return 0; var sx = ((T - start) / 1000 * 1.25) % 13 - 5.5; return Math.exp(-(b.x - sx) * (b.x - sx) * 1.4) * .34; }
     function draw(t){ T = t;
       cam(); ctx.setTransform(DPR, 0, 0, DPR, 0, 0); ctx.clearRect(0, 0, W, H);
@@ -1071,8 +1071,13 @@ a,button,input,[role=tab]{touch-action:manipulation;-webkit-tap-highlight-color:
           var rn = rot(n[0], n[1], n[2]); if ((C[0]-camP[0])*rn[0] + (C[1]-camP[1])*rn[1] + (C[2]-camP[2])*rn[2] >= 0) return;
           var lit = .42 + .62 * Math.max(0, n[0]*L[0] + n[1]*L[1] + n[2]*L[2]) + sweep(b); if (hot) lit *= 1.18;
           ctx.beginPath(); P.forEach(function(q,k){ k ? ctx.lineTo(q[0],q[1]) : ctx.moveTo(q[0],q[1]); }); ctx.closePath();
-          if (n[1] === 1){ ctx.shadowColor = rgb(c, 1, .7 * b.dim); ctx.shadowBlur = hot ? 22 : 12; ctx.fillStyle = rgb(c, lit * 1.12, .97 * b.dim + .02); ctx.fill(); ctx.shadowBlur = 0; }
-          else { var g = ctx.createLinearGradient(0, Math.min(P[2][1], P[3][1]), 0, Math.max(P[0][1], P[1][1])); g.addColorStop(0, rgb(c, lit, .86 * b.dim + .04)); g.addColorStop(.55, rgb(c, lit * .7, .62 * b.dim + .03)); g.addColorStop(1, rgb(c, lit * .4, .5 * b.dim + .02)); ctx.fillStyle = g; ctx.fill();
+          if (n[1] === 1){ var tc = b.p === 2 ? IG[0] : c;
+            if (b.p === 0){ ctx.save(); ctx.translate(-1.6, .6); ctx.fillStyle = 'rgba(254,44,85,' + (.85 * b.dim) + ')'; ctx.fill(); ctx.restore(); ctx.beginPath(); P.forEach(function(q,k){ k ? ctx.lineTo(q[0],q[1]) : ctx.moveTo(q[0],q[1]); }); ctx.closePath(); }
+            ctx.shadowColor = rgb(tc, 1, .7 * b.dim); ctx.shadowBlur = hot ? 22 : 12; ctx.fillStyle = rgb(tc, lit * 1.12, .97 * b.dim + .02); ctx.fill(); ctx.shadowBlur = 0; }
+          else { var g = ctx.createLinearGradient(0, Math.min(P[2][1], P[3][1]), 0, Math.max(P[0][1], P[1][1]));
+            if (b.p === 2){ g.addColorStop(0, rgb(IG[0], lit, .9 * b.dim + .04)); g.addColorStop(.38, rgb(IG[1], lit, .82 * b.dim + .04)); g.addColorStop(.72, rgb(IG[2], lit * .9, .7 * b.dim + .03)); g.addColorStop(1, rgb(IG[3], lit * .75, .6 * b.dim + .02)); }
+            else { g.addColorStop(0, rgb(c, lit, .86 * b.dim + .04)); g.addColorStop(.55, rgb(c, lit * .7, .62 * b.dim + .03)); g.addColorStop(1, rgb(c, lit * .4, .5 * b.dim + .02)); }
+            ctx.fillStyle = g; ctx.fill();
             if (pat){ ctx.save(); ctx.globalCompositeOperation = 'overlay'; ctx.globalAlpha = .28 * b.dim; ctx.fillStyle = pat; ctx.fill(); ctx.restore(); } }
           ctx.strokeStyle = hot ? 'rgba(255,255,255,.8)' : 'rgba(255,255,255,' + (n[1] === 1 ? .5 : .13) * b.dim + ')'; ctx.lineWidth = hot ? 1.2 : 1; ctx.stroke();
           picks.push([P, b]); });
