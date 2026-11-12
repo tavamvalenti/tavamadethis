@@ -4,7 +4,7 @@
 Highway Cut-Up and the Casino in Las Vegas, the Snowmobile Jump & Time Trial in Sisimiut, and Drone Combat on every map
 (`js/activities/`: `dogfight.js` = enemy AI, aim assist, lock-on missiles, survival / 2-minute time attack / the Hornet boss).
 Cash economy: `js/progress/economy.js`.
-**Still waiting on the user:** run `server/minigames.sql` in the Supabase SQL Editor. It registers all the new boards; until then their scores wait in the pending queue.
+**Still waiting on the user:** run `_dev/tiny-world/server/minigames.sql` in the Supabase SQL Editor. It registers all the new boards; until then their scores wait in the pending queue.
 **Ideas for later:** tune the medal targets after real play; mini-games on touch devices (they need a keyboard today).
 
 ## Done (2026-09-28)

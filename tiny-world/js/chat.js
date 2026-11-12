@@ -2,7 +2,7 @@
 // button on the left edge (with a count of new lines) that opens a compact panel, and it disappears completely
 // while riding, flying or in a mini-game so it never covers the action. Each line shows the sender's picture; tap a
 // name to add them as a friend (or message them, if they already are). New lines every 3 seconds.
-// Server: server/chat.sql + server/friends.sql (chat_send / chat_list2).
+// Server: _dev/tiny-world/server/chat.sql + _dev/tiny-world/server/friends.sql (chat_send / chat_list2).
 import { openFriends, friendsState } from './progress/friends-ui.js';
 
 const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));

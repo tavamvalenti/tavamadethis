@@ -1,7 +1,7 @@
 // ACCOUNTS: a username (the player's unique leaderboard name), a password or a PIN, and an account ID (the player
 // id). With an account, the whole profile (XP, Cash, purchases, records, achievements...) is kept on the server too,
 // so you can sign in on any device and carry on. The game keeps only a sign-in token (in this browser), never the
-// password. Simple by design (server/accounts.sql): enough to own your name and your progress.
+// password. Simple by design (_dev/tiny-world/server/accounts.sql): enough to own your name and your progress.
 const AKEY = 'tinyworld.account', PKEY = 'tinyworld.profile';
 const read = () => { try { return JSON.parse(localStorage.getItem(AKEY) || 'null'); } catch { return null; } };
 const write = (a) => { try { if (a) localStorage.setItem(AKEY, JSON.stringify(a)); else localStorage.removeItem(AKEY); } catch { /* ignore */ } };
