@@ -601,13 +601,13 @@ a,button,input,[role=tab]{touch-action:manipulation;-webkit-tap-highlight-color:
       </div>
       <div class="remedia">
         <figure class="recard">
-          <div class="refilm" id="refilm"><video playsinline preload="none" data-poster="img/realestate/poster.webp" width="1280" height="720"><source src="vid/realestate-film-tab.mp4" type="video/mp4"></video><button class="play" type="button" aria-label="Play the listing film"><span><i></i>Play the film &middot; 0:23</span></button></div>
+          <div class="refilm" id="refilm"><video playsinline preload="none" data-poster="img/realestate/v3/poster.webp" width="1280" height="720"><source src="vid/realestate-film-tab-v3.mp4" type="video/mp4"></video><button class="play" type="button" aria-label="Play the listing film"><span><i></i>Play the film &middot; 0:23</span></button></div>
           <figcaption><b>The listing film</b><span>Sound on</span></figcaption>
         </figure>
         <figure class="recard">
           <a class="resite" href="/realestate/" target="_blank" rel="noopener" aria-label="Open the sample property site">
             <div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>yourlisting.com</span></div>
-            <div class="shot"><img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="img/realestate/site-preview-tab.webp" width="1600" height="1000" decoding="async" alt="The sample property site: a hero photo of the home above its pool, with its key details"><span class="go">Open the site &nearr;</span></div>
+            <div class="shot"><img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="img/realestate/v3/site-preview-tab.webp" width="1600" height="1000" decoding="async" alt="The sample property site: a hero photo of the home above its pool, with its key details"><span class="go">Open the site &nearr;</span></div>
           </a>
           <figcaption><b>The property site</b><span>Open the full sample</span></figcaption>
         </figure>
@@ -894,7 +894,7 @@ a,button,input,[role=tab]{touch-action:manipulation;-webkit-tap-highlight-color:
       if (!wrap.classList.contains('on') || e.target.closest('button,input')) return;
       if (e.key === ' ' || e.key === 'k') { e.preventDefault(); toggle(); } else if (e.key === 'm') { video.muted = !video.muted; } else if (e.key === 'f') fs.click();
     });
-    wrap.tabIndex = -1; video.removeAttribute('controls'); paint();
+    wrap.tabIndex = -1; video.addEventListener('play', function(){ wrap.classList.add('on'); }); video.removeAttribute('controls'); paint();
   }
 
   // Real Estate: the day to night transition, 41 frames blended on a canvas. Drag, use the slider, or watch it play once.
@@ -925,7 +925,7 @@ a,button,input,[role=tab]{touch-action:manipulation;-webkit-tap-highlight-color:
     function fit(){ var r = canvas.getBoundingClientRect(), d = Math.min(devicePixelRatio || 1, 2); if (!r.width) return; canvas.width = Math.round(r.width * d); canvas.height = Math.round(r.height * d); draw(); }
     function loadFrames(){
       var order = [], seen = {}; [8, 4, 2, 1].forEach(function(st){ for (var i = 0; i < N; i += st) if (!seen[i]) { seen[i] = 1; order.push(i); } });
-      order.forEach(function(i){ var im = new Image(); im.decoding = 'async'; im.onload = function(){ load.hidden = true; draw(); }; im.src = 'img/realestate/dn/f' + String(i + 1).padStart(2, '0') + '.webp'; frames[i] = im; });
+      order.forEach(function(i){ var im = new Image(); im.decoding = 'async'; im.onload = function(){ load.hidden = true; draw(); }; im.src = 'img/realestate/v3/dn/f' + String(i + 1).padStart(2, '0') + '.webp'; frames[i] = im; });
     }
     function tween(to, dur, done){ var from = p, t0 = performance.now(), id = ++auto; (function step(now){ if (id !== auto) return; var t = Math.min(1, (now - t0) / dur), e = t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; set(from + (to - from) * e); if (t < 1) requestAnimationFrame(step); else if (done) done(); })(t0); }
     function stop(){ auto++; }
