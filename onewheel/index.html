@@ -537,9 +537,17 @@ footer ul{list-style:none;margin:0;padding:0;display:grid;gap:.4rem}
   .price-grid>*{padding:1.1rem 1.2rem!important}
   .endbox{min-height:360px}
 }
+
+.tmback{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-inline:calc(-1*max(16px,env(safe-area-inset-left,0px)));padding:7px max(16px,env(safe-area-inset-left,0px));background:#14110C;color:#EDE6D8;font:500 12px/1 'Inter','Inter Tight',system-ui,sans-serif;letter-spacing:.04em;position:relative;z-index:21}
+.tmback a{display:inline-flex;align-items:center;gap:9px;color:inherit;text-decoration:none;min-height:24px}
+.tmback i{width:16px;height:16px;flex:none;background:currentColor;-webkit-mask:url(/img/logo-mark.webp) center/contain no-repeat;mask:url(/img/logo-mark.webp) center/contain no-repeat}
+.tmback a:hover,.tmback a:focus-visible{color:#fff}
+.tmback span{opacity:.6}
+@media(max-width:520px){.tmback span{display:none}}
 </style>
 
 <div class="splash" id="splash" aria-hidden="true"><span class="mk" data-splash="1"></span></div>
+<div class="tmback full"><a href="/" aria-label="Back to tavamadethis.com"><i aria-hidden="true"></i>tavamadethis</a><span>Website preview by Tava Valenti</span></div>
 <header class="nav full">
   <a class="logo" href="#top"><span class="mk"></span>SD Onewheel<span class="hide-s">&nbsp;Rentals</span></a>
   <nav class="links" aria-label="Main">
