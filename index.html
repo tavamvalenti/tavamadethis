@@ -5,6 +5,7 @@
 <script>
 /* The Tiny World game used to live at this address. Old invite links (?ref=), installed home-screen copies and deep links go straight to its new home. */
 (function(){var q=location.search,h=location.hash,tw=/[?&](ref|map|touch|font|boards)=/.test(q),sa=navigator.standalone===true||matchMedia('(display-mode: standalone)').matches,own=h===''||/^#(top|work|services|about|contact|veloura|vylos|video|onewheel|realestate|tinyworld|collective|origin)$/.test(h);
+if(h==='#about'){location.replace('/about/');return;}
 if(tw||sa||!own)location.replace('/tiny-world/'+q+h);})();
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -140,7 +141,7 @@ img,video{max-width:100%}
 .hero nav{position:absolute;inset:0 0 auto 0;z-index:3;padding-block:max(20px, env(safe-area-inset-top, 0px));display:flex;justify-content:space-between;align-items:center;gap:10px}
 .hero nav a{text-decoration:none;font-weight:500}
 .hero nav .links{display:flex;gap:clamp(14px,3vw,28px)}
-@media(max-width:480px){.hero nav .links a[href="#about"]{display:none}}
+@media(max-width:480px){.hero nav .links a[href="/about/"]{display:none}}
 @media(max-width:370px){.hero nav .pill{font-size:13px;padding-inline:11px}.hero nav .links{gap:11px}.hero nav .pill.brand{font-size:0;gap:0}}
 .pill{background:rgba(27,27,25,.82);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);color:var(--paper);padding:10px 16px;border-radius:999px;font-size:14px;white-space:nowrap}
 .pill a{color:var(--paper)}
@@ -645,7 +646,7 @@ a,button,input,[role=tab]{touch-action:manipulation;-webkit-tap-highlight-color:
 
   <nav class="wrap" aria-label="Main">
     <a href="#top" class="pill brand"><i class="logo" aria-hidden="true"></i>tavamadethis</a>
-    <span class="pill links"><a href="#work">Work</a><a href="#services">Services</a><a href="#about">About</a><a href="#contact">Contact</a></span>
+    <span class="pill links"><a href="#work">Work</a><a href="#services">Services</a><a href="/about/">About</a><a href="#contact">Contact</a></span>
   </nav>
   <h1 class="name wrap" aria-label="Tava Valenti"><span>Tava</span> <span>Valenti</span></h1>
   <div class="sigpos wrap"><span class="sigwrap sig-hero"><span class="sig" role="img" aria-label="Tava Valenti's signature"></span></span></div>
@@ -1001,17 +1002,6 @@ a,button,input,[role=tab]{touch-action:manipulation;-webkit-tap-highlight-color:
     </figure>
   </div>
 </section>
-
-<section class="band about" id="about">
-  <div class="wrap">
-    <div class="col"><span class="mono abt"><i class="logo faint" aria-hidden="true"></i>ABOUT</span><h2>My <span class="serif">story</span></h2><figure class="me"><img src="img/tava.webp" alt="Portrait of Tava Valenti" width="900" height="1125" loading="lazy" decoding="async"></figure></div>
-    <div class="col">
-      <p>My background is in broadcasting and digital media, where I gained experience in filmmaking, storytelling, and content creation through <a href="https://www.instagram.com/tavamadethis/" target="_blank" rel="noopener">Tavamadethis</a>, along with <a href="https://www.kpbs.org/news/2025/01/02/carlsbad-high-school-broadcast-journalism-students-filmmaking-storytelling" target="_blank" rel="noopener">collaborative media projects</a> and filming in Alaska.</p>
-      <p>My interests eventually expanded into AI and software development, where I now focus on building applications, designing interfaces, and creating digital tools. I enjoy experimenting with new technology, solving problems, and bringing ideas to life.</p>
-    </div>
-  </div>
-</section>
-
 <section class="band contact" id="contact">
   <img class="poster" src="img/dusk.webp" srcset="img/dusk-1440.webp 1440w, img/dusk.webp 2560w" sizes="100vw" alt="" width="2560" height="1448" loading="lazy" decoding="async">
   <div class="shade"></div>
@@ -1027,7 +1017,7 @@ a,button,input,[role=tab]{touch-action:manipulation;-webkit-tap-highlight-color:
       <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
       <div class="full fr"><button class="btn" type="submit">Send &rarr;</button><span class="st" role="status" aria-live="polite"></span></div>
     </form>
-    <div class="actions"><a class="btn" id="startp" href="mailto:tavamvalenti@gmail.com?subject=Project%20inquiry%20(via%20tavamadethis.com)&amp;body=Business%3A%0D%0AWebsite%20(if%20you%20have%20one)%3A%0D%0AWhat%20you%20need%3A%0D%0ATimeline%3A%0D%0ABudget%20range%3A%0D%0A">Start a project &rarr;</a><a class="btn ghost" href="mailto:tavamvalenti@gmail.com">tavamvalenti@gmail.com</a><a class="btn ghost" href="https://www.instagram.com/tavamadethis/" target="_blank" rel="noopener">Instagram</a><a class="btn ghost" href="https://x.com/tavamadethis" target="_blank" rel="noopener">X</a></div>
+    <div class="actions"><a class="btn" id="startp" href="mailto:tavamvalenti@gmail.com?subject=Project%20inquiry%20(via%20tavamadethis.com)&amp;body=Business%3A%0D%0AWebsite%20(if%20you%20have%20one)%3A%0D%0AWhat%20you%20need%3A%0D%0ATimeline%3A%0D%0ABudget%20range%3A%0D%0A">Start a project &rarr;</a><a class="btn ghost" href="mailto:tavamvalenti@gmail.com">tavamvalenti@gmail.com</a><a class="btn ghost" href="https://www.instagram.com/tavamadethis/" target="_blank" rel="noopener">Instagram</a><a class="btn ghost" href="https://x.com/tavamadethis" target="_blank" rel="noopener">X</a><a class="btn ghost" href="/about/">About me</a></div>
     <span class="sigwrap sig-contact"><span class="sig" role="img" aria-label="Tava Valenti's signature"></span></span>
     <small class="ft"><i class="logo faint" aria-hidden="true"></i>&copy; 2026 Tava Valenti &middot; tavamadethis.com</small>
   </div>
