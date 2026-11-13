@@ -131,7 +131,8 @@ section{padding:clamp(72px,10vw,130px) 0}
 .phase{margin:14px 0 0;font:500 11px/1 var(--sans);letter-spacing:.24em;text-transform:uppercase;opacity:.75;min-height:1em}
 .stage{position:relative;aspect-ratio:16/9;max-height:calc(100svh - 64px - 90px);width:100%;margin-left:auto;border-radius:22px;overflow:hidden;background:#cdd7de;box-shadow:0 40px 90px rgba(30,24,14,.22);touch-action:pan-y}
 .stage canvas{width:100%;height:100%}
-.stage .load{position:absolute;inset:0;display:grid;place-items:center;font:500 11px/1 var(--sans);letter-spacing:.24em;text-transform:uppercase;color:#6b665e}
+.stage .load{position:absolute;inset:0;display:grid;place-items:center;font:500 11px/1 var(--sans);letter-spacing:.24em;text-transform:uppercase;color:#6b665e;pointer-events:none;user-select:none;-webkit-user-select:none}
+.stage .load[hidden]{display:none}
 .track{margin-top:18px;display:flex;align-items:center;gap:14px;color:inherit}
 .track svg{width:20px;height:20px;flex:none;opacity:.75}
 .track input{flex:1;min-width:0;height:28px;background:transparent;-webkit-appearance:none;appearance:none;cursor:pointer;margin:0;--p:0%}
