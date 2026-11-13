@@ -1,7 +1,7 @@
 {
   "name": "Tiny World",
   "short_name": "Tiny World",
-  "description": "An interactive miniature destruction sandbox",
+  "description": "A miniature 3D world you play in the browser, by Tava Valenti",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
