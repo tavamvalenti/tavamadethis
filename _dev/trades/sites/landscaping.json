@@ -1,0 +1,49 @@
+{
+  "out": "trades/landscaping/index.html",
+  "img": "img/trades/v1",
+  "sample": true,
+  "title": "Saltbush Landscape Co. | Sample Trade Website",
+  "description": "A sample website for a local landscaping company: before and after, services, reviews and a free-estimate request. A concept by Tava Valenti.",
+  "sample_notice": "This is a sample website for a made-up landscaping company, to show what a local business site can look like. Photos are AI-generated placeholders.",
+  "name": "Saltbush Landscape Co.",
+  "brand": ["Saltbush", "Landscape Co."],
+  "logo_svg": "<path d=\"M12 27c0-9 6-15 17-15 0 11-6 17-15 17\" fill=\"none\" stroke=\"#FBF9F4\" stroke-width=\"2.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M12 29c3-6 7-10 12-12\" fill=\"none\" stroke=\"#FBF9F4\" stroke-width=\"2.4\" stroke-linecap=\"round\"/>",
+  "phone": "(760) 555-0148",
+  "hours": "Mon to Sat, 7 AM to 5 PM",
+  "city": "Oceanside, CA",
+  "license": "CA contractor license # shown here",
+  "palette": {"sand":"#F3EFE6","paper":"#FBF9F4","clay":"#E7DFD0","ink":"#1F2A22","mut":"#5E6A60","line":"rgba(31,42,34,.13)","acc":"#4E6B4F","acc2":"#7C9A72","acc-d":"#3F5A41","acc-a":"rgba(78,107,79,.2)","acc-sh":"rgba(40,70,42,.25)","hi":"#D98B3A","hi-d":"#C67A2C","hi-ink":"#1D1408","glow":"#F2C58A","deep":"#18231B","deep-eye":"#A9BFA4","deep-mut":"#B8C4B5","deep-tx":"#E9EEE6","hero-bg":"#6E7A62","hero-tx":"#EEF1EA","shade":"14,22,15","shade2":"20,26,20","sand-rgb":"243,239,230","ink-rgb":"31,42,34"},
+  "nav": [["work","Before & after"],["services","Services"],["reviews","Reviews"],["about","About"]],
+  "hero": {"size":[4096,2294],"alt":"A finished backyard at sunset: a stone patio with a fire pit, lavender, agave and an olive tree","h1":"Yards that look great and *use less water.*","sub":"Drought-tolerant landscaping, patios, irrigation and lighting for homes across North County San Diego. Family run, and we pick up the phone.","cta":"Get a free estimate"},
+  "trust": [{"text":"Licensed & insured"},{"text":"Free written estimates"},{"icon":"star","text":"4.9 from 120+ reviews"}],
+  "before_after": {"eyebrow":"Before & after","h2":"Same house. *New yard.*","text":"A tired front lawn in Oceanside, replaced with low-water plants, a flagstone path and boulders. Drag the line to compare.","aria":"Before and after of a front yard: a dry brown lawn on the left, the finished drought-tolerant landscape on the right. Drag to compare.","cap_title":"Front yard, Oceanside","cap_detail":"about 1,100 sq ft","cap_right":"Done in 6 working days"},
+  "services_head": {"eyebrow":"What we do","h2":"Everything outside *the house.*","text":"Big project or small fix, you get one crew from start to finish and a clear price before any work begins."},
+  "services": [
+    {"img":"succulents","alt":"A coastal succulent garden with aloes and blue chalk sticks","title":"Drought-tolerant gardens","text":"Native and low-water plants that stay green with a fraction of the water."},
+    {"img":"patio","alt":"A paver patio with a cedar pergola and string lights","title":"Patios & walkways","text":"Pavers, flagstone and pergolas built for dinners outside."},
+    {"img":"turf","alt":"A backyard with artificial turf and a stone planter","title":"Lawn replacement","text":"Swap thirsty grass for turf, gravel or plants that suit how you use the yard."},
+    {"img":"planting","alt":"Gloved hands planting an agave next to drip irrigation","title":"Irrigation & drip","text":"Leak repair, drip conversions and smart timers that water only when needed."},
+    {"img":"wall","alt":"A stacked stone retaining wall on a sloped yard","title":"Retaining walls","text":"Stone and block walls that hold a slope and give you more usable yard."},
+    {"img":"lighting","alt":"Warm landscape lighting on an olive tree and a path at dusk","title":"Landscape lighting","text":"Warm, low-voltage lights for paths, trees and the front of the house."}
+  ],
+  "steps": {"h2":"Simple from *the first call.*","text":"No pressure and no surprise charges. You'll always know what's happening and what it costs.","items":[
+    {"title":"Call or send photos","text":"Tell us what you'd like changed. A few phone photos of the yard help a lot."},
+    {"title":"Free estimate at your home","text":"We walk the yard with you and send a written, fixed price within two days."},
+    {"title":"We build it and clean up","text":"Same crew every day. When it's done, we walk through it together."}]},
+  "gallery_h2": "Around *North County.*",
+  "gallery": [
+    {"img":"hero","alt":"Backyard patio with fire pit at sunset","caption":"Backyard, Carlsbad"},
+    {"img":"succulents","alt":"Succulent slope near the coast","caption":"Encinitas"},
+    {"img":"lighting","alt":"Front yard lighting at dusk","caption":"Vista"},
+    {"img":"wall","alt":"Stone retaining wall and steps","caption":"San Marcos"},
+    {"img":"patio","alt":"Pergola over a paver patio","caption":"Oceanside"}
+  ],
+  "reviews": {"h2":"What neighbors *say.*","score":"4.9","count":"from 120+ reviews (sample)","items":[
+    {"quote":"They showed up when they said they would, kept the driveway clean every day, and our water bill dropped the very next month.","name":"Linda M.","detail":"Front yard, Oceanside"},
+    {"quote":"The price they quoted is exactly what we paid. The new patio is where we eat dinner every night now.","name":"Robert G.","detail":"Patio & pergola, Carlsbad"},
+    {"quote":"Fixed a sprinkler leak two other companies couldn't find. Honest, friendly, and they explained everything.","name":"Susan K.","detail":"Irrigation repair, Vista"}]},
+  "about": {"img":"planting","alt":"Planting an agave by hand next to new drip line","h2":"Local, owner-run, *on site every day.*","text":"Saltbush is a small family company based in Oceanside. The owner meets you for the estimate and is on site while the work gets done, so there's always someone who knows your yard.","facts":[{"value":"20","label":"years in North County"},{"value":"1,400+","label":"yards finished"},{"value":"1 yr","label":"plant & labor warranty"}],"towns":["Oceanside","Carlsbad","Vista","Encinitas","San Marcos","Solana Beach","Del Mar"]},
+  "estimate": {"eyebrow":"Free estimate","h2":"Tell us about *your yard.*","text":"Send a few details and we'll call you back within one business day to set up a time.","select_label":"What do you need?","options":["New landscaping","Lawn replacement","Patio or walkway","Irrigation or a leak","Retaining wall","Lighting","Something else"],"placeholder":"Size of the yard, timing, what you'd like it to look like...","button":"Request my free estimate","short":"Free estimate"},
+  "footer_desc": "Drought-tolerant landscaping, patios, irrigation and lighting in North County San Diego.",
+  "footer_note": "Sample site. Saltbush Landscape Co. is a made-up business; reviews and numbers are examples."
+}

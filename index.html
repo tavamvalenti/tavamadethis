@@ -579,25 +579,25 @@ img,video{max-width:100%}
 @media(max-width:700px),(pointer:coarse){.retrack input{height:44px}.rebtn{height:42px}}
 
 /* Trades: warm sand, sage and a sunny orange */
-.t-trades{--fg:#1F2A22;--mut:#5E6A60;--line:rgba(31,42,34,.15);--acc:#D98B3A;--chip:rgba(251,249,244,.65);--btnbg:#1F2A22;--btnfg:#FBF9F4;--card:rgba(251,249,244,.65);--bg0:#EFEADF;
+.t-trades{--fg:#1F2A22;--mut:#5E6A60;--line:rgba(31,42,34,.15);--acc:#D98B3A;--chip:rgba(251,249,244,.65);--btnbg:#1F2A22;--btnfg:#FBF9F4;--card:rgba(251,249,244,.65);--bg0:#EFEADF;--tp:#4E6B4F;--ta:#D98B3A;--tah:#C67A2C;--tai:#1D1408;--td:#1F2A22;--tg1:#B49A6A;--tg2:#8FA57E;
   background:linear-gradient(180deg,#DCE3D3 0%,#E9E8DD 30%,#F1ECE2 70%,#F3EFE6 100%)}
 .t-trades .title{font-family:'Fraunces',Georgia,serif;font-weight:500;letter-spacing:-.03em}
 .t-trades .panel .inner{max-width:1180px}
 .trwin{position:relative;border-radius:18px;overflow:hidden;border:1px solid rgba(31,42,34,.12);box-shadow:0 30px 70px rgba(40,56,36,.16);background:#FBF9F4;color:#1F2A22;font-family:Inter,sans-serif;min-width:0}
 .trnav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px clamp(16px,3vw,32px);border-bottom:1px solid rgba(31,42,34,.1);background:rgba(243,239,230,.95)}
 .trbrand{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;line-height:1}
-.trbrand svg{width:30px;height:30px;flex:none;color:#4E6B4F}
+.trbrand svg{width:30px;height:30px;flex:none;color:var(--tp)}
 .trbrand b{display:block;font:600 19px/1 'Fraunces',Georgia,serif}
 .trbrand span span{display:block;margin-top:4px;font:600 8.5px/1 Inter,sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#5E6A60}
 .trlinks{display:flex;gap:clamp(14px,2.2vw,28px);font-size:13px;color:#5E6A60}
-.trcall{display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 16px;border-radius:10px;background:#D98B3A;color:#1D1408;font:600 13px/1 Inter,sans-serif;text-decoration:none;white-space:nowrap;transition:background .25s}
-.trcall:hover{background:#C67A2C}
+.trcall{display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 16px;border-radius:10px;background:var(--ta);color:var(--tai);font:600 13px/1 Inter,sans-serif;text-decoration:none;white-space:nowrap;transition:background .25s}
+.trcall:hover{background:var(--tah)}
 .trcall svg{width:15px;height:15px}
 .trkit{display:grid;grid-template-columns:minmax(220px,290px) minmax(0,1fr);gap:clamp(20px,3.5vw,52px);align-items:center;padding:clamp(22px,3.6vw,44px) clamp(16px,3vw,40px)}
-.treye{margin:0;display:flex;align-items:center;gap:12px;font:600 11px/1 Inter,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#4E6B4F}
-.treye::before{content:"";width:24px;height:2px;border-radius:2px;background:#D98B3A}
+.treye{margin:0;display:flex;align-items:center;gap:12px;font:600 11px/1 Inter,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--tp)}
+.treye::before{content:"";width:24px;height:2px;border-radius:2px;background:var(--ta)}
 .trh{margin:16px 0 12px;font:500 clamp(32px,3.4vw,46px)/1.02 'Fraunces',Georgia,serif;letter-spacing:-.025em}
-.trh em{font-style:italic;font-weight:400;color:#4E6B4F}
+.trh em{font-style:italic;font-weight:400;color:var(--tp)}
 .trp{margin:0;color:#5E6A60;font-size:14.5px;line-height:1.5}
 .trfacts{list-style:none;margin:18px 0 0;padding:0}
 .trfacts li{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-top:1px solid rgba(31,42,34,.12);font-size:13px}
@@ -610,15 +610,15 @@ img,video{max-width:100%}
 .trba .kb{position:absolute;top:50%;left:var(--x);width:48px;height:48px;margin:-24px 0 0 -24px;border-radius:50%;background:#fff;color:#1F2A22;display:grid;place-items:center;box-shadow:0 8px 24px rgba(0,0,0,.3)}
 .trba .kb svg{width:22px;height:22px}
 .trba .tg{position:absolute;top:12px;padding:6px 11px;border-radius:7px;font:700 11px/1 Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;background:rgba(20,26,20,.72);color:#fff}
-.trba .tg.b{left:12px}.trba .tg.a{right:12px;background:#D98B3A;color:#1D1408}
+.trba .tg.b{left:12px}.trba .tg.a{right:12px;background:var(--ta);color:var(--tai)}
 .trtrack{display:flex;align-items:center;gap:14px;padding:0 clamp(16px,3vw,40px) clamp(18px,2.6vw,28px)}
 .trtrack .lab{font:600 11px/1 Inter,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#5E6A60;white-space:nowrap}
 .trtrack input{flex:1;min-width:0;-webkit-appearance:none;appearance:none;height:40px;background:transparent;cursor:ew-resize;margin:0}
-.trtrack input::-webkit-slider-runnable-track{height:3px;border-radius:3px;background:linear-gradient(90deg,#B49A6A,#8FA57E 50%,#4E6B4F)}
-.trtrack input::-moz-range-track{height:3px;border-radius:3px;background:linear-gradient(90deg,#B49A6A,#8FA57E 50%,#4E6B4F)}
+.trtrack input::-webkit-slider-runnable-track{height:3px;border-radius:3px;background:linear-gradient(90deg,var(--tg1),var(--tg2) 50%,var(--tp))}
+.trtrack input::-moz-range-track{height:3px;border-radius:3px;background:linear-gradient(90deg,var(--tg1),var(--tg2) 50%,var(--tp))}
 .trtrack input::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:#FBF9F4;border:1px solid rgba(0,0,0,.15);box-shadow:0 4px 14px rgba(0,0,0,.25);margin-top:-9.5px}
 .trtrack input::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:#FBF9F4;border:1px solid rgba(0,0,0,.15);box-shadow:0 4px 14px rgba(0,0,0,.25)}
-.trtrack input:focus-visible{outline:2px solid #D98B3A;outline-offset:4px;border-radius:6px}
+.trtrack input:focus-visible{outline:2px solid var(--ta);outline-offset:4px;border-radius:6px}
 .trtrack small{font-size:12px;color:#5E6A60;white-space:nowrap}
 .trmedia{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(14px,2vw,22px);align-items:start}
 .trsite{display:block;text-decoration:none;color:inherit;border:1px solid rgba(31,42,34,.14);border-radius:14px;overflow:hidden;background:#FBF9F4;box-shadow:0 24px 50px rgba(40,56,36,.16)}
@@ -629,12 +629,25 @@ img,video{max-width:100%}
 .trsite img{display:block;width:100%;height:100%;object-fit:cover;object-position:top;transition:transform .8s cubic-bezier(.2,.8,.2,1)}
 .trsite:hover img{transform:scale(1.025)}
 .trsite .go{position:absolute;right:12px;bottom:12px;background:#1F2A22;color:#FBF9F4;font-weight:500;font-size:13.5px;padding:9px 16px;border-radius:999px}
-.trphone{display:grid;place-items:center;border-radius:14px;background:linear-gradient(160deg,#4E6B4F,#1F2A22);padding:clamp(16px,2.4vw,26px) 0;box-shadow:0 24px 50px rgba(40,56,36,.16);text-decoration:none}
+.trphone{display:grid;place-items:center;border-radius:14px;background:linear-gradient(160deg,var(--tp),var(--td));padding:clamp(16px,2.4vw,26px) 0;box-shadow:0 24px 50px rgba(40,56,36,.16);text-decoration:none}
 .trphone .dev{width:min(36%,170px);aspect-ratio:390/844;border-radius:26px;overflow:hidden;border:6px solid #0E1410;background:#0E1410;box-shadow:0 20px 40px rgba(0,0,0,.35);transition:transform .6s cubic-bezier(.2,.8,.2,1)}
 .trphone:hover .dev{transform:translateY(-4px) rotate(-1deg)}
 .trphone img{width:100%;height:100%;object-fit:cover;object-position:top;display:block}
 @media(max-width:760px){.trkit{grid-template-columns:minmax(0,1fr);gap:14px;padding-top:18px}.trp,.trfacts,.trlinks,.trtrack .lab,.trtrack small{display:none}.trh{margin-bottom:0}.trmedia{grid-template-columns:minmax(0,1fr)}}
 @media(max-width:700px),(pointer:coarse){.trtrack input{height:44px}}
+
+.trtabs{display:flex;align-items:center;gap:8px;margin:0 0 14px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding:2px}
+.trtabs::-webkit-scrollbar{display:none}
+.trtabs .lab{flex:none;margin-right:6px;font:600 11px/1 Inter,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#5E6A60}
+.trtabs button{all:unset;box-sizing:border-box;flex:none;display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 16px;border-radius:999px;border:1px solid rgba(31,42,34,.16);background:rgba(251,249,244,.7);color:#1F2A22;font:500 14px/1 Inter,sans-serif;cursor:pointer;transition:background .25s,color .25s,border-color .25s}
+.trtabs button i{width:9px;height:9px;border-radius:50%;background:var(--c)}
+.trtabs button:hover{border-color:rgba(31,42,34,.35)}
+.trtabs button[aria-selected="true"]{background:#1F2A22;border-color:#1F2A22;color:#FBF9F4}
+.trtabs button[aria-selected="true"] i{box-shadow:0 0 0 2px rgba(251,249,244,.75)}
+.trtabs button:focus-visible{outline:2px solid var(--ta);outline-offset:2px}
+.trwin,.trmedia{transition:opacity .25s}
+.t-trades.trsw .trwin,.t-trades.trsw .trmedia{opacity:.35}
+@media(max-width:760px){.trtabs{display:grid;grid-template-columns:1fr 1fr;overflow:visible}.trtabs .lab{display:none}.trtabs button{justify-content:center;padding:0 12px;font-size:14px}}
 
 /* custom video controls (shared look for the film players) */
 .vcw{-webkit-tap-highlight-color:transparent}
@@ -826,12 +839,13 @@ a,button,input,[role=tab]{touch-action:manipulation;-webkit-tap-highlight-color:
 </article>
 <article class="row t-trades" id="trades">
   <div class="wrap">
-    <button type="button" aria-expanded="false" aria-controls="p-trades"><span class="title">Trades</span><span class="meta"><b>Local Business Website</b><span class="mono">Landscaping &middot; sample</span></span><span class="plus" aria-hidden="true">+</span></button>
+    <button type="button" aria-expanded="false" aria-controls="p-trades"><span class="title">Trades</span><span class="meta"><b>Local Business Website</b><span class="mono">4 sample trades</span></span><span class="plus" aria-hidden="true">+</span></button>
     <div class="panel" id="p-trades"><div><div class="inner">
-      <p class="lede">What a local trade could get: a website built around its before-and-after photos, a call button that's always in reach and a free-estimate form, made for customers on their phones. Drag across the yard to compare.</p>
-      <div class="actions"><a class="btn big" href="/trades/" target="_blank" rel="noopener">Open the sample site &nearr;</a><div class="chips"><span>Before &amp; after</span><span>Mobile first</span><span>HTML</span><span>CSS</span><span>JavaScript</span></div></div>
+      <p class="lede">What a local trade could get: a website built around its before-and-after photos, a call button that's always in reach and a free-estimate form, made for customers on their phones. Pick a trade, then drag across the photo to compare.</p>
+      <div class="actions"><a class="btn big" href="/trades/landscaping/" target="_blank" rel="noopener">Open the sample site &nearr;</a><div class="chips"><span>Before &amp; after</span><span>Mobile first</span><span>HTML</span><span>CSS</span><span>JavaScript</span></div></div>
+      <div class="trtabs" role="tablist" aria-label="Sample trade"><span class="lab">Pick a trade</span><button type="button" role="tab" aria-selected="true" data-t="landscaping" style="--c:#4E6B4F"><i></i>Landscaping</button><button type="button" role="tab" aria-selected="false" data-t="painting" style="--c:#2E4A6E"><i></i>Painting</button><button type="button" role="tab" aria-selected="false" data-t="auto" style="--c:#D9442B"><i></i>Auto shop</button><button type="button" role="tab" aria-selected="false" data-t="handyman" style="--c:#E07A2F"><i></i>Handyman</button></div>
       <div class="trwin">
-        <div class="trnav"><a class="trbrand" href="/trades/" target="_blank" rel="noopener"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" fill="currentColor"/><path d="M12 27c0-9 6-15 17-15 0 11-6 17-15 17" fill="none" stroke="#FBF9F4" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 29c3-6 7-10 12-12" fill="none" stroke="#FBF9F4" stroke-width="2.4" stroke-linecap="round"/></svg><span><b>Saltbush</b><span>Landscape Co.</span></span></a><span class="trlinks" aria-hidden="true"><span>Before &amp; after</span><span>Services</span><span>Reviews</span><span>About</span></span><a class="trcall" href="/trades/#estimate" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>Free estimate</a></div>
+        <div class="trnav"><a class="trbrand" href="/trades/landscaping/" target="_blank" rel="noopener"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" fill="currentColor"/><path d="M12 27c0-9 6-15 17-15 0 11-6 17-15 17" fill="none" stroke="#FBF9F4" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 29c3-6 7-10 12-12" fill="none" stroke="#FBF9F4" stroke-width="2.4" stroke-linecap="round"/></svg><span><b>Saltbush</b><span>Landscape Co.</span></span></a><span class="trlinks" aria-hidden="true"><span>Before &amp; after</span><span>Services</span><span>Reviews</span><span>About</span></span><a class="trcall" href="/trades/landscaping/#estimate" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>Free estimate</a></div>
         <div class="trkit">
           <div>
             <p class="treye">Before &amp; after</p>
@@ -850,19 +864,19 @@ a,button,input,[role=tab]{touch-action:manipulation;-webkit-tap-highlight-color:
       </div>
       <div class="trmedia">
         <figure class="recard">
-          <a class="trsite" href="/trades/" target="_blank" rel="noopener" aria-label="Open the sample trade website">
+          <a class="trsite" href="/trades/landscaping/" target="_blank" rel="noopener" aria-label="Open the sample trade website">
             <div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>yourbusiness.com</span></div>
             <div class="shot"><img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="img/trades/v1/site-desk.webp" width="1440" height="900" decoding="async" alt="The sample landscaping website: a sunset backyard with a fire pit under the headline Yards that look great and use less water"><span class="go">Open the site &nearr;</span></div>
           </a>
           <figcaption><b>The website</b><span>Open the full sample</span></figcaption>
         </figure>
         <figure class="recard">
-          <a class="trphone" href="/trades/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><span class="dev"><img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="img/trades/v1/site-phone-390.webp" width="390" height="844" decoding="async" alt=""></span></a>
+          <a class="trphone" href="/trades/landscaping/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><span class="dev"><img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="img/trades/v1/site-phone-390.webp" width="390" height="844" decoding="async" alt=""></span></a>
           <figcaption><b>On a phone</b><span>Call and estimate always one tap away</span></figcaption>
         </figure>
       </div>
       <p class="renote">A made-up company used as an example. Photos are AI-generated placeholders; a real business's own photos, reviews and phone number go in their place.</p>
-      <ul class="hl"><li>Before and after: two photos of the same yard, lined up and compared with a drag, a slider or the arrow keys</li><li>Built for phones first, with a call bar that appears as you scroll and a short free-estimate form</li><li>Services, recent work, reviews, service area and an owner story, all in plain words</li></ul>
+      <ul class="hl"><li>Before and after: two photos of the same job, lined up and compared with a drag, a slider or the arrow keys</li><li>Built for phones first, with a call bar that appears as you scroll and a short free-estimate form</li><li>Services, recent work, reviews, service area and an owner story, all in plain words</li></ul>
     </div></div></div>
   </div>
 </article>
@@ -1288,6 +1302,29 @@ var re=document.querySelector('#realestate > .wrap > button');function fit(){b.s
         var f = t - i, e = f < .5 ? 2 * f * f : 1 - Math.pow(-2 * f + 2, 2) / 2; set(keys[i] + (keys[i + 1] - keys[i]) * e); requestAnimationFrame(step); })(t0); }
     if ('IntersectionObserver' in window) new IntersectionObserver(function(es){ if (es[0].isIntersecting && row.classList.contains('open')) setTimeout(sweep, 450); }, { threshold: .6 }).observe(ba);
     row.querySelector('.wrap > button').addEventListener('click', function(){ if (row.classList.contains('open')) setTimeout(function(){ var r = ba.getBoundingClientRect(); if (r.top < innerHeight && r.bottom > 0) sweep(); }, 900); });
+    // Trade tabs: swap the mini site, the before/after and the previews in place
+    var T = {"landscaping":{"logo":"<path d=\"M12 27c0-9 6-15 17-15 0 11-6 17-15 17\" fill=\"none\" stroke=\"#FBF9F4\" stroke-width=\"2.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M12 29c3-6 7-10 12-12\" fill=\"none\" stroke=\"#FBF9F4\" stroke-width=\"2.4\" stroke-linecap=\"round\"/>","b":["Saltbush","Landscape Co."],"tp":"#4E6B4F","ta":"#D98B3A","tah":"#C67A2C","tai":"#1D1408","td":"#1F2A22","tg1":"#B49A6A","tg2":"#8FA57E","img":"img/trades/v1","h":"Same house. <em>New yard.</em>","p":"The proof a trade needs most is the work itself. One front yard, before and after, lined up so you can drag between them.","f":[["Front yard","Oceanside"],["Old lawn out","Low-water plants in"],["Done in","6 working days"]],"aria":"Before and after of a front yard: a dry brown lawn on the left, the finished drought-tolerant landscape on the right. Drag to compare.","alt":"The sample landscaping website: a sunset backyard with a fire pit under the headline Yards that look great and use less water","cta":"Free estimate"},"painting":{"logo":"<rect x=\"11\" y=\"11\" width=\"16\" height=\"7\" rx=\"2\" fill=\"none\" stroke=\"#FBFAF6\" stroke-width=\"2.4\"/><path d=\"M27 14.5h2.5v6H20v4\" fill=\"none\" stroke=\"#FBFAF6\" stroke-width=\"2.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><rect x=\"18.2\" y=\"24.5\" width=\"3.6\" height=\"6\" rx=\"1\" fill=\"#FBFAF6\"/>","b":["Fairwind","Painting Co."],"tp":"#2E4A6E","ta":"#E4A834","tah":"#CF9425","tai":"#1C1606","td":"#1A2230","tg1":"#BBAE96","tg2":"#93A7C2","img":"img/trades/painting","h":"Same house. <em>New coat.</em>","p":"The proof a painter needs most is the work itself. One stucco house, before and after the repaint, lined up so you can drag between them.","f":[["Exterior repaint","Vista"],["Faded stucco out","Fresh coat and trim"],["Done in","4 working days"]],"aria":"Before and after of a stucco house: faded, stained walls and peeling trim on the left, fresh white paint with charcoal trim on the right. Drag to compare.","alt":"The sample painting website: a freshly painted craftsman house under the headline Fresh paint, clean lines, no mess left behind","cta":"Free estimate"},"auto":{"logo":"<path d=\"M25.5 11.5a6 6 0 0 0-7.6 7.6l-7.4 7.4a2 2 0 0 0 2.9 2.9l7.4-7.4a6 6 0 0 0 7.6-7.6l-3.6 3.6-2.9-2.9z\" fill=\"none\" stroke=\"#FAFAF9\" stroke-width=\"2.2\" stroke-linejoin=\"round\"/>","b":["Kestrel","Auto Care"],"tp":"#2C3138","ta":"#D9442B","tah":"#C23A23","tai":"#FFFFFF","td":"#16191D","tg1":"#9C8E7C","tg2":"#8B949F","img":"img/trades/auto","h":"Same car. <em>Showroom shine.</em>","p":"The proof a shop needs most is the work itself. One sedan, before and after a full detail, lined up so you can drag between them.","f":[["Full detail","Sedan"],["Dull paint, foggy lights","Gloss, clear lenses"],["Done in","One day"]],"aria":"Before and after of a blue sedan: dusty, spotted paint and cloudy headlights on the left, glossy paint and clear headlights on the right. Drag to compare.","alt":"The sample auto shop website: a detailed gray SUV in a shop bay under the headline Honest repairs. A car that shines.","cta":"Book"},"handyman":{"logo":"<path d=\"M10 20.5 20 12l10 8.5\" fill=\"none\" stroke=\"#FBFAF7\" stroke-width=\"2.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M13.5 18v10.5h13V18\" fill=\"none\" stroke=\"#FBFAF7\" stroke-width=\"2.4\" stroke-linejoin=\"round\"/><path d=\"M18 28.5v-5h4v5\" fill=\"none\" stroke=\"#FBFAF7\" stroke-width=\"2.2\" stroke-linejoin=\"round\"/>","b":["Copperline","Handyman & Remodel"],"tp":"#2F5D62","ta":"#E07A2F","tah":"#C96A25","tai":"#1C1006","td":"#1B2626","tg1":"#B89C72","tg2":"#8DB0B2","img":"img/trades/handyman","h":"Same room. <em>New bathroom.</em>","p":"The proof a remodeler needs most is the work itself. One hall bathroom, before and after, lined up so you can drag between them.","f":[["Hall bathroom","Carlsbad"],["Tub-shower out","Walk-in shower in"],["Done in","3 weeks"]],"aria":"Before and after of a bathroom: a dated oak vanity and tub-shower on the left, a white vanity and glass walk-in shower on the right. Drag to compare.","alt":"The sample handyman website: a bright renovated kitchen under the headline The fix-it list, finally done.","cta":"Free estimate"}};
+    var tabs = [].slice.call(row.querySelectorAll('.trtabs button')), win = row.querySelector('.trwin'), media = row.querySelector('.trmedia'), cur = 'landscaping', tok = 0;
+    function pick(t){ if (t === cur) return; var d = T[t], my = ++tok; cur = t;
+      tabs.forEach(function(b){ b.setAttribute('aria-selected', b.dataset.t === t ? 'true' : 'false'); });
+      var imgs = [d.img + '/before.webp', d.img + '/after.webp', d.img + '/site-desk.webp', d.img + '/site-phone-390.webp'], left = imgs.length;
+      row.classList.add('trsw');
+      function apply(){ if (my !== tok) return;
+        ['tp','ta','tah','tai','td','tg1','tg2'].forEach(function(k){ row.style.setProperty('--' + k, d[k]); });
+        var br = row.querySelector('.trbrand'); br.querySelector('svg').innerHTML = '<circle cx="20" cy="20" r="19" fill="currentColor"/>' + d.logo;
+        br.querySelector('b').textContent = d.b[0]; br.querySelector('span span').textContent = d.b[1];
+        row.querySelector('.trcall').lastChild.textContent = d.cta;
+        row.querySelector('.trh').innerHTML = d.h; row.querySelector('.trp').textContent = d.p;
+        row.querySelectorAll('.trfacts li').forEach(function(li, i){ li.children[0].textContent = d.f[i][0]; li.children[1].textContent = d.f[i][1]; });
+        ba.setAttribute('aria-label', d.aria + ' Drag or use the slider.');
+        var bi = ba.querySelectorAll('img'); bi[0].src = imgs[0]; bi[1].src = imgs[1];
+        var si = row.querySelector('.trsite img'); si.src = imgs[2]; si.alt = d.alt; row.querySelector('.trphone img').src = imgs[3];
+        row.querySelectorAll('a[href^="/trades/"]').forEach(function(a){ a.href = a.getAttribute('href').replace(/\/trades\/[a-z]+\//, '/trades/' + t + '/'); });
+        row.classList.remove('trsw'); swept = false; set(50); var r = ba.getBoundingClientRect(); if (r.top < innerHeight && r.bottom > 0) setTimeout(sweep, 300); }
+      imgs.forEach(function(u){ var im = new Image(); im.onload = im.onerror = function(){ if (--left === 0) apply(); }; im.src = u; });
+      setTimeout(apply, 2500); }
+    tabs.forEach(function(b){ b.addEventListener('click', function(){ pick(b.dataset.t); });
+      b.addEventListener('keydown', function(e){ var i = tabs.indexOf(b), n = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0; if (!n) return; e.preventDefault(); var nb = tabs[(i + n + tabs.length) % tabs.length]; nb.focus(); pick(nb.dataset.t); }); });
   })();
 
   // The Collective: a 3D bar chart of first-week views, drawn on a canvas. Drag to orbit, hover a bar, toggle platforms.

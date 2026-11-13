@@ -1,0 +1,254 @@
+{
+ "out": "trades/painting/index.html",
+ "img": "img/trades/painting",
+ "sample": true,
+ "title": "Fairwind Painting Co. | Sample Trade Website",
+ "description": "A sample website for a local house painting company: before and after, services, reviews and a free-estimate request. A concept by Tava Valenti.",
+ "sample_notice": "This is a sample website for a made-up painting company, to show what a local business site can look like. Photos are AI-generated placeholders.",
+ "name": "Fairwind Painting Co.",
+ "brand": [
+  "Fairwind",
+  "Painting Co."
+ ],
+ "logo_svg": "<rect x=\"11\" y=\"11\" width=\"16\" height=\"7\" rx=\"2\" fill=\"none\" stroke=\"#FBFAF6\" stroke-width=\"2.4\"/><path d=\"M27 14.5h2.5v6H20v4\" fill=\"none\" stroke=\"#FBFAF6\" stroke-width=\"2.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><rect x=\"18.2\" y=\"24.5\" width=\"3.6\" height=\"6\" rx=\"1\" fill=\"#FBFAF6\"/>",
+ "phone": "(760) 555-0172",
+ "hours": "Mon to Fri, 7 AM to 5 PM",
+ "city": "Vista, CA",
+ "license": "CA contractor license # shown here",
+ "palette": {
+  "sand": "#F4F1EA",
+  "paper": "#FBFAF6",
+  "clay": "#E5E0D5",
+  "ink": "#1A2230",
+  "mut": "#5B6474",
+  "line": "rgba(26,34,48,.13)",
+  "acc": "#2E4A6E",
+  "acc2": "#6F8BB0",
+  "acc-d": "#233B59",
+  "acc-a": "rgba(46,74,110,.2)",
+  "acc-sh": "rgba(30,50,80,.25)",
+  "hi": "#E4A834",
+  "hi-d": "#CF9425",
+  "hi-ink": "#1C1606",
+  "glow": "#F6CF7A",
+  "deep": "#131B27",
+  "deep-eye": "#A7B6CC",
+  "deep-mut": "#B3BDCB",
+  "deep-tx": "#E6EBF2",
+  "hero-bg": "#6C7A8C",
+  "hero-tx": "#EEF1F5",
+  "shade": "12,18,28",
+  "shade2": "18,24,34",
+  "sand-rgb": "244,241,234",
+  "ink-rgb": "26,34,48"
+ },
+ "nav": [
+  [
+   "work",
+   "Before & after"
+  ],
+  [
+   "services",
+   "Services"
+  ],
+  [
+   "reviews",
+   "Reviews"
+  ],
+  [
+   "about",
+   "About"
+  ]
+ ],
+ "hero": {
+  "size": [
+   4096,
+   2294
+  ],
+  "alt": "A freshly painted two-story craftsman house with sage siding and white trim",
+  "h1": "Fresh paint, *clean lines,* no mess left behind.",
+  "sub": "Interior and exterior painting, cabinets, decks and fences for homes across North County San Diego. Careful prep, and a crew that treats your home like theirs.",
+  "cta": "Get a free estimate",
+  "position": "50% 40%"
+ },
+ "trust": [
+  {
+   "text": "Licensed & insured"
+  },
+  {
+   "text": "Free color consult"
+  },
+  {
+   "icon": "star",
+   "text": "4.9 from 90+ reviews"
+  }
+ ],
+ "before_after": {
+  "eyebrow": "Before & after",
+  "h2": "Same house. *New coat.*",
+  "text": "Faded, chalky stucco and peeling trim in Vista, washed, patched, primed and painted. Drag the line to compare.",
+  "aria": "Before and after of a stucco house: faded, stained walls and peeling trim on the left, fresh white paint with charcoal trim on the right. Drag to compare.",
+  "cap_title": "Exterior repaint, Vista",
+  "cap_detail": "single-story home",
+  "cap_right": "Done in 4 working days"
+ },
+ "services_head": {
+  "eyebrow": "What we do",
+  "h2": "Inside, outside, *top to bottom.*",
+  "text": "We do the prep most painters skip: washing, scraping, patching and taping, so the finish lasts."
+ },
+ "services": [
+  {
+   "img": "after",
+   "alt": "A freshly painted white stucco house with charcoal trim",
+   "title": "Exterior painting",
+   "text": "Stucco, siding and trim, with power washing and crack repair before any paint goes on."
+  },
+  {
+   "img": "interior",
+   "alt": "A living room painted soft greige with white trim",
+   "title": "Interior painting",
+   "text": "Walls, ceilings and trim, with furniture covered and floors protected every day."
+  },
+  {
+   "img": "cabinets",
+   "alt": "Kitchen cabinets painted navy with brass pulls",
+   "title": "Cabinet painting",
+   "text": "A new-looking kitchen for a fraction of new cabinets, with a hard, wipeable finish."
+  },
+  {
+   "img": "stain",
+   "alt": "A backyard fence and deck stained a cedar tone",
+   "title": "Decks & fences",
+   "text": "Cleaning, sanding and staining that brings old wood back and protects it from the sun."
+  },
+  {
+   "img": "trim",
+   "alt": "A brush cutting a clean white line along door trim",
+   "title": "Trim & doors",
+   "text": "Crisp lines on baseboards, doors and windows, the details that make a room look finished."
+  },
+  {
+   "img": "ladder",
+   "alt": "A painter rolling paint on a stucco wall from a ladder",
+   "title": "Prep & stucco repair",
+   "text": "Patching cracks, fixing wood rot and priming, so problems don't come back through the paint."
+  }
+ ],
+ "steps": {
+  "h2": "Simple from *the first call.*",
+  "text": "No pressure and no surprise charges. You'll know the colors, the schedule and the price before we start.",
+  "items": [
+   {
+    "title": "Call or send photos",
+    "text": "Tell us which rooms or walls. A few phone photos help us give you a quick ballpark."
+   },
+   {
+    "title": "Free estimate & colors",
+    "text": "We look at the surfaces, help you pick colors, and send a written, fixed price within two days."
+   },
+   {
+    "title": "We paint and clean up",
+    "text": "Furniture and floors covered every day. We walk through it with you at the end."
+   }
+  ]
+ },
+ "gallery_h2": "Around *North County.*",
+ "gallery": [
+  {
+   "img": "hero",
+   "alt": "Craftsman house in sage and white",
+   "caption": "Exterior, Carlsbad"
+  },
+  {
+   "img": "interior",
+   "alt": "Living room in soft greige",
+   "caption": "Interior, Encinitas"
+  },
+  {
+   "img": "cabinets",
+   "alt": "Navy kitchen cabinets",
+   "caption": "Cabinets, Oceanside"
+  },
+  {
+   "img": "stain",
+   "alt": "Stained fence and deck",
+   "caption": "Fence, San Marcos"
+  },
+  {
+   "img": "after",
+   "alt": "White stucco home with charcoal trim",
+   "caption": "Exterior, Vista"
+  }
+ ],
+ "reviews": {
+  "h2": "What neighbors *say.*",
+  "score": "4.9",
+  "count": "from 90+ reviews (sample)",
+  "items": [
+   {
+    "quote": "They covered every plant and the walkway, and you'd never know a crew had been here except the house looks brand new.",
+    "name": "Carol D.",
+    "detail": "Exterior repaint, Vista"
+   },
+   {
+    "quote": "Helped us pick colors when we couldn't decide. The kitchen cabinets look like we bought new ones.",
+    "name": "Mike T.",
+    "detail": "Cabinets, Oceanside"
+   },
+   {
+    "quote": "On time every morning, finished a day early, and the price never changed. I've already recommended them twice.",
+    "name": "Patricia L.",
+    "detail": "Interior, Carlsbad"
+   }
+  ]
+ },
+ "about": {
+  "img": "ladder",
+  "alt": "A painter rolling a stucco wall from a ladder",
+  "h2": "Family run, *on the job every day.*",
+  "text": "Fairwind is a small, family-owned painting company in Vista. The owner does your estimate, picks colors with you and checks the work every day until it's done.",
+  "facts": [
+   {
+    "value": "18",
+    "label": "years painting North County"
+   },
+   {
+    "value": "2,000+",
+    "label": "rooms and homes painted"
+   },
+   {
+    "value": "3 yr",
+    "label": "workmanship warranty"
+   }
+  ],
+  "towns": [
+   "Vista",
+   "Oceanside",
+   "Carlsbad",
+   "San Marcos",
+   "Encinitas",
+   "Escondido",
+   "Solana Beach"
+  ]
+ },
+ "estimate": {
+  "eyebrow": "Free estimate",
+  "h2": "Tell us about *your project.*",
+  "text": "Send a few details and we'll call you back within one business day to set up a time.",
+  "select_label": "What do you need painted?",
+  "options": [
+   "House exterior",
+   "Interior rooms",
+   "Kitchen cabinets",
+   "Deck or fence",
+   "Trim and doors",
+   "Something else"
+  ],
+  "placeholder": "Number of rooms, any colors you like, when you'd like it done...",
+  "button": "Request my free estimate",
+  "short": "Free estimate"
+ },
+ "footer_desc": "Interior and exterior painting, cabinets, decks and fences in North County San Diego.",
+ "footer_note": "Sample site. Fairwind Painting Co. is a made-up business; reviews and numbers are examples."
+}
