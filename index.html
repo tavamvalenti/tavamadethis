@@ -81,6 +81,18 @@ img,video{max-width:100%}
 .svc p{margin:0;color:#34322e}
 .svc ul{margin:0;padding-left:18px;color:#34322e;display:grid;gap:4px;font-size:16px}
 .svc .btn{--btnbg:#1B1B19;--btnfg:#EFECE6;margin-top:auto;align-self:flex-start;font-size:15px;padding:12px 18px}
+.svc .vid{grid-column:1/-1;background:#1B1B19;border-color:#1B1B19;color:#EFECE6;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(18px,3vw,40px);align-items:start}
+@media(max-width:900px){.svc .vid{grid-template-columns:minmax(0,1fr)}}
+.svc .vid h3,.svc .vid p{color:#EFECE6}
+.svc .vid .price{color:#B9C2A6}
+.svc .vid .lead{display:flex;flex-direction:column;gap:12px;height:100%}
+.svc .vid .gear{font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;color:#9C978C;margin-top:auto}
+.svc .vid .pk{display:grid;gap:12px}
+.svc .vid .pk div{border-top:1px solid rgba(239,236,230,.18);padding-top:12px;display:grid;gap:4px}
+.svc .vid .pk b{font-weight:600;font-size:18px;letter-spacing:-.01em}
+.svc .vid .pk span{font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;color:#B9C2A6}
+.svc .vid .pk p{font-size:15.5px;color:#D6D2C8}
+.svc .vid .btn{--btnbg:#EFECE6;--btnfg:#1B1B19}
 .steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:clamp(28px,4vw,44px) 0 0;padding:0;list-style:none;counter-reset:s}
 @media(max-width:700px){.steps{grid-template-columns:minmax(0,1fr)}}
 .steps li{counter-increment:s;border-top:1px solid var(--line);padding-top:12px;color:var(--stone)}
@@ -873,6 +885,19 @@ a,button,input,[role=tab]{touch-action:manipulation;-webkit-tap-highlight-color:
         <p>From quick fixes to a full rebuild: your current site, made to look premium and work properly on phones.</p>
         <ul><li>Mockups of the new look before anything changes</li><li>Your content and branding, cleaned up</li><li>Launched on your domain, plus 30 days of free fixes</li></ul>
         <a class="btn" href="mailto:tavamvalenti@gmail.com?subject=Website%20redesign%20(via%20tavamadethis.com)&amp;body=Business%3A%0D%0ACurrent%20website%3A%0D%0AWhat%20you%20want%20changed%3A%0D%0ATimeline%3A%0D%0A">Ask about a redesign &rarr;</a>
+      </article>
+      <article class="vid">
+        <div class="lead">
+          <h3>Cinematic listing video</h3>
+          <span class="price">FOR LISTINGS $2M AND UP</span>
+          <p>Filmed on site and edited by hand for the home. No templates or generic music, and one point of contact from booking to delivery. Shoot dates depend on availability, so the earlier the better.</p>
+          <a class="btn" href="mailto:tavamvalenti@gmail.com?subject=Listing%20video%20(via%20tavamadethis.com)&amp;body=Listing%20address%3A%0D%0AList%20price%3A%0D%0APackage%20(Reel%20or%20Film)%3A%0D%0AListing%20date%3A%0D%0AShoot%20dates%20that%20work%3A%0D%0A">Ask about listing video &rarr;</a>
+          <small class="gear">SHOT IN 4K ON SONY + SIGMA WITH A DJI GIMBAL &middot; EDITED IN FINAL CUT PRO</small>
+        </div>
+        <div class="pk">
+          <div><b>The Reel</b><span>$750 &middot; 2&ndash;3 BUSINESS DAYS AFTER THE SHOOT</span><p>A 30 to 60 second vertical film for Instagram, TikTok and Shorts.</p></div>
+          <div><b>The Film</b><span>$1,850 &middot; 4&ndash;5 BUSINESS DAYS AFTER THE SHOOT</span><p>A 1 to 2 minute walkthrough film for MLS, YouTube and the listing site, plus the Reel.</p></div>
+        </div>
       </article>
     </div>
     <ol class="steps">
