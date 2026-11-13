@@ -228,8 +228,8 @@ html[data-theme="sage"]{--cream:#EEF1EA;--paper:#F6F8F2;--ink:#1B241E;--mut:#6B7
     </div>
     <ul class="spec rv" style="--d:.12s">
       <li><span>Status</span><span>Active</span></li>
-      <li><span>Built</span><span>{{YEAR}}</span></li>
-      <li><span>MLS</span><span>{{MLS}}</span></li>
+      {{LI_YEAR}}
+      {{LI_MLS}}
       <li><span>Listing agent</span><span>{{AGENT}}</span></li>
       <li><span>Brokerage</span><span>{{BROKERAGE}}</span></li>
     </ul>
@@ -258,7 +258,7 @@ html[data-theme="sage"]{--cream:#EEF1EA;--paper:#F6F8F2;--ink:#1B241E;--mut:#6B7
         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7l-5 5 5 5"/><path d="M16 7l5 5-5 5"/></svg>
       </div>
     </div>
-    <p class="note">The night view is an AI-generated preview of the exterior, not a photograph.</p>
+    <p class="note">{{AI_NOTE}}</p>
   </div>
 </section>
 
@@ -328,7 +328,7 @@ html[data-theme="sage"]{--cream:#EEF1EA;--paper:#F6F8F2;--ink:#1B241E;--mut:#6B7
 
 <footer class="foot"><div class="wrap">
   <p>This is a free sample made by Tava Valenti (TavaMadeThis) to show what a single-listing page could look like. It was made without being asked and is not affiliated with {{AGENT}}, {{BROKERAGE}} or the seller. Listing details come from public listing pages and may be out of date. The tour form on this sample does not send anything.</p>
-  <p>The cover photo is enhanced to higher resolution with AI, and the night view is an AI-generated preview. Gallery photos are reduced in size for this preview.</p>
+  <p>The cover photo is enhanced to higher resolution with AI, and {{AI_FOOT}}. Gallery photos are reduced in size for this preview.</p>
 </div></footer>
 
 <dialog class="lb" id="lb" aria-label="Photo viewer"><div class="in"><img id="lbi" alt=""><button class="x" type="button" id="lbx" aria-label="Close">&times;</button><button class="p" type="button" id="lbp" aria-label="Previous photo">&lsaquo;</button><button class="n" type="button" id="lbn" aria-label="Next photo">&rsaquo;</button><div class="cap2" id="lbc"></div></div></dialog>

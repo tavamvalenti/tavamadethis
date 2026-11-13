@@ -1,0 +1,27 @@
+{
+  "slug": "caspersen-jolina-p6w3hz",
+  "src_dir": "/mnt/project-files/samples/caspersen-jolina/src",
+  "street": "470 Jolina Way",
+  "city_state": "Encinitas, California 92024",
+  "status": "Active listing",
+  "price": 1789000,
+  "beds": 4,
+  "baths": 2,
+  "sqft": 1852,
+  "fact4": {"val": 2, "label": "Car garage"},
+  "agent": "Peter Caspersen",
+  "brokerage": "Compass",
+  "headline_html": "Vaulted ceilings, a <em>fireplace living room</em>, and a patio with canyon views.",
+  "description": "This Encinitas home opens under vaulted ceilings with a brick fireplace, plantation shutters and bright tile floors, then flows into an open kitchen and a patio that looks out over the hillside. One clean link a buyer can open from a text, an email or an Instagram bio.",
+  "highlights": ["Vaulted ceilings", "Brick fireplace", "Plantation shutters", "Open kitchen", "Hillside patio views", "Two-car garage"],
+  "gallery": [
+    {"file": "g1.jpg", "alt": "Living room with fireplace", "crop": "1500:960:0:0"},
+    {"file": "g2.jpg", "alt": "Kitchen and island", "crop": "1500:960:0:0"},
+    {"file": "g3.jpg", "alt": "Primary bedroom", "crop": "1500:960:0:0"},
+    {"file": "g4.jpg", "alt": "Kitchen with patio view", "crop": "1500:960:0:0"}
+  ],
+  "hero": "hero.png",
+  "night": "hero.png",
+  "day": "day.png",
+  "ai_side": "day"
+}

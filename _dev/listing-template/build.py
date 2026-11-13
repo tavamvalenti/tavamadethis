@@ -27,8 +27,8 @@ def main(path):
         ff("-i", os.path.join(src, d["hero"]), "-vf", f"scale={w}:-1", "-c:v", "libwebp", "-q:v", "78" if w == 3840 else "80", os.path.join(img, f"hero-{w}.webp"))
     ff("-i", os.path.join(src, d["night"]), "-vf", "scale=2560:-1", "-c:v", "libwebp", "-q:v", "78", os.path.join(img, "night-2560.webp"))
     ff("-i", os.path.join(src, d["night"]), "-vf", "scale=1280:-1", "-c:v", "libwebp", "-q:v", "74", os.path.join(img, "night-1280.webp"))
-    ff("-i", os.path.join(src, d["hero"]), "-vf", "scale=1280:-1", "-c:v", "libwebp", "-q:v", "74", os.path.join(img, "day-1280.webp"))
-    ff("-i", os.path.join(src, d["hero"]), "-vf", "scale=2560:-1", "-c:v", "libwebp", "-q:v", "78", os.path.join(img, "day-2560.webp"))
+    ff("-i", os.path.join(src, d.get("day", d["hero"])), "-vf", "scale=1280:-1", "-c:v", "libwebp", "-q:v", "74", os.path.join(img, "day-1280.webp"))
+    ff("-i", os.path.join(src, d.get("day", d["hero"])), "-vf", "scale=2560:-1", "-c:v", "libwebp", "-q:v", "78", os.path.join(img, "day-2560.webp"))
 
     # gallery: low-res preview, cropped to remove portal watermarks, no stamp
     gal_html = []
@@ -53,10 +53,12 @@ def main(path):
         "{{BEDS}}": str(d["beds"]),
         "{{BATHS}}": str(d["baths"]),
         "{{SQFT}}": str(d["sqft"]),
-        "{{FACT4_VAL}}": str(d["lot_sqft"]) if d.get("lot_sqft") else str(d["year"]),
-        "{{FACT4_LABEL}}": "Lot sq ft" if d.get("lot_sqft") else "Year built",
-        "{{YEAR}}": str(d["year"]),
-        "{{MLS}}": html.escape(d["mls"]),
+        "{{FACT4_VAL}}": str(d["fact4"]["val"]) if d.get("fact4") else (str(d["lot_sqft"]) if d.get("lot_sqft") else str(d["year"])),
+        "{{FACT4_LABEL}}": d["fact4"]["label"] if d.get("fact4") else ("Lot sq ft" if d.get("lot_sqft") else "Year built"),
+        "{{AI_NOTE}}": "The %s view is an AI-generated preview of the exterior, not a photograph." % d.get("ai_side", "night"),
+        "{{AI_FOOT}}": "the %s view is an AI-generated preview" % d.get("ai_side", "night"),
+        "{{LI_YEAR}}": f'<li><span>Built</span><span>{d["year"]}</span></li>' if d.get("year") else "",
+        "{{LI_MLS}}": f'<li><span>MLS</span><span>{html.escape(d["mls"])}</span></li>' if d.get("mls") else "",
         "{{AGENT}}": html.escape(agent),
         "{{INITIALS}}": initials,
         "{{BROKERAGE}}": html.escape(d["brokerage"]),
