@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <script>
 /* The Tiny World game used to live at this address. Old invite links (?ref=), installed home-screen copies and deep links go straight to its new home. */
-(function(){var q=location.search,h=location.hash,tw=/[?&](ref|map|touch|font|boards)=/.test(q),sa=navigator.standalone===true||matchMedia('(display-mode: standalone)').matches,own=h===''||/^#(top|work|services|about|contact|veloura|vylos|onewheel|realestate|tinyworld|collective|origin)$/.test(h);
+(function(){var q=location.search,h=location.hash,tw=/[?&](ref|map|touch|font|boards)=/.test(q),sa=navigator.standalone===true||matchMedia('(display-mode: standalone)').matches,own=h===''||/^#(top|work|services|about|contact|veloura|vylos|video|onewheel|realestate|tinyworld|collective|origin)$/.test(h);
 if(tw||sa||!own)location.replace('/tiny-world/'+q+h);})();
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -111,6 +111,18 @@ img,video{max-width:100%}
 .svc .vid .pk span{font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;color:#C8B58E}
 .svc .vid .pk p{font-size:15.5px;color:#CFC7B7}
 .svc .vid .btn{--btnbg:#C8B58E;--btnfg:#14110C}
+.svc .vstrip{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:12px 24px;flex-wrap:wrap;background:rgba(255,255,255,.3);border:1px solid rgba(27,27,25,.14);border-radius:18px;padding:16px clamp(20px,2.4vw,30px)}
+.svc .vstrip h3{font-size:18px}
+.svc .vstrip p{font-size:15.5px;color:var(--stone)}
+.svc .vstrip .btn{margin:0;--btnbg:#1B1B19}
+.vdlg{border:0;padding:0;background:transparent;width:min(1100px,calc(100vw - 24px));max-height:calc(100dvh - 24px);overflow:auto;border-radius:18px}
+.vdlg::backdrop{background:rgba(12,11,10,.62);backdrop-filter:blur(3px)}
+.vdlg .svc{display:block}
+.vdlg .svc .vid{margin:0}
+.vclose{position:absolute;top:12px;right:12px;z-index:2;width:40px;height:40px;border-radius:50%;border:1px solid rgba(205,187,152,.4);background:#0A0A0B;color:#EDE6D8;font-size:22px;line-height:1;cursor:pointer}
+.vclose:focus-visible{outline:2px solid #C8B58E;outline-offset:2px}
+.vdlg .svc .vid .lead{padding-right:44px}
+
 .steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:clamp(28px,4vw,44px) 0 0;padding:0;list-style:none;counter-reset:s}
 @media(max-width:700px){.steps{grid-template-columns:minmax(0,1fr)}}
 .steps li{counter-increment:s;border-top:1px solid var(--line);padding-top:12px;color:var(--stone)}
@@ -953,6 +965,14 @@ a,button,input,[role=tab]{touch-action:manipulation;-webkit-tap-highlight-color:
         <small class="scope">$150 covers small design upgrades, fixes and a focused redesign. Full rebuilds are quoted separately.</small>
         <a class="btn" href="mailto:tavamvalenti@gmail.com?subject=Website%20redesign%20(via%20tavamadethis.com)&amp;body=Business%3A%0D%0ACurrent%20website%3A%0D%0AWhat%20you%20want%20changed%3A%0D%0ATimeline%3A%0D%0A">Ask about a redesign &rarr;</a>
       </article>
+      <div class="vstrip">
+        <div><h3>Video</h3><p>Listing films, reels and product videos, filmed in person.</p></div>
+        <button type="button" class="btn ghost" data-open="video" aria-haspopup="dialog">See video options &rarr;</button>
+      </div>
+    </div>
+    <dialog class="vdlg" id="video" aria-label="Video, in collaboration with Vylos Media">
+      <button type="button" class="vclose" aria-label="Close">&times;</button>
+      <div class="svc">
       <article class="vid" aria-label="Video, in collaboration with Vylos Media">
         <div class="lead">
           <h3 class="collab"><span class="tm"><i class="logo" aria-hidden="true"></i>TavaMadeThis</span><span class="x">&times;</span><a href="https://vylosmedia.com" target="_blank" rel="noopener"><img src="img/vylos/logo-96.webp" alt="" width="48" height="48">Vylos Media</a></h3>
@@ -967,7 +987,8 @@ a,button,input,[role=tab]{touch-action:manipulation;-webkit-tap-highlight-color:
           <div><b>Full Film</b><span>$1,600 &middot; ABOUT A WEEK</span><p>A 3 to 6 minute film from up to 4 hours of shooting at up to 2 locations. Add 3 Reels to any film for $350.</p></div>
         </div>
       </article>
-    </div>
+      </div>
+    </dialog>
     <ol class="steps">
       <li><b>Send the details.</b> An email or a 15-minute call.</li>
       <li><b>A fixed quote within 24 hours.</b> Scope, price, revisions and date in writing.</li>
@@ -1536,6 +1557,15 @@ a,button,input,[role=tab]{touch-action:manipulation;-webkit-tap-highlight-color:
       else fallback(d,'That didn\u2019t go through.');});
   });
 })();
+</script>
+<script>
+(function(){var d=document.getElementById('video');if(!d||!d.showModal)return;
+function open(){if(!d.open)d.showModal();}
+document.querySelectorAll('[data-open="video"]').forEach(function(b){b.addEventListener('click',open)});
+d.querySelector('.vclose').addEventListener('click',function(){d.close()});
+d.addEventListener('click',function(e){if(e.target===d)d.close()});
+d.addEventListener('close',function(){if(location.hash==='#video')history.replaceState(null,'',location.pathname+location.search)});
+function fromHash(){if(location.hash==='#video')open()}fromHash();addEventListener('hashchange',fromHash);})();
 </script>
 </body>
 </html>
