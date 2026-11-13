@@ -2,3 +2,4 @@ wrangler.jsonc
 .assetsignore
 .git
 _dev
+_worker
