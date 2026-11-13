@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /c/
+Disallow: /_dev/
+
+Sitemap: https://tavamadethis.com/sitemap.xml

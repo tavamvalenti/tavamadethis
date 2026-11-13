@@ -4,21 +4,30 @@
 <meta charset="utf-8">
 <script>
 /* The Tiny World game used to live at this address. Old invite links (?ref=), installed home-screen copies and deep links go straight to its new home. */
-(function(){var q=location.search,h=location.hash,sa=navigator.standalone===true||matchMedia('(display-mode: standalone)').matches,own=h===''||/^#(top|work|services|about|contact|veloura|vylos|onewheel|realestate|tinyworld|collective|origin)$/.test(h);
-if(q.length>1||sa||!own)location.replace('/tiny-world/'+q+h);})();
+(function(){var q=location.search,h=location.hash,tw=/[?&](ref|map|touch|font|boards)=/.test(q),sa=navigator.standalone===true||matchMedia('(display-mode: standalone)').matches,own=h===''||/^#(top|work|services|about|contact|veloura|vylos|onewheel|realestate|tinyworld|collective|origin)$/.test(h);
+if(tw||sa||!own)location.replace('/tiny-world/'+q+h);})();
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Tava Valenti | Websites &amp; Listing Films, San Diego</title>
-<meta name="description" content="Tava Valenti builds websites, listing films and AI visuals for California businesses and real estate agents, from North County San Diego. Selected work: Veloura, Tiny World, The Collective, Project Origin, Vylos Media, SD Onewheel Rentals and a real estate listing film.">
+<title>Tava Valenti | AI Developer, Websites &amp; Interactive Experiences</title>
+<meta name="description" content="Tava Valenti is an independent developer in San Diego building software, AI tools, custom websites and interactive experiences for startups and businesses. Work includes Veloura, Tiny World, The Collective and Project Origin.">
 <link rel="canonical" href="https://tavamadethis.com/">
 <meta name="theme-color" content="#D8D4CC">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Tava Valenti">
-<meta property="og:title" content="Tava Valenti | Developer &amp; Designer">
-<meta property="og:description" content="Building software, AI tools and digital experiences.">
+<meta property="og:title" content="Tava Valenti | AI Developer, Websites &amp; Interactive Experiences">
+<meta property="og:description" content="Building software, AI tools and digital experiences for startups and businesses.">
 <meta property="og:url" content="https://tavamadethis.com/">
 <meta property="og:image" content="https://tavamadethis.com/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Tava Valenti, tavamadethis.com">
+<meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@tavamadethis">
+<meta name="twitter:title" content="Tava Valenti | AI Developer, Websites &amp; Interactive Experiences">
+<meta name="twitter:description" content="Building software, AI tools and digital experiences for startups and businesses.">
+<meta name="twitter:image" content="https://tavamadethis.com/img/og.jpg">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Tava Valenti","url":"https://tavamadethis.com/","jobTitle":"Independent developer","description":"Builds software, AI tools, custom websites and interactive experiences.","address":{"@type":"PostalAddress","addressRegion":"CA","addressCountry":"US"},"sameAs":["https://github.com/tavamvalenti","https://www.instagram.com/tavamadethis/","https://x.com/tavamadethis"]}</script>
 <link rel="icon" type="image/png" sizes="32x32" href="/img/icon-32.png?v=2">
 <link rel="icon" type="image/png" sizes="192x192" href="/img/icon-192.png?v=2">
 <link rel="apple-touch-icon" href="/img/apple-touch-icon.png?v=2">
@@ -126,7 +135,7 @@ img,video{max-width:100%}
 .name span{display:inline-block;animation:rise 1.1s cubic-bezier(.2,.8,.2,1) both}
 .name span+span{animation-delay:.1s}
 @keyframes rise{from{transform:translateY(14px);opacity:0}to{transform:none;opacity:1}}
-@media(max-width:700px){.name{font-size:21vw}.name span{display:block}.name{bottom:clamp(130px,20vh,180px);bottom:clamp(130px,20svh,180px)}}
+@media(max-width:700px){.name{font-size:21vw}.name span{display:block}.name{bottom:clamp(172px,24vh,215px);bottom:max(clamp(172px,24svh,215px), calc(var(--fh,0px) + 16px))}}
 .hero .foot{position:absolute;inset:auto 0 0 0;z-index:3;padding-bottom:max(24px, env(safe-area-inset-bottom, 0px));display:flex;justify-content:space-between;align-items:flex-end;gap:16px}
 .hero .tag{flex:1;margin:0;font-size:clamp(18px,2vw,28px);line-height:1.2;border-top:1px solid rgba(27,26,23,.3);padding-top:16px;color:#1B1A17}
 .hero .tag .serif{font-size:1.15em}
@@ -154,7 +163,7 @@ img,video{max-width:100%}
 .me img{display:block;width:100%;height:auto;border-radius:2px;box-shadow:0 1px 0 rgba(27,26,23,.08),0 14px 30px -18px rgba(27,26,23,.45)}
 .sig-hero{color:#1B1A17;opacity:.8;width:clamp(120px,15vw,240px)}
 .hero .sigpos{position:absolute;left:0;right:0;z-index:2;bottom:calc(clamp(120px,19vh,190px) + clamp(54px,12.6vw,224px)*.95);bottom:calc(clamp(120px,19svh,190px) + clamp(54px,12.6vw,224px)*.95);display:flex;justify-content:flex-end;pointer-events:none}
-@media(max-width:700px){.hero .sigpos{bottom:calc(clamp(130px,20vh,180px) + 42vw);bottom:calc(clamp(130px,20svh,180px) + 42vw)}}
+@media(max-width:700px){.hero .sigpos{bottom:calc(clamp(172px,24vh,215px) + 42vw);bottom:calc(max(clamp(172px,24svh,215px), calc(var(--fh,0px) + 16px)) + 42vw)}}
 .sig-contact{width:clamp(130px,14vw,210px);color:var(--paper);opacity:.9;justify-self:end;margin:-4px 4px 0 0}
 /* ---------- project rooms ---------- */
 .row{--fg:#1B1B19;--mut:#5E5B55;--line:#A9A59C;--acc:#3F5E3A;--chip:rgba(239,236,230,.7);--btnbg:#1B1B19;--btnfg:#EFECE6;--card:rgba(255,255,255,.35);position:relative;color:var(--fg);isolation:isolate;overflow:hidden}
@@ -580,6 +589,45 @@ a,button,input,[role=tab]{touch-action:manipulation;-webkit-tap-highlight-color:
   .vbtn{height:44px}
   .vctl input{height:44px}
 }
+
+/* Technical notes (collapsed inside each project) */
+.tech{border-top:1px solid var(--line);font-size:14.5px;line-height:1.45;color:var(--fg)}
+.tech summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;padding:12px 0 2px;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--mut)}
+.tech summary::-webkit-details-marker{display:none}
+.tech summary::after{content:"+";font-size:15px;line-height:1;transition:transform .25s}
+.tech[open] summary::after{transform:rotate(45deg)}
+.tech summary:hover{color:var(--fg)}
+.tech dl{margin:10px 0 0;display:grid;gap:8px}
+.tech dl div{display:grid;grid-template-columns:minmax(0,1fr);gap:2px}
+@media(min-width:700px){.tech dl div{grid-template-columns:130px minmax(0,1fr);gap:16px}}
+.tech dt{font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--acc);padding-top:2px}
+.tech dd{margin:0;max-width:72ch}
+/* Hero GitHub link */
+.hero nav .links .gh{display:inline-flex;align-items:center;gap:6px}
+.hero nav .links .gh svg{flex:none}
+@media(max-width:560px){.hero nav .links .gh span{display:none}}
+.hero .tag small .ghm{display:none}
+@media(max-width:480px){.hero nav .links .gh{display:none}.hero .tag small .ghm{display:inline-flex;align-items:center;gap:6px;color:#1B1A17;text-decoration:none;border-bottom:1px solid currentColor}}
+/* Pricing scope */
+.svc .scope{font-size:13.5px;line-height:1.4;color:var(--stone)}
+.services .own{margin:18px 0 0;max-width:80ch;font-size:13.5px;color:var(--stone)}
+/* Contact form */
+.cform{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 14px;max-width:760px}
+.cform[hidden]{display:none}
+@media(max-width:600px){.cform{grid-template-columns:minmax(0,1fr)}}
+.cform label{display:grid;gap:5px;font-family:var(--mono);font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:#cfcbc2}
+.cform label i{font-style:normal;text-transform:none;color:#9d998f}
+.cform .full{grid-column:1/-1}
+.cform input,.cform select,.cform textarea{font:16px/1.35 var(--display);letter-spacing:0;text-transform:none;color:var(--paper);background:rgba(239,236,230,.08);border:1px solid rgba(239,236,230,.35);border-radius:12px;padding:11px 13px;width:100%;-webkit-appearance:none;appearance:none}
+.cform select{background-image:linear-gradient(45deg,transparent 50%,#EFECE6 50%),linear-gradient(135deg,#EFECE6 50%,transparent 50%);background-position:calc(100% - 18px) 50%,calc(100% - 13px) 50%;background-size:5px 5px;background-repeat:no-repeat;padding-right:32px}
+.cform select option{color:#1B1B19}
+.cform textarea{resize:vertical;min-height:84px}
+.cform input::placeholder,.cform textarea::placeholder{color:#8f8b82}
+.cform input:focus,.cform select:focus,.cform textarea:focus{outline:none;border-color:var(--paper);background:rgba(239,236,230,.12)}
+.cform .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.cform .fr{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.cform .st{font-size:14.5px;color:#d6d2c8}
+.cform .st a{color:var(--paper)}
 </style>
 </head>
 <body>
@@ -590,12 +638,12 @@ a,button,input,[role=tab]{touch-action:manipulation;-webkit-tap-highlight-color:
 
   <nav class="wrap" aria-label="Main">
     <a href="#top" class="pill brand"><i class="logo" aria-hidden="true"></i>tavamadethis</a>
-    <span class="pill links"><a href="#work">Work</a><a href="#services">Services</a><a href="#about">About</a><a href="#contact">Contact</a></span>
+    <span class="pill links"><a href="#work">Work</a><a href="#services">Services</a><a href="#about">About</a><a href="#contact">Contact</a><a class="gh" href="https://github.com/tavamvalenti" target="_blank" rel="noopener" aria-label="GitHub (opens in a new tab)"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span>GitHub</span></a></span>
   </nav>
   <h1 class="name wrap" aria-label="Tava Valenti"><span>Tava</span> <span>Valenti</span></h1>
   <div class="sigpos wrap"><span class="sigwrap sig-hero"><span class="sig" role="img" aria-label="Tava Valenti's signature"></span></span></div>
   <div class="foot wrap">
-    <p class="tag">Building <span class="serif">software</span>, <span class="serif">AI tools</span> and digital experiences.<small>Websites, listing films and AI visuals for businesses. North County San Diego.</small></p>
+    <p class="tag">Building <span class="serif">software</span>, <span class="serif">AI tools</span> and digital experiences.<small>Independent developer creating interactive products, custom websites and AI-powered solutions for startups and businesses. <a class="ghm" href="https://github.com/tavamvalenti" target="_blank" rel="noopener">GitHub &nearr;</a></small></p>
     <a class="round" href="#work">Work &darr;</a>
   </div>
 </header>
@@ -624,6 +672,7 @@ a,button,input,[role=tab]{touch-action:manipulation;-webkit-tap-highlight-color:
         <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="img/veloura-site-3.webp" width="1600" height="803" decoding="async" alt="Veloura website: beta and full app">
       </div>
       <ul class="hl"><li>Writes real notes into FL Studio's Piano Roll and drum sequencer</li><li>Every write is verified, and one Cmd+Z undoes it</li><li>Electron app, local Python service, swappable AI layer</li></ul>
+      <details class="tech"><summary>Technical notes</summary><dl><div><dt>Idea</dt><dd>Producers lose momentum turning an idea into notes. Veloura lets you describe a beat and get real, editable notes in FL Studio, not audio.</dd></div><div><dt>My part</dt><dd>Product design and development: the Mac app, the composing service and the bridge into FL Studio.</dd></div><div><dt>How it works</dt><dd>An Electron app starts a local Python service. It plans the music, checks every plan, then writes notes into FL&rsquo;s Piano Roll through a script bridge and drums into the step sequencer over virtual MIDI.</dd></div><div><dt>Hardest part</dt><dd>FL Studio&rsquo;s scripting is limited, so every write is read back and verified, and one Cmd+Z undoes it without touching the producer&rsquo;s own notes.</dd></div><div><dt>Next</dt><dd>Mixer and plugin control, and letting Veloura hear a beat so it can critique the sound, not just the notes.</dd></div></dl></details>
     </div></div></div>
   </div>
 </article>
@@ -796,9 +845,10 @@ a,button,input,[role=tab]{touch-action:manipulation;-webkit-tap-highlight-color:
       <p class="lede">A miniature 3D world you play in the browser. Drop into living cities, play mini-games, climb the leaderboard.</p>
       <div class="actions"><a class="btn big" href="/tiny-world/">Play Tiny World &nearr;</a><div class="chips"><span>three.js</span><span>JavaScript</span><span>Supabase</span></div></div>
       <div class="shots" tabindex="0" aria-label="Tiny World screenshots" id="twshots">
-        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="img/tinyworld-1.webp" width="1600" height="797" decoding="async" alt="Tiny World globe menu">
+        <img src="img/tinyworld-1.webp" width="1600" height="797" loading="lazy" decoding="async" alt="Tiny World start screen: a small 3D globe with the places you can visit" onerror="this.onerror=null;this.src='img/planet.webp'">
       </div>
       <ul class="hl"><li>35,000+ lines of three.js across 7 playable places</li><li>Accounts, friends and leaderboards on Supabase</li><li>Stays smooth by easing detail as the frame rate drops</li></ul>
+      <details class="tech"><summary>Technical notes</summary><dl><div><dt>Idea</dt><dd>A small 3D world that runs in any browser, with no download, that people want to come back to.</dd></div><div><dt>My part</dt><dd>Game design and the full build: 3D scenes, gameplay, mini-games, accounts and leaderboards.</dd></div><div><dt>How it works</dt><dd>Plain JavaScript modules on three.js with no build step. Supabase handles accounts, friends, chat, invites and leaderboards, and scores queue offline until they can sync.</dd></div><div><dt>Hardest part</dt><dd>Keeping 35,000+ lines of 3D smooth on phones: lighter defaults on touch screens, resolution that eases off when the frame rate drops, and distant activity updated less often.</dd></div><div><dt>Next</dt><dd>Bringing the mini-games to phones and tablets, which still need a keyboard today.</dd></div></dl></details>
     </div></div></div>
   </div>
 </article>
@@ -873,6 +923,7 @@ a,button,input,[role=tab]{touch-action:manipulation;-webkit-tap-highlight-color:
           <p class="cmd" style="margin-bottom:0"><span class="caret"></span></p>
         </div>
       </div>
+      <details class="tech"><summary>Technical notes</summary><dl><div><dt>Idea</dt><dd>A controlled way to watch what independent AI agents do with money and no instructions to cooperate.</dd></div><div><dt>My part</dt><dd>Experiment design and the Python framework: the simulated world, the agent runner, the logs and the reports.</dd></div><div><dt>How it works</dt><dd>Each agent turn is a fresh, sandboxed model call with no tools and no hidden shared state. All actions go into a SQLite record that can&rsquo;t be edited and is hash-chained, and reports are built from that record.</dd></div><div><dt>Hardest part</dt><dd>Making the results trustworthy: append-only storage, pre-registered designs, test suites and guards so nothing can change after the fact.</dd></div><div><dt>Next</dt><dd>Experiment 004, designed and being tested before launch.</dd></div></dl></details>
     </div></div></div>
   </div>
 </article>
@@ -882,7 +933,7 @@ a,button,input,[role=tab]{touch-action:manipulation;-webkit-tap-highlight-color:
   <div class="wrap">
     <span class="mono abt" style="display:flex;align-items:center;color:var(--stone)"><i class="logo faint" aria-hidden="true"></i>SERVICES</span>
     <h2>What I <span class="serif">build</span> for you</h2>
-    <p class="lede">For local businesses and real estate agents in Southern California. Clear prices, one point of contact, and you own everything at the end.</p>
+    <p class="lede">For local businesses and real estate agents in Southern California. Clear prices, one point of contact, and you own your custom work at the end.</p>
     <div class="svc">
       <article>
         <h3>Business website</h3>
@@ -896,13 +947,15 @@ a,button,input,[role=tab]{touch-action:manipulation;-webkit-tap-highlight-color:
         <span class="price">$150 PER LISTING &middot; 2 DAYS</span>
         <p>A clean page just for one home, on its own link or added to your website.</p>
         <ul><li>Gallery, details, map and a tour request form</li><li>Day-to-night slider and AI visuals, clearly disclosed</li><li>Add an AI listing film from $50, with longer cuts available</li></ul>
+        <small class="scope">Built from your existing photos. Revisions, hosting time and any extras are spelled out in your written quote before work starts.</small>
         <a class="btn" href="mailto:tavamvalenti@gmail.com?subject=Property%20listing%20site%20(via%20tavamadethis.com)&amp;body=Listing%20address%3A%0D%0ALink%20to%20listing%20photos%3A%0D%0AAdd%20the%20AI%20listing%20film%3F%3A%0D%0AGo-live%20date%3A%0D%0A">Ask about a listing &rarr;</a>
       </article>
       <article>
         <h3>Website redesign</h3>
         <span class="price">FROM $150 &middot; DAYS TO 2 WEEKS</span>
-        <p>From quick fixes to a full rebuild: your current site, made to look premium and work properly on phones.</p>
+        <p>Focused improvements to your current site so it looks premium and works properly on phones.</p>
         <ul><li>Mockups of the new look before anything changes</li><li>Your content and branding, cleaned up</li><li>Launched on your domain, plus 30 days of free fixes</li></ul>
+        <small class="scope">$150 covers small design upgrades, fixes and a focused redesign. Full rebuilds are quoted separately.</small>
         <a class="btn" href="mailto:tavamvalenti@gmail.com?subject=Website%20redesign%20(via%20tavamadethis.com)&amp;body=Business%3A%0D%0ACurrent%20website%3A%0D%0AWhat%20you%20want%20changed%3A%0D%0ATimeline%3A%0D%0A">Ask about a redesign &rarr;</a>
       </article>
       <article class="vid" aria-label="Video, in collaboration with Vylos Media">
@@ -921,9 +974,10 @@ a,button,input,[role=tab]{touch-action:manipulation;-webkit-tap-highlight-color:
     </div>
     <ol class="steps">
       <li><b>Send the details.</b> An email or a 15-minute call.</li>
-      <li><b>A fixed quote within 24 hours.</b> Scope, price and date in writing.</li>
+      <li><b>A fixed quote within 24 hours.</b> Scope, price, revisions and date in writing.</li>
       <li><b>Build and launch.</b> You review previews along the way.</li>
     </ol>
+    <p class="own">&ldquo;You own it&rdquo; means your custom design, code, copy and the media made for you. Third-party tools, fonts, stock media and hosting stay under their own licenses and accounts.</p>
     <figure class="quote">
       <p>&ldquo;Tava completely redesigned the look of my website. He took my feedback and vision for the brand, presented detailed mockups at every step, and delivered a final design that looks premium and exactly how I envisioned it.&rdquo;</p>
       <cite>CHARLIE MARINELLI &middot; FOUNDER, VYLOS MEDIA</cite>
@@ -947,7 +1001,16 @@ a,button,input,[role=tab]{touch-action:manipulation;-webkit-tap-highlight-color:
   <div class="wrap txt">
     <h2>Have a project?<br>Let's <span class="serif">talk</span>.</h2>
     <p class="note">Tell me about your business and what you need. I reply within one business day.</p>
-    <div class="actions"><a class="btn" href="mailto:tavamvalenti@gmail.com?subject=Project%20inquiry%20(via%20tavamadethis.com)&amp;body=Business%3A%0D%0AWebsite%20(if%20you%20have%20one)%3A%0D%0AWhat%20you%20need%3A%0D%0ATimeline%3A%0D%0ABudget%20range%3A%0D%0A">Start a project &rarr;</a><a class="btn ghost" href="mailto:tavamvalenti@gmail.com">tavamvalenti@gmail.com</a><a class="btn ghost" href="https://github.com/tavamvalenti" target="_blank" rel="noopener">GitHub</a><a class="btn ghost" href="https://www.instagram.com/tavamadethis/" target="_blank" rel="noopener">Instagram</a><a class="btn ghost" href="https://x.com/tavamadethis" target="_blank" rel="noopener">X</a></div>
+    <form class="cform" id="cform" hidden novalidate>
+      <label>Project type<select name="type" required><option value="">Choose one</option><option>Business website</option><option>Property listing site</option><option>Website redesign</option><option>Video (with Vylos Media)</option><option>Software or AI tool</option><option>Something else</option></select></label>
+      <label>Budget<select name="budget"><option value="">Not sure yet</option><option>Under $500</option><option>$500 to $1,500</option><option>$1,500 to $5,000</option><option>$5,000+</option></select></label>
+      <label>Your email<input type="email" name="email" autocomplete="email" required placeholder="you@business.com"></label>
+      <label><span>Website <i>(optional)</i></span><input type="text" name="website" inputmode="url" autocomplete="url" placeholder="yourbusiness.com"></label>
+      <label class="full">What do you need?<textarea name="message" rows="3" required placeholder="A few lines about the project and your timeline"></textarea></label>
+      <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <div class="full fr"><button class="btn" type="submit">Send &rarr;</button><span class="st" role="status" aria-live="polite"></span></div>
+    </form>
+    <div class="actions"><a class="btn" id="startp" href="mailto:tavamvalenti@gmail.com?subject=Project%20inquiry%20(via%20tavamadethis.com)&amp;body=Business%3A%0D%0AWebsite%20(if%20you%20have%20one)%3A%0D%0AWhat%20you%20need%3A%0D%0ATimeline%3A%0D%0ABudget%20range%3A%0D%0A">Start a project &rarr;</a><a class="btn ghost" href="mailto:tavamvalenti@gmail.com">tavamvalenti@gmail.com</a><a class="btn ghost" href="https://github.com/tavamvalenti" target="_blank" rel="noopener">GitHub</a><a class="btn ghost" href="https://www.instagram.com/tavamadethis/" target="_blank" rel="noopener">Instagram</a><a class="btn ghost" href="https://x.com/tavamadethis" target="_blank" rel="noopener">X</a></div>
     <span class="sigwrap sig-contact"><span class="sig" role="img" aria-label="Tava Valenti's signature"></span></span>
     <small class="ft"><i class="logo faint" aria-hidden="true"></i>&copy; 2026 Tava Valenti &middot; tavamadethis.com</small>
   </div>
@@ -1411,6 +1474,49 @@ a,button,input,[role=tab]{touch-action:manipulation;-webkit-tap-highlight-color:
       b.addEventListener('click', function(){ show(n[2]); }); stage.appendChild(b); });
   }
   var show0 = show; show = function(i){ show0(i); hots(i); }; hots(0);
+})();
+</script>
+
+<script>
+/* Hero: keep the name clear of the tagline whatever its height */
+(function(){var h=document.querySelector('.hero'),f=h&&h.querySelector('.foot');if(!f)return;function u(){h.style.setProperty('--fh',f.offsetHeight+'px');}u();addEventListener('resize',u);if(document.fonts)document.fonts.ready.then(u);})();
+/* Contact form: opens from "Start a project" and the service buttons; mail links stay as the fallback. */
+(function(){
+  var f=document.getElementById('cform'),start=document.getElementById('startp');if(!f||!start)return;
+  var st=f.querySelector('.st'),MAIL='tavamvalenti@gmail.com';
+  var map={'Website project':'Business website','Property listing site':'Property listing site','Website redesign':'Website redesign','Video project':'Video (with Vylos Media)'};
+  function open(type,focus){
+    f.hidden=false;start.style.display='none';
+    if(type)f.elements.type.value=type;
+    if(focus!==false){document.getElementById('contact').scrollIntoView({behavior:'smooth',block:'end'});setTimeout(function(){(type?f.elements.email:f.elements.type).focus({preventScroll:true});},500);}
+  }
+  start.addEventListener('click',function(e){e.preventDefault();open('');});
+  document.querySelectorAll('.svc .btn[href^="mailto:"]').forEach(function(a){
+    var m=/subject=([^&(]+)/.exec(a.getAttribute('href')),k=m?decodeURIComponent(m[1]).trim():'';
+    a.addEventListener('click',function(e){e.preventDefault();open(map[k]||'');});
+  });
+  function mailto(d){
+    var b='Project type: '+d.type+'\r\nBudget: '+(d.budget||'Not sure yet')+'\r\nWebsite: '+(d.website||'-')+'\r\n\r\n'+d.message+'\r\n';
+    return 'mailto:'+MAIL+'?subject='+encodeURIComponent((d.type||'Project')+' inquiry (via tavamadethis.com)')+'&body='+encodeURIComponent(b);
+  }
+  function fallback(d,msg){st.innerHTML=msg+' <a href="'+mailto(d)+'">Send it by email instead</a> or write to <a href="mailto:'+MAIL+'">'+MAIL+'</a>.';}
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    var el=f.elements,d={type:el.type.value,budget:el.budget.value,email:el.email.value.trim(),website:el.website.value.trim(),message:el.message.value.trim()};
+    if(el._honey.value)return;
+    if(!d.type){st.textContent='Choose a project type.';el.type.focus();return;}
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)){st.textContent='Add an email so I can reply.';el.email.focus();return;}
+    if(d.message.length<5){st.textContent='Add a few words about the project.';el.message.focus();return;}
+    var btn=f.querySelector('button');btn.disabled=true;st.textContent='Sending\u2026';
+    var ctl=window.AbortController?new AbortController():null,t=setTimeout(function(){ctl&&ctl.abort();},12000);
+    fetch('https://formsubmit.co/ajax/'+MAIL,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},signal:ctl&&ctl.signal,
+      body:JSON.stringify({_subject:d.type+' inquiry (via tavamadethis.com)',_template:'table',_captcha:'false',_replyto:d.email,email:d.email,'Project type':d.type,Budget:d.budget||'Not sure yet',Website:d.website||'-',Message:d.message})})
+    .then(function(r){return r.json();})
+    .then(function(j){clearTimeout(t);btn.disabled=false;
+      if(j&&(j.success===true||j.success==='true')){f.reset();st.textContent='Thanks, it\u2019s sent. I\u2019ll reply within one business day.';}
+      else fallback(d,'That didn\u2019t go through.');})
+    .catch(function(){clearTimeout(t);btn.disabled=false;fallback(d,'That didn\u2019t go through.');});
+  });
 })();
 </script>
 </body>
