@@ -10,7 +10,7 @@
   },
   // Free Workers KV space holding the latest Collective numbers. The STATS_KEY secret lives only in the Cloudflare dashboard.
   "kv_namespaces": [
-    { "binding": "STATS", "id": "KV_ID_PENDING" }
+    { "binding": "STATS", "id": "f946a06420864360b35e258ec22c4298" }
   ],
   "previews": {}
 }
