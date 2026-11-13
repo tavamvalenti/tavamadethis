@@ -1,0 +1,27 @@
+{
+  "slug": "solana-k7m2qd",
+  "src_dir": "/mnt/project-files/samples/solana-k7m2qd/src",
+  "street": "1117 Solana Drive",
+  "city_state": "Del Mar, California 92014",
+  "status": "Active listing",
+  "price": 2875000,
+  "beds": 4,
+  "baths": 3,
+  "sqft": 2171,
+  "lot_sqft": 30056,
+  "year": 1950,
+  "mls": "260024434",
+  "agent": "Christie Horn",
+  "brokerage": "Berkshire Hathaway HomeServices",
+  "headline_html": "Mid-century lines, <em>exposed beams</em>, and a lot with room to breathe.",
+  "description": "Built in 1950 and set on more than 30,000 square feet in Del Mar, the home pairs exposed wood beams and a built-in fireplace wall with refinished hardwood floors and a blue-tile bath. One clean link a buyer can open from a text, an email or an Instagram bio.",
+  "highlights": ["Exposed wood beams", "Built-in fireplace wall", "Refinished hardwood floors", "Blue-tile bath", "30,000+ sq ft lot", "Mid-century design"],
+  "gallery": [
+    {"file": "g1.jpg", "alt": "Living and dining room", "crop": "1600:1000:0:0"},
+    {"file": "g2.jpg", "alt": "Fireplace wall", "crop": "1600:1000:0:0"},
+    {"file": "g3.jpg", "alt": "Blue tile bath", "crop": "1600:1000:0:0"},
+    {"file": "g4.jpg", "alt": "Bedroom", "crop": "1600:1000:0:0"}
+  ],
+  "hero": "hero.png",
+  "night": "night.png"
+}
