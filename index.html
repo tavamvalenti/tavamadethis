@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <script>
 /* The Tiny World game used to live at this address. Old invite links (?ref=), installed home-screen copies and deep links go straight to its new home. */
-(function(){var q=location.search,h=location.hash,tw=/[?&](ref|map|touch|font|boards)=/.test(q),sa=navigator.standalone===true||matchMedia('(display-mode: standalone)').matches,own=h===''||/^#(top|work|services|about|contact|veloura|vylos|video|onewheel|realestate|tinyworld|collective|origin)$/.test(h);
+(function(){var q=location.search,h=location.hash,tw=/[?&](ref|map|touch|font|boards)=/.test(q),sa=navigator.standalone===true||matchMedia('(display-mode: standalone)').matches,own=h===''||/^#(top|work|services|about|contact|veloura|vylos|video|webdesign|onewheel|realestate|tinyworld|collective|origin)$/.test(h);
 if(h==='#about'){location.replace('/about/');return;}
 if(tw||sa||!own)location.replace('/tiny-world/'+q+h);})();
 </script>
@@ -179,6 +179,61 @@ img,video{max-width:100%}
 .hero .sigpos{position:absolute;left:0;right:0;z-index:2;bottom:calc(clamp(120px,19vh,190px) + clamp(54px,12.6vw,224px)*.95);bottom:calc(clamp(120px,19svh,190px) + clamp(54px,12.6vw,224px)*.95);display:flex;justify-content:flex-end;pointer-events:none}
 @media(max-width:700px){.hero .sigpos{bottom:calc(clamp(172px,24vh,215px) + 42vw);bottom:calc(max(clamp(172px,24svh,215px), calc(var(--fh,0px) + 16px)) + 42vw)}}
 .sig-contact{width:clamp(130px,14vw,210px);color:var(--paper);opacity:.9;justify-self:end;margin:-4px 4px 0 0}
+/* ---------- Selected Work groups (wallet stack) ---------- */
+.grp-label{padding:0 0 16px}
+.grp-label .wrap{display:flex;justify-content:space-between;align-items:baseline;gap:12px;border-top:1px solid rgba(27,26,23,.18);padding-top:14px}
+.grp-label .mono{color:var(--stone);text-transform:uppercase;letter-spacing:.08em}
+.grp-label b{font-weight:500;color:var(--ink);margin-right:12px}
+.work-intro{padding-bottom:clamp(20px,2.4vw,32px)}
+.stack{--gut:clamp(8px,1.4vw,20px);--lap:22px;--r:22px;background:var(--paper) url(img/concrete.webp) center/cover;padding:0 var(--gut) clamp(36px,4.5vw,64px)}
+.stack.pers{--gut:clamp(14px,7vw,120px);--lap:16px;--r:16px;padding-top:4px}
+.stack > .row{border-radius:var(--r) var(--r) 0 0;margin-top:calc(var(--lap) * -1);padding-bottom:var(--lap);box-shadow:0 -12px 26px -14px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.14)}
+.stack .grp-label + .row{margin-top:0}
+.stack > .row:last-child{border-radius:var(--r);padding-bottom:0;box-shadow:0 -12px 26px -14px rgba(0,0,0,.5),0 24px 40px -28px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.14)}
+.stack > .row:nth-of-type(1){z-index:1}.stack > .row:nth-of-type(2){z-index:2}.stack > .row:nth-of-type(3){z-index:3}.stack > .row:nth-of-type(4){z-index:4}
+@media(max-width:700px){.stack{--lap:16px;--r:16px}.stack.pers{--lap:12px;--r:13px}}
+.pers .row > .wrap > button{padding-block:clamp(16px,1.7vw,24px);grid-template-columns:minmax(0,1fr) 300px 36px}
+.pers .row .title{font-size:clamp(28px,3.6vw,48px)}
+.pers .row .plus{width:36px;height:36px;font-size:18px}
+.pers .row .meta b{font-size:15px}
+@media(max-width:1100px){.pers .row > .wrap > button{grid-template-columns:minmax(0,1fr) 36px}}
+@media(max-width:700px){.pers .row .meta .mono{display:none}.pers .row .meta{margin-top:-2px}}
+.row .badge.vy{display:inline-flex;align-items:center;gap:7px;padding:3px 10px 3px 4px;color:#EDE6D8;background:#14110C;border-color:#14110C}
+.row .badge.vy img{width:16px;height:16px;border-radius:50%;display:block}
+/* Web Design card: cool drafting-table canvas with column guides */
+.wcard{--acc:#2F5D8A;position:relative;z-index:2;isolation:isolate;overflow:hidden;margin-top:calc(var(--lap) * -1);border-radius:var(--r);color:#16202B;
+  background:repeating-linear-gradient(90deg,transparent 0 calc(100% / 12 - 1px),rgba(47,93,138,.09) calc(100% / 12 - 1px) calc(100% / 12)),linear-gradient(180deg,#EEF1F4,#DFE5EB);
+  box-shadow:0 -12px 26px -14px rgba(0,0,0,.5),0 24px 40px -28px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.7)}
+.wcard::before{content:"";position:absolute;inset:auto 0 0 0;height:1px;background:rgba(47,93,138,.18);z-index:-1}
+.stack > .row:has(+ .wcard){padding-bottom:var(--lap);border-radius:var(--r) var(--r) 0 0}
+.wcard > .wrap > .wbtn{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:minmax(0,1fr) 300px 44px;width:100%;align-items:center;gap:16px;padding-block:clamp(22px,2.8vw,40px)}
+.wcard > .wrap > .wbtn:focus-visible{outline:2px solid var(--acc);outline-offset:-2px}
+.wbtn .title{font-size:clamp(38px,6.6vw,88px);font-weight:600;letter-spacing:-.05em;line-height:1;transition:transform .4s cubic-bezier(.2,.8,.2,1)}
+.wbtn .title i{font-style:normal;color:var(--acc);font-weight:400;letter-spacing:0;margin-left:.06em}
+.wcard > .wrap > .wbtn:hover .title{transform:translateX(14px)}
+.wbtn .meta{display:flex;flex-direction:column;align-items:flex-start;gap:2px;color:#56636F}
+.wbtn .meta b{font-weight:500;color:#16202B;font-size:17px}
+.wbtn .meta .mono{color:var(--acc)}
+.wbtn .plus{font-family:var(--mono);font-size:22px;width:44px;height:44px;border:1px solid #16202B;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:transform .3s,background .3s,color .3s}
+.wcard.open > .wrap > .wbtn .plus{transform:rotate(45deg);background:#16202B;color:#EEF1F4}
+.wbody{display:grid;grid-template-rows:0fr;transition:grid-template-rows .5s cubic-bezier(.2,.8,.2,1)}
+.wbody > div{overflow:hidden;min-height:0}
+.wcard.open .wbody{grid-template-rows:1fr}
+.wlist{display:grid;gap:10px;padding-bottom:clamp(18px,2.4vw,32px)}
+.wlist .row{border-radius:14px;box-shadow:0 10px 24px -16px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.1)}
+.wlist .row > .wrap{max-width:none;padding-inline:clamp(16px,2.6vw,36px)}
+.wlist .row > .wrap > button{padding-block:clamp(14px,1.5vw,20px);grid-template-columns:minmax(0,1fr) 300px 36px}
+.wlist .row .title{font-size:clamp(26px,3.2vw,42px)}
+.wlist .row .plus{width:36px;height:36px;font-size:18px}
+.wlist .row .meta b{font-size:15px}
+.wlist .row .badge{margin-top:6px}
+@media(max-width:1100px){.wcard > .wrap > .wbtn{grid-template-columns:minmax(0,1fr) 44px}.wbtn .plus{grid-column:2;grid-row:1}.wbtn .meta{grid-column:1/-1;grid-row:2;margin-top:-6px}.wlist .row > .wrap > button{grid-template-columns:minmax(0,1fr) 36px}}
+@media(max-width:700px){.wlist{gap:8px}.wlist .row{border-radius:12px}.wlist .row .meta .mono{display:none}}
+@media(hover:none){.wcard > .wrap > .wbtn:hover .title{transform:none}}
+/* video strip credit */
+.svc .vstrip h3{display:flex;align-items:center;flex-wrap:wrap;gap:6px 12px}
+.svc .vstrip .vby{display:inline-flex;align-items:center;gap:6px;font:500 10.5px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--stone)}
+.svc .vstrip .vby img{width:16px;height:16px;border-radius:50%;display:block}
 /* ---------- project rooms ---------- */
 .row{--fg:#1B1B19;--mut:#5E5B55;--line:#A9A59C;--acc:#3F5E3A;--chip:rgba(239,236,230,.7);--btnbg:#1B1B19;--btnfg:#EFECE6;--card:rgba(255,255,255,.35);position:relative;color:var(--fg);isolation:isolate;overflow:hidden}
 .row > .wrap > button{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:minmax(0,1fr) 300px 44px;width:100%;align-items:center;gap:16px;padding-block:clamp(22px,2.8vw,40px)}
@@ -663,96 +718,57 @@ a,button,input,[role=tab]{touch-action:manipulation;-webkit-tap-highlight-color:
   </div>
 </section>
 
-<!-- ============ VELOURA ============ -->
-<article class="row t-veloura" id="veloura">
+<div class="stack feat">
+<div class="grp-label"><div class="wrap"><span class="mono"><b>01</b>Client work</span><span class="mono cnt">3 projects</span></div></div>
+<article class="row t-realestate" id="realestate">
   <div class="wrap">
-    <button type="button" aria-expanded="false" aria-controls="p-veloura"><span class="title">Veloura</span><span class="meta"><b>Design &amp; Development</b><span class="mono">Mac app &middot; live beta</span></span><span class="plus" aria-hidden="true">+</span></button>
-    <div class="panel" id="p-veloura"><div><div class="inner">
-      <p class="lede">An AI music producer inside FL Studio. Describe a beat and it writes real, editable notes into your project.</p>
-      <div class="actions"><a class="btn big" href="https://velouramusic.com" target="_blank" rel="noopener">Visit velouramusic.com &nearr;</a><div class="chips"><span>Electron</span><span>Python</span><span>MIDI</span><span>macOS</span></div></div>
-
-      <div class="shots" tabindex="0" aria-label="Veloura walkthrough and screenshots">
-        <video controls playsinline preload="metadata" data-poster="img/veloura-poster.webp"><source src="vid/veloura-walkthrough.mp4" type="video/mp4"></video>
-        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="img/veloura-app-2.webp" width="1600" height="899" decoding="async" alt="Veloura app connected to FL Studio">
-        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="img/veloura-site-1.webp" width="1600" height="803" decoding="async" alt="Veloura website: Type it. Hear it in FL.">
-        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="img/veloura-app-1.webp" width="1600" height="1014" decoding="async" alt="Veloura studio screen">
-        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="img/veloura-site-2.webp" width="1600" height="803" decoding="async" alt="Veloura website: Not audio. Real notes.">
-        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="img/veloura-site-3.webp" width="1600" height="803" decoding="async" alt="Veloura website: beta and full app">
-      </div>
-      <ul class="hl"><li>Writes real notes into FL Studio's Piano Roll and drum sequencer</li><li>Every write is verified, and one Cmd+Z undoes it</li><li>Electron app, local Python service, swappable AI layer</li></ul>
-      <details class="tech"><summary>Technical notes</summary><dl><div><dt>Idea</dt><dd>Producers lose momentum turning an idea into notes. Veloura lets you describe a beat and get real, editable notes in FL Studio, not audio.</dd></div><div><dt>My part</dt><dd>Product design and development: the Mac app, the composing service and the bridge into FL Studio.</dd></div><div><dt>How it works</dt><dd>An Electron app starts a local Python service. It plans the music, checks every plan, then writes notes into FL&rsquo;s Piano Roll through a script bridge and drums into the step sequencer over virtual MIDI.</dd></div><div><dt>Hardest part</dt><dd>FL Studio&rsquo;s scripting is limited, so every write is read back and verified, and one Cmd+Z undoes it without touching the producer&rsquo;s own notes.</dd></div><div><dt>Next</dt><dd>Mixer and plugin control, and letting Veloura hear a beat so it can critique the sound, not just the notes.</dd></div></dl></details>
-    </div></div></div>
-  </div>
-</article>
-
-<article class="row t-vylos" id="vylos">
-  <div class="wrap">
-    <button type="button" aria-expanded="false" aria-controls="p-vylos"><span class="title">Vylos Media</span><span class="meta"><b>Web Design &amp; Development</b><span class="mono">Client site &middot; live</span><span class="badge">&#9733; Real client</span></span><span class="plus" aria-hidden="true">+</span></button>
-    <div class="panel" id="p-vylos"><div><div class="inner">
-      <p class="lede">A website for a San Diego video studio that films automotive and luxury brands. This is a working piece of it: drag the camera apart.</p>
-      <div class="actions"><a class="btn big" href="https://vylosmedia.com" target="_blank" rel="noopener">Visit vylosmedia.com &nearr;</a><div class="chips"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>Canvas</span></div></div>
-      <div class="vwin" id="vwin">
-        <div class="vnav"><a class="vbrand" href="https://vylosmedia.com" target="_blank" rel="noopener"><img src="img/vylos/icon.webp" alt="" width="28" height="28">Vylos Media</a><span class="vlinks" aria-hidden="true"><span>Work</span><span>Pricing</span><span>FAQ</span><span>About</span></span><a class="vbtn" href="https://vylosmedia.com" target="_blank" rel="noopener">Start a project &rarr;</a></div>
-        <div class="vkit">
-          <div class="vcopy">
-            <p class="veyebrow">Behind every frame</p>
-            <h3 class="vh">Engineered <em>to the screw.</em></h3>
-            <p class="vp">Every Vylos film is shot on the Sony &alpha;6700. Drag to take it apart.</p>
-            <div class="vprog"><span class="pct">000</span><span class="bar"><i></i></span><span>Exploded</span></div>
-            <ul class="vlabels">
-              <li data-at="0.12"><span>Body fasteners</span><span>Released</span></li>
-              <li data-at="0.3"><span>E 16&ndash;50mm optics</span><span>f/3.5&ndash;5.6</span></li>
-              <li data-at="0.5"><span>Top plate &amp; controls</span><span>Mg alloy</span></li>
-              <li data-at="0.7"><span>APS-C sensor &middot; 5-axis IBIS</span><span>26 MP</span></li>
-              <li data-at="0.88"><span>BIONZ XR &middot; display &middot; EVF</span><span>4K 120p</span></li>
+    <button type="button" aria-expanded="false" aria-controls="p-realestate"><span class="title">Real Estate</span><span class="meta"><b>Listing Film &amp; Property Site</b><span class="mono">Listing package &middot; sample</span><span class="badge vy"><img src="img/vylos/logo-96.webp" alt="" width="16" height="16" loading="lazy">Vylos Media film</span></span><span class="plus" aria-hidden="true">+</span></button>
+    <div class="panel" id="p-realestate"><div><div class="inner">
+      <p class="lede">What a listing could get: a short film, an interactive day-to-night view and a website built just for the home. Drag the light from afternoon to evening.</p>
+      <div class="actions"><a class="btn big" href="/realestate/" target="_blank" rel="noopener">Open the sample site &nearr;</a><div class="chips"><span>Listing film</span><span>Sound design</span><span>HTML</span><span>CSS</span><span>Canvas</span></div></div>
+      <div class="rewin" id="rewin">
+        <div class="renav"><a class="rebrand" href="/realestate/" target="_blank" rel="noopener"><b>The Residence</b><span>Your listing here</span></a><span class="relinks" aria-hidden="true"><span>Residence</span><span>Film</span><span>Gallery</span><span>Details</span></span><a class="rebtn" href="/realestate/#tour" target="_blank" rel="noopener">Request a tour</a></div>
+        <div class="rekit">
+          <div>
+            <p class="reeyebrow">Day to night</p>
+            <h3 class="reh">Afternoon <em>to evening.</em></h3>
+            <p class="rep">One shot of the pool and the back of the house, taken apart frame by frame. Drag across it to set the time.</p>
+            <div class="reclock"><b class="t">2:00</b><span class="ap">PM</span></div>
+            <ul class="rephase">
+              <li data-at="0"><span>Afternoon</span><span>Clear sky</span></li>
+              <li data-at="0.2"><span>Golden hour</span><span>Warm light</span></li>
+              <li data-at="0.36"><span>Sunset</span><span>Over the hills</span></li>
+              <li data-at="0.52"><span>Blue hour</span><span>Lights on</span></li>
+              <li data-at="0.68"><span>Evening</span><span>Pool lit</span></li>
             </ul>
           </div>
-          <div class="vstage" role="img" aria-label="Sony a6700 camera taking itself apart into an exploded view. Drag or use the slider."><canvas></canvas><div class="vload">Loading</div></div>
+          <div class="restage" role="img" aria-label="The back of the house and the pool, changing from afternoon to night. Drag or use the slider."><canvas></canvas><div class="reload">Loading</div></div>
         </div>
-        <div class="vctl"><span>Drag to take it apart</span><input type="range" min="0" max="100" value="0" aria-label="Take the camera apart"></div>
-        <div class="vwork">
-          <div><span class="k">Capture</span><h4>Sony &alpha;6700</h4><p>4K up to 120p in 10-bit 4:2:2 with S-Log3, so motion stays fluid and color holds up in the grade.</p></div>
-          <div><span class="k">Edit</span><h4>Final Cut Pro</h4><p>Every cut is built by hand. Nothing is templated, and every edit is shaped around your brand.</p></div>
-          <div><span class="k">Finish</span><h4>Color &amp; delivery</h4><p>Graded for a consistent, cinematic look and delivered in every format you post to, captions included.</p></div>
-        </div>
+        <div class="retrack"><span class="lab">Drag the time</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><input type="range" min="0" max="1000" value="0" aria-label="Time of day"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></div>
       </div>
-      <ul class="hl"><li>Designed and built end to end: pages, copy and an enquiry form</li><li>Scroll-driven camera animation: 96 frames drawn to a canvas and tied to scroll position</li><li>Instagram film previews that play only while on screen</li></ul>
+      <div class="remedia">
+        <figure class="recard">
+          <div class="refilm" id="refilm"><video playsinline preload="none" data-poster="img/realestate/v3/poster.webp" width="1280" height="720"><source src="vid/realestate-film-tab-v3.mp4" type="video/mp4"></video><button class="play" type="button" aria-label="Play the listing film"><span><i></i>Play the film &middot; 0:23</span></button></div>
+          <figcaption><b>The listing film</b><span>Sound on</span></figcaption>
+        </figure>
+        <figure class="recard">
+          <a class="resite" href="/realestate/" target="_blank" rel="noopener" aria-label="Open the sample property site">
+            <div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>yourlisting.com</span></div>
+            <div class="shot"><img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="img/realestate/v3/site-preview-tab.webp" width="1600" height="1000" decoding="async" alt="The sample property site: a hero photo of the home above its pool, with its key details"><span class="go">Open the site &nearr;</span></div>
+          </a>
+          <figcaption><b>The property site</b><span>Open the full sample</span></figcaption>
+        </figure>
+      </div>
+      <p class="renote">Shown with a real home that was on the market, used here as an example.</p>
+      <ul class="hl"><li>A listing film from the air to the front door and out to the pool at night, finished with quiet sound design and titles</li><li>Day to night: 41 frames from the film's transition drawn to a canvas and blended as you drag</li><li>A one-property site an agent can send buyers: film, gallery, details and a tour request</li></ul>
     </div></div></div>
   </div>
 </article>
-
-<!-- ============ THE COLLECTIVE ============ -->
-<article class="row t-collective" id="collective">
-  <div class="wrap">
-    <button type="button" aria-expanded="false" aria-controls="p-collective"><span class="title">The Collective</span><span class="meta"><b>Product &amp; AI Engineering</b><span class="mono">AI-operated company &middot; private</span></span><span class="plus" aria-hidden="true">+</span></button>
-    <div class="panel" id="p-collective"><div><div class="inner">
-      <div class="csplit"><div class="cmain">
-      <p class="lede">A media company run by AI agents. They research, make and post videos to YouTube, TikTok and Instagram while I supervise from a private app.</p>
-      <div class="facts2"><div><b>22.9K</b><span>views in the first week</span></div><div><b>24</b><span>videos posted</span></div><div><b>3</b><span>platforms connected</span></div></div>
-
-      <p class="hint">Click the tabs at the top of the app to explore it. Screenshots only, nothing private.</p>
-      <div class="tour" id="tour">
-        <div class="tabs" role="tablist" aria-label="The Collective screens"><i style="background:#FF5F57"></i><i style="background:#FEBC2E"></i><i style="background:#28C840"></i>
-          <button role="tab" aria-selected="true" data-i="0">Today</button><button role="tab" aria-selected="false" data-i="1">Content</button><button role="tab" aria-selected="false" data-i="2">Preview</button><button role="tab" aria-selected="false" data-i="3">Schedule</button><button role="tab" aria-selected="false" data-i="4">Analytics</button><button role="tab" aria-selected="false" data-i="5">What's working</button>
-          <span class="ro">CLICK A TAB</span></div>
-        <div class="stage" id="stage"><img id="tourimg" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="img/collective-today.webp" alt="The Collective control app, Today screen" width="1600" height="869"></div>
-        <div class="cap" aria-live="polite"><b id="tourt">Today</b><span id="tourd">One screen for the company: audience, spend, what needs my approval, and the videos waiting for review.</span></div>
-      </div>
-      </div>
-      <aside class="g3" id="g3" aria-label="Interactive 3D chart of views in the first week, by platform">
-        <img class="g3bg" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="img/g3-studio.webp" alt="" aria-hidden="true" width="720" height="956" decoding="async">
-        <div class="g3h"><div><span class="g3k">Views &middot; first week</span><b class="g3n" id="g3n">22.9K</b></div>
-          <div class="g3seg" role="group" aria-label="Chart mode"><button type="button" aria-pressed="true" data-m="0">Daily</button><button type="button" aria-pressed="false" data-m="1">Running total</button></div></div>
-        <div class="g3stage" id="g3stage"><canvas aria-hidden="true"></canvas><div class="g3tip" id="g3tip" role="status" aria-live="polite"></div><span class="g3drag" aria-hidden="true">Drag to orbit</span></div>
-        <div class="g3leg" role="group" aria-label="Platforms"><button type="button" aria-pressed="true" data-p="0" style="--c:#25F4EE;--c2:#FE2C55"><i></i>TikTok<em>5,763</em></button><button type="button" aria-pressed="true" data-p="1" style="--c:#FF0033"><i></i>YouTube<em>9,912</em></button><button type="button" aria-pressed="true" data-p="2" style="--c:#E1306C;--c3:linear-gradient(45deg,#FEDA75,#F58529,#DD2A7B,#8134AF)"><i></i>Instagram<em>7,200</em></button></div>
-        <p class="g3f">A 3D sketch of the analytics, not a live feed. Daily split is illustrative; platform totals match the app.</p>
-      </aside>
-      </div>
-      <ul class="hl"><li>Budgets, permissions and a kill switch enforced in code</li><li>Videos rendered automatically and posted to 3 platforms</li><li>Private control app for Mac and iPhone</li></ul>
-    </div></div></div>
-  </div>
-</article>
-
+<!-- ============ WEB DESIGN (holds the client website rows) ============ -->
+<section class="wcard" id="webdesign" aria-label="Web design">
+<div class="wrap">
+  <button type="button" class="wbtn" aria-expanded="false" aria-controls="w-body"><span class="title">Web Design<i aria-hidden="true">.</i></span><span class="meta"><b>Custom websites</b><span class="mono">2 client businesses</span></span><span class="plus" aria-hidden="true">+</span></button>
+  <div class="wbody" id="w-body"><div><div class="wlist">
 <article class="row t-onewheel" id="onewheel">
   <div class="wrap">
     <button type="button" aria-expanded="false" aria-controls="p-onewheel"><span class="title">SD Onewheel Rentals</span><span class="meta"><b>Web Design &amp; Development</b><span class="mono">Client redesign &middot; preview</span><span class="badge">&#9733; Real client</span></span><span class="plus" aria-hidden="true">+</span></button>
@@ -799,53 +815,76 @@ a,button,input,[role=tab]{touch-action:manipulation;-webkit-tap-highlight-color:
     </div></div></div>
   </div>
 </article>
-
-<article class="row t-realestate" id="realestate">
+<article class="row t-vylos" id="vylos">
   <div class="wrap">
-    <button type="button" aria-expanded="false" aria-controls="p-realestate"><span class="title">Real Estate</span><span class="meta"><b>Listing Film &amp; Property Site</b><span class="mono">Listing package &middot; sample</span></span><span class="plus" aria-hidden="true">+</span></button>
-    <div class="panel" id="p-realestate"><div><div class="inner">
-      <p class="lede">What a listing could get: a short film, an interactive day-to-night view and a website built just for the home. Drag the light from afternoon to evening.</p>
-      <div class="actions"><a class="btn big" href="/realestate/" target="_blank" rel="noopener">Open the sample site &nearr;</a><div class="chips"><span>Listing film</span><span>Sound design</span><span>HTML</span><span>CSS</span><span>Canvas</span></div></div>
-      <div class="rewin" id="rewin">
-        <div class="renav"><a class="rebrand" href="/realestate/" target="_blank" rel="noopener"><b>The Residence</b><span>Your listing here</span></a><span class="relinks" aria-hidden="true"><span>Residence</span><span>Film</span><span>Gallery</span><span>Details</span></span><a class="rebtn" href="/realestate/#tour" target="_blank" rel="noopener">Request a tour</a></div>
-        <div class="rekit">
-          <div>
-            <p class="reeyebrow">Day to night</p>
-            <h3 class="reh">Afternoon <em>to evening.</em></h3>
-            <p class="rep">One shot of the pool and the back of the house, taken apart frame by frame. Drag across it to set the time.</p>
-            <div class="reclock"><b class="t">2:00</b><span class="ap">PM</span></div>
-            <ul class="rephase">
-              <li data-at="0"><span>Afternoon</span><span>Clear sky</span></li>
-              <li data-at="0.2"><span>Golden hour</span><span>Warm light</span></li>
-              <li data-at="0.36"><span>Sunset</span><span>Over the hills</span></li>
-              <li data-at="0.52"><span>Blue hour</span><span>Lights on</span></li>
-              <li data-at="0.68"><span>Evening</span><span>Pool lit</span></li>
+    <button type="button" aria-expanded="false" aria-controls="p-vylos"><span class="title">Vylos Media</span><span class="meta"><b>Web Design &amp; Development</b><span class="mono">Client site &middot; live</span><span class="badge">&#9733; Real client</span></span><span class="plus" aria-hidden="true">+</span></button>
+    <div class="panel" id="p-vylos"><div><div class="inner">
+      <p class="lede">A website for a San Diego video studio that films automotive and luxury brands. This is a working piece of it: drag the camera apart.</p>
+      <div class="actions"><a class="btn big" href="https://vylosmedia.com" target="_blank" rel="noopener">Visit vylosmedia.com &nearr;</a><div class="chips"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>Canvas</span></div></div>
+      <div class="vwin" id="vwin">
+        <div class="vnav"><a class="vbrand" href="https://vylosmedia.com" target="_blank" rel="noopener"><img src="img/vylos/icon.webp" alt="" width="28" height="28">Vylos Media</a><span class="vlinks" aria-hidden="true"><span>Work</span><span>Pricing</span><span>FAQ</span><span>About</span></span><a class="vbtn" href="https://vylosmedia.com" target="_blank" rel="noopener">Start a project &rarr;</a></div>
+        <div class="vkit">
+          <div class="vcopy">
+            <p class="veyebrow">Behind every frame</p>
+            <h3 class="vh">Engineered <em>to the screw.</em></h3>
+            <p class="vp">Every Vylos film is shot on the Sony &alpha;6700. Drag to take it apart.</p>
+            <div class="vprog"><span class="pct">000</span><span class="bar"><i></i></span><span>Exploded</span></div>
+            <ul class="vlabels">
+              <li data-at="0.12"><span>Body fasteners</span><span>Released</span></li>
+              <li data-at="0.3"><span>E 16&ndash;50mm optics</span><span>f/3.5&ndash;5.6</span></li>
+              <li data-at="0.5"><span>Top plate &amp; controls</span><span>Mg alloy</span></li>
+              <li data-at="0.7"><span>APS-C sensor &middot; 5-axis IBIS</span><span>26 MP</span></li>
+              <li data-at="0.88"><span>BIONZ XR &middot; display &middot; EVF</span><span>4K 120p</span></li>
             </ul>
           </div>
-          <div class="restage" role="img" aria-label="The back of the house and the pool, changing from afternoon to night. Drag or use the slider."><canvas></canvas><div class="reload">Loading</div></div>
+          <div class="vstage" role="img" aria-label="Sony a6700 camera taking itself apart into an exploded view. Drag or use the slider."><canvas></canvas><div class="vload">Loading</div></div>
         </div>
-        <div class="retrack"><span class="lab">Drag the time</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><input type="range" min="0" max="1000" value="0" aria-label="Time of day"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></div>
+        <div class="vctl"><span>Drag to take it apart</span><input type="range" min="0" max="100" value="0" aria-label="Take the camera apart"></div>
+        <div class="vwork">
+          <div><span class="k">Capture</span><h4>Sony &alpha;6700</h4><p>4K up to 120p in 10-bit 4:2:2 with S-Log3, so motion stays fluid and color holds up in the grade.</p></div>
+          <div><span class="k">Edit</span><h4>Final Cut Pro</h4><p>Every cut is built by hand. Nothing is templated, and every edit is shaped around your brand.</p></div>
+          <div><span class="k">Finish</span><h4>Color &amp; delivery</h4><p>Graded for a consistent, cinematic look and delivered in every format you post to, captions included.</p></div>
+        </div>
       </div>
-      <div class="remedia">
-        <figure class="recard">
-          <div class="refilm" id="refilm"><video playsinline preload="none" data-poster="img/realestate/v3/poster.webp" width="1280" height="720"><source src="vid/realestate-film-tab-v3.mp4" type="video/mp4"></video><button class="play" type="button" aria-label="Play the listing film"><span><i></i>Play the film &middot; 0:23</span></button></div>
-          <figcaption><b>The listing film</b><span>Sound on</span></figcaption>
-        </figure>
-        <figure class="recard">
-          <a class="resite" href="/realestate/" target="_blank" rel="noopener" aria-label="Open the sample property site">
-            <div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>yourlisting.com</span></div>
-            <div class="shot"><img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="img/realestate/v3/site-preview-tab.webp" width="1600" height="1000" decoding="async" alt="The sample property site: a hero photo of the home above its pool, with its key details"><span class="go">Open the site &nearr;</span></div>
-          </a>
-          <figcaption><b>The property site</b><span>Open the full sample</span></figcaption>
-        </figure>
-      </div>
-      <p class="renote">Shown with a real home that was on the market, used here as an example.</p>
-      <ul class="hl"><li>A listing film from the air to the front door and out to the pool at night, finished with quiet sound design and titles</li><li>Day to night: 41 frames from the film's transition drawn to a canvas and blended as you drag</li><li>A one-property site an agent can send buyers: film, gallery, details and a tour request</li></ul>
+      <ul class="hl"><li>Designed and built end to end: pages, copy and an enquiry form</li><li>Scroll-driven camera animation: 96 frames drawn to a canvas and tied to scroll position</li><li>Instagram film previews that play only while on screen</li></ul>
     </div></div></div>
   </div>
 </article>
+  </div></div></div>
+</div>
+</section>
+</div>
+<script>
+(function(){var w=document.getElementById('webdesign'),b=w.querySelector('.wbtn');
+function set(o){w.classList.toggle('open',o);b.setAttribute('aria-expanded',o?'true':'false')}
+b.addEventListener('click',function(){set(!w.classList.contains('open'))});
+function fromHash(){var h=location.hash;if(!h)return;var el=document.querySelector(h);if(el&&(el===w||w.contains(el)))set(true)}
+fromHash();addEventListener('hashchange',fromHash);
+/* closed Web Design card matches the Real Estate card's height */
+var re=document.querySelector('#realestate > .wrap > button');function fit(){b.style.minHeight='';if(re)b.style.minHeight=re.offsetHeight+'px'}fit();addEventListener('resize',fit);if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fit);})();
+</script>
+<div class="stack pers">
+<div class="grp-label"><div class="wrap"><span class="mono"><b>02</b>Personal projects</span><span class="mono cnt">4 projects</span></div></div>
+<article class="row t-veloura" id="veloura">
+  <div class="wrap">
+    <button type="button" aria-expanded="false" aria-controls="p-veloura"><span class="title">Veloura</span><span class="meta"><b>Design &amp; Development</b><span class="mono">Mac app &middot; live beta</span></span><span class="plus" aria-hidden="true">+</span></button>
+    <div class="panel" id="p-veloura"><div><div class="inner">
+      <p class="lede">An AI music producer inside FL Studio. Describe a beat and it writes real, editable notes into your project.</p>
+      <div class="actions"><a class="btn big" href="https://velouramusic.com" target="_blank" rel="noopener">Visit velouramusic.com &nearr;</a><div class="chips"><span>Electron</span><span>Python</span><span>MIDI</span><span>macOS</span></div></div>
 
-<!-- ============ TINY WORLD ============ -->
+      <div class="shots" tabindex="0" aria-label="Veloura walkthrough and screenshots">
+        <video controls playsinline preload="metadata" data-poster="img/veloura-poster.webp"><source src="vid/veloura-walkthrough.mp4" type="video/mp4"></video>
+        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="img/veloura-app-2.webp" width="1600" height="899" decoding="async" alt="Veloura app connected to FL Studio">
+        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="img/veloura-site-1.webp" width="1600" height="803" decoding="async" alt="Veloura website: Type it. Hear it in FL.">
+        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="img/veloura-app-1.webp" width="1600" height="1014" decoding="async" alt="Veloura studio screen">
+        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="img/veloura-site-2.webp" width="1600" height="803" decoding="async" alt="Veloura website: Not audio. Real notes.">
+        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="img/veloura-site-3.webp" width="1600" height="803" decoding="async" alt="Veloura website: beta and full app">
+      </div>
+      <ul class="hl"><li>Writes real notes into FL Studio's Piano Roll and drum sequencer</li><li>Every write is verified, and one Cmd+Z undoes it</li><li>Electron app, local Python service, swappable AI layer</li></ul>
+      <details class="tech"><summary>Technical notes</summary><dl><div><dt>Idea</dt><dd>Producers lose momentum turning an idea into notes. Veloura lets you describe a beat and get real, editable notes in FL Studio, not audio.</dd></div><div><dt>My part</dt><dd>Product design and development: the Mac app, the composing service and the bridge into FL Studio.</dd></div><div><dt>How it works</dt><dd>An Electron app starts a local Python service. It plans the music, checks every plan, then writes notes into FL&rsquo;s Piano Roll through a script bridge and drums into the step sequencer over virtual MIDI.</dd></div><div><dt>Hardest part</dt><dd>FL Studio&rsquo;s scripting is limited, so every write is read back and verified, and one Cmd+Z undoes it without touching the producer&rsquo;s own notes.</dd></div><div><dt>Next</dt><dd>Mixer and plugin control, and letting Veloura hear a beat so it can critique the sound, not just the notes.</dd></div></dl></details>
+    </div></div></div>
+  </div>
+</article>
 <article class="row t-tiny" id="tinyworld">
   <div class="wrap">
     <button type="button" aria-expanded="false" aria-controls="p-tiny"><span class="title">Tiny World</span><span class="meta"><b>Game Design &amp; Development</b><span class="mono">Browser game &middot; live</span></span><span class="plus" aria-hidden="true">+</span></button>
@@ -860,8 +899,36 @@ a,button,input,[role=tab]{touch-action:manipulation;-webkit-tap-highlight-color:
     </div></div></div>
   </div>
 </article>
+<article class="row t-collective" id="collective">
+  <div class="wrap">
+    <button type="button" aria-expanded="false" aria-controls="p-collective"><span class="title">The Collective</span><span class="meta"><b>Product &amp; AI Engineering</b><span class="mono">AI-operated company &middot; private</span></span><span class="plus" aria-hidden="true">+</span></button>
+    <div class="panel" id="p-collective"><div><div class="inner">
+      <div class="csplit"><div class="cmain">
+      <p class="lede">A media company run by AI agents. They research, make and post videos to YouTube, TikTok and Instagram while I supervise from a private app.</p>
+      <div class="facts2"><div><b>22.9K</b><span>views in the first week</span></div><div><b>24</b><span>videos posted</span></div><div><b>3</b><span>platforms connected</span></div></div>
 
-<!-- ============ PROJECT ORIGIN ============ -->
+      <p class="hint">Click the tabs at the top of the app to explore it. Screenshots only, nothing private.</p>
+      <div class="tour" id="tour">
+        <div class="tabs" role="tablist" aria-label="The Collective screens"><i style="background:#FF5F57"></i><i style="background:#FEBC2E"></i><i style="background:#28C840"></i>
+          <button role="tab" aria-selected="true" data-i="0">Today</button><button role="tab" aria-selected="false" data-i="1">Content</button><button role="tab" aria-selected="false" data-i="2">Preview</button><button role="tab" aria-selected="false" data-i="3">Schedule</button><button role="tab" aria-selected="false" data-i="4">Analytics</button><button role="tab" aria-selected="false" data-i="5">What's working</button>
+          <span class="ro">CLICK A TAB</span></div>
+        <div class="stage" id="stage"><img id="tourimg" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="img/collective-today.webp" alt="The Collective control app, Today screen" width="1600" height="869"></div>
+        <div class="cap" aria-live="polite"><b id="tourt">Today</b><span id="tourd">One screen for the company: audience, spend, what needs my approval, and the videos waiting for review.</span></div>
+      </div>
+      </div>
+      <aside class="g3" id="g3" aria-label="Interactive 3D chart of views in the first week, by platform">
+        <img class="g3bg" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="img/g3-studio.webp" alt="" aria-hidden="true" width="720" height="956" decoding="async">
+        <div class="g3h"><div><span class="g3k">Views &middot; first week</span><b class="g3n" id="g3n">22.9K</b></div>
+          <div class="g3seg" role="group" aria-label="Chart mode"><button type="button" aria-pressed="true" data-m="0">Daily</button><button type="button" aria-pressed="false" data-m="1">Running total</button></div></div>
+        <div class="g3stage" id="g3stage"><canvas aria-hidden="true"></canvas><div class="g3tip" id="g3tip" role="status" aria-live="polite"></div><span class="g3drag" aria-hidden="true">Drag to orbit</span></div>
+        <div class="g3leg" role="group" aria-label="Platforms"><button type="button" aria-pressed="true" data-p="0" style="--c:#25F4EE;--c2:#FE2C55"><i></i>TikTok<em>5,763</em></button><button type="button" aria-pressed="true" data-p="1" style="--c:#FF0033"><i></i>YouTube<em>9,912</em></button><button type="button" aria-pressed="true" data-p="2" style="--c:#E1306C;--c3:linear-gradient(45deg,#FEDA75,#F58529,#DD2A7B,#8134AF)"><i></i>Instagram<em>7,200</em></button></div>
+        <p class="g3f">A 3D sketch of the analytics, not a live feed. Daily split is illustrative; platform totals match the app.</p>
+      </aside>
+      </div>
+      <ul class="hl"><li>Budgets, permissions and a kill switch enforced in code</li><li>Videos rendered automatically and posted to 3 platforms</li><li>Private control app for Mac and iPhone</li></ul>
+    </div></div></div>
+  </div>
+</article>
 <article class="row t-origin" id="origin">
   <div class="wrap">
     <button type="button" aria-expanded="false" aria-controls="p-origin"><span class="title">Project Origin</span><span class="meta"><b>Research &amp; Engineering</b><span class="mono">AI agent experiments</span></span><span class="plus" aria-hidden="true">+</span></button>
@@ -935,7 +1002,7 @@ a,button,input,[role=tab]{touch-action:manipulation;-webkit-tap-highlight-color:
     </div></div></div>
   </div>
 </article>
-
+</div>
 
 <section class="services" id="services">
   <div class="wrap">
@@ -967,7 +1034,7 @@ a,button,input,[role=tab]{touch-action:manipulation;-webkit-tap-highlight-color:
         <a class="btn" href="mailto:tavamvalenti@gmail.com?subject=Website%20redesign%20(via%20tavamadethis.com)&amp;body=Business%3A%0D%0ACurrent%20website%3A%0D%0AWhat%20you%20want%20changed%3A%0D%0ATimeline%3A%0D%0A">Ask about a redesign &rarr;</a>
       </article>
       <div class="vstrip">
-        <div><h3>Video</h3><p>Listing films, reels and product videos, filmed in person.</p></div>
+        <div><h3>Video<span class="vby"><img src="img/vylos/logo-96.webp" alt="" width="16" height="16" loading="lazy">Vylos Media</span></h3><p>Listing films, reels and product videos, filmed in person.</p></div>
         <button type="button" class="btn ghost" data-open="video" aria-haspopup="dialog">See video options &rarr;</button>
       </div>
     </div>
