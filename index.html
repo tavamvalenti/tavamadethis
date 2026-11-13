@@ -81,18 +81,26 @@ img,video{max-width:100%}
 .svc p{margin:0;color:#34322e}
 .svc ul{margin:0;padding-left:18px;color:#34322e;display:grid;gap:4px;font-size:16px}
 .svc .btn{--btnbg:#1B1B19;--btnfg:#EFECE6;margin-top:auto;align-self:flex-start;font-size:15px;padding:12px 18px}
-.svc .vid{grid-column:1/-1;background:#1B1B19;border-color:#1B1B19;color:#EFECE6;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(18px,3vw,40px);align-items:start}
+.svc .vid{grid-column:1/-1;background:#0C0A08;border-color:rgba(205,187,152,.28);color:#EDE6D8;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(18px,3vw,40px);align-items:start}
 @media(max-width:900px){.svc .vid{grid-template-columns:minmax(0,1fr)}}
-.svc .vid h3,.svc .vid p{color:#EFECE6}
-.svc .vid .price{color:#B9C2A6}
+.svc .vid h3,.svc .vid p{color:#EDE6D8}
+.svc .vid .collab{display:flex;align-items:center;flex-wrap:wrap;gap:10px 12px;font-size:clamp(22px,2.2vw,28px);line-height:1}
+@media(max-width:480px){.svc .vid .collab{font-size:18px;gap:8px}}
+.svc .vid .collab .tm{display:inline-flex;align-items:center;gap:8px;font-family:var(--display);font-weight:600;letter-spacing:-.02em;color:#EDE6D8}
+.svc .vid .collab .tm .logo{width:.95em;height:.95em}
+.svc .vid .collab .x{font-family:var(--mono);font-size:.6em;color:#A39A88}
+.svc .vid .collab a{display:inline-flex;align-items:center;gap:8px;color:#CDBB98;text-decoration:none;font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-size:1.15em;letter-spacing:-.02em}
+.svc .vid .collab a img{width:1em;height:1em;border-radius:6px}
+.svc .vid .price{color:#CDBB98}
 .svc .vid .lead{display:flex;flex-direction:column;gap:12px;height:100%}
-.svc .vid .gear{font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;color:#9C978C;margin-top:auto}
+.svc .vid .gear{font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;color:#A39A88;margin-top:auto}
+.svc .vid .gear a{color:#CDBB98}
 .svc .vid .pk{display:grid;gap:12px}
-.svc .vid .pk div{border-top:1px solid rgba(239,236,230,.18);padding-top:12px;display:grid;gap:4px}
-.svc .vid .pk b{font-weight:600;font-size:18px;letter-spacing:-.01em}
-.svc .vid .pk span{font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;color:#B9C2A6}
-.svc .vid .pk p{font-size:15.5px;color:#D6D2C8}
-.svc .vid .btn{--btnbg:#EFECE6;--btnfg:#1B1B19}
+.svc .vid .pk div{border-top:1px solid rgba(205,187,152,.22);padding-top:12px;display:grid;gap:4px}
+.svc .vid .pk b{font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-size:24px;letter-spacing:-.015em;color:#EDE6D8}
+.svc .vid .pk span{font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;color:#CDBB98}
+.svc .vid .pk p{font-size:15.5px;color:#CFC7B7}
+.svc .vid .btn{--btnbg:#CDBB98;--btnfg:#14110C}
 .steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:clamp(28px,4vw,44px) 0 0;padding:0;list-style:none;counter-reset:s}
 @media(max-width:700px){.steps{grid-template-columns:minmax(0,1fr)}}
 .steps li{counter-increment:s;border-top:1px solid var(--line);padding-top:12px;color:var(--stone)}
@@ -897,18 +905,17 @@ a,button,input,[role=tab]{touch-action:manipulation;-webkit-tap-highlight-color:
         <ul><li>Mockups of the new look before anything changes</li><li>Your content and branding, cleaned up</li><li>Launched on your domain, plus 30 days of free fixes</li></ul>
         <a class="btn" href="mailto:tavamvalenti@gmail.com?subject=Website%20redesign%20(via%20tavamadethis.com)&amp;body=Business%3A%0D%0ACurrent%20website%3A%0D%0AWhat%20you%20want%20changed%3A%0D%0ATimeline%3A%0D%0A">Ask about a redesign &rarr;</a>
       </article>
-      <article class="vid">
+      <article class="vid" aria-label="Video, in collaboration with Vylos Media">
         <div class="lead">
-          <h3>Cinematic video</h3>
-          <span class="price">CARS &middot; HOMES &middot; BUSINESSES &middot; EVENTS &middot; PRODUCTS</span>
-          <p>Cars are our specialty, but we film anything. Shot on location and edited by hand, with no templates or generic music, and one point of contact from booking to delivery. Dates depend on availability, so the earlier the better.</p>
-          <a class="btn" href="mailto:tavamvalenti@gmail.com?subject=Cinematic%20video%20(via%20tavamadethis.com)&amp;body=What%20you%20want%20filmed%20(car%2C%20home%2C%20business%2C%20event%2C%20product)%3A%0D%0APackage%20(Reel%20Pack%2C%20Standard%20or%20Full%20Film)%3A%0D%0ALocation%3A%0D%0ADates%20that%20work%3A%0D%0A">Ask about video &rarr;</a>
-          <small class="gear">SHOT IN 4K ON SONY + SIGMA WITH A DJI GIMBAL</small>
+          <h3 class="collab"><span class="tm"><i class="logo" aria-hidden="true"></i>TavaMadeThis</span><span class="x">&times;</span><a href="https://vylosmedia.com" target="_blank" rel="noopener"><img src="img/vylos/icon.webp" alt="" width="28" height="28">Vylos Media</a></h3>
+          <span class="price">VIDEO &middot; IN COLLABORATION WITH VYLOS MEDIA</span>
+          <p>Cinematic video made especially for real estate and companies with physical products, though any kind of video is welcome. You book, plan and pay through TavaMadeThis, so there&rsquo;s one point of contact from start to finish. Dates depend on availability.</p>
+          <a class="btn" href="mailto:tavamvalenti@gmail.com?subject=Video%20project%20(via%20tavamadethis.com)&amp;body=What%20you%20want%20filmed%3A%0D%0AShort-form%20package%2C%20long-form%20video%20or%20both%3A%0D%0ALocation%3A%0D%0ADates%20that%20work%3A%0D%0A">Ask about video &rarr;</a>
+          <small class="gear">SEE VYLOS MEDIA&rsquo;S WORK: <a href="https://vylosmedia.com" target="_blank" rel="noopener">VYLOSMEDIA.COM</a> &middot; <a href="https://www.instagram.com/vylosmedia/" target="_blank" rel="noopener">@VYLOSMEDIA</a></small>
         </div>
         <div class="pk">
-          <div><b>Reel Pack</b><span>$200 &middot; 3 REELS &middot; 2&ndash;3 BUSINESS DAYS</span><p>Three short vertical videos for Instagram, TikTok and Shorts.</p></div>
-          <div><b>Standard Film</b><span>$500 &middot; ABOUT A WEEK</span><p>A 1 to 3 minute cinematic film from a shoot of up to 2 hours.</p></div>
-          <div><b>Full Film</b><span>$1,000 &middot; ABOUT A WEEK</span><p>A 3 to 6 minute film from up to 4 hours of shooting at up to 2 locations. Add 3 reels to any film for $150.</p></div>
+          <div><b>Short-form social package</b><span>PRICING DEPENDS ON SCOPE</span><p>A set of 15 to 45 second videos for Instagram, TikTok and Shorts.</p></div>
+          <div><b>Long-form video</b><span>PRICING DEPENDS ON SCOPE</span><p>Any kind of longer video: property and product films, brand stories, events and more. Priced by the work involved.</p></div>
         </div>
       </article>
     </div>
