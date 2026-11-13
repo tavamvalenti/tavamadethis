@@ -20,7 +20,7 @@ export default {
       return json(data, 200, 'public, max-age=120');
     }
     if (request.method === 'POST') {
-      if (!env.STATS_KEY || !(await sameSecret(request.headers.get('authorization') || '', 'Bearer ' + env.STATS_KEY))) {
+      if (!env.STATS_KEY || !(await sameSecret(request.headers.get('authorization') || '', 'Bearer ' + String(env.STATS_KEY).trim()))) {
         return json({ error: 'unauthorized' }, 401, 'no-store');
       }
       const text = await request.text();
