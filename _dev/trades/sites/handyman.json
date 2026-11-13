@@ -1,0 +1,256 @@
+{
+ "out": "trades/handyman/index.html",
+ "img": "img/trades/handyman",
+ "sample": true,
+ "title": "Copperline Handyman & Remodel | Sample Trade Website",
+ "description": "A sample website for a local handyman and remodeling business: before and after, services, reviews and a free-estimate request. A concept by Tava Valenti.",
+ "sample_notice": "This is a sample website for a made-up handyman and remodeling business, to show what a local business site can look like. Photos are AI-generated placeholders.",
+ "name": "Copperline Handyman & Remodel",
+ "brand": [
+  "Copperline",
+  "Handyman & Remodel"
+ ],
+ "logo_svg": "<path d=\"M10 20.5 20 12l10 8.5\" fill=\"none\" stroke=\"#FBFAF7\" stroke-width=\"2.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M13.5 18v10.5h13V18\" fill=\"none\" stroke=\"#FBFAF7\" stroke-width=\"2.4\" stroke-linejoin=\"round\"/><path d=\"M18 28.5v-5h4v5\" fill=\"none\" stroke=\"#FBFAF7\" stroke-width=\"2.2\" stroke-linejoin=\"round\"/>",
+ "phone": "(760) 555-0136",
+ "hours": "Mon to Sat, 7 AM to 5 PM",
+ "city": "Carlsbad, CA",
+ "license": "CA contractor license # shown here",
+ "palette": {
+  "sand": "#F3F0EA",
+  "paper": "#FBFAF7",
+  "clay": "#E4DED3",
+  "ink": "#1B2626",
+  "mut": "#5A6868",
+  "line": "rgba(27,38,38,.13)",
+  "acc": "#2F5D62",
+  "acc2": "#6E9A9E",
+  "acc-d": "#244A4E",
+  "acc-a": "rgba(47,93,98,.2)",
+  "acc-sh": "rgba(30,60,64,.25)",
+  "hi": "#E07A2F",
+  "hi-d": "#C96A25",
+  "hi-ink": "#1C1006",
+  "glow": "#F4B27A",
+  "deep": "#142224",
+  "deep-eye": "#A3BDBA",
+  "deep-mut": "#B1C2C0",
+  "deep-tx": "#E6EEED",
+  "hero-bg": "#6A7774",
+  "hero-tx": "#EEF2F1",
+  "shade": "12,20,20",
+  "shade2": "18,26,26",
+  "sand-rgb": "243,240,234",
+  "ink-rgb": "27,38,38"
+ },
+ "nav": [
+  [
+   "work",
+   "Before & after"
+  ],
+  [
+   "services",
+   "Services"
+  ],
+  [
+   "reviews",
+   "Reviews"
+  ],
+  [
+   "about",
+   "About"
+  ]
+ ],
+ "hero": {
+  "size": [
+   4096,
+   2294
+  ],
+  "alt": "A bright renovated kitchen with white cabinets, open shelves and pendant lights",
+  "h1": "The fix-it list, *finally done.*",
+  "sub": "Repairs, installs and small remodels for homes across North County San Diego. One call, an on-time crew and a clear price up front.",
+  "cta": "Get a free estimate",
+  "position": "50% 50%"
+ },
+ "trust": [
+  {
+   "text": "Licensed & insured"
+  },
+  {
+   "text": "On-time arrival window"
+  },
+  {
+   "icon": "star",
+   "text": "4.9 from 150+ reviews"
+  }
+ ],
+ "before_after": {
+  "eyebrow": "Before & after",
+  "h2": "Same room. *New bathroom.*",
+  "text": "A tired 1980s hall bath in Carlsbad, taken down to the studs and rebuilt with a walk-in shower and new vanity. Drag the line to compare.",
+  "aria": "Before and after of a bathroom: a dated oak vanity and tub-shower on the left, a white vanity and glass walk-in shower on the right. Drag to compare.",
+  "cap_title": "Hall bathroom, Carlsbad",
+  "cap_detail": "about 45 sq ft",
+  "cap_right": "Done in 3 weeks"
+ },
+ "services_head": {
+  "eyebrow": "What we do",
+  "h2": "Big list or *one small job.*",
+  "text": "No job is too small. Save up your list, or call us for one thing, and we'll handle it right."
+ },
+ "services": [
+  {
+   "img": "after",
+   "alt": "A remodeled bathroom with a glass shower",
+   "title": "Bathroom remodels",
+   "text": "New showers, vanities, tile and fixtures, from a quick refresh to a full rebuild."
+  },
+  {
+   "img": "kitchen",
+   "alt": "A renovated kitchen with white cabinets",
+   "title": "Kitchen updates",
+   "text": "Backsplashes, shelves, lighting and hardware that make an older kitchen feel new."
+  },
+  {
+   "img": "drywall",
+   "alt": "Hands patching and sanding drywall",
+   "title": "Drywall & repairs",
+   "text": "Holes, cracks and water damage patched so you can't tell where they were."
+  },
+  {
+   "img": "door",
+   "alt": "A handyman fitting a new interior door with a level",
+   "title": "Doors & trim",
+   "text": "Sticking doors fixed, new doors hung, and baseboards and trim installed."
+  },
+  {
+   "img": "deck",
+   "alt": "A refinished wood deck with new railings",
+   "title": "Decks & fences",
+   "text": "Loose boards, wobbly rails and broken gates repaired or rebuilt."
+  },
+  {
+   "img": "mounting",
+   "alt": "A mounted TV with floating shelves",
+   "title": "Mounting & installs",
+   "text": "TVs, shelves, fans, fixtures and faucets, installed level and secure."
+  }
+ ],
+ "steps": {
+  "h2": "Simple from *the first call.*",
+  "text": "No pressure and no surprise charges. You'll know the price and the arrival window before we come.",
+  "items": [
+   {
+    "title": "Call or send your list",
+    "text": "Tell us what needs doing. Photos of each item help us price it quickly."
+   },
+   {
+    "title": "Clear, written price",
+    "text": "Small jobs get a price over the phone. Bigger projects get a free visit and a written estimate."
+   },
+   {
+    "title": "Done right, cleaned up",
+    "text": "We show up in the window we promised, finish the list and leave the place clean."
+   }
+  ]
+ },
+ "gallery_h2": "Around *North County.*",
+ "gallery": [
+  {
+   "img": "hero",
+   "alt": "Renovated kitchen",
+   "caption": "Kitchen, Carlsbad"
+  },
+  {
+   "img": "deck",
+   "alt": "Refinished deck",
+   "caption": "Deck, Oceanside"
+  },
+  {
+   "img": "mounting",
+   "alt": "TV and shelves",
+   "caption": "Living room, Vista"
+  },
+  {
+   "img": "door",
+   "alt": "New interior door",
+   "caption": "Doors, Encinitas"
+  },
+  {
+   "img": "after",
+   "alt": "Remodeled bathroom",
+   "caption": "Bathroom, Carlsbad"
+  }
+ ],
+ "reviews": {
+  "h2": "What neighbors *say.*",
+  "score": "4.9",
+  "count": "from 150+ reviews (sample)",
+  "items": [
+   {
+    "quote": "I had a list of 11 things I'd been putting off for years. They finished it all in one day and cleaned up after.",
+    "name": "Barbara W.",
+    "detail": "Repair list, Carlsbad"
+   },
+   {
+    "quote": "Our bathroom remodel came in on budget and on schedule. They explained every step and never left a mess.",
+    "name": "Dan & Ellen P.",
+    "detail": "Bathroom, Oceanside"
+   },
+   {
+    "quote": "Showed up exactly when they said. Fair price, friendly, and the door finally closes properly.",
+    "name": "Joe M.",
+    "detail": "Doors & trim, Vista"
+   }
+  ]
+ },
+ "about": {
+  "img": "faucet",
+  "alt": "Hands installing a new kitchen faucet",
+  "h2": "Owner-run, *careful with your home.*",
+  "text": "Copperline is a small, owner-run company in Carlsbad. The owner prices every job and does much of the work, so you always know who's in your home.",
+  "facts": [
+   {
+    "value": "22",
+    "label": "years fixing North County homes"
+   },
+   {
+    "value": "5,000+",
+    "label": "jobs finished"
+   },
+   {
+    "value": "1 yr",
+    "label": "workmanship warranty"
+   }
+  ],
+  "towns": [
+   "Carlsbad",
+   "Oceanside",
+   "Vista",
+   "Encinitas",
+   "San Marcos",
+   "Solana Beach",
+   "Del Mar"
+  ]
+ },
+ "estimate": {
+  "eyebrow": "Free estimate",
+  "h2": "Tell us about *your list.*",
+  "text": "Send a few details and we'll call you back within one business day.",
+  "select_label": "What do you need?",
+  "options": [
+   "Repairs (a few items)",
+   "Bathroom remodel",
+   "Kitchen update",
+   "Drywall",
+   "Doors or trim",
+   "Deck or fence",
+   "Mounting or installs",
+   "Something else"
+  ],
+  "placeholder": "List the jobs, and anything we should know about access or timing...",
+  "button": "Request my free estimate",
+  "short": "Free estimate"
+ },
+ "footer_desc": "Repairs, installs and small remodels in North County San Diego.",
+ "footer_note": "Sample site. Copperline Handyman & Remodel is a made-up business; reviews and numbers are examples."
+}

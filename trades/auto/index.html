@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kestrel Auto Care | Sample Trade Website</title>
+<meta name="description" content="A sample website for a local auto repair and detailing shop: before and after, services, reviews and an appointment request. A concept by Tava Valenti.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#EFEFED">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/icon-32.png?v=2">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png?v=2">
+<link rel="preload" href="/fonts/fraunces-normal-1.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/inter-normal-4.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" href="/img/trades/auto/hero-1600.webp" imagesrcset="/img/trades/auto/hero-960.webp 960w, /img/trades/auto/hero-1600.webp 1600w, /img/trades/auto/hero-2560.webp 2560w" imagesizes="100vw">
+<!-- Built from the TavaMadeThis trade template (_dev/trades/build.py). Edit the JSON, not this file. -->
+<style>
+@font-face{font-family:'Fraunces';font-style:normal;font-weight:300 700;font-display:swap;src:url(/fonts/fraunces-normal-1.woff2) format('woff2')}
+@font-face{font-family:'Fraunces';font-style:italic;font-weight:300 700;font-display:swap;src:url(/fonts/fraunces-italic-0.woff2) format('woff2')}
+@font-face{font-family:'Inter';font-style:normal;font-weight:300 700;font-display:swap;src:url(/fonts/inter-normal-4.woff2) format('woff2')}
+:root{
+  --sand:#EFEFED;
+  --paper:#FAFAF9;
+  --clay:#DFDFDB;
+  --ink:#16191D;
+  --mut:#5D636B;
+  --line:rgba(22,25,29,.13);
+  --acc:#2C3138;
+  --acc2:#6B7480;
+  --acc-d:#1E2227;
+  --acc-a:rgba(44,49,56,.2);
+  --acc-sh:rgba(20,22,26,.28);
+  --hi:#D9442B;
+  --hi-d:#C23A23;
+  --hi-ink:#FFFFFF;
+  --glow:#F59A7E;
+  --deep:#101215;
+  --deep-eye:#A0A7B1;
+  --deep-mut:#AEB4BC;
+  --deep-tx:#E8EAED;
+  --hero-bg:#3A3F46;
+  --hero-tx:#EDEFF1;
+  --shade:10,12,15;
+  --shade2:16,18,22;
+  --sand-rgb:239,239,237;
+  --ink-rgb:22,25,29;
+  --serif:'Fraunces',Georgia,serif;--sans:Inter,system-ui,-apple-system,sans-serif;
+  --pad:clamp(20px,5vw,72px);--max:1200px;--ease:cubic-bezier(.2,.8,.2,1);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;background:var(--sand);scroll-padding-top:80px}
+body{margin:0;background:var(--sand);color:var(--ink);font:400 17px/1.6 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:clip}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
+.eyebrow{margin:0;display:flex;align-items:center;gap:12px;font:600 12px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--acc)}
+.eyebrow::before{content:"";width:26px;height:2px;border-radius:2px;background:var(--hi)}
+h1,h2,h3{font-family:var(--serif);font-weight:500;letter-spacing:-.02em;margin:0;font-variation-settings:"SOFT" 50,"opsz" 96}
+h2{font-size:clamp(34px,4.6vw,58px);line-height:1.04}
+h2 em,h1 em{font-style:italic;font-weight:400;color:var(--acc)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 26px;border-radius:12px;background:var(--acc);color:#fff;font:600 16px/1 var(--sans);text-decoration:none;border:2px solid var(--acc);cursor:pointer;transition:background .25s,border-color .25s,transform .25s var(--ease),box-shadow .25s}
+.btn:hover{background:var(--acc-d);border-color:var(--acc-d);transform:translateY(-2px);box-shadow:0 12px 26px var(--acc-sh)}
+.btn.sun{background:var(--hi);border-color:var(--hi);color:var(--hi-ink)}
+.btn.sun:hover{background:var(--hi-d);border-color:var(--hi-d)}
+.btn.line{background:transparent;color:inherit;border-color:currentColor}
+.btn.line:hover{background:rgba(255,255,255,.12)}
+.btn svg{width:19px;height:19px;flex:none}
+:focus-visible{outline:3px solid var(--hi);outline-offset:3px}
+
+/* sample notice */
+.sample{background:var(--deep);color:var(--deep-tx);font:400 13px/1.45 var(--sans);text-align:center;padding:9px var(--pad)}
+.sample a{color:#fff;text-underline-offset:3px}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:20;background:rgba(var(--sand-rgb),.88);-webkit-backdrop-filter:saturate(1.2) blur(14px);backdrop-filter:saturate(1.2) blur(14px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:70px}
+.lhs{display:flex;align-items:center;gap:clamp(12px,1.6vw,20px);min-width:0}
+.home{display:inline-flex;text-decoration:none}
+.home i{width:36px;height:36px;border-radius:50%;background:var(--ink);display:grid;place-items:center;flex:none;transition:background .3s,transform .3s}
+.home i::before{content:"";width:18px;height:18px;background:var(--paper);-webkit-mask:url(/img/logo-mark.webp) center/contain no-repeat;mask:url(/img/logo-mark.webp) center/contain no-repeat}
+.home:hover i{background:var(--acc);transform:scale(1.05)}
+.lhs .sep{width:1px;height:28px;background:var(--line);flex:none}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);min-width:0}
+.brand svg{width:34px;height:34px;flex:none;color:var(--acc)}
+.brand b{display:block;font:600 21px/1 var(--serif);letter-spacing:-.01em;white-space:nowrap}
+.brand span{display:block;margin-top:4px;font:600 9.5px/1 var(--sans);letter-spacing:.24em;text-transform:uppercase;color:var(--mut);white-space:nowrap}
+.links{display:flex;gap:clamp(18px,2.4vw,32px);font-size:15px;font-weight:500}
+.links a{text-decoration:none;color:var(--mut);transition:color .2s}
+.links a:hover{color:var(--ink)}
+.nav .btn{min-height:44px;padding:0 18px;font-size:15px}
+.nav .btn .num{font-variant-numeric:tabular-nums;white-space:nowrap}
+@media(max-width:940px){.links{display:none}}
+@media(max-width:560px){.lhs .sep,.home{display:none}.nav .btn .txt{display:none}.nav .btn{padding:0 12px;font-size:14px;gap:7px}.brand b{font-size:19px}}
+@media(max-width:360px){.brand span span{display:none}}
+
+/* hero */
+.hero{position:relative;min-height:min(calc(100svh - 110px),860px);display:flex;align-items:flex-end;color:#fff;overflow:hidden;background:var(--hero-bg)}
+.hero img{position:absolute;inset:0;width:100%;height:100%!important;object-fit:cover;object-position:50% 55%}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(var(--shade),.72) 0%,rgba(var(--shade),.45) 42%,rgba(var(--shade),0) 75%),linear-gradient(0deg,rgba(var(--shade),.5),rgba(var(--shade),0) 45%)}
+.hero .wrap{position:relative;z-index:1;width:100%;padding-top:80px;padding-bottom:clamp(40px,7vh,80px)}
+.hero h1{font-size:clamp(42px,6.4vw,84px);line-height:1;max-width:12ch;text-shadow:0 2px 30px rgba(0,0,0,.25)}
+.hero h1 em{color:var(--glow)}
+.hero p.sub{max-width:34rem;margin:20px 0 28px;font-size:clamp(17px,1.5vw,20px);line-height:1.5;color:var(--hero-tx)}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:12px}
+.trust{display:flex;flex-wrap:wrap;gap:10px 26px;margin:32px 0 0;padding:0;list-style:none;font-size:15px;font-weight:500;color:var(--hero-tx)}
+.trust li{display:flex;align-items:center;gap:8px}
+.trust svg{width:18px;height:18px;color:var(--glow);flex:none}
+
+/* sections */
+section{padding:clamp(64px,9vw,120px) 0}
+.head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:clamp(28px,4vw,48px)}
+.head h2{margin-top:16px}
+.head p{max-width:30rem;margin:0;color:var(--mut)}
+
+/* before / after */
+.ba-sec{background:var(--paper);border-block:1px solid var(--line)}
+.ba{position:relative;aspect-ratio:1168/880;max-height:78vh;width:100%;border-radius:18px;overflow:hidden;background:var(--clay);cursor:ew-resize;touch-action:pan-y;user-select:none;-webkit-user-select:none;box-shadow:0 30px 60px rgba(var(--shade2),.18);--x:50%}
+.ba img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
+.ba .aft{clip-path:inset(0 0 0 var(--x))}
+.ba .line{position:absolute;top:0;bottom:0;left:var(--x);width:3px;margin-left:-1.5px;background:#fff;box-shadow:0 0 12px rgba(0,0,0,.35)}
+.ba .knob{position:absolute;top:50%;left:var(--x);width:56px;height:56px;margin:-28px 0 0 -28px;border-radius:50%;background:#fff;color:var(--ink);display:grid;place-items:center;box-shadow:0 8px 24px rgba(0,0,0,.3)}
+.ba .knob svg{width:26px;height:26px}
+.ba .tag{position:absolute;top:16px;padding:7px 13px;border-radius:8px;font:700 12px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;background:rgba(var(--shade2),.72);color:#fff;transition:opacity .3s}
+.ba .tag.b{left:16px}.ba .tag.a{right:16px;background:var(--hi);color:var(--hi-ink)}
+.ba input{position:absolute;inset:auto 0 0 0;width:100%;opacity:0;height:1px;pointer-events:none}
+.ba-cap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:16px;font-size:15px;color:var(--mut)}
+.ba-cap b{color:var(--ink);font-weight:600}
+
+/* services */
+.svc{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,2vw,24px)}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
+.card img{aspect-ratio:4/3;width:100%;object-fit:cover;transition:transform .7s var(--ease)}
+.card .ph{overflow:hidden}
+.card:hover img{transform:scale(1.04)}
+.card .tx{padding:20px 22px 24px}
+.card h3{font-size:23px;line-height:1.15}
+.card p{margin:8px 0 0;color:var(--mut);font-size:16px;line-height:1.5}
+@media(max-width:900px){.svc{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.svc{grid-template-columns:minmax(0,1fr)}}
+
+/* steps */
+.steps-sec{background:var(--deep);color:var(--deep-tx)}
+.steps-sec h2 em{color:var(--glow)}
+.steps-sec .eyebrow{color:var(--deep-eye)}
+.steps-sec .head p{color:var(--deep-mut)}
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,2vw,24px);list-style:none;margin:0;padding:0;counter-reset:s}
+.steps li{counter-increment:s;padding:28px 26px 30px;border:1px solid rgba(255,255,255,.14);border-radius:16px;background:rgba(255,255,255,.04)}
+.steps li::before{content:counter(s);display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--hi);color:var(--hi-ink);font:700 19px/1 var(--sans);margin-bottom:20px}
+.steps h3{font-size:24px;color:#fff}
+.steps p{margin:8px 0 0;color:var(--deep-mut);font-size:16px}
+@media(max-width:820px){.steps{grid-template-columns:minmax(0,1fr)}}
+
+/* work gallery */
+.gal{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:clamp(150px,18vw,230px);gap:12px}
+.gal figure{margin:0;position:relative;border-radius:14px;overflow:hidden;background:var(--clay)}
+.gal figure:nth-child(1){grid-column:span 2;grid-row:span 2}
+.gal img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease)}
+.gal figure:hover img{transform:scale(1.04)}
+.gal figcaption{position:absolute;left:10px;bottom:10px;padding:6px 11px;border-radius:8px;background:rgba(var(--shade2),.7);color:#fff;font-size:13px;font-weight:500}
+@media(max-width:760px){.gal{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:40vw}}
+
+/* reviews */
+.rev-sec{background:var(--paper);border-block:1px solid var(--line)}
+.score{display:flex;align-items:center;gap:14px}
+.score b{font:600 54px/1 var(--serif)}
+.score span{display:block;font-size:14px;color:var(--mut)}
+.stars{display:flex;gap:2px;color:var(--hi)}
+.stars svg{width:18px;height:18px}
+.revs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,2vw,24px)}
+.rev{margin:0;padding:26px;border:1px solid var(--line);border-radius:16px;background:var(--sand);display:flex;flex-direction:column;gap:14px}
+.rev blockquote{margin:0;font:400 19px/1.45 var(--serif)}
+.rev figcaption{margin-top:auto;display:flex;align-items:center;gap:12px;font-size:15px}
+.rev figcaption i{width:40px;height:40px;border-radius:50%;background:var(--acc);color:#fff;display:grid;place-items:center;font:600 15px/1 var(--sans);font-style:normal;flex:none}
+.rev figcaption span{display:block;color:var(--mut);font-size:13.5px}
+@media(max-width:900px){.revs{grid-template-columns:minmax(0,1fr)}}
+
+/* about + area */
+.about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,5vw,72px);align-items:center}
+.about img{border-radius:18px;aspect-ratio:4/3;object-fit:cover;width:100%;box-shadow:0 30px 60px rgba(var(--shade2),.16)}
+.about p{color:var(--mut)}
+.about .facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:26px 0 0}
+.about .facts div{padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--paper)}
+.about .facts b{display:block;font:600 30px/1 var(--serif)}
+.about .facts span{display:block;margin-top:6px;font-size:13.5px;color:var(--mut)}
+.towns{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 0;padding:0;list-style:none}
+.towns li{padding:8px 14px;border-radius:999px;background:var(--paper);border:1px solid var(--line);font-size:14.5px;font-weight:500}
+@media(max-width:860px){.about{grid-template-columns:minmax(0,1fr)}}
+
+/* estimate */
+.est-sec{background:linear-gradient(180deg,var(--sand),var(--clay))}
+.est{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(28px,5vw,72px);align-items:start}
+.est .call{margin-top:26px;padding:22px;border-radius:16px;background:var(--deep);color:#fff}
+.est .call span{display:block;font-size:14px;color:var(--deep-mut)}
+.est .call a{display:block;margin-top:6px;font:600 clamp(28px,3vw,36px)/1.1 var(--serif);text-decoration:none;color:var(--glow)}
+.est .call small{display:block;margin-top:8px;color:var(--deep-mut);font-size:14px}
+form{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:clamp(20px,3vw,34px);box-shadow:0 30px 60px rgba(var(--shade2),.12);display:grid;gap:16px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+label{display:grid;gap:7px;font-size:15px;font-weight:600}
+input,select,textarea{font:inherit;font-size:17px;font-weight:400;color:var(--ink);background:#fff;border:1.5px solid rgba(var(--ink-rgb),.22);border-radius:10px;padding:13px 14px;min-height:52px;width:100%}
+textarea{min-height:110px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--acc);box-shadow:0 0 0 3px var(--acc-a)}
+form .btn{width:100%;margin-top:4px}
+form .fine{margin:0;font-size:13.5px;color:var(--mut);text-align:center}
+.done{display:none;text-align:center;padding:30px 10px}
+.done h3{font-size:30px}
+.done p{color:var(--mut)}
+form.sent > :not(.done){display:none}
+form.sent .done{display:block}
+@media(max-width:860px){.est{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:520px){.two{grid-template-columns:minmax(0,1fr)}}
+
+/* footer */
+footer{background:var(--deep);color:var(--deep-mut);padding:48px 0 calc(40px + env(safe-area-inset-bottom));font-size:15px}
+footer .wrap{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:28px}
+footer b{display:block;color:#fff;font:600 20px/1.2 var(--serif);margin-bottom:10px}
+footer p{margin:0 0 6px}
+footer a{color:var(--deep-tx)}
+footer .by{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.12);padding-top:20px;font-size:13.5px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+@media(max-width:760px){footer .wrap{grid-template-columns:minmax(0,1fr)}}
+
+/* mobile call bar */
+.mbar{position:fixed;left:0;right:0;bottom:0;z-index:30;display:none;gap:10px;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:rgba(var(--sand-rgb),.94);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-top:1px solid var(--line);transform:translateY(110%);transition:transform .35s var(--ease)}
+.mbar .btn{flex:1;min-height:50px;padding:0 12px;font-size:15.5px}
+.mbar.show{transform:none}
+@media(max-width:760px){.mbar{display:flex}footer{padding-bottom:calc(100px + env(safe-area-inset-bottom))}}
+
+.rv{opacity:0;transform:translateY(22px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.rv{opacity:1;transform:none;transition:none}.card img,.gal img{transition:none}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-phone" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path fill="currentColor" d="m12 2.5 2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9z"/></symbol>
+  <symbol id="i-logo" viewBox="0 0 40 40"><circle cx="20" cy="20" r="19" fill="currentColor"/><path d="M25.5 11.5a6 6 0 0 0-7.6 7.6l-7.4 7.4a2 2 0 0 0 2.9 2.9l7.4-7.4a6 6 0 0 0 7.6-7.6l-3.6 3.6-2.9-2.9z" fill="none" stroke="#FAFAF9" stroke-width="2.2" stroke-linejoin="round"/></symbol>
+</svg>
+
+<div class="sample">This is a sample website for a made-up auto repair and detailing shop, to show what a local business site can look like. Photos are AI-generated placeholders. <a href="/#contact">Want one for your business?</a></div>
+
+<header class="nav">
+  <div class="wrap">
+    <div class="lhs">
+      <a class="home" href="/" aria-label="Back to tavamadethis.com"><i></i></a>
+      <span class="sep" aria-hidden="true"></span>
+      <a class="brand" href="#top"><svg aria-hidden="true"><use href="#i-logo"/></svg><span><b>Kestrel</b><span>Auto Care</span></span></a>
+    </div>
+    <nav class="links" aria-label="Sections"><a href="#work">Before &amp; after</a><a href="#services">Services</a><a href="#reviews">Reviews</a><a href="#about">About</a></nav>
+    <a class="btn sun" href="tel:+17605550194"><svg aria-hidden="true"><use href="#i-phone"/></svg><span class="txt">Call </span><span class="num">(760) 555-0194</span></a>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero" style="padding:0">
+  <img src="/img/trades/auto/hero-1600.webp" srcset="/img/trades/auto/hero-960.webp 960w, /img/trades/auto/hero-1600.webp 1600w, /img/trades/auto/hero-2560.webp 2560w" sizes="100vw" alt="A freshly detailed dark gray SUV in a clean auto shop bay at dusk" width="2560" height="1434" fetchpriority="high" style="object-position:50% 60%">
+  <div class="wrap">
+    <h1>Honest repairs. <em>A car that shines.</em></h1>
+    <p class="sub">Brakes, maintenance and diagnostics, plus full detailing, from a family-owned shop in Oceanside. Straight answers and a price before we touch your car.</p>
+    <div class="ctas"><a class="btn sun" href="#estimate">Book an appointment</a><a class="btn line" href="tel:+17605550194"><svg aria-hidden="true"><use href="#i-phone"/></svg>Call (760) 555-0194</a></div>
+    <ul class="trust">
+      <li><svg aria-hidden="true"><use href="#i-check"/></svg>Certified technicians</li><li><svg aria-hidden="true"><use href="#i-check"/></svg>Price before any work</li><li><svg aria-hidden="true"><use href="#i-star"/></svg>4.9 from 200+ reviews</li>
+    </ul>
+  </div>
+</section>
+
+<section class="ba-sec" id="work">
+  <div class="wrap">
+    <div class="head rv">
+      <div><p class="eyebrow">Before &amp; after</p><h2>Same car. <em>Showroom shine.</em></h2></div>
+      <p>A sedan with dull paint, brake dust and foggy headlights, after a full exterior detail and headlight restoration. Drag the line to compare.</p>
+    </div>
+    <div class="ba rv" id="ba" role="img" aria-label="Before and after of a blue sedan: dusty, spotted paint and cloudy headlights on the left, glossy paint and clear headlights on the right. Drag to compare." style="aspect-ratio:1168/880">
+      <img src="/img/trades/auto/before.webp" alt="" width="1168" height="880" loading="lazy" decoding="async">
+      <img class="aft" src="/img/trades/auto/after.webp" alt="" width="1168" height="880" loading="lazy" decoding="async">
+      <span class="tag b">Before</span><span class="tag a">After</span>
+      <span class="line" aria-hidden="true"></span>
+      <span class="knob" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6-6 6 6 6M15 6l6 6-6 6"/></svg></span>
+      <input type="range" min="0" max="100" value="50" aria-label="Compare before and after" tabindex="0">
+    </div>
+    <div class="ba-cap"><span><b>Full exterior detail</b> &middot; plus headlight restoration</span><span>Done in one day</span></div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="wrap">
+    <div class="head rv">
+      <div><p class="eyebrow">What we do</p><h2>Under the hood <em>and out front.</em></h2></div>
+      <p>One shop for the repairs that keep you safe and the detailing that makes the car feel new again.</p>
+    </div>
+    <div class="svc">
+      <article class="card rv"><div class="ph"><img src="/img/trades/auto/brakes-640.webp" alt="A mechanic replacing a brake rotor and caliper" width="640" height="482" loading="lazy" decoding="async"></div><div class="tx"><h3>Brakes &amp; suspension</h3><p>Pads, rotors, shocks and alignments, with the old parts shown to you.</p></div></article>
+      <article class="card rv"><div class="ph"><img src="/img/trades/auto/engine-640.webp" alt="A mechanic checking an engine with a work light" width="640" height="482" loading="lazy" decoding="async"></div><div class="tx"><h3>Diagnostics &amp; maintenance</h3><p>Check-engine lights, oil changes and scheduled service, explained in plain words.</p></div></article>
+      <article class="card rv"><div class="ph"><img src="/img/trades/auto/after-640.webp" alt="A freshly detailed blue sedan" width="640" height="482" loading="lazy" decoding="async"></div><div class="tx"><h3>Full detail</h3><p>Wash, clay, polish and protect, so the paint looks deep and stays clean longer.</p></div></article>
+      <article class="card rv"><div class="ph"><img src="/img/trades/auto/interior-640.webp" alt="A spotless car interior with clean leather seats" width="640" height="482" loading="lazy" decoding="async"></div><div class="tx"><h3>Interior detailing</h3><p>Seats, carpets and dash deep cleaned, stains lifted and smells gone.</p></div></article>
+      <article class="card rv"><div class="ph"><img src="/img/trades/auto/wash-640.webp" alt="A car covered in foam during a hand wash" width="640" height="482" loading="lazy" decoding="async"></div><div class="tx"><h3>Hand wash &amp; paint care</h3><p>Gentle hand washes and wax or ceramic protection for daily drivers.</p></div></article>
+      <article class="card rv"><div class="ph"><img src="/img/trades/auto/headlight-640.webp" alt="A headlight half cloudy and half restored" width="640" height="482" loading="lazy" decoding="async"></div><div class="tx"><h3>Headlight restoration</h3><p>Cloudy, yellow headlights made clear again, so you can see and be seen at night.</p></div></article>
+    </div>
+  </div>
+</section>
+
+<section class="steps-sec">
+  <div class="wrap">
+    <div class="head rv">
+      <div><p class="eyebrow">How it works</p><h2>Simple from <em>the first call.</em></h2></div>
+      <p>No upselling and no surprise charges. We call you before doing anything that wasn&#x27;t on the estimate.</p>
+    </div>
+    <ol class="steps">
+      <li class="rv"><h3>Call or book online</h3><p>Tell us what the car is doing, or what you&#x27;d like cleaned up. We&#x27;ll find a time that works.</p></li>
+      <li class="rv"><h3>Inspection &amp; written price</h3><p>We check it over, show you what we found, and give you a price before any work starts.</p></li>
+      <li class="rv"><h3>Fixed, cleaned and ready</h3><p>We text you when it&#x27;s ready and walk you through what we did.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section id="gallery">
+  <div class="wrap">
+    <div class="head rv">
+      <div><p class="eyebrow">Recent work</p><h2>Recent <em>work.</em></h2></div>
+    </div>
+    <div class="gal rv">
+      <figure><img src="/img/trades/auto/hero-960.webp" alt="Detailed SUV in the shop at dusk" width="960" height="538" loading="lazy" decoding="async"><figcaption>Full detail, SUV</figcaption></figure>
+      <figure><img src="/img/trades/auto/interior-640.webp" alt="Clean car interior" width="640" height="482" loading="lazy" decoding="async"><figcaption>Interior detail</figcaption></figure>
+      <figure><img src="/img/trades/auto/wash-640.webp" alt="Foam hand wash" width="640" height="482" loading="lazy" decoding="async"><figcaption>Hand wash</figcaption></figure>
+      <figure><img src="/img/trades/auto/brakes-640.webp" alt="New brake rotor" width="640" height="482" loading="lazy" decoding="async"><figcaption>Brake job</figcaption></figure>
+      <figure><img src="/img/trades/auto/headlight-640.webp" alt="Headlight restoration" width="640" height="482" loading="lazy" decoding="async"><figcaption>Headlights</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="rev-sec" id="reviews">
+  <div class="wrap">
+    <div class="head rv">
+      <div><p class="eyebrow">Reviews</p><h2>What drivers <em>say.</em></h2></div>
+      <div class="score"><b>4.9</b><div><div class="stars" aria-label="5 stars"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></div><span>from 200+ reviews (sample)</span></div></div>
+    </div>
+    <div class="revs">
+      <figure class="rev rv"><div class="stars" aria-label="5 stars"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></div><blockquote>"They showed me the worn brake pads and the price was exactly what they quoted. No pressure to add anything."</blockquote><figcaption><i>GH</i><div>Gary H.<span>Brakes, Oceanside</span></div></figcaption></figure>
+      <figure class="rev rv"><div class="stars" aria-label="5 stars"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></div><blockquote>"My car is eight years old and it looks better than when I bought it. The headlights alone were worth it."</blockquote><figcaption><i>MS</i><div>Maria S.<span>Full detail, Carlsbad</span></div></figcaption></figure>
+      <figure class="rev rv"><div class="stars" aria-label="5 stars"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></div><blockquote>"Honest shop. They told me a repair could wait six months instead of selling it to me today."</blockquote><figcaption><i>TR</i><div>Tom R.<span>Diagnostics, Vista</span></div></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap about">
+    <img class="rv" src="/img/trades/auto/brakes-640.webp" srcset="/img/trades/auto/brakes-640.webp 640w, /img/trades/auto/brakes.webp 1168w" sizes="(max-width:860px) 100vw, 50vw" alt="A mechanic&#x27;s hands fitting a new brake caliper" width="1168" height="880" loading="lazy" decoding="async">
+    <div class="rv">
+      <p class="eyebrow">About us</p>
+      <h2 style="margin-top:16px">Family owned, <em>straight answers.</em></h2>
+      <p>Kestrel is a small family-owned shop in Oceanside. The same people who answer the phone work on your car, and we&#x27;ll always explain what it needs and what can wait.</p>
+      <div class="facts"><div><b>15</b><span>years in Oceanside</span></div><div><b>12 mo</b><span>parts &amp; labor warranty</span></div><div><b>Same day</b><span>most repairs and details</span></div></div>
+      <ul class="towns" aria-label="Service area"><li>Oceanside</li><li>Carlsbad</li><li>Vista</li><li>San Marcos</li><li>Camp Pendleton</li><li>Encinitas</li></ul>
+    </div>
+  </div>
+</section>
+
+<section class="est-sec" id="estimate">
+  <div class="wrap est">
+    <div class="rv">
+      <p class="eyebrow">Book an appointment</p>
+      <h2 style="margin-top:16px">Tell us about <em>your car.</em></h2>
+      <p style="color:var(--mut)">Send a few details and we&#x27;ll call or text you back within one business day with a time.</p>
+      <div class="call"><span>Rather talk now?</span><a href="tel:+17605550194">(760) 555-0194</a><small>Mon to Fri 8 to 6, Sat 8 to 2</small></div>
+    </div>
+    <form class="rv" id="estform" novalidate>
+      <div class="two"><label>Your name<input name="name" autocomplete="name" required></label><label>Phone<input name="phone" type="tel" autocomplete="tel" inputmode="tel" required></label></div>
+      <label>City<input name="city" autocomplete="address-level2" placeholder="e.g. Oceanside"></label>
+      <label>What do you need?<select name="need"><option>Brakes</option><option>Check-engine light</option><option>Oil change or maintenance</option><option>Full detail</option><option>Interior detail</option><option>Headlight restoration</option><option>Something else</option></select></label>
+      <label>Anything else we should know?<textarea name="msg" placeholder="Year, make and model, and what it&#x27;s doing (noises, warning lights)..."></textarea></label>
+      <button class="btn" type="submit">Request an appointment</button>
+      <p class="fine">We'll never share your number.</p>
+      <div class="done" role="status"><h3>Thanks!</h3><p>On a real site this request goes straight to the owner&#x27;s phone and email. This one is a sample, so nothing was sent.</p></div>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div><b>Kestrel Auto Care</b><p>Auto repair, maintenance and detailing in Oceanside and North County San Diego.</p><p>BAR auto repair license # shown here</p></div>
+    <div><b>Contact</b><p><a href="tel:+17605550194">(760) 555-0194</a></p><p>Mon to Fri 8 to 6, Sat 8 to 2</p><p>Oceanside, CA</p></div>
+    <div><b>Quick links</b><p><a href="#work">Before &amp; after</a></p><p><a href="#services">Services</a></p><p><a href="#estimate">Book an appointment</a></p></div>
+    <div class="by"><span>Sample site. Kestrel Auto Care is a made-up business; reviews and numbers are examples.</span><span>A concept by <a href="/">Tava Valenti</a></span></div>
+  </div>
+</footer>
+
+<div class="mbar" id="mbar"><a class="btn sun" href="tel:+17605550194"><svg aria-hidden="true"><use href="#i-phone"/></svg>Call now</a><a class="btn" href="#estimate">Book</a></div>
+
+<script>
+(function(){
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var rv = document.querySelectorAll('.rv');
+  if ('IntersectionObserver' in window && !reduce) {
+    var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { rootMargin: '0px 0px -8% 0px' });
+    rv.forEach(function(el){ io.observe(el); });
+  } else rv.forEach(function(el){ el.classList.add('in'); });
+
+  var ba = document.getElementById('ba'), inp = ba.querySelector('input'), auto = 0, drag = false;
+  function set(v){ v = Math.max(0, Math.min(100, v)); ba.style.setProperty('--x', v + '%'); inp.value = v; }
+  function fromX(x){ var r = ba.getBoundingClientRect(); set((x - r.left) / r.width * 100); }
+  ba.addEventListener('pointerdown', function(e){ auto++; drag = true; fromX(e.clientX); try { ba.setPointerCapture(e.pointerId); } catch (x) {} });
+  ba.addEventListener('pointermove', function(e){ if (drag) fromX(e.clientX); });
+  ['pointerup','pointercancel'].forEach(function(n){ ba.addEventListener(n, function(){ drag = false; }); });
+  inp.addEventListener('input', function(){ auto++; set(+inp.value); });
+  ba.addEventListener('keydown', function(e){ if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') { auto++; set(+inp.value + (e.key === 'ArrowLeft' ? -5 : 5)); e.preventDefault(); } });
+  ba.tabIndex = 0;
+  function sweep(){ if (reduce) return; var id = ++auto, t0 = performance.now(), keys = [50, 12, 88, 50], dur = 1300;
+    (function step(now){ if (id !== auto) return; var t = (now - t0) / dur, i = Math.floor(t); if (i >= keys.length - 1) { set(50); return; }
+      var f = t - i, k = f < .5 ? 2 * f * f : 1 - Math.pow(-2 * f + 2, 2) / 2; set(keys[i] + (keys[i + 1] - keys[i]) * k); requestAnimationFrame(step); })(t0); }
+  if ('IntersectionObserver' in window) { var bo = new IntersectionObserver(function(es){ if (es[0].isIntersecting) { bo.disconnect(); setTimeout(sweep, 500); } }, { threshold: .5 }); bo.observe(ba); }
+
+  var f = document.getElementById('estform');
+  f.addEventListener('submit', function(e){ e.preventDefault(); if (!f.name.value.trim() || !f.phone.value.trim()) { (f.name.value.trim() ? f.phone : f.name).focus(); return; } f.classList.add('sent'); });
+
+  var mbar = document.getElementById('mbar'), hero = document.querySelector('.hero'), est = document.getElementById('estimate'), tick = false;
+  function onScroll(){ tick = false; var er = est.getBoundingClientRect(); mbar.classList.toggle('show', scrollY > hero.offsetHeight * .6 && !(er.top < innerHeight * .8 && er.bottom > 0)); }
+  addEventListener('scroll', function(){ if (!tick) { tick = true; requestAnimationFrame(onScroll); } }, { passive: true });
+  onScroll();
+})();
+</script>
+</body>
+</html>

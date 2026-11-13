@@ -1,0 +1,254 @@
+{
+ "out": "trades/auto/index.html",
+ "img": "img/trades/auto",
+ "sample": true,
+ "title": "Kestrel Auto Care | Sample Trade Website",
+ "description": "A sample website for a local auto repair and detailing shop: before and after, services, reviews and an appointment request. A concept by Tava Valenti.",
+ "sample_notice": "This is a sample website for a made-up auto repair and detailing shop, to show what a local business site can look like. Photos are AI-generated placeholders.",
+ "name": "Kestrel Auto Care",
+ "brand": [
+  "Kestrel",
+  "Auto Care"
+ ],
+ "logo_svg": "<path d=\"M25.5 11.5a6 6 0 0 0-7.6 7.6l-7.4 7.4a2 2 0 0 0 2.9 2.9l7.4-7.4a6 6 0 0 0 7.6-7.6l-3.6 3.6-2.9-2.9z\" fill=\"none\" stroke=\"#FAFAF9\" stroke-width=\"2.2\" stroke-linejoin=\"round\"/>",
+ "phone": "(760) 555-0194",
+ "hours": "Mon to Fri 8 to 6, Sat 8 to 2",
+ "city": "Oceanside, CA",
+ "license": "BAR auto repair license # shown here",
+ "palette": {
+  "sand": "#EFEFED",
+  "paper": "#FAFAF9",
+  "clay": "#DFDFDB",
+  "ink": "#16191D",
+  "mut": "#5D636B",
+  "line": "rgba(22,25,29,.13)",
+  "acc": "#2C3138",
+  "acc2": "#6B7480",
+  "acc-d": "#1E2227",
+  "acc-a": "rgba(44,49,56,.2)",
+  "acc-sh": "rgba(20,22,26,.28)",
+  "hi": "#D9442B",
+  "hi-d": "#C23A23",
+  "hi-ink": "#FFFFFF",
+  "glow": "#F59A7E",
+  "deep": "#101215",
+  "deep-eye": "#A0A7B1",
+  "deep-mut": "#AEB4BC",
+  "deep-tx": "#E8EAED",
+  "hero-bg": "#3A3F46",
+  "hero-tx": "#EDEFF1",
+  "shade": "10,12,15",
+  "shade2": "16,18,22",
+  "sand-rgb": "239,239,237",
+  "ink-rgb": "22,25,29"
+ },
+ "nav": [
+  [
+   "work",
+   "Before & after"
+  ],
+  [
+   "services",
+   "Services"
+  ],
+  [
+   "reviews",
+   "Reviews"
+  ],
+  [
+   "about",
+   "About"
+  ]
+ ],
+ "hero": {
+  "size": [
+   4096,
+   2294
+  ],
+  "alt": "A freshly detailed dark gray SUV in a clean auto shop bay at dusk",
+  "h1": "Honest repairs. *A car that shines.*",
+  "sub": "Brakes, maintenance and diagnostics, plus full detailing, from a family-owned shop in Oceanside. Straight answers and a price before we touch your car.",
+  "cta": "Book an appointment",
+  "position": "50% 60%"
+ },
+ "trust": [
+  {
+   "text": "Certified technicians"
+  },
+  {
+   "text": "Price before any work"
+  },
+  {
+   "icon": "star",
+   "text": "4.9 from 200+ reviews"
+  }
+ ],
+ "before_after": {
+  "eyebrow": "Before & after",
+  "h2": "Same car. *Showroom shine.*",
+  "text": "A sedan with dull paint, brake dust and foggy headlights, after a full exterior detail and headlight restoration. Drag the line to compare.",
+  "aria": "Before and after of a blue sedan: dusty, spotted paint and cloudy headlights on the left, glossy paint and clear headlights on the right. Drag to compare.",
+  "cap_title": "Full exterior detail",
+  "cap_detail": "plus headlight restoration",
+  "cap_right": "Done in one day"
+ },
+ "services_head": {
+  "eyebrow": "What we do",
+  "h2": "Under the hood *and out front.*",
+  "text": "One shop for the repairs that keep you safe and the detailing that makes the car feel new again."
+ },
+ "services": [
+  {
+   "img": "brakes",
+   "alt": "A mechanic replacing a brake rotor and caliper",
+   "title": "Brakes & suspension",
+   "text": "Pads, rotors, shocks and alignments, with the old parts shown to you."
+  },
+  {
+   "img": "engine",
+   "alt": "A mechanic checking an engine with a work light",
+   "title": "Diagnostics & maintenance",
+   "text": "Check-engine lights, oil changes and scheduled service, explained in plain words."
+  },
+  {
+   "img": "after",
+   "alt": "A freshly detailed blue sedan",
+   "title": "Full detail",
+   "text": "Wash, clay, polish and protect, so the paint looks deep and stays clean longer."
+  },
+  {
+   "img": "interior",
+   "alt": "A spotless car interior with clean leather seats",
+   "title": "Interior detailing",
+   "text": "Seats, carpets and dash deep cleaned, stains lifted and smells gone."
+  },
+  {
+   "img": "wash",
+   "alt": "A car covered in foam during a hand wash",
+   "title": "Hand wash & paint care",
+   "text": "Gentle hand washes and wax or ceramic protection for daily drivers."
+  },
+  {
+   "img": "headlight",
+   "alt": "A headlight half cloudy and half restored",
+   "title": "Headlight restoration",
+   "text": "Cloudy, yellow headlights made clear again, so you can see and be seen at night."
+  }
+ ],
+ "steps": {
+  "h2": "Simple from *the first call.*",
+  "text": "No upselling and no surprise charges. We call you before doing anything that wasn't on the estimate.",
+  "items": [
+   {
+    "title": "Call or book online",
+    "text": "Tell us what the car is doing, or what you'd like cleaned up. We'll find a time that works."
+   },
+   {
+    "title": "Inspection & written price",
+    "text": "We check it over, show you what we found, and give you a price before any work starts."
+   },
+   {
+    "title": "Fixed, cleaned and ready",
+    "text": "We text you when it's ready and walk you through what we did."
+   }
+  ]
+ },
+ "gallery_h2": "Recent *work.*",
+ "gallery": [
+  {
+   "img": "hero",
+   "alt": "Detailed SUV in the shop at dusk",
+   "caption": "Full detail, SUV"
+  },
+  {
+   "img": "interior",
+   "alt": "Clean car interior",
+   "caption": "Interior detail"
+  },
+  {
+   "img": "wash",
+   "alt": "Foam hand wash",
+   "caption": "Hand wash"
+  },
+  {
+   "img": "brakes",
+   "alt": "New brake rotor",
+   "caption": "Brake job"
+  },
+  {
+   "img": "headlight",
+   "alt": "Headlight restoration",
+   "caption": "Headlights"
+  }
+ ],
+ "reviews": {
+  "h2": "What drivers *say.*",
+  "score": "4.9",
+  "count": "from 200+ reviews (sample)",
+  "items": [
+   {
+    "quote": "They showed me the worn brake pads and the price was exactly what they quoted. No pressure to add anything.",
+    "name": "Gary H.",
+    "detail": "Brakes, Oceanside"
+   },
+   {
+    "quote": "My car is eight years old and it looks better than when I bought it. The headlights alone were worth it.",
+    "name": "Maria S.",
+    "detail": "Full detail, Carlsbad"
+   },
+   {
+    "quote": "Honest shop. They told me a repair could wait six months instead of selling it to me today.",
+    "name": "Tom R.",
+    "detail": "Diagnostics, Vista"
+   }
+  ]
+ },
+ "about": {
+  "img": "brakes",
+  "alt": "A mechanic's hands fitting a new brake caliper",
+  "h2": "Family owned, *straight answers.*",
+  "text": "Kestrel is a small family-owned shop in Oceanside. The same people who answer the phone work on your car, and we'll always explain what it needs and what can wait.",
+  "facts": [
+   {
+    "value": "15",
+    "label": "years in Oceanside"
+   },
+   {
+    "value": "12 mo",
+    "label": "parts & labor warranty"
+   },
+   {
+    "value": "Same day",
+    "label": "most repairs and details"
+   }
+  ],
+  "towns": [
+   "Oceanside",
+   "Carlsbad",
+   "Vista",
+   "San Marcos",
+   "Camp Pendleton",
+   "Encinitas"
+  ]
+ },
+ "estimate": {
+  "eyebrow": "Book an appointment",
+  "h2": "Tell us about *your car.*",
+  "text": "Send a few details and we'll call or text you back within one business day with a time.",
+  "select_label": "What do you need?",
+  "options": [
+   "Brakes",
+   "Check-engine light",
+   "Oil change or maintenance",
+   "Full detail",
+   "Interior detail",
+   "Headlight restoration",
+   "Something else"
+  ],
+  "placeholder": "Year, make and model, and what it's doing (noises, warning lights)...",
+  "button": "Request an appointment",
+  "short": "Book"
+ },
+ "footer_desc": "Auto repair, maintenance and detailing in Oceanside and North County San Diego.",
+ "footer_note": "Sample site. Kestrel Auto Care is a made-up business; reviews and numbers are examples."
+}
