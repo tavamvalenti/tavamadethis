@@ -916,13 +916,13 @@ var re=document.querySelector('#realestate > .wrap > button');function fit(){b.s
         <div class="cap" aria-live="polite"><b id="tourt">Today</b><span id="tourd">One screen for the company: audience, spend, what needs my approval, and the videos waiting for review.</span></div>
       </div>
       </div>
-      <aside class="g3" id="g3" aria-label="Interactive 3D chart of views in the first week, by platform">
+      <aside class="g3" id="g3" aria-label="Interactive 3D chart of daily views by platform, Nov 6 to 12">
         <img class="g3bg" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="img/g3-studio.webp" alt="" aria-hidden="true" width="720" height="956" decoding="async">
-        <div class="g3h"><div><span class="g3k">Views &middot; first week</span><b class="g3n" id="g3n">22.9K</b></div>
+        <div class="g3h"><div><span class="g3k">Views &middot; all time</span><b class="g3n" id="g3n">25.3K</b></div>
           <div class="g3seg" role="group" aria-label="Chart mode"><button type="button" aria-pressed="true" data-m="0">Daily</button><button type="button" aria-pressed="false" data-m="1">Running total</button></div></div>
         <div class="g3stage" id="g3stage"><canvas aria-hidden="true"></canvas><div class="g3tip" id="g3tip" role="status" aria-live="polite"></div><span class="g3drag" aria-hidden="true">Drag to orbit</span></div>
-        <div class="g3leg" role="group" aria-label="Platforms"><button type="button" aria-pressed="true" data-p="0" style="--c:#25F4EE;--c2:#FE2C55"><i></i>TikTok<em>5,763</em></button><button type="button" aria-pressed="true" data-p="1" style="--c:#FF0033"><i></i>YouTube<em>9,912</em></button><button type="button" aria-pressed="true" data-p="2" style="--c:#E1306C;--c3:linear-gradient(45deg,#FEDA75,#F58529,#DD2A7B,#8134AF)"><i></i>Instagram<em>7,200</em></button></div>
-        <p class="g3f">A 3D sketch of the analytics, not a live feed. Daily split is illustrative; platform totals match the app.</p>
+        <div class="g3leg" role="group" aria-label="Platforms"><button type="button" aria-pressed="true" data-p="0" style="--c:#25F4EE;--c2:#FE2C55"><i></i>TikTok<em>5,908</em></button><button type="button" aria-pressed="true" data-p="1" style="--c:#FF0033"><i></i>YouTube<em>11,972</em></button><button type="button" aria-pressed="true" data-p="2" style="--c:#E1306C;--c3:linear-gradient(45deg,#FEDA75,#F58529,#DD2A7B,#8134AF)"><i></i>Instagram<em>7,376</em></button></div>
+        <p class="g3f">From each platform’s own numbers, all channels added up, as of Nov 13, 2026. Bars show daily views from Nov 6 to 12.</p>
       </aside>
       </div>
       <ul class="hl"><li>Budgets, permissions and a kill switch enforced in code</li><li>Videos rendered automatically and posted to 3 platforms</li><li>Private control app for Mac and iPhone</li></ul>
@@ -1324,21 +1324,13 @@ var re=document.querySelector('#realestate > .wrap > button');function fit(){b.s
     stage.addEventListener('pointerleave', function(e){ if (e.pointerType === 'mouse'){ mx = my = -1; } });
     function pos(e){ var r = stage.getBoundingClientRect(); mx = e.clientX - r.left; my = e.clientY - r.top; }
 
-    // Live numbers: The Collective's HQ app sends fresh totals to /api/stats every 30 minutes (numbers only, no accounts).
-    // If that fails or has nothing yet, the chart keeps the numbers written above.
-    function ago(t){ var m = Math.max(1, Math.round((Date.now() - t) / 60000)); return m < 60 ? m + ' min ago' : m < 1440 ? Math.round(m / 60) + ' h ago' : Math.round(m / 1440) + ' d ago'; }
-    if (window.fetch) fetch('/api/stats', { cache: 'no-cache' }).then(function(r){ return r.ok ? r.json() : null; }).then(function(d){
-      if (!d || !d.platforms || !d.days) return;
-      var keys = ['tiktok','youtube','instagram'], ok = keys.every(function(k){ var x = d.platforms[k]; return x && x.daily && x.daily.length === 7 && x.cum && x.cum.length === 7; });
-      if (!ok) return;
+    // Real numbers from The Collective's HQ app (all channels added up), copied in by hand. Last updated Nov 13, 2026.
+    (function(d){
+      var keys = ['tiktok','youtube','instagram'];
       TOT = keys.map(function(k){ return d.platforms[k].total; }); DAILY = keys.map(function(k){ return d.platforms[k].daily; }); CUM = keys.map(function(k){ return d.platforms[k].cum; }); scale();
       var dt = d.days.map(function(x){ return new Date(x + 'T12:00:00'); });
       LBL = dt.map(function(x){ return x.toLocaleDateString('en-US', { weekday: 'short' }); }); TIPD = dt.map(function(x){ return x.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }); });
-      legs.forEach(function(b, p){ var em = b.querySelector('em'); if (em) em.textContent = TOT[p].toLocaleString('en-US'); });
-      var k = box.querySelector('.g3k'); if (k) k.textContent = 'Views \u00b7 all time';
-      var f = box.querySelector('.g3f'); if (f) f.textContent = 'Live from each platform, updated ' + ago(Date.parse(d.updated)) + '. Bars show the last 7 days.' + (d.reach && d.reach.followers ? ' Across all the channels I run: ' + d.reach.followers.toLocaleString('en-US') + ' followers.' : '');
-      bars.forEach(function(x){ x.v += (Math.random() - .5) * .4; }); if (hover) showTip();
-    }).catch(function(){});
+    })({"days":["2026-11-06","2026-11-07","2026-11-08","2026-11-09","2026-11-10","2026-11-11","2026-11-12"],"platforms":{"tiktok":{"total":5908,"daily":[1286,1784,155,248,86,108,37],"cum":[3490,5274,5429,5677,5763,5871,5908]},"youtube":{"total":11972,"daily":[2517,1464,279,150,2239,710,1347],"cum":[5783,7247,7526,7676,9915,10625,11972]},"instagram":{"total":7376,"daily":[2013,14,3,114,2062,1,174],"cum":[5008,5022,5025,5139,7201,7202,7376]}}});
     segs.forEach(function(b){ b.addEventListener('click', function(){ mode = +b.dataset.m; segs.forEach(function(s){ s.setAttribute('aria-pressed', s === b ? 'true' : 'false'); }); bars.forEach(function(x){ x.v += (Math.random() - .5) * .6; }); if (hover) showTip(); }); });
     legs.forEach(function(b){ b.addEventListener('click', function(){ var p = +b.dataset.p; if (on[p] && on.filter(Boolean).length === 1) return; on[p] = !on[p]; b.setAttribute('aria-pressed', on[p] ? 'true' : 'false'); });
       b.addEventListener('pointerenter', function(){ if (on[+b.dataset.p]) { legHover = bars.filter(function(x){ return x.p === +b.dataset.p; })[6]; } });
