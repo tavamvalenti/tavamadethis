@@ -1494,10 +1494,10 @@ a,button,input,[role=tab]{touch-action:manipulation;-webkit-tap-highlight-color:
 <script>
 /* Hero: keep the name clear of the tagline whatever its height */
 (function(){var h=document.querySelector('.hero'),f=h&&h.querySelector('.foot');if(!f)return;function u(){h.style.setProperty('--fh',f.offsetHeight+'px');}u();addEventListener('resize',u);if(document.fonts)document.fonts.ready.then(u);})();
-/* Contact form: saved to a locked Supabase inbox (submit_inquiry); mail links stay as the fallback. */
+/* Contact form: saved to a locked Supabase inbox (submit_inquiry) and emailed via Web3Forms; mail links stay as the fallback. */
 (function(){
   var f=document.getElementById('cform'),start=document.getElementById('startp');if(!f||!start)return;
-  var st=f.querySelector('.st'),MAIL='tavamvalenti@gmail.com',KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFmbXZuY3RsYnRob3BkbXV1YXh0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE1MDg0MTIsImV4cCI6MjEwNzA4NDQxMn0.Tg6dbqrHbQPTXYMFYT8NI0ibytFnDdistMnpLJKKnWw';/* public anon key: it can only call submit_inquiry */
+  var st=f.querySelector('.st'),MAIL='tavamvalenti@gmail.com',KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFmbXZuY3RsYnRob3BkbXV1YXh0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE1MDg0MTIsImV4cCI6MjEwNzA4NDQxMn0.Tg6dbqrHbQPTXYMFYT8NI0ibytFnDdistMnpLJKKnWw',/* public anon key: it can only call submit_inquiry */W3F='ee7a028a-35ef-41c1-8d58-b6b87f0af105';/* Web3Forms public access key: emails each message to Tava */
   var map={'Website project':'Business website','Property listing site':'Property listing site','Website redesign':'Website redesign','Video project':'Video (with Vylos Media)'};
   function open(type,focus){
     f.hidden=false;start.style.display='none';
@@ -1523,13 +1523,17 @@ a,button,input,[role=tab]{touch-action:manipulation;-webkit-tap-highlight-color:
     if(d.message.length<5){st.textContent='Add a few words about the project.';el.message.focus();return;}
     var btn=f.querySelector('button');btn.disabled=true;st.textContent='Sending\u2026';
     var ctl=window.AbortController?new AbortController():null,t=setTimeout(function(){ctl&&ctl.abort();},12000);
-    fetch('https://qfmvnctlbthopdmuuaxt.supabase.co/rest/v1/rpc/submit_inquiry',{method:'POST',signal:ctl&&ctl.signal,
+    var subj=d.type+' inquiry (via tavamadethis.com)';
+    var db=fetch('https://qfmvnctlbthopdmuuaxt.supabase.co/rest/v1/rpc/submit_inquiry',{method:'POST',signal:ctl&&ctl.signal,
       headers:{'Content-Type':'application/json','apikey':KEY,'Authorization':'Bearer '+KEY},
       body:JSON.stringify({p_type:d.type,p_budget:d.budget,p_email:d.email,p_website:d.website,p_message:d.message,p_page:location.pathname+location.hash})})
-    .then(function(r){clearTimeout(t);btn.disabled=false;
-      if(r.ok){f.reset();st.textContent='Thanks, it\u2019s sent. I\u2019ll reply within one business day.';}
-      else fallback(d,'That didn\u2019t go through.');})
-    .catch(function(){clearTimeout(t);btn.disabled=false;fallback(d,'That didn\u2019t go through.');});
+      .then(function(r){return r.ok;},function(){return false;});
+    var mail=fetch('https://api.web3forms.com/submit',{method:'POST',signal:ctl&&ctl.signal,headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify({access_key:W3F,subject:subj,from_name:'tavamadethis.com',replyto:d.email,email:d.email,'Project type':d.type,Budget:d.budget||'Not sure yet',Website:d.website||'-',message:d.message})})
+      .then(function(r){return r.json();}).then(function(j){return !!(j&&j.success);},function(){return false;});
+    Promise.all([db,mail]).then(function(ok){clearTimeout(t);btn.disabled=false;
+      if(ok[0]||ok[1]){f.reset();st.textContent='Thanks, it\u2019s sent. I\u2019ll reply within one business day.';}
+      else fallback(d,'That didn\u2019t go through.');});
   });
 })();
 </script>
