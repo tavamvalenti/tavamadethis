@@ -530,7 +530,6 @@ img[data-src].ld{opacity:1;transition:opacity .6s ease}
 @keyframes imgin{from{opacity:0}to{opacity:1}}
 .tour .stage img{transition:opacity .22s ease}
 .tour .stage img.sw{opacity:0}
-.panel{will-change:grid-template-rows}
 /* ---------- iPhone polish ---------- */
 @media(max-width:700px){.contact{min-height:clamp(430px,60svh,560px)}.hero .tag small,.row .badge{font-size:12px}}
 @media(pointer:coarse){.hot::after{content:"";position:absolute;inset:-14px}}
@@ -547,7 +546,19 @@ html.depth .hero .name{translate:calc(var(--mx,0)*7px) calc(var(--py,0px) + var(
 html.depth .hero .sigpos{translate:calc(var(--mx,0)*16px) calc(var(--py,0px) + var(--my,0)*10px)}
 html.depth .contact .poster{scale:1.2;translate:0 var(--dy,0px);will-change:translate}
 html.depth .about .me,html.depth .work-intro h2,html.depth .about h2,html.depth .contact h2{translate:0 var(--dy,0px);will-change:translate}
-html.smooth{scroll-behavior:auto}
+/* scroll-linked depth runs on the compositor (scroll-driven animations), so it can never lag behind the scroll */
+@supports (animation-timeline: scroll()){
+  .prog{animation:progx linear both;animation-timeline:scroll(root)}
+  html.depth .hero .name,html.depth .hero .sigpos{animation:pyhero linear both;animation-timeline:scroll(root);animation-range:0 425px}
+  html.depth .work-intro,html.depth .about,html.depth .contact{view-timeline:--sec block}
+  html.depth .about .me,html.depth .work-intro h2,html.depth .about h2,html.depth .contact h2{animation:dyk linear both;animation-timeline:--sec}
+  html.depth .contact .poster{animation:imgin .9s ease both,dyk linear both;animation-timeline:auto,--sec}
+}
+@keyframes progx{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes pyhero{from{transform:none}to{transform:translate3d(0,34px,0)}}
+@keyframes dyk{from{translate:0 calc(var(--k,0)*var(--a,0px))}to{translate:0 calc(var(--k,0)*var(--a,0px)*-1)}}
+/* looping effects inside a closed or off-screen project stop, so nothing repaints out of sight */
+.row:not(.open) .panel *,.row.off *{animation-play-state:paused!important}
 /* ---------- phones and touch ---------- */
 a,button,input,[role=tab]{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 @media(hover:none){.row > .wrap > button:hover .title{transform:none}}
@@ -942,10 +953,12 @@ a,button,input,[role=tab]{touch-action:manipulation;-webkit-tap-highlight-color:
   (function(){var n=0;document.querySelectorAll('.sig').forEach(function(el){n++;var m='sgm'+n,defs='',g='';SG.forEach(function(s,i){defs+='<mask id="'+m+'_'+i+'" maskUnits="userSpaceOnUse" x="0" y="0" width="2304" height="984"><path class="st" pathLength="1" d="'+s[1]+'" style="stroke-width:'+s[0]+';--d:'+s[2]+'s;--l:'+s[3]+'s"/></mask>';g+='<g mask="url(#'+m+'_'+i+')"><use href="#sgp'+i+'"/></g>'});el.innerHTML='<svg viewBox="0 0 2304 984" aria-hidden="true" fill="currentColor"><defs>'+defs+'</defs>'+g+'</svg>';el.classList.add('live')})})();
   /* smoothness: scroll progress, hero depth, reveals, live frame rate */
   (function(){
-    var prog=document.getElementById('prog'),hero=document.querySelector('.hero'),rm=matchMedia('(prefers-reduced-motion: reduce)').matches,par=!rm&&matchMedia('(hover:hover) and (pointer:fine)').matches&&innerWidth>900,tick=false;
+    var prog=document.getElementById('prog'),hero=document.querySelector('.hero'),rm=matchMedia('(prefers-reduced-motion: reduce)').matches,par=!rm&&matchMedia('(hover:hover) and (pointer:fine)').matches&&innerWidth>900,tick=false,sdt=window.CSS&&CSS.supports&&CSS.supports('animation-timeline: scroll()');
+    if(!sdt){
     function upd(){tick=false;var y=window.pageYOffset,mx=document.documentElement.scrollHeight-innerHeight;prog.style.transform='scaleX('+(mx>0?Math.min(1,y/mx):0)+')';
       if(par&&hero){hero.style.setProperty('--py',Math.min(y*.08,34).toFixed(1)+'px')}}
     addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(upd)}},{passive:true});addEventListener('resize',upd);upd();
+    }
     var rv=document.querySelectorAll('.about .col > *,.contact h2,.contact .actions');rv.forEach(function(el,i){el.classList.add('rv');el.style.setProperty('--rd',(i%4)*.08+'s')});
     if('IntersectionObserver' in window){var ro=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');ro.unobserve(e.target)}})},{threshold:.15});rv.forEach(function(el){ro.observe(el)})}else{rv.forEach(function(el){el.classList.add('in')})}
   })();
@@ -954,24 +967,18 @@ a,button,input,[role=tab]{touch-action:manipulation;-webkit-tap-highlight-color:
     if(matchMedia('(prefers-reduced-motion: reduce)').matches||!matchMedia('(hover:hover) and (pointer:fine)').matches||innerWidth<=900)return;
     var root=document.documentElement,hero=document.querySelector('.hero');root.classList.add('depth');
     var items=[['.about .me',-.07],['.work-intro h2',.05],['.about h2',.04],['.contact h2',.05],['.contact .poster',.07]].map(function(p){var el=document.querySelector(p[0]);return el?{el:el,k:p[1],sec:el.closest('section,header')||el}:null}).filter(Boolean);
+    var sdt=window.CSS&&CSS.supports&&CSS.supports('animation-timeline: scroll()');
+    /* amplitude for the CSS scroll animation: the same depth as before, measured once per resize, not per frame */
+    function amp(){var vh=innerHeight;items.forEach(function(it){it.el.style.setProperty('--k',it.k);it.el.style.setProperty('--a',((vh+it.sec.offsetHeight)/2).toFixed(0)+'px')})}
+    if(sdt){amp();addEventListener('resize',amp)}else{
     var tk=false;
-    function layers(){tk=false;var vh=innerHeight;items.forEach(function(it){var r=it.sec.getBoundingClientRect();if(r.bottom<-200||r.top>vh+200)return;var d=((r.top+r.height/2)-vh/2)*it.k;it.el.style.setProperty('--dy',d.toFixed(1)+'px')})}
-    addEventListener('scroll',function(){if(!tk){tk=true;requestAnimationFrame(layers)}},{passive:true});layers();
+    /* fallback for browsers without scroll-driven animations: read every position first, then write, so the page is laid out once per frame */
+    function layers(){tk=false;var vh=innerHeight,ds=items.map(function(it){var r=it.sec.getBoundingClientRect();return(r.bottom<-200||r.top>vh+200)?null:((r.top+r.height/2)-vh/2)*it.k});items.forEach(function(it,i){if(ds[i]!==null)it.el.style.setProperty('--dy',ds[i].toFixed(1)+'px')})}
+    addEventListener('scroll',function(){if(!tk){tk=true;requestAnimationFrame(layers)}},{passive:true});layers();}
     var mx=0,my=0,cx=0,cy=0,run=false;
     function ptr(){cx+=(mx-cx)*.08;cy+=(my-cy)*.08;hero.style.setProperty('--mx',cx.toFixed(3));hero.style.setProperty('--my',cy.toFixed(3));if(Math.abs(mx-cx)>.001||Math.abs(my-cy)>.001)requestAnimationFrame(ptr);else run=false}
     hero.addEventListener('pointermove',function(e){var r=hero.getBoundingClientRect();mx=(e.clientX-r.left)/r.width*2-1;my=(e.clientY-r.top)/r.height*2-1;if(!run){run=true;requestAnimationFrame(ptr)}},{passive:true});
     hero.addEventListener('pointerleave',function(){mx=0;my=0;if(!run){run=true;requestAnimationFrame(ptr)}});
-    /* eased wheel scrolling */
-    root.classList.add('smooth');
-    var cur=scrollY,tgt=scrollY,going=false,last=0;
-    function max(){return root.scrollHeight-innerHeight}
-    function step(t){var dt=Math.min(50,t-(last||t));last=t;var k=1-Math.exp(-dt/110);cur+=(tgt-cur)*k;if(Math.abs(tgt-cur)<.4){cur=tgt;going=false;last=0}scrollTo({top:cur,behavior:'instant'});if(going)requestAnimationFrame(step)}
-    function go(){if(!going){going=true;last=0;requestAnimationFrame(step)}}
-    function inner(el,dy){while(el&&el!==document.body&&el!==root){var cs=getComputedStyle(el);if(/(auto|scroll)/.test(cs.overflowY)&&el.scrollHeight>el.clientHeight+1){if((dy<0&&el.scrollTop>0)||(dy>0&&el.scrollTop<el.scrollHeight-el.clientHeight-1))return true}el=el.parentElement}return false}
-    addEventListener('wheel',function(e){if(e.ctrlKey||e.defaultPrevented||Math.abs(e.deltaX)>Math.abs(e.deltaY))return;if(inner(e.target,e.deltaY))return;
-      var dy=e.deltaMode===1?e.deltaY*32:e.deltaMode===2?e.deltaY*innerHeight:e.deltaY;e.preventDefault();if(!going){cur=tgt=scrollY}tgt=Math.max(0,Math.min(max(),tgt+dy));go()},{passive:false});
-    addEventListener('scroll',function(){if(Math.abs(scrollY-cur)<2)return;if(!going){cur=tgt=scrollY}},{passive:true});
-    document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a||e.defaultPrevented||e.metaKey||e.ctrlKey||e.shiftKey)return;var id=a.getAttribute('href').slice(1);var el=id?document.getElementById(id):document.body;if(!el)return;e.preventDefault();if(!going){cur=scrollY}tgt=Math.max(0,Math.min(max(),id?el.getBoundingClientRect().top+scrollY:0));go();history.replaceState(null,'',id?'#'+id:location.pathname)});
   })();
   var sigs=document.querySelectorAll('.sigwrap');
   if('IntersectionObserver' in window){var so=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');so.unobserve(e.target)}})},{threshold:.6});sigs.forEach(function(el){so.observe(el)})}else{sigs.forEach(function(el){el.classList.add('in')})}
@@ -982,8 +989,14 @@ a,button,input,[role=tab]{touch-action:manipulation;-webkit-tap-highlight-color:
 
   // rubber-band overscroll shows a colour that matches the end of the page you are near, so there is never a white gap
   var rootEl = document.documentElement;
-  function edge(){ var nearEnd = scrollY + innerHeight / 2 > rootEl.scrollHeight / 2; rootEl.style.backgroundColor = nearEnd ? '#0b0e13' : '#8b857a'; }
-  addEventListener('scroll', edge, { passive: true }); addEventListener('resize', edge); edge();
+  var edgeC = '', edgeT = false, docH = rootEl.scrollHeight;
+  function edge(){ edgeT = false; var c = scrollY + innerHeight / 2 > docH / 2 ? '#0b0e13' : '#8b857a'; if (c !== edgeC){ edgeC = c; rootEl.style.backgroundColor = c; } }
+  addEventListener('scroll', function(){ if (!edgeT){ edgeT = true; requestAnimationFrame(edge); } }, { passive: true });
+  addEventListener('resize', function(){ docH = rootEl.scrollHeight; edge(); });
+  if ('ResizeObserver' in window) new ResizeObserver(function(){ docH = rootEl.scrollHeight; }).observe(document.body);
+  edge();
+  // pause looping effects in projects that are off screen
+  if ('IntersectionObserver' in window){ var offo = new IntersectionObserver(function(es){ es.forEach(function(e){ e.target.classList.toggle('off', !e.isIntersecting); }); }); document.querySelectorAll('.row').forEach(function(r){ offo.observe(r); }); }
 
   // Row images and the Collective screens load as a row is approached or opened, so the first visit stays light
   function warm(row){
