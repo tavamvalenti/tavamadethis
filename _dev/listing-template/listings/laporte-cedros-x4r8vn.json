@@ -1,0 +1,26 @@
+{
+  "slug": "laporte-cedros-x4r8vn",
+  "src_dir": "/mnt/project-files/samples/laporte-cedros/src",
+  "street": "2747 Caminito Cedros",
+  "city_state": "Del Mar, California 92014",
+  "status": "Active listing",
+  "price": 1386000,
+  "beds": 3,
+  "baths": 3,
+  "sqft": 1472,
+  "year": 1973,
+  "mls": "260013141",
+  "agent": "Carla Laporte",
+  "brokerage": "Pacific Shore Properties",
+  "headline_html": "A bright, remodeled home with a <em>fireplace living room</em> and a private patio.",
+  "description": "Built in 1973 and refreshed throughout, this Del Mar home pairs a fireplace living room and a remodeled kitchen with a private patio for easy California evenings. One clean link a buyer can open from a text, an email or an Instagram bio.",
+  "highlights": ["Remodeled kitchen", "Fireplace living room", "Private patio", "Home office", "Attached garage", "Del Mar location"],
+  "gallery": [
+    {"file": "g1.jpg", "alt": "Living room with fireplace", "crop": "1200:800:0:0"},
+    {"file": "g2.jpg", "alt": "Kitchen", "crop": "1200:800:0:0"},
+    {"file": "g3.jpg", "alt": "Bedroom", "crop": "1200:800:0:0"},
+    {"file": "g4.jpg", "alt": "Patio", "crop": "1200:800:0:0"}
+  ],
+  "hero": "hero.png",
+  "night": "night.png"
+}
