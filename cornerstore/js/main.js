@@ -99,9 +99,9 @@ function confirmReset() { const b = $('newgame'); if (b.dataset.sure) return tru
 
 let started = false;
 $('continue').onclick = async () => {
+  renderer.domElement.requestPointerLock?.();   // first, while the click still counts as a user gesture
   await audio.start();
   start.classList.remove('show'); $('hud').classList.add('show');
-  renderer.domElement.requestPointerLock?.();
   if (!started) { started = true; game.startNight(); }
   else game.paused = false;
 };
