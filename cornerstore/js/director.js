@@ -15,14 +15,12 @@ export class Director {
     this.chatT = 8; this.paused = false; this.closing = false;
     this.elapsed = 0; this.ruckusT = 55;
   }
-  resetNight() { this.ruckusT = 45 + Math.random() * 30; this.played.clear(); this.queue = []; this.spawnT = 3; this.dangerCool = 170; this.chaosCool = 40; this.tension = 0; this.closing = false; this.elapsed = 0; }
+  resetNight() { this.ruckusT = 45 + Math.random() * 30; this.played.clear(); this.queue = []; this.spawnT = 0.5; this.dangerCool = 170; this.chaosCool = 40; this.tension = 0; this.closing = false; this.elapsed = 0; }
 
   get inside() { return this.game.npcs.filter(n => !n.gone && n.alive && n.pos.z < 6.2).length; }
 
   targetCrowd() {
-    const pr = this.game.world.progress;             // 0..1 over the night
-    const curve = pr < 0.15 ? 3 : pr < 0.5 ? 4 : pr < 0.75 ? 3 : 2;  // busy after midnight, thinner at 4 AM
-    return curve + (this.tension < 0.3 ? 1 : 0);
+    return this.crowd ?? 3;                           // set by the job
   }
 
   update(dt) {
@@ -33,8 +31,8 @@ export class Director {
       this.spawnT -= dt;
       const live = this.game.npcs.filter(n => !n.gone).length;
       if (this.spawnT < 0) {
-        if (this.inside < this.targetCrowd() && live < 7) this.spawnNext();
-        this.spawnT = 6 + Math.random() * 10 + this.tension * 10;
+        if (this.inside < this.targetCrowd() && live < 7 && !this.game.heist.hot) this.spawnNext();
+        this.spawnT = 5 + Math.random() * 8;
       }
     }
     // counter queue: first in line steps up
@@ -56,7 +54,6 @@ export class Director {
         if (first.waitT > 45) { first.say('This store be trippin.'); g.world.addRespect(-1); first.encounter = null; first.leave(); }
       }
     }
-    this.ruckusUpdate(dt);
     // idle chatter between people near each other
     this.chatT -= dt;
     if (this.chatT < 0) {
@@ -178,17 +175,8 @@ export class Director {
   }
 
   spawnNext() {
-    const g = this.game;
-    // about 45% plain customers (with their own small stories), the rest scripted encounters
-    const enc = Math.random() < 0.55 ? this.pickEncounter() : null;
-    if (!enc) {
-      const kind = pick(CUSTOMER_KINDS);
-      g.spawn({ kind: kind.kind, name: kind.name(), look: kind.look?.(), voice: kind.voice, height: kind.height?.(), drunk: kind.drunk && Math.random() < 0.6 });
-      return;
-    }
-    this.played.add(enc.id); this.recent.push(enc.id); if (this.recent.length > 6) this.recent.shift();
-    if (enc.cat === 'danger') { this.dangerCool = 160 + Math.random() * 120; this.tension = 1; }
-    if (enc.cat === 'chaos') { this.chaosCool = 50 + Math.random() * 40; this.tension = Math.max(this.tension, 0.6); }
-    g.spawnEncounter(enc);
+    // shoppers who have no idea what is about to happen
+    const kind = pick(CUSTOMER_KINDS);
+    this.game.spawn({ kind: kind.kind, name: kind.name(), look: kind.look?.(), voice: kind.voice, height: kind.height?.(), drunk: kind.drunk && Math.random() < 0.6, leaveAfterBrowse: true });
   }
 }

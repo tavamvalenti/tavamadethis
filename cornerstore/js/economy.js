@@ -1,6 +1,6 @@
 // Money and the persistent world: the owner's cut, your stash, debt, reputation, regulars and the night log.
 // Nothing ends the game. Bad nights turn into debt, chores and a reputation you have to live with.
-const KEY = 'cornerstore.save.v1';
+const KEY = 'cornerstore.save.v2';
 export const NIGHT_START = 23 * 60, NIGHT_LEN = 7 * 60;   // 11 PM to 6 AM, in game minutes
 export const REAL_SECONDS = 30 * 60;                       // one night = 30 real minutes
 
@@ -17,13 +17,16 @@ export class World {
     this.memory = d.memory ?? {};         // regulars: id -> { met, mood, flags }
     this.flags = d.flags ?? {};           // story flags across nights
     this.bets = d.bets ?? [];             // numbers slips due tonight
+    this.jobs = d.jobs ?? 0;              // jobs pulled off
+    this.heatLvl = d.heatLvl ?? 0;        // 0..5: how hard the police are looking for you
+    this.gear = d.gear ?? {};             // what you have bought
     this.stats = d.stats ?? { nights: 0, earned: 0, robbed: 0, shot: 0, arrests: 0, deaths: 0 };
     this.startNight();
   }
   load() { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; } }
   save() {
     try {
-      localStorage.setItem(KEY, JSON.stringify({ night: this.night, stash: this.stash, debt: this.debt, respect: this.respect, marked: this.marked, weed: this.weed, fenced: this.fenced, memory: this.memory, flags: this.flags, bets: this.bets, stats: this.stats }));
+      localStorage.setItem(KEY, JSON.stringify({ night: this.night, stash: this.stash, debt: this.debt, respect: this.respect, marked: this.marked, weed: this.weed, fenced: this.fenced, memory: this.memory, flags: this.flags, bets: this.bets, stats: this.stats, jobs: this.jobs, heatLvl: this.heatLvl, gear: this.gear }));
     } catch (e) { /* private mode */ }
   }
   reset() { try { localStorage.removeItem(KEY); } catch (e) { } }

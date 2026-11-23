@@ -10,33 +10,35 @@ export class Combat {
     this.marks = [];
   }
 
-  playerShoot() {
-    const g = this.game, cam = g.camera;
-    const dir = cam.getWorldDirection(new THREE.Vector3());
-    dir.x += (Math.random() - 0.5) * 0.008; dir.y += (Math.random() - 0.5) * 0.008; dir.normalize();
-    this.ray.set(cam.position, dir); this.ray.far = 40;
+  playerShoot(weapon = 'pistol') {
+    const g = this.game, cam = g.camera, sg = weapon === 'shotgun';
     const bodies = g.npcs.filter(n => !n.gone).flatMap(n => n.body.parts);
-    const hits = this.ray.intersectObjects([...bodies, ...g.store.surfaces], false);
-    // bullets punch through the plexi but crack it
-    const pHit = this.ray.intersectObjects(g.store.plexiPanes, false)[0];
-    if (pHit && (!hits[0] || pHit.distance < hits[0].distance)) this.crack(pHit.point, pHit.object);
-    const h = hits[0];
-    g.alertAll(cam.position, 'gunshot');
-    g.world.heat++;
-    if (!h) return;
-    const npc = h.object.userData.person ? g.npcs.find(n => n.body === h.object.userData.person) : null;
-    if (npc) {
-      const part = h.object.userData.part;
-      const wasAlive = npc.alive;
-      g.gore.hit(h.point, dir, part === 'head' ? 1.6 : 1);
-      g.gore.wound(h.object, h.point);
-      g.audio.play('blood-splat', { pos: h.point });
-      npc.hurt(34, part, dir);
-      if (wasAlive) g.onPlayerHit(npc, !npc.alive);
-    } else {
-      this.hole(h.point, h.face.normal.clone().transformDirection(h.object.matrixWorld));
-      if (h.object.material === g.store.m.glass || h.object.material?.transparent) g.audio.play('glass-break', { pos: h.point });
+    let first = null;
+    for (let i = 0; i < (sg ? 8 : 1); i++) {
+      const dir = cam.getWorldDirection(new THREE.Vector3()), sp = sg ? 0.075 : 0.008;
+      dir.x += (Math.random() - 0.5) * sp; dir.y += (Math.random() - 0.5) * sp; dir.z += (Math.random() - 0.5) * sp; dir.normalize();
+      this.ray.set(cam.position, dir); this.ray.far = sg ? 22 : 40;
+      const hits = this.ray.intersectObjects([...bodies, ...g.store.surfaces], false);
+      // bullets punch through the plexi but crack it
+      const pHit = this.ray.intersectObjects(g.store.plexiPanes, false)[0];
+      if (pHit && (!hits[0] || pHit.distance < hits[0].distance) && (i < 2)) this.crack(pHit.point, pHit.object);
+      const h = hits[0]; if (!h) continue;
+      const npc = h.object.userData.person ? g.npcs.find(n => n.body === h.object.userData.person) : null;
+      if (!first) first = { point: h.point, npc };
+      if (npc) {
+        const part = h.object.userData.part, wasAlive = npc.alive;
+        g.gore.hit(h.point, dir, part === 'head' ? 1.6 : 1);
+        g.gore.wound(h.object, h.point);
+        if (i < 2) g.audio.play('blood-splat', { pos: h.point });
+        npc.hurt(sg ? 17 : 34, part, dir);
+        if (wasAlive) g.onPlayerHit(npc, !npc.alive);
+      } else {
+        this.hole(h.point, h.face.normal.clone().transformDirection(h.object.matrixWorld));
+        if (i === 0 && (h.object.material === g.store.m.glass || h.object.material?.transparent)) g.audio.play('glass-break', { pos: h.point });
+      }
     }
+    g.alertAll(cam.position, 'gunshot');
+    g.heist.onShot(first?.point, first?.npc);
   }
 
   hole(point, normal) {
@@ -68,6 +70,12 @@ export class Combat {
     const d = Math.hypot(me.x - you.x, me.z - you.z);
     if (n.hostile === 'gun') {
       body.setPose('aim');
+      // police come after you instead of holding their ground
+      if (n.spec.hunter) {
+        n.repathT = (n.repathT || 0) - dt;
+        if (d < 7) n.route = [];
+        else if (n.repathT < 0) { n.repathT = 1.5; n.goTo(p.inBooth && !g.store.boothDoorOpen ? spots.counter : new THREE.Vector3(you.x, 0, Math.min(you.z, 10.5)), null, { run: true }); }
+      }
       n.fireT -= dt;
       if (n.fireT < 0) {
         n.fireT = 0.9 + Math.random() * 1.1;
@@ -115,9 +123,8 @@ export class Combat {
     g.audio.play('gunshot', { pos: n.pos, verb: true });
     g.flashAt(n.body.arm.R.hand.getWorldPosition(new THREE.Vector3()));
     g.alertAll(n.pos, 'gunshot', n);
-    g.world.heat++;
     // cover: crouching behind the counter in the booth makes you hard to hit; the plexi eats some rounds
-    let chance = 0.38;
+    let chance = n.spec.cop ? 0.3 : 0.38;
     if (p.inBooth) chance *= 0.65;
     if (p.inBooth && p.crouching) chance *= 0.15;
     else if (p.crouching) chance *= 0.6;
@@ -130,7 +137,7 @@ export class Combat {
       if (ph) this.crack(ph.point, ph.object);
     }
     if (Math.random() < chance) {
-      p.hurt(20 + Math.random() * 18);
+      p.hurt((20 + Math.random() * 18) * (g.world.gear.vest ? 0.6 : 1));
       const dir = p.position.clone().sub(n.pos).setY(0).normalize();
       g.gore.hit(p.position.clone().add(new THREE.Vector3(0, -0.4, 0)), dir, 0.6);
     } else {
