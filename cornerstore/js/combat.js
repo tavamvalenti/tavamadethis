@@ -74,7 +74,8 @@ export class Combat {
         this.npcShoot(n);
       }
       if (n.health < 40 || (g.world.heat > 0 && n.fleeAfter && n.stateT < 0)) { n.hostile = false; n.body.hold(null); n.leave({ run: true }); }
-    } else if (n.hostile === 'knife') {
+    } else if (n.hostile === 'knife' || n.hostile === 'fist') {
+      const fist = n.hostile === 'fist';
       // can't get through a locked booth door: bang on the glass and threaten
       const inBooth = p.inBooth;
       if (inBooth && !g.store.boothDoorOpen) {
@@ -90,7 +91,7 @@ export class Combat {
       }
       n.repathT = (n.repathT || 0) - dt;
       if (d > 1.0) {
-        body.setPose('knifeOut');
+        body.setPose(fist ? 'angry' : 'knifeOut');
         if (n.repathT < 0) { n.repathT = 0.7; n.goTo(new THREE.Vector3(you.x, 0, you.z), null, { run: true }); }
       } else {
         n.route = []; body.setPose('stab');
@@ -98,7 +99,8 @@ export class Combat {
         if (n.stabT < 0) {
           n.stabT = 1.0 + Math.random() * 0.4;
           if (Math.random() < 0.7) {
-            p.hurt(18 + Math.random() * 10); g.audio.play('punch', { vol: 0.7 });
+            p.hurt(fist ? 7 + Math.random() * 6 : 18 + Math.random() * 10); g.audio.play('punch', { vol: 0.7 });
+            if (fist) { n.swings = (n.swings || 0) + 1; if (n.swings > 4) { n.say("Yeah. That's what I thought."); n.hostile = false; n.leave(); } return; }
             const camDir = g.camera.getWorldDirection(new THREE.Vector3()).negate();
             g.gore.hit(g.camera.position.clone().add(new THREE.Vector3(0, -0.35, 0)).addScaledVector(camDir, -0.3), camDir, 0.5);
           }

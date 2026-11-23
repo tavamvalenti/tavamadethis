@@ -3,7 +3,9 @@
 // The plexiglass booth with the register is in the front-left corner.
 import * as THREE from 'three';
 import { RectAreaLightUniformsLib } from 'three/addons/lights/RectAreaLightUniformsLib.js';
+import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import * as T from './textures.js';
+import { buildRegister, buildStash, buildTobaccoWall } from './props.js';
 
 export const ROOM = { x0: -7, x1: 7, z0: -5, z1: 6, h: 3.2 };
 export const BOOTH = { x0: -7, x1: -3, z0: 1.8, z1: 6 };
@@ -14,7 +16,7 @@ export const spots = {
   doorIn: new THREE.Vector3(4, 0, 5.1),
   counter: new THREE.Vector3(-2.45, 0, 3.3),     // where a customer stands to talk
   queue: [new THREE.Vector3(-2.2, 0, 4.5), new THREE.Vector3(-1.4, 0, 5.2), new THREE.Vector3(-0.6, 0, 5.5)],
-  register: new THREE.Vector3(-3.4, 1.05, 3.3),
+  register: new THREE.Vector3(-3.4, 1.05, 4.0),      // off to the side so it never blocks your view of the customer
   playerStart: new THREE.Vector3(-4.7, 0, 3.3),
   boothOut: new THREE.Vector3(-3.9, 0, 1.15),
   boothIn: new THREE.Vector3(-3.9, 0, 2.5),
@@ -65,6 +67,9 @@ export class Store {
     this._lights();
     this._outside();
     this._cctv();
+    this._bake();
+    // named places a modelled asset can take over (see assets.js)
+    this.slots = { register: { standIn: this.register.group }, stash: { standIn: this.stash.root } };
   }
 
   _mats() {
@@ -74,13 +79,13 @@ export class Store {
       ceil: new THREE.MeshStandardMaterial({ map: T.ceilingTile([14, 11]), roughness: 0.95 }),
       shelf: new THREE.MeshStandardMaterial({ color: 0xd8d8d2, roughness: 0.45, metalness: 0.55 }),
       dark: new THREE.MeshStandardMaterial({ color: 0x1d1d20, roughness: 0.6, metalness: 0.3 }),
-      wood: new THREE.MeshStandardMaterial({ color: 0x6b4a33, roughness: 0.7 }),
-      counter: new THREE.MeshStandardMaterial({ color: 0x8a1c1c, roughness: 0.55 }),
+      wood: new THREE.MeshStandardMaterial({ color: 0x4d3b2f, roughness: 0.7 }),
+      counter: new THREE.MeshStandardMaterial({ color: 0x6e1a1a, roughness: 0.55 }),
       counterTop: new THREE.MeshStandardMaterial({ color: 0x9c9890, roughness: 0.25, metalness: 0.2 }),
       plexi: new THREE.MeshStandardMaterial({ color: 0xbfd8dc, transparent: true, opacity: 0.12, roughness: 0.04, metalness: 0.1, depthWrite: false, side: THREE.DoubleSide }),
       glass: new THREE.MeshStandardMaterial({ color: 0x9fb3b8, transparent: true, opacity: 0.1, roughness: 0.02, metalness: 0.2, depthWrite: false, side: THREE.DoubleSide }),
       metal: new THREE.MeshStandardMaterial({ color: 0x8c9096, roughness: 0.35, metalness: 0.85 }),
-      tube: new THREE.MeshStandardMaterial({ color: 0xffffff, emissive: 0xeef6ff, emissiveIntensity: 3.2 }),
+      tube: new THREE.MeshStandardMaterial({ color: 0xffffff, emissive: 0xeef6ff, emissiveIntensity: 1.6 }),
     };
   }
 
@@ -123,7 +128,7 @@ export class Store {
     this.box(0.08, h, 0.25, this.m.dark, DOOR.x0, h / 2, z1 + 0.12, { surface: false });
     this.box(0.08, h, 0.25, this.m.dark, DOOR.x1, h / 2, z1 + 0.12, { surface: false });
     this.box(DOOR.x1 - DOOR.x0, 0.5, 0.25, brickM, (DOOR.x0 + DOOR.x1) / 2, h - 0.25, z1 + 0.12);
-    const hinge = new THREE.Group(); hinge.position.set(DOOR.x0 + 0.04, 0, z1 + 0.12); this.root.add(hinge);
+    const hinge = new THREE.Group(); hinge.userData.dynamic = true; hinge.position.set(DOOR.x0 + 0.04, 0, z1 + 0.12); this.root.add(hinge);
     const dw = DOOR.x1 - DOOR.x0 - 0.08;
     const pane = new THREE.Mesh(new THREE.PlaneGeometry(dw, 2.4), this.m.glass); pane.position.set(dw / 2, 1.25, 0); hinge.add(pane);
     for (const [w2, h2, x, y] of [[dw, 0.08, dw / 2, 0.05], [dw, 0.08, dw / 2, 2.45], [0.06, 2.45, 0.03, 1.25], [0.06, 2.45, dw - 0.03, 1.25], [0.5, 0.04, dw - 0.35, 1.05]]) {
@@ -158,7 +163,7 @@ export class Store {
     for (const z of [z0, slotZ0, slotZ1, z1 - 0.02]) this.box(0.06, top - 1.05, 0.06, this.m.metal, x1, (1.05 + top) / 2, z, { surface: false });
     // turntable (lazy susan) in the slot
     const tt = new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.3, 0.03, 24), this.m.metal);
-    tt.position.set(x1, 1.065, (slotZ0 + slotZ1) / 2); this.root.add(tt);
+    tt.position.set(x1, 1.065, (slotZ0 + slotZ1) / 2); tt.userData.dynamic = true; this.root.add(tt);
     const ttWall = new THREE.Mesh(new THREE.BoxGeometry(0.02, 0.3, 0.55), this.m.plexi); ttWall.position.set(0, 0.16, 0); tt.add(ttWall);
     this.turntable = { mesh: tt, spin: 0 };
     // side wall of the booth (z = z0): lower panel + plexi, with the booth door
@@ -170,7 +175,7 @@ export class Store {
     this.box(0.06, top, 0.08, this.m.metal, dx0, top / 2, z0, { surface: false });
     this.box(0.06, top, 0.08, this.m.metal, dx1, top / 2, z0, { surface: false });
     this.box(dx1 - dx0, top - 2.25, 0.08, this.m.metal, (dx0 + dx1) / 2, (2.25 + top) / 2, z0, { surface: false });
-    const hinge = new THREE.Group(); hinge.position.set(dx1 - 0.03, 0, z0); this.root.add(hinge);
+    const hinge = new THREE.Group(); hinge.userData.dynamic = true; hinge.position.set(dx1 - 0.03, 0, z0); this.root.add(hinge);
     const dw = dx1 - dx0 - 0.06;
     const dPanel = new THREE.Mesh(new THREE.BoxGeometry(dw, 1.0, 0.06), this.m.counter); dPanel.position.set(-dw / 2, 0.5, 0); dPanel.castShadow = true; hinge.add(dPanel);
     const dGlass = new THREE.Mesh(new THREE.PlaneGeometry(dw, 1.2), this.m.plexi); dGlass.position.set(-dw / 2, 1.65, 0); hinge.add(dGlass);
@@ -185,28 +190,16 @@ export class Store {
     });
     // booth inside: back shelves with cigarettes, liquor nips, the stash drawer
     this.box(0.4, 2.2, 3.8, this.m.wood, x0 + 0.2, 1.1, 3.9, { collide: true });
-    const cigM = [0xb3202a, 0xe8e2d0, 0x1d5a9e, 0x2a7d3a, 0xd9a52a, 0x111111].map(c => new THREE.MeshStandardMaterial({ color: c, roughness: 0.6 }));
-    const pack = new THREE.BoxGeometry(0.03, 0.09, 0.055);
-    for (let row = 0; row < 7; row++) for (let i = 0; i < 52; i++) {
-      const m = new THREE.Mesh(pack, cigM[(i * 7 + row * 3) % cigM.length]);
-      m.position.set(x0 + 0.43, 0.95 + row * 0.17, 2.15 + i * 0.068); this.root.add(m);
-    }
-    for (let row = 0; row < 7; row++) this.box(0.05, 0.015, 3.7, this.m.metal, x0 + 0.42, 0.9 + row * 0.17, 3.9, { surface: false, cast: false });
+    buildTobaccoWall(this, x0 + 0.43, 2.15);
     // nip bottles on top shelf
     const nipM = new THREE.MeshStandardMaterial({ color: 0x8a5a1a, roughness: 0.15, transparent: true, opacity: 0.8 });
     for (let i = 0; i < 30; i++) { const b = new THREE.Mesh(new THREE.CylinderGeometry(0.018, 0.022, 0.12, 8), nipM); b.position.set(x0 + 0.3, 2.27, 2.2 + i * 0.12); this.root.add(b); }
-    // register
-    const reg = new THREE.Group(); reg.position.copy(spots.register); reg.rotation.y = -Math.PI / 2; this.root.add(reg);
-    const rBase = new THREE.Mesh(new THREE.BoxGeometry(0.42, 0.12, 0.42), this.m.dark); rBase.position.y = 0.06; reg.add(rBase);
-    const drawer = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.08, 0.38), this.m.metal); drawer.position.set(0, 0.04, 0.02); reg.add(drawer);
-    const screen = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.2, 0.03), this.m.dark); screen.position.set(0, 0.28, -0.08); screen.rotation.x = -0.3; reg.add(screen);
-    const scrFace = new THREE.Mesh(new THREE.PlaneGeometry(0.27, 0.17), new THREE.MeshBasicMaterial({ color: 0x3fd17a })); scrFace.position.set(0, 0.28, -0.064); scrFace.rotation.x = -0.3; reg.add(scrFace);
-    this.register = { group: reg, drawer, screen: scrFace, open: 0 };
+    // register (detailed, see props.js)
+    this.register = buildRegister(this);
     // card reader + scanner
-    this.box(0.08, 0.12, 0.12, this.m.dark, -3.15, 1.1, 3.8, { surface: false });
+    this.box(0.08, 0.12, 0.12, this.m.dark, -3.15, 1.1, 2.75, { surface: false });
     // stash drawer under the counter (the side hustle lives here)
-    const stash = this.box(0.5, 0.18, 0.4, this.m.wood, -3.55, 0.75, 2.45, { surface: false });
-    this.stash = { mesh: stash, out: false, baseX: -3.55 };
+    this.stash = buildStash(this);
     // phone on the booth wall
     const phone = this.box(0.12, 0.22, 0.06, this.m.dark, x0 + 0.42, 1.5, 2.1, { surface: false });
     phone.rotation.y = Math.PI / 2;
@@ -219,7 +212,8 @@ export class Store {
     const lottoScreen = new THREE.Mesh(new THREE.PlaneGeometry(0.4, 0.3), new THREE.MeshBasicMaterial({ map: T.signTex('LOTTO\nPLAY HERE', { bg: '#0a3d8f', fg: '#ffd21f', w: 256, h: 192, font: 'bold 44px Arial Black, Arial' }) }));
     lottoScreen.position.set(-2.55, 1.05, 5.34); lottoScreen.rotation.y = Math.PI; this.root.add(lottoScreen);
     // candy rack hanging under the plexi on the customer side
-    for (let i = 0; i < 18; i++) this.box(0.04, 0.14, 0.09, new THREE.MeshStandardMaterial({ map: T.productLabel(i + 3), roughness: 0.6 }), x1 + 0.05, 0.86, 2.0 + i * 0.2, { surface: false, cast: false });
+    const candyM = Array.from({ length: 6 }, (_, i) => new THREE.MeshStandardMaterial({ map: T.productLabel(i + 3), roughness: 0.6 }));
+    for (let i = 0; i < 18; i++) this.box(0.04, 0.14, 0.09, candyM[(i * 5) % 6], x1 + 0.05, 0.86, 2.0 + i * 0.2, { surface: false, cast: false });
   }
 
   setBoothDoor(open) {
@@ -235,6 +229,7 @@ export class Store {
     const geo = new THREE.BoxGeometry(1, 1, 1);
     const mats = Array.from({ length: 14 }, (_, i) => new THREE.MeshStandardMaterial({ map: T.productLabel(i), roughness: 0.55 }));
     const dummy = new THREE.Object3D();
+    const perMat = new Map();
     for (const z of [-2.6, -0.6, 1.3]) {
       this.box(len, 0.12, depth, this.m.dark, cx, 0.06, z, { collide: true, tag: 'shelf' });
       this.box(len, 1.55, 0.05, this.m.shelf, cx, 0.85, z, { surface: true });
@@ -244,7 +239,6 @@ export class Store {
       const cap = new THREE.Mesh(new THREE.PlaneGeometry(0.8, 0.3), new THREE.MeshStandardMaterial({ map: T.signTex(z < -1 ? 'CHIPS • CANDY' : z < 1 ? 'HOUSEHOLD • BABY' : 'CANNED • RAMEN', { bg: '#c2141c', fg: '#fff', w: 512, h: 160, font: 'bold 56px Arial Black, Arial' }), emissive: 0x220000, roughness: 0.6 }));
       cap.position.set(cx + len / 2 + 0.03, 1.75, z); cap.rotation.y = Math.PI / 2; this.root.add(cap);
       // products: instanced boxes per label
-      const perMat = new Map();
       for (const y of [0.17, 0.57, 0.97, 1.37]) for (const s of [-1, 1]) for (let x = cx - len / 2 + 0.12; x < cx + len / 2 - 0.1; x += 0.16 + Math.random() * 0.05) {
         if (Math.random() < 0.08) continue; // gaps on the shelf
         const mi = Math.floor(Math.random() * mats.length);
@@ -252,13 +246,14 @@ export class Store {
         if (!perMat.has(mi)) perMat.set(mi, []);
         perMat.get(mi).push([x, y + h / 2, z + s * (depth / 4 + 0.02), w, h, 0.15 + Math.random() * 0.12]);
       }
-      for (const [mi, list] of perMat) {
-        const im = new THREE.InstancedMesh(geo, mats[mi], list.length);
-        list.forEach(([x, y, zz, w, h, d], k) => { dummy.position.set(x, y, zz); dummy.scale.set(w, h, d); dummy.rotation.y = (Math.random() - 0.5) * 0.15; dummy.updateMatrix(); im.setMatrixAt(k, dummy.matrix); });
-        im.castShadow = false; im.receiveShadow = true; this.root.add(im);
-      }
       for (const s of [-1, 1]) this.shelfSpots.push(new THREE.Vector3(cx, 0, z + s * 0.95));
     }
+    for (const [mi, list] of perMat) {
+      const im = new THREE.InstancedMesh(geo, mats[mi], list.length);
+      list.forEach(([x, y, zz, w, h, d], k) => { dummy.position.set(x, y, zz); dummy.scale.set(w, h, d); dummy.rotation.y = (Math.random() - 0.5) * 0.15; dummy.updateMatrix(); im.setMatrixAt(k, dummy.matrix); });
+      im.castShadow = false; im.receiveShadow = true; this.root.add(im);
+    }
+
   }
 
   _fridges() {
@@ -291,7 +286,7 @@ export class Store {
     const n = 10, dw = (x1 - x0) / n;
     for (let i = 0; i < n; i++) {
       const x = x0 + dw * i + dw / 2;
-      const hinge = new THREE.Group(); hinge.position.set(x - dw / 2, 0, z + d); this.root.add(hinge);
+      const hinge = new THREE.Group(); hinge.userData.dynamic = true; hinge.position.set(x - dw / 2, 0, z + d); this.root.add(hinge);
       const g = new THREE.Mesh(new THREE.PlaneGeometry(dw - 0.06, 2.3), this.m.glass); g.position.set(dw / 2, 1.3, 0.01); hinge.add(g);
       const fr = new THREE.Mesh(new THREE.BoxGeometry(dw, 0.06, 0.04), this.m.metal); fr.position.set(dw / 2, 0.15, 0.01); hinge.add(fr);
       const fr2 = fr.clone(); fr2.position.y = 2.45; hinge.add(fr2);
@@ -307,12 +302,13 @@ export class Store {
     const caseGlass = new THREE.Mesh(new THREE.PlaneGeometry(z1 - z0, 0.5), this.m.glass);
     caseGlass.position.set(x - 0.9, 1.25, (z0 + z1) / 2); caseGlass.rotation.y = -Math.PI / 2; caseGlass.rotation.x = -0.2; this.root.add(caseGlass);
     const meatCols = [0xc7604f, 0xe8c9a2, 0xd9a35a, 0xf1e3b8, 0x9e3b2f];
-    for (let i = 0; i < 10; i++) this.box(0.35, 0.08, 0.35, new THREE.MeshStandardMaterial({ color: meatCols[i % 5], roughness: 0.6 }), x - 0.5, 1.05, z0 + 0.3 + i * 0.44, { surface: false });
+    const meatM = meatCols.map(c => new THREE.MeshStandardMaterial({ color: c, roughness: 0.6 }));
+    for (let i = 0; i < 10; i++) this.box(0.35, 0.08, 0.35, meatM[i % 5], x - 0.5, 1.05, z0 + 0.3 + i * 0.44, { surface: false });
     // heat lamp + chicken + menu board
     const lamp = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.08, 1.2), new THREE.MeshStandardMaterial({ color: 0x222, emissive: 0xff5a1a, emissiveIntensity: 0.6 }));
     lamp.position.set(x - 0.4, 1.7, 0.9); this.root.add(lamp);
-    const lampLight = new THREE.PointLight(0xff6a2a, 1.2, 2.5, 2); lampLight.position.set(x - 0.4, 1.55, 0.9); this.root.add(lampLight);
-    for (let i = 0; i < 6; i++) { const c = new THREE.Mesh(new THREE.SphereGeometry(0.07, 8, 6), new THREE.MeshStandardMaterial({ color: 0xa8641f, roughness: 0.4 })); c.scale.set(1.3, 0.8, 1); c.position.set(x - 0.4 + (i % 2) * 0.15, 1.08, 0.5 + Math.floor(i / 2) * 0.25); this.root.add(c); }
+    const chickM = new THREE.MeshStandardMaterial({ color: 0xa8641f, roughness: 0.4 });
+    for (let i = 0; i < 6; i++) { const c = new THREE.Mesh(new THREE.SphereGeometry(0.07, 8, 6), chickM); c.scale.set(1.3, 0.8, 1); c.position.set(x - 0.4 + (i % 2) * 0.15, 1.08, 0.5 + Math.floor(i / 2) * 0.25); this.root.add(c); }
     const menu = new THREE.Mesh(new THREE.PlaneGeometry(2.2, 1.0), new THREE.MeshStandardMaterial({ map: T.signTex('HOAGIES $8\nCHEESESTEAK $11\nCHICKEN 3PC $6', { bg: '#111', fg: '#ffe9a8', w: 1024, h: 480, font: 'bold 86px Arial Black, Arial' }), emissive: 0x111111, roughness: 0.5 }));
     menu.position.set(x - 0.02, 2.4, -0.7); menu.rotation.y = -Math.PI / 2; this.root.add(menu);
     // closed sign on the grill (it is after midnight)
@@ -326,11 +322,12 @@ export class Store {
     const atmScr = new THREE.Mesh(new THREE.PlaneGeometry(0.3, 0.22), new THREE.MeshBasicMaterial({ color: 0x2e7dd1 })); atmScr.position.set(6.4, 1.2, 4.64); atmScr.rotation.y = Math.PI; this.root.add(atmScr);
     // chip rack + newspaper stack near the counter
     this.box(0.5, 1.3, 0.5, this.m.shelf, 0.2, 0.65, 4.8, { collide: true });
-    for (let i = 0; i < 12; i++) this.box(0.2, 0.25, 0.08, new THREE.MeshStandardMaterial({ map: T.productLabel(i + 1), roughness: 0.7 }), 0.2 + ((i % 2) - 0.5) * 0.24, 0.3 + Math.floor(i / 2) * 0.2, 4.53, { surface: false, cast: false });
+    const chipM = Array.from({ length: 5 }, (_, i) => new THREE.MeshStandardMaterial({ map: T.productLabel(i + 1), roughness: 0.7 }));
+    for (let i = 0; i < 12; i++) this.box(0.2, 0.25, 0.08, chipM[(i * 3) % 5], 0.2 + ((i % 2) - 0.5) * 0.24, 0.3 + Math.floor(i / 2) * 0.2, 4.53, { surface: false, cast: false });
     // ice chest
     this.box(1.0, 0.9, 0.7, new THREE.MeshStandardMaterial({ color: 0xe9eef2, roughness: 0.4 }), 6.4, 0.45, 2.9, { collide: true });
     // store cat (a loaf) on the ice chest
-    const cat = new THREE.Group(); cat.position.set(6.4, 0.9, 2.9); this.root.add(cat);
+    const cat = new THREE.Group(); cat.userData.dynamic = true; cat.position.set(6.4, 0.9, 2.9); this.root.add(cat);
     const catM = new THREE.MeshStandardMaterial({ color: 0x2a2420, roughness: 0.9 });
     const body = new THREE.Mesh(new THREE.SphereGeometry(0.16, 12, 8), catM); body.scale.set(1.4, 0.75, 0.9); body.position.y = 0.1; cat.add(body);
     const head = new THREE.Mesh(new THREE.SphereGeometry(0.09, 10, 8), catM); head.position.set(0.2, 0.17, 0); cat.add(head);
@@ -343,29 +340,26 @@ export class Store {
   }
 
   _lights() {
+    // Few lights, never added or removed at runtime (changing the light count recompiles every shader and stutters).
     const s = this.scene;
-    s.add(new THREE.HemisphereLight(0x8fa0b8, 0x3a3226, 0.35));
-    // fluorescent fixtures: emissive tubes + rect area lights (no shadows) + 2 soft shadow spots for characters
-    const fixtures = [[0.3, -2.6, 5.4, 1, 0.9], [0.3, -0.6, 5.4, 1, 1], [0.3, 1.3, 5.4, 1, 0.95], [1.8, 3.9, 4, 1, 0.9], [-5, 3.9, 3, 1, 1.0], [-4.5, -3.8, 4, 1, 0.8], [5.6, -0.7, 2.5, 1, 0.8]];
-    fixtures.forEach(([x, z, w, , k], i) => {
+    s.add(new THREE.HemisphereLight(0xe6ebf2, 0x47484c, 0.55));
+    const fixtures = [[0.3, -2.6, 5.4], [0.3, -0.6, 5.4], [0.3, 1.3, 5.4], [1.8, 3.9, 4], [-5, 3.9, 3], [-4.5, -3.8, 4], [5.6, -0.7, 2.5]];
+    fixtures.forEach(([x, z, w], i) => {
       const fx = new THREE.Mesh(new THREE.BoxGeometry(w, 0.06, 0.3), this.m.dark); fx.position.set(x, ROOM.h - 0.04, z); this.root.add(fx);
       const tubeMat = i === 1 ? this.m.tube.clone() : this.m.tube;
       for (const dz of [-0.07, 0.07]) { const t = new THREE.Mesh(new THREE.CylinderGeometry(0.018, 0.018, w - 0.1, 8), tubeMat); t.rotation.z = Math.PI / 2; t.position.set(x, ROOM.h - 0.1, z + dz); this.root.add(t); }
-      const rl = new THREE.RectAreaLight(i === 4 ? 0xfff3dc : 0xe9f2ff, 3.6 * k, w, 0.3);
-      rl.position.set(x, ROOM.h - 0.12, z); rl.lookAt(x, 0, z); this.scene.add(rl);
-      if (i === 1) this.flicker.push({ light: rl, mat: tubeMat, base: rl.intensity, t: 0 });
+      if (i === 1) this.flicker.push({ mat: tubeMat, t: 0 });
     });
-    const spot = (x, z, tx, tz, intensity) => {
-      const l = new THREE.SpotLight(0xeef3ff, intensity, 12, Math.PI / 2.6, 0.9, 1.6);
-      l.position.set(x, ROOM.h - 0.15, z); l.target.position.set(tx, 0, tz);
-      l.castShadow = true; l.shadow.mapSize.set(1024, 1024); l.shadow.bias = -0.0004; l.shadow.normalBias = 0.02; l.shadow.radius = 4;
-      this.scene.add(l, l.target); return l;
-    };
-    this.shadowLights = [spot(1.2, 0.2, 1.4, 0.2, 14), spot(-1.8, 3.6, -1.8, 3.4, 10)];
+    // three big soft panels stand in for the seven fixtures
+    const panel = (x, z, w, d, k, col = 0xf2f6ff) => { const rl = new THREE.RectAreaLight(col, k, w, d); rl.position.set(x, ROOM.h - 0.12, z); rl.lookAt(x, 0, z); s.add(rl); return rl; };
+    this.panelLights = [panel(0.8, -0.8, 7, 5, 1.1), panel(1.5, 4.0, 6, 1.6, 1.5), panel(-5, 3.9, 3, 2.6, 1.3, 0xfdf8ee)];
+    // one shadow light for people and shelves
+    const l = new THREE.SpotLight(0xf4f7ff, 14, 16, Math.PI / 2.4, 0.9, 1.5);
+    l.position.set(0.2, ROOM.h - 0.15, 1.6); l.target.position.set(0.2, 0, 1.4);
+    l.castShadow = true; l.shadow.mapSize.set(1024, 1024); l.shadow.bias = -0.0004; l.shadow.normalBias = 0.02; l.shadow.radius = 5;
+    s.add(l, l.target); this.shadowLights = [l];
     // cold glow off the fridge wall
-    const fl = new THREE.RectAreaLight(0xcfe6ff, 2.2, 12, 2.2); fl.position.set(0, 1.3, ROOM.z0 + 0.72); fl.lookAt(0, 1.3, 3); this.scene.add(fl);
-    // the booth's CCTV glow + a desk lamp feel
-    const bl = new THREE.PointLight(0x5aa0ff, 0.6, 2.5, 2); bl.position.set(-3.6, 1.35, 4.9); this.scene.add(bl);
+    const fl = new THREE.PointLight(0xcfe6ff, 9, 9, 1.8); fl.position.set(0, 1.6, ROOM.z0 + 1.6); s.add(fl);
   }
 
   _outside() {
@@ -385,15 +379,16 @@ export class Store {
     const winBlue = new THREE.MeshStandardMaterial({ color: 0x101420, emissive: 0x6f8cff, emissiveIntensity: 0.7 });
     const winOff = new THREE.MeshStandardMaterial({ color: 0x0b0c10, roughness: 0.2, metalness: 0.4 });
     const brickM = new THREE.MeshStandardMaterial({ map: T.brick([2, 2]), roughness: 0.9 });
+    const corniceM = new THREE.MeshStandardMaterial({ color: 0x2a2a2a }), stepsM = new THREE.MeshStandardMaterial({ color: 0x6d6a66 });
     for (let i = -6; i <= 6; i++) {
       const x = i * 5.2, h = 9 + (i % 3) * 0.6;
       const house = new THREE.Mesh(new THREE.BoxGeometry(5.1, h, 8), brickM); house.position.set(x, h / 2, 28.5); s.add(house);
-      const cornice = new THREE.Mesh(new THREE.BoxGeometry(5.2, 0.4, 0.5), new THREE.MeshStandardMaterial({ color: 0x2a2a2a })); cornice.position.set(x, h - 0.2, 24.4); s.add(cornice);
+      const cornice = new THREE.Mesh(new THREE.BoxGeometry(5.2, 0.4, 0.5), corniceM); cornice.position.set(x, h - 0.2, 24.4); s.add(cornice);
       for (let f = 0; f < 3; f++) for (let w = 0; w < 2; w++) {
         const r = Math.random(); const m = r < 0.35 ? winOn : r < 0.45 ? winBlue : winOff;
         const win = new THREE.Mesh(new THREE.PlaneGeometry(1.1, 1.6), m); win.position.set(x - 1.2 + w * 2.4, 1.5 + f * 2.9, 24.49); win.rotation.y = Math.PI; s.add(win);
       }
-      const steps = new THREE.Mesh(new THREE.BoxGeometry(1.6, 0.6, 1.2), new THREE.MeshStandardMaterial({ color: 0x6d6a66 })); steps.position.set(x + 1.3, 0.3, 23.9); s.add(steps);
+      const steps = new THREE.Mesh(new THREE.BoxGeometry(1.6, 0.6, 1.2), stepsM); steps.position.set(x + 1.3, 0.3, 23.9); s.add(steps);
     }
     // takeout spot across the street, bright sign
     const take = new THREE.Mesh(new THREE.PlaneGeometry(4.6, 0.9), new THREE.MeshBasicMaterial({ map: T.signTex('GOLDEN DRAGON • WINGS • FRIES', { bg: '#a50e0e', fg: '#ffe066', w: 1024, h: 180, font: 'bold 70px Arial Black, Arial', glow: '#ff0' }) }));
@@ -402,9 +397,8 @@ export class Store {
     const pole = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.1, 6, 8), this.m.dark); pole.position.set(-1, 3, 10.0); s.add(pole);
     const arm = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.1, 1.6), this.m.dark); arm.position.set(-1, 6, 10.7); s.add(arm);
     const head = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.15, 0.6), new THREE.MeshStandardMaterial({ color: 0x111, emissive: 0xffa64d, emissiveIntensity: 3 })); head.position.set(-1, 5.92, 11.4); s.add(head);
-    const sodium = new THREE.PointLight(0xff9a40, 260, 28, 1.7); sodium.position.set(-1, 5.7, 11.2); this.scene.add(sodium);
-    this.streetLight = { light: sodium, base: 260 };
-    const sodium2 = new THREE.PointLight(0xff9a40, 160, 26, 1.7); sodium2.position.set(14, 5.7, 11.2); this.scene.add(sodium2);
+    const sodium = new THREE.PointLight(0xffa860, 120, 28, 1.7); sodium.position.set(-1, 5.7, 11.2); this.scene.add(sodium);
+    this.streetLight = { light: sodium, base: 120 };
     const stop = new THREE.Group(); stop.position.set(-4.5, 0, 9.6); s.add(stop);
     const sp = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.04, 2.8, 8), this.m.metal); sp.position.y = 1.4; stop.add(sp);
     const sb = new THREE.Mesh(new THREE.PlaneGeometry(0.5, 0.6), new THREE.MeshBasicMaterial({ map: T.signTex('BUS\n52', { bg: '#1446a0', fg: '#fff', w: 128, h: 160, font: 'bold 52px Arial Black, Arial' }), side: THREE.DoubleSide })); sb.position.set(0.26, 2.4, 0); stop.add(sb);
@@ -426,12 +420,13 @@ export class Store {
     this.neonLights = [neonLight, neonLight2];
     // traffic: cars and the bus slide past on the street
     this.vehicles = [];
+    const busWinM = new THREE.MeshStandardMaterial({ color: 0x111, emissive: 0xd8e4ff, emissiveIntensity: 0.6 });
     const mkVehicle = (len, h, color, bus) => {
       const g = new THREE.Group();
       const body = new THREE.Mesh(new THREE.BoxGeometry(len, h, bus ? 2.6 : 1.8), new THREE.MeshStandardMaterial({ color, roughness: 0.35, metalness: 0.6 }));
       body.position.y = h / 2 + 0.3; g.add(body);
       if (bus) {
-        for (let i = 0; i < 8; i++) { const w = new THREE.Mesh(new THREE.PlaneGeometry(1.0, 0.9), new THREE.MeshStandardMaterial({ color: 0x111, emissive: 0xd8e4ff, emissiveIntensity: 0.6 })); w.position.set(-len / 2 + 1 + i * 1.3, h * 0.7 + 0.3, -1.31); w.rotation.y = Math.PI; g.add(w); }
+        for (let i = 0; i < 8; i++) { const w = new THREE.Mesh(new THREE.PlaneGeometry(1.0, 0.9), busWinM); w.position.set(-len / 2 + 1 + i * 1.3, h * 0.7 + 0.3, -1.31); w.rotation.y = Math.PI; g.add(w); }
         const sign = new THREE.Mesh(new THREE.PlaneGeometry(1.6, 0.3), new THREE.MeshBasicMaterial({ map: T.signTex('52 52ND-PARKSIDE', { bg: '#000', fg: '#ffae00', w: 512, h: 96, font: 'bold 48px monospace' }) })); sign.position.set(-len / 2 + 1.2, h + 0.05, -1.31); sign.rotation.y = Math.PI; g.add(sign);
       } else {
         const cab = new THREE.Mesh(new THREE.BoxGeometry(len * 0.5, 0.5, 1.7), new THREE.MeshStandardMaterial({ color: 0x0a0c10, roughness: 0.1, metalness: 0.8 })); cab.position.set(-0.1, h + 0.55, 0); g.add(cab);
@@ -440,8 +435,7 @@ export class Store {
       const hl2 = hl.clone(); hl2.position.z = 0.6; g.add(hl2);
       const tl = new THREE.Mesh(new THREE.PlaneGeometry(0.3, 0.15), new THREE.MeshBasicMaterial({ color: 0xff1010 })); tl.position.set(-len / 2 - 0.01, 0.8, -0.6); tl.rotation.y = -Math.PI / 2; g.add(tl);
       const tl2 = tl.clone(); tl2.position.z = 0.6; g.add(tl2);
-      const beam = new THREE.SpotLight(0xfff2d8, 40, 18, 0.5, 0.6, 1.5); beam.position.set(len / 2, 0.8, 0); beam.target.position.set(len / 2 + 6, 0, 0); g.add(beam, beam.target);
-      g.visible = false; s.add(g);
+      g.visible = false; g.userData.dynamic = true; s.add(g);
       return { g, len, bus, active: false, x: 0, dir: 1, speed: 0, stopT: 0 };
     };
     for (const c of [0x6b0f14, 0x1c2a4a, 0xd9d9d9, 0x101010]) this.vehicles.push(mkVehicle(4.4, 0.8, c, false));
@@ -454,7 +448,7 @@ export class Store {
     const mon = new THREE.Group(); mon.position.set(-3.55, 1.05, 5.0); mon.rotation.y = Math.PI / 2 + 0.5; this.root.add(mon);
     const caseM = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.36, 0.3), this.m.dark); caseM.position.y = 0.2; mon.add(caseM);
     this.monitorScreen = new THREE.Mesh(new THREE.PlaneGeometry(0.44, 0.3), new THREE.MeshBasicMaterial({ color: 0x223344 }));
-    this.monitorScreen.position.set(0, 0.2, 0.151); mon.add(this.monitorScreen);
+    this.monitorScreen.position.set(0, 0.2, 0.151); this.monitorScreen.userData.dynamic = true; mon.add(this.monitorScreen);
     this.monitorPos = new THREE.Vector3(-3.55, 1.25, 5.0);
     // camera domes in the corners (positions match the feeds)
     const camDefs = [[6.7, 3.0, 5.7, -1, -1.2], [-6.7, 3.0, -4.7, 1.2, 1], [6.7, 3.0, -4.7, -1.2, 1.4], [-2.8, 3.0, 5.7, 0.6, -1.4]];
@@ -464,6 +458,27 @@ export class Store {
       const cam = new THREE.PerspectiveCamera(85, 4 / 3, 0.1, 40); cam.position.set(x, y - 0.15, z);
       cam.lookAt(x + lx * 3, 0.6, z + lz * 3);
       this.cameras.push(cam);
+    }
+  }
+
+  // Merge everything that never moves into one mesh per material: ~900 draw calls become a few dozen.
+  _bake() {
+    this.root.updateMatrixWorld(true);
+    const groups = new Map(), gone = [];
+    this.root.traverse((o) => {
+      if (!o.isMesh || o.isInstancedMesh || Array.isArray(o.material)) return;
+      for (let a = o; a && a !== this.root; a = a.parent) if (a.userData.dynamic) return;
+      const key = o.material.uuid + (o.castShadow ? 'c' : '') + (o.receiveShadow ? 'r' : '');
+      if (!groups.has(key)) groups.set(key, { mat: o.material, cast: o.castShadow, receive: o.receiveShadow, geos: [] });
+      let g = o.geometry.clone().applyMatrix4(o.matrixWorld);
+      if (g.index) g = g.toNonIndexed();
+      for (const k of Object.keys(g.attributes)) if (!['position', 'normal', 'uv'].includes(k)) g.deleteAttribute(k);
+      groups.get(key).geos.push(g); gone.push(o);
+    });
+    for (const o of gone) { o.matrix.copy(o.matrixWorld); o.matrixAutoUpdate = false; o.parent.remove(o); o.matrixWorld.copy(o.matrix); }
+    for (const { mat, cast, receive, geos } of groups.values()) {
+      const m = new THREE.Mesh(mergeGeometries(geos, false), mat); m.castShadow = cast; m.receiveShadow = receive; m.userData.dynamic = true;
+      this.root.add(m); geos.forEach(g => g.dispose());
     }
   }
 
@@ -505,15 +520,15 @@ export class Store {
     const tt = this.turntable; if (tt.spin > 0) { const s = Math.min(tt.spin, dt * 3); tt.mesh.rotation.y += s; tt.spin -= s; }
     // register drawer
     const r = this.register; r.open += ((r.hold > 0 ? 1 : 0) - r.open) * Math.min(1, dt * 10); if (r.hold > 0) r.hold -= dt;
-    r.drawer.position.z = 0.02 + r.open * 0.3;
-    // stash drawer
-    this.stash.mesh.position.x = this.stash.baseX - (this.stash.out ? 0.3 : 0);
+    r.drawer.position.z = r.drawerZ + r.open * 0.3;
+    // stash drawer slides out toward you
+    const st = this.stash; st.open += ((st.out ? 1 : 0) - st.open) * Math.min(1, dt * 8); st.drawer.position.x = -st.open * 0.36;
     // flickering tube
     for (const f of this.flicker) {
       f.t -= dt;
       if (f.t < 0) { f.on = Math.random() > 0.25; f.t = f.on ? 0.05 + Math.random() * (Math.random() < 0.1 ? 4 : 0.4) : 0.03 + Math.random() * 0.12; }
       const k = f.on ? 1 : 0.12;
-      f.light.intensity = f.base * k; f.mat.emissiveIntensity = 3.2 * k;
+      f.mat.emissiveIntensity = 1.6 * k;
     }
     // neon hum
     for (let i = 0; i < this.neonLights.length; i++) this.neonLights[i].intensity = (i ? 2.5 : 3.5) * (0.85 + 0.15 * Math.sin(t * 50 + i * 3) * Math.sin(t * 1.3 + i));

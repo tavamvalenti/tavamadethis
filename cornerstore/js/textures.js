@@ -36,7 +36,7 @@ export const floorTile = (repeat) => canvasTex('floor', 512, 512, (g, w, h) => {
   for (let i = 0; i < n; i++) for (let j = 0; j < n; j++) {
     const light = (i + j) % 2 === 0;
     const v = light ? rnd(196, 212) : rnd(58, 70);
-    g.fillStyle = light ? `rgb(${v},${v - 6},${v - 18})` : `rgb(${v - 8},${v - 4},${v})`;
+    g.fillStyle = light ? `rgb(${v},${v - 1},${v - 5})` : `rgb(${v - 3},${v - 2},${v})`;
     g.fillRect(i * s, j * s, s, s);
   }
   g.strokeStyle = 'rgba(20,18,14,0.5)'; g.lineWidth = 2;
@@ -45,7 +45,7 @@ export const floorTile = (repeat) => canvasTex('floor', 512, 512, (g, w, h) => {
   for (let i = 0; i < 60; i++) { g.strokeStyle = `rgba(0,0,0,${rnd(0.05, 0.2)})`; g.lineWidth = rnd(0.5, 2); g.beginPath(); const x = rnd(0, w), y = rnd(0, h); g.moveTo(x, y); g.lineTo(x + rnd(-40, 40), y + rnd(-8, 8)); g.stroke(); }
 }, { repeat });
 
-export const wallPaint = (repeat, base = [178, 172, 150]) => canvasTex('wall' + base, 256, 256, (g, w, h) => {
+export const wallPaint = (repeat, base = [188, 186, 178]) => canvasTex('wall' + base, 256, 256, (g, w, h) => {
   g.fillStyle = `rgb(${base})`; g.fillRect(0, 0, w, h);
   for (let i = 0; i < 4000; i++) { const v = rnd(-14, 14); g.fillStyle = `rgba(${base[0] + v},${base[1] + v},${base[2] + v},0.5)`; g.fillRect(rnd(0, w), rnd(0, h), 2, 2); }
   grime(g, w, h, 30, 0.18);
@@ -54,7 +54,7 @@ export const wallPaint = (repeat, base = [178, 172, 150]) => canvasTex('wall' + 
 }, { repeat });
 
 export const ceilingTile = (repeat) => canvasTex('ceil', 256, 256, (g, w, h) => {
-  g.fillStyle = '#c9c6b8'; g.fillRect(0, 0, w, h);
+  g.fillStyle = '#d3d2cc'; g.fillRect(0, 0, w, h);
   for (let i = 0; i < 2500; i++) { g.fillStyle = `rgba(90,85,70,${rnd(0.05, 0.25)})`; g.fillRect(rnd(0, w), rnd(0, h), 1.5, 1.5); }
   g.strokeStyle = '#8d8a7e'; g.lineWidth = 6; g.strokeRect(0, 0, w, h);
   if (Math.random() < 1) { const gr = g.createRadialGradient(170, 90, 0, 170, 90, 60); gr.addColorStop(0, 'rgba(120,90,40,0.35)'); gr.addColorStop(1, 'rgba(120,90,40,0)'); g.fillStyle = gr; g.fillRect(0, 0, w, h); }

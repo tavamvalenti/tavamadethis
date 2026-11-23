@@ -155,7 +155,17 @@ export class Person {
 
   get worldHead() { return this.head.getWorldPosition(new THREE.Vector3()).add(new THREE.Vector3(0, 0.1 * this.s, 0)); }
 
+  // poses are computed fresh each frame, then every joint eases toward its target so nothing snaps
   update(dt) {
+    this._pose(dt);
+    if (this.pose === 'dead') return;
+    const J = this._joints || (this._joints = [this.hips, this.spine, this.neck, this.arm.L.sh, this.arm.L.el, this.arm.R.sh, this.arm.R.el, this.leg.L.hp, this.leg.L.kn, this.leg.R.hp, this.leg.R.kn, this.leg.L.ft, this.leg.R.ft, this.arm.L.hand, this.arm.R.hand].map(o => ({ o, q: o.quaternion.clone() })));
+    const k = 1 - Math.exp(-dt * (this.speed > 0.05 ? 22 : 11));
+    for (const j of J) { j.q.slerp(j.o.quaternion, k); j.o.quaternion.copy(j.q); }
+    this._hy = this._hy === undefined ? this.hips.position.y : this._hy + (this.hips.position.y - this._hy) * Math.min(1, dt * 14); this.hips.position.y = this._hy;
+  }
+
+  _pose(dt) {
     this.t += dt;
     const p = this.pose, t = this.t, s = this.s;
     const A = this.arm, L = this.leg;
@@ -169,9 +179,11 @@ export class Person {
     if (p === 'dead') { this._dead(dt); return; }
     const moving = this.speed > 0.05;
     if (moving) {
-      const run = this.speed > 2.5;
-      this.phase += dt * this.speed * (run ? 2.6 : 3.4);
-      const w = Math.sin(this.phase), amp = run ? 0.9 : 0.5;
+      const run = this.speed > 2.6;
+      this.phase += dt * this.speed * (run ? 3.0 : 4.3);
+      const w = Math.sin(this.phase), amp = run ? 0.95 : Math.min(0.62, 0.3 + this.speed * 0.2);
+      this.hips.rotation.y = w * 0.09; this.hips.rotation.z = Math.cos(this.phase) * 0.035; this.spine.rotation.y = -w * 0.13;
+      L.L.ft.rotation.x = Math.max(-0.35, Math.sin(this.phase + 0.9) * 0.3); L.R.ft.rotation.x = Math.max(-0.35, -Math.sin(this.phase + 0.9) * 0.3);
       L.L.hp.rotation.x = w * amp; L.R.hp.rotation.x = -w * amp;
       L.L.kn.rotation.x = Math.max(0, -Math.cos(this.phase)) * amp * 1.3 + 0.05;
       L.R.kn.rotation.x = Math.max(0, Math.cos(this.phase)) * amp * 1.3 + 0.05;

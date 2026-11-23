@@ -47,7 +47,7 @@ export class Dialogue {
     if (node.sfx) this.game.audio.play(node.sfx, { pos: who?.pos, rate: who?.spec.voice || 1 });
     else this.game.audio.play('mumble', { pos: who?.pos, rate: who?.spec.voice || 1, vol: 0.7 });
     this.nameEl.textContent = (who?.name || '') + (node.tag ? `  ·  ${node.tag}` : '');
-    this._type(say || '');
+    this.game.subtitle(who?.name || '', say || '', { sticky: 'dlg', loud: !!node.tag });
     this.options = (node.options || []).filter(o => !o.if || o.if(c)).slice(0, 5);
     if (this.options.length < 2 && node.options?.length >= 2) this.options = node.options.slice(0, 2);
     this.optsEl.innerHTML = '';
@@ -56,8 +56,6 @@ export class Dialogue {
       const tone = o.tone || 'passive';
       b.innerHTML = `<span class="k">${i + 1}</span><span class="tone" style="color:${TONES[tone] || '#ccc'}">${tone}</span><span class="t"></span>`;
       b.querySelector('.t').textContent = typeof o.text === 'function' ? o.text(c) : o.text;
-      b.onclick = () => this.choose(i);
-      b.onmouseenter = () => this.game.audio.play('ui-hover');
       this.optsEl.appendChild(b);
     });
     this.el.classList.add('show');
@@ -92,7 +90,7 @@ export class Dialogue {
     const a = this.active; if (!a) return;
     clearTimeout(this.timer); clearInterval(this.typeT);
     this.active = null;
-    this.el.classList.remove('show');
+    this.el.classList.remove('show'); this.game.subtitle(null, null, { sticky: 'dlg' });
     a.ctx.lastEnd = how;
     a.enc.onEnd?.(a.ctx);
     this.game.endEncounter(a, how);

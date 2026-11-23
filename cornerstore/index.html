@@ -65,31 +65,51 @@ canvas { display: block; }
 #crosshair { position: absolute; left: 50%; top: 50%; width: 4px; height: 4px; margin: -2px; border-radius: 50%; background: rgba(255, 255, 255, 0.7); box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5); }
 #crosshair.gun { width: 18px; height: 18px; margin: -9px; background: none; border: 1.5px solid rgba(255, 255, 255, 0.75); box-shadow: none; }
 #prompt { position: absolute; left: 50%; top: calc(50% + 26px); transform: translateX(-50%); font: 600 13px var(--mono); background: var(--bg); padding: 6px 11px; border-radius: 6px; border: 1px solid var(--line); white-space: nowrap; transition: opacity 0.15s; }
-#ammo { position: absolute; right: 22px; bottom: 22px; font: 700 22px var(--mono); display: none; text-shadow: 0 1px 4px #000; }
-#ammo.show { display: block; }
-#hint { position: absolute; left: 50%; bottom: 26px; transform: translateX(-50%); max-width: min(720px, 90vw); text-align: center; font-size: 14.5px; line-height: 1.45; background: var(--bg); padding: 10px 16px; border-radius: 8px; border: 1px solid var(--line); opacity: 0; transition: opacity 0.3s; }
+#hint { position: absolute; left: 50%; top: 104px; transform: translateX(-50%); max-width: min(720px, 90vw); text-align: center; font-size: 14.5px; line-height: 1.45; background: var(--bg); padding: 10px 16px; border-radius: 8px; border: 1px solid var(--line); opacity: 0; transition: opacity 0.3s; }
 #hint.show { opacity: 1; }
 #fps { position: absolute; right: 16px; bottom: 6px; font: 10px var(--mono); color: rgba(255, 255, 255, 0.25); }
 #vignette { position: fixed; inset: 0; pointer-events: none; z-index: 4; opacity: 0; background: radial-gradient(ellipse at center, transparent 40%, rgba(120, 0, 0, 0.75) 100%); }
 
-/* floating captions over people */
-#barks { position: fixed; inset: 0; pointer-events: none; z-index: 6; overflow: hidden; }
-.bark { position: absolute; left: 0; top: 0; background: rgba(8, 9, 12, 0.82); border: 1px solid var(--line); border-radius: 8px; padding: 6px 10px; font-size: 14px; max-width: 280px; line-height: 1.35; white-space: normal; text-align: center; transform-origin: 50% 100%; }
-.bark b { display: block; font: 600 10.5px var(--mono); color: var(--dim); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 2px; }
-.bark.loud { border-color: rgba(255, 74, 74, 0.6); font-weight: 700; }
+/* subtitles */
+#subs { position: fixed; left: 50%; bottom: 96px; transform: translateX(-50%); width: min(900px, 86vw); z-index: 6; pointer-events: none; display: flex; flex-direction: column; align-items: center; gap: 5px; }
+.sub { font-size: 20px; line-height: 1.35; text-align: center; text-shadow: 0 1px 2px #000, 0 0 10px rgba(0, 0, 0, 0.95), 0 0 3px #000; font-weight: 500; }
+.sub b { font-weight: 700; margin-right: 9px; }
+.sub.loud span { font-weight: 800; }
+.sub.far { font-size: 16px; opacity: 0.75; }
 
-/* dialogue */
-#dialogue { position: fixed; left: 50%; bottom: 28px; transform: translateX(-50%) translateY(20px); width: min(760px, 94vw); z-index: 10; opacity: 0; pointer-events: none; transition: opacity 0.2s, transform 0.2s; }
-#dialogue.show { opacity: 1; transform: translateX(-50%); pointer-events: auto; }
-#dialogue .box { background: rgba(6, 7, 10, 0.88); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px 12px; backdrop-filter: blur(8px); box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5); }
-#dialogue .who { font: 600 12px var(--mono); color: #ffd21f; text-transform: uppercase; letter-spacing: 0.08em; }
-#dialogue .line { font-size: 20px; line-height: 1.4; margin: 6px 0 14px; min-height: 28px; }
-#dialogue .opts { display: flex; flex-direction: column; gap: 6px; }
-#dialogue .opts button { display: flex; align-items: baseline; gap: 12px; text-align: left; background: rgba(255, 255, 255, 0.04); border: 1px solid transparent; color: var(--ink); font: 15.5px 'Inter Tight', sans-serif; padding: 9px 12px; border-radius: 8px; cursor: pointer; }
-#dialogue .opts button:hover { background: rgba(255, 255, 255, 0.09); border-color: var(--line); }
-#dialogue .k { font: 700 12px var(--mono); background: #fff; color: #000; border-radius: 4px; padding: 1px 6px; flex: none; }
-#dialogue .tone { font: 600 10.5px var(--mono); text-transform: uppercase; letter-spacing: 0.06em; width: 86px; flex: none; }
-#dialogue .timer { height: 3px; background: var(--red); width: 0; margin: -12px -18px 10px; border-radius: 12px 12px 0 0; }
+/* focus: who you are locked on to and what you can say */
+#focus { position: fixed; right: 5vw; bottom: 22vh; z-index: 9; pointer-events: none; opacity: 0; transform: translateX(14px); transition: opacity 0.12s, transform 0.12s; min-width: 230px; }
+#focus.show { opacity: 1; transform: none; }
+#focus .tgt { text-align: right; margin-bottom: 10px; text-shadow: 0 1px 6px #000; }
+#focus .tgt b { display: block; font-size: 22px; font-weight: 800; letter-spacing: -0.01em; }
+#focus .tgt span { font: 600 11px var(--mono); text-transform: uppercase; letter-spacing: 0.1em; color: var(--dim); }
+#focus .a { display: flex; align-items: center; justify-content: flex-end; gap: 10px; margin: 6px 0; font-size: 17px; font-weight: 600; text-shadow: 0 1px 6px #000; }
+#focus .a.aggressive span { color: #ff8a8a; }
+#focus .a.friendly span { color: #a8f0c4; }
+kbd { font: 700 13px var(--mono); background: rgba(255, 255, 255, 0.92); color: #000; border-radius: 5px; padding: 2px 8px; min-width: 26px; text-align: center; box-shadow: 0 2px 0 rgba(0, 0, 0, 0.5); order: 2; }
+#focustip { position: absolute; left: 50%; top: calc(50% + 26px); transform: translateX(-50%); font: 600 12px var(--mono); color: #fff; text-shadow: 0 1px 4px #000; opacity: 0; transition: opacity 0.15s; white-space: nowrap; }
+#focustip kbd { font-size: 11px; padding: 1px 6px; margin: 0 4px; }
+#alert { position: absolute; top: 62px; left: 50%; transform: translateX(-50%); font: 700 14px 'Inter Tight', sans-serif; padding: 8px 14px; border-radius: 6px; background: rgba(190, 40, 20, 0.88); border: 1px solid rgba(255, 150, 120, 0.5); display: none; white-space: nowrap; }
+#alert.show { display: block; animation: pulse 1.2s infinite alternate; }
+@keyframes pulse { to { background: rgba(230, 80, 20, 0.9); } }
+#weapon { position: absolute; right: 22px; bottom: 22px; display: flex; align-items: center; gap: 10px; font: 600 12px var(--mono); color: var(--dim); text-shadow: 0 1px 4px #000; }
+#weapon kbd { order: 0; }
+#weapon #ammo { font: 700 15px var(--mono); color: var(--dim); }
+#weapon.out #ammo { font-size: 24px; color: #fff; }
+#weapon.out .wn { color: #ffb0b0; }
+
+/* reply choices during a conversation: a compact list on the right, you can keep moving */
+#dialogue { position: fixed; right: 5vw; bottom: 22vh; width: min(460px, 44vw); z-index: 10; opacity: 0; pointer-events: none; transform: translateX(14px); transition: opacity 0.15s, transform 0.15s; }
+#dialogue.show { opacity: 1; transform: none; }
+#dialogue .box { background: linear-gradient(90deg, transparent, rgba(4, 5, 8, 0.72) 30%); border-right: 3px solid #ffd21f; padding: 10px 14px 10px 40px; }
+#dialogue .who { font: 700 11px var(--mono); color: #ffd21f; text-transform: uppercase; letter-spacing: 0.1em; text-align: right; margin-bottom: 6px; }
+#dialogue .line { display: none; }
+#dialogue .opts { display: flex; flex-direction: column; gap: 3px; }
+#dialogue .opts button { display: flex; align-items: baseline; justify-content: flex-end; gap: 10px; text-align: right; background: none; border: 0; color: var(--ink); font: 600 16px 'Inter Tight', sans-serif; padding: 5px 0; text-shadow: 0 1px 5px #000; }
+#dialogue .k { font: 700 12px var(--mono); background: rgba(255, 255, 255, 0.92); color: #000; border-radius: 4px; padding: 1px 7px; flex: none; order: 3; text-shadow: none; }
+#dialogue .tone { font: 700 9.5px var(--mono); text-transform: uppercase; letter-spacing: 0.08em; flex: none; order: 2; opacity: 0.9; }
+#dialogue .t { order: 1; }
+#dialogue .timer { height: 3px; background: var(--red); width: 0; margin: 0 0 8px auto; }
 
 /* cctv */
 #cctv { pointer-events: none; z-index: 8; }
@@ -132,6 +152,7 @@ canvas { display: block; }
     <button class="btn" id="continue">Start your shift</button><button class="link" id="newgame">New game</button>
     <div class="keys">
       <b>WASD</b><span>walk</span><b>Mouse</b><span>look</span>
+      <b>RMB / Space</b><span>hold to focus on someone</span><b>E Q F X</b><span>what you say to them</span>
       <b>1 to 5</b><span>pick a reply</span><b>E</b><span>use things</span>
       <b>C</b><span>crouch</span><b>Shift</b><span>hurry</span>
       <b>G</b><span>draw the gun</span><b>Click</b><span>shoot</span>
@@ -154,12 +175,15 @@ canvas { display: block; }
   <div id="police" style="display:none"></div>
   <div id="crosshair"></div>
   <div id="prompt"></div>
-  <div id="ammo">15 / 45</div>
+  <div id="focustip">Hold <kbd>RMB</kbd> or <kbd>Space</kbd> to focus on <b></b></div>
+  <div id="alert"></div>
+  <div id="weapon"><kbd>G</kbd><span class="wn">9mm</span><span id="ammo">holstered</span></div>
   <div id="hint"></div>
   <div id="fps"></div>
 </div>
 <div id="vignette"></div>
-<div id="barks"></div>
+<div id="subs"></div>
+<div id="focus"><div class="tgt"><b></b><span></span></div><div class="acts"></div></div>
 
 <div id="dialogue"><div class="box"><div class="timer"></div><div class="who"></div><div class="line"></div><div class="opts"></div></div></div>
 

@@ -8,6 +8,7 @@ import { Dialogue } from './dialogue.js';
 import { Combat } from './combat.js';
 import { Gore } from './gore.js';
 import { World } from './economy.js';
+import { Social } from './social.js';
 
 const $ = (id) => document.getElementById(id);
 const fmt = (n) => (n < 0 ? '-$' : '$') + Math.abs(Math.round(n)).toLocaleString();
@@ -29,13 +30,14 @@ export class Game {
     this.dialogue = new Dialogue(this);
     this.npcs = []; this.pendingHere = []; this.bodies = [];
     this.police = null; this.falseCalls = 0;
-    this.barksEl = $('barks'); this.barks = [];
+    this.subsEl = $('subs'); this.subs = []; this.fovTarget = 72;
+    this.social = new Social(this); this.debris = [];
     this.flash = new THREE.PointLight(0xffb060, 0, 7, 2); scene.add(this.flash);
     this.cctv = false; this.paused = true; this.nightOver = false; this.dead = false;
     this._interactables();
     this._chores();
     this._listen();
-    this.hint('Walk with WASD. Customers come to the counter. Number keys pick replies. G draws the gun, C crouches.', 9);
+    this.hint('Hold Right Mouse (or Space) while looking at someone to talk to them, kick them out or threaten them. G draws your gun.', 10);
   }
 
   // ------------------------------------------------------------------ setup
@@ -64,17 +66,17 @@ export class Game {
   _listen() {
     addEventListener('keydown', (e) => {
       if (this.paused) return;
-      if (e.code === 'KeyE' && !this.dialogue.open) {
+      if (e.code === 'KeyE' && !this.social.active) {
         if (this.cctv) return this.setCCTV(false);
         const it = this.player.lookTarget(); if (it) it.use();
       }
       if (e.code === 'Escape' && this.cctv) this.setCCTV(false);
-      if (e.code === 'KeyG') { const out = this.player.toggleGun(); if (out !== undefined) this.onGunToggle(out); }
+      if (e.code === 'KeyG' && !e.repeat) { const out = this.player.toggleGun(); if (out !== undefined) this.onGunToggle(out); }
       if (e.code === 'KeyR') this.player.reload();
       if (e.code === 'Tab') { e.preventDefault(); $('chores').classList.toggle('open'); }
     });
     addEventListener('mousedown', (e) => {
-      if (this.paused || e.button !== 0 || !this.player.controls.isLocked) return;
+      if (this.paused || e.button !== 0 || !this.player.controls.isLocked || this.cctv) return;
       if (this.player.tryShoot()) this.combat.playerShoot();
     });
   }
@@ -141,7 +143,7 @@ export class Game {
   makeHostile(n, mode) {
     if (!n.alive) return;
     n.hostile = mode; n.state = 'hostile'; n.wild = Math.max(n.wild, 4); n.fireT = 0.6 + Math.random() * 0.6; n.route = [];
-    n.body.hold(mode);
+    n.body.hold(mode === 'fist' ? null : mode); n.ruckus = null; this.alert(null);
     if (mode === 'gun') n.stateT = 12; // shoots for a while then runs
     n.fleeAfter = true;
     this.panic(n);
@@ -153,6 +155,7 @@ export class Game {
   panic(source) {
     for (const n of this.npcs) {
       if (n === source || n.gone || !n.alive || n.hostile || n.spec.cop || n.state === 'talking' || n.state === 'escorted') continue;
+      if (n.ruckus) this.director.endRuckus(n, 'panic');
       if (source?.companions && Object.values(source.companions).includes(n)) continue;
       if (n.spec.companionOf === source) continue;
       if (Math.random() < 0.45) { n.state = 'cower'; n.stateT = 4 + Math.random() * 5; n.route = []; this.director.leaveQueue(n); }
@@ -244,7 +247,7 @@ export class Game {
       get crouching() { return g.player.crouching; },
       get boothOpen() { return s.boothDoorOpen; },
       remember: (patch) => { if (rid) w.remember(rid, patch); },
-      sell: (amount, opts) => { w.sell(amount, opts); g.registerAnim(); },
+      sell: (amount, opts) => { w.sell(amount, opts); g.store.register.showSale('SALE', Number(amount).toFixed(2)); g.registerAnim(); },
       pocket: (n, why) => { w.pocket(n, why); g.audio.play('coins', { vol: 0.5 }); },
       spend: (n) => w.spend(n),
       mood: (n, who = main) => { who.mood += n; },
@@ -295,7 +298,6 @@ export class Game {
   flashAt(p) { this.flash.position.copy(p); this.flash.intensity = 40; }
 
   onGunToggle(out) {
-    $('ammo').classList.toggle('show', out);
     if (!out) return;
     // people react to you pulling a gun
     for (const n of this.npcs) {
@@ -415,28 +417,53 @@ export class Game {
 
   clearBodies() { for (const b of this.bodies) if (!b.gone) b.despawn(); this.bodies = []; }
 
-  // ------------------------------------------------------------------ captions over heads
-  bark(npc, text, { loud = false, dur = 3.4 } = {}) {
+  // ------------------------------------------------------------------ subtitles (bottom of the screen, like a film)
+  bark(npc, text, { loud = false, dur } = {}) {
     if (!npc || npc.gone) return;
-    const el = document.createElement('div'); el.className = 'bark' + (loud ? ' loud' : '');
-    el.innerHTML = `<b></b><span></span>`; el.querySelector('b').textContent = npc.name; el.querySelector('span').textContent = text;
-    this.barksEl.appendChild(el);
-    for (const b of this.barks) if (b.npc === npc) b.t = Math.min(b.t, 0.3);
-    this.barks.push({ el, npc, t: dur });
+    const d = npc.pos.distanceTo(this.camera.position);
+    if (d > (loud ? 30 : 11) && !this.cctv) return;                 // too far to hear
+    this.subtitle(npc.name, text, { loud, dur, far: d > 7 });
     if (npc.spec && Math.random() < 0.6) this.audio.play(loud ? 'scoff' : 'mumble', { pos: npc.pos, rate: npc.spec.voice || 1, vol: 0.5 });
   }
-  _barks(dt) {
-    const v = new THREE.Vector3(), w = innerWidth, h = innerHeight;
-    this.barks = this.barks.filter(b => {
-      b.t -= dt;
-      if (b.t <= 0 || b.npc.gone) { b.el.remove(); return false; }
-      v.copy(b.npc.body.worldHead || b.npc.pos).add(new THREE.Vector3(0, 0.35, 0)).project(this.camera);
-      const d = b.npc.pos.distanceTo(this.camera.position);
-      if (v.z > 1 || d > 15 || this.cctv) { b.el.style.opacity = 0; return true; }
-      b.el.style.opacity = Math.min(1, b.t * 3);
-      b.el.style.transform = `translate(${(v.x * 0.5 + 0.5) * w}px, ${(-v.y * 0.5 + 0.5) * h}px) translate(-50%, -100%) scale(${Math.max(0.65, Math.min(1, 4 / d))})`;
-      return true;
-    });
+  subtitle(name, text, { loud = false, dur, sticky = null, color = null, far = false } = {}) {
+    if (sticky) { const old = this.subs.find(x => x.sticky === sticky); if (old) { old.el.remove(); this.subs = this.subs.filter(x => x !== old); } if (!text) return; }
+    if (!text) return;
+    const el = document.createElement('div'); el.className = 'sub' + (loud ? ' loud' : '') + (far ? ' far' : '');
+    const b = document.createElement('b'); b.textContent = name; if (color) b.style.color = color; else b.style.color = this._nameColor(name);
+    const sp = document.createElement('span'); sp.textContent = text;
+    el.append(b, sp); this.subsEl.appendChild(el);
+    this.subs.push({ el, t: sticky ? Infinity : (dur || Math.max(2.4, 1.2 + text.length * 0.055)), sticky });
+    while (this.subs.filter(x => !x.sticky).length > 3) { const o = this.subs.find(x => !x.sticky); o.el.remove(); this.subs = this.subs.filter(x => x !== o); }
+  }
+  _nameColor(name) { let h = 0; for (const c of name) h = (h * 31 + c.charCodeAt(0)) % 360; return `hsl(${h} 70% 72%)`; }
+  _subs(dt) {
+    this.subs = this.subs.filter(x => { x.t -= dt; if (x.t <= 0) { x.el.remove(); return false; } if (x.t < 0.4) x.el.style.opacity = x.t / 0.4; return true; });
+  }
+
+  // a banner for trouble in the store, and where it is
+  alert(text, npc) { const el = $('alert'); this.alertNpc = text ? npc : null; el.textContent = text ? '⚠ ' + text : ''; el.classList.toggle('show', !!text); if (text) this.audio.play('scoff', { vol: 0.4 }); }
+
+  // somebody swipes a shelf: products hit the floor and stay there until you pick them up
+  knockShelf(n, at) {
+    this.audio.play('glass-break', { pos: n.pos, vol: 0.4 }); this.audio.play('body-fall', { pos: n.pos, vol: 0.5 });
+    n.poseHold = 0; n.body.setPose('bang'); n.poseHold = 0.8;
+    this.world.debt += 8;
+    if (!this.debrisMats) this.debrisMats = [0xd8312a, 0x2a6fd8, 0xf2c21f, 0x2ea84a, 0xf07f2a, 0xe8e2d0].map(c => new THREE.MeshStandardMaterial({ color: c, roughness: 0.6 }));
+    const pile = { pos: new THREE.Vector3(n.pos.x, 0, n.pos.z), meshes: [] };
+    for (let i = 0; i < 9; i++) {
+      const m = new THREE.Mesh(new THREE.BoxGeometry(0.1 + Math.random() * 0.08, 0.05 + Math.random() * 0.06, 0.14 + Math.random() * 0.1), this.debrisMats[Math.floor(Math.random() * 6)]);
+      m.position.set(n.pos.x + (Math.random() - 0.5) * 1.3, 0.035, n.pos.z + (Math.random() - 0.5) * 1.0); m.rotation.set((Math.random() < 0.5 ? Math.PI / 2 : 0), Math.random() * 6, 0); m.castShadow = true;
+      this.scene.add(m); pile.meshes.push(m);
+    }
+    this.debris.push(pile);
+    this.store.interactables.push(pile.it = { id: 'debris', pos: pile.pos.clone().setY(0.3), r: 1.0, reach: 2.6, prompt: () => 'Pick up the mess', use: () => this.cleanPile(pile) });
+    if (this.debris.length > 8) this.cleanPile(this.debris[0], true);
+  }
+  cleanPile(pile, silent) {
+    for (const m of pile.meshes) { this.scene.remove(m); m.geometry.dispose(); }
+    this.debris = this.debris.filter(d => d !== pile);
+    this.store.interactables.splice(this.store.interactables.indexOf(pile.it), 1);
+    if (!silent) { this.audio.play('ui-select'); this.world.debt = Math.max(0, this.world.debt - 6); this.hint('Back on the shelf. The owner won\'t charge you for most of it.', 3); }
   }
 
   hint(text, sec = 4) { const el = $('hint'); el.textContent = text; el.classList.add('show'); clearTimeout(this._hintT); this._hintT = setTimeout(() => el.classList.remove('show'), sec * 1000); }
@@ -448,14 +475,14 @@ export class Game {
   }
 
   onDialogue(open, enc) {
-    this.player.frozen = open;
     if (open && enc?.cat === 'danger') this.audio.setDuck(0.35); else if (!open) this.audio.setDuck(1);
   }
 
   // ------------------------------------------------------------------ night flow
   startNight() {
-    this.paused = false; this.nightOver = false; this.dead = false;
-    this.director.resetNight();
+    this.paused = false; this.nightOver = false; this.dead = false; this.player.frozen = false;
+    this.director.resetNight(); this.alert(null);
+    for (const d of [...this.debris]) this.cleanPile(d, true);
     this.player.health = 100; this.player.position.set(-4.7, this.player.eye, 3.3);
     this.player.ammo = this.player.mag; this.player.reserve = Math.max(this.player.reserve, 30);
     this.puddle.visible = this.world.chores.some(c => c.id === 'mop');
@@ -545,7 +572,7 @@ export class Game {
     this.player.update(dt);
     this.gore.update(dt);
     this.policeUpdate(dt);
-    this._barks(dt);
+    this._subs(dt); this.social.update(dt);
     if (this.stashT > 0) { this.stashT -= dt; if (this.stashT <= 0) this.store.stash.out = false; }
     this.flash.intensity *= Math.pow(0.0001, dt);
     this.audio.listener = { pos: this.camera.position, yaw: Math.atan2(-this.camera.getWorldDirection(new THREE.Vector3()).x, -this.camera.getWorldDirection(new THREE.Vector3()).z) };
@@ -571,11 +598,14 @@ export class Game {
     $('h-debt').textContent = fmt(w.debt); $('h-debt').parentElement.style.display = w.debt > 0 ? '' : 'none';
     $('h-respect').style.width = `${(w.respect + 100) / 2}%`;
     $('h-weed').textContent = w.weed;
-    $('ammo').textContent = p.reloadT > 0 ? 'Reloading...' : `${p.ammo} / ${p.reserve}`;
+    if (this._cashShown !== Math.round(w.drawer)) { this._cashShown = Math.round(w.drawer); this.store.register.setCash(w.drawer); }
+    if (this._weedShown !== w.weed) { this._weedShown = w.weed; this.store.stash.setWeed(w.weed); }
+    const wtxt = p.reloadT > 0 ? 'Reloading...' : p.gunOut ? `${p.ammo} / ${p.reserve}` : 'holstered';
+    if (this._wtxt !== wtxt) { this._wtxt = wtxt; $('ammo').textContent = wtxt; $('weapon').classList.toggle('out', p.gunOut); }
     $('vignette').style.opacity = Math.min(1, p.hurtT * 0.9 + (100 - p.health) / 140);
     $('police').style.display = this.police && !this.police.arrived ? '' : 'none';
     if (this.police && !this.police.arrived) $('police').textContent = `Police: ${Math.max(0, Math.ceil(this.police.t))}s`;
-    const it = (!this.dialogue.open && !this.cctv) ? p.lookTarget() : null;
+    const it = (!this.social.active && !this.cctv) ? p.lookTarget() : null;
     $('prompt').textContent = it ? `E  ${it.prompt()}` : ''; $('prompt').style.opacity = it ? 1 : 0;
     if (this._choreSig !== JSON.stringify(w.chores)) { this._choreSig = JSON.stringify(w.chores); this.renderChores(); }
     $('crosshair').classList.toggle('gun', p.gunOut);

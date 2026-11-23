@@ -34,7 +34,7 @@ export class Player {
     const arm = new THREE.Mesh(new THREE.CapsuleGeometry(0.04, 0.3, 4, 8), sleeve); arm.rotation.x = Math.PI / 2 - 0.2; arm.position.set(0.02, -0.09, 0.2); g.add(arm);
     this.flash = new THREE.Mesh(new THREE.SphereGeometry(0.04, 8, 6), new THREE.MeshBasicMaterial({ color: 0xffd27a, transparent: true, opacity: 0 }));
     this.flash.position.set(0, 0.02, -0.18); g.add(this.flash);
-    this.flashLight = new THREE.PointLight(0xffb060, 0, 6, 2); this.flashLight.position.set(0, 0.02, -0.3); g.add(this.flashLight);
+    this.flashLight = new THREE.PointLight(0xffb060, 0, 6, 2); this.flashLight.position.set(0.17, -0.18, -0.7); this.camera.add(this.flashLight);   // on the camera, not the gun: hiding a light recompiles shaders
     g.position.set(0.17, -0.2, -0.38); g.visible = false;
     this.camera.add(g);
   }
@@ -79,7 +79,7 @@ export class Player {
     const f = new THREE.Vector3(), r = new THREE.Vector3();
     c.getWorldDirection(f); f.y = 0; f.normalize(); r.crossVectors(f, c.up).normalize();
     const mv = new THREE.Vector3();
-    if (!this.frozen && this.controls.isLocked) {
+    if (!this.frozen) {
       if (this.keys.KeyW) mv.add(f); if (this.keys.KeyS) mv.sub(f);
       if (this.keys.KeyD) mv.add(r); if (this.keys.KeyA) mv.sub(r);
     }
