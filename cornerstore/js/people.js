@@ -1,7 +1,8 @@
-// Placeholder people: a jointed body built from simple shapes and posed in code.
-// Real characters (Higgsfield + Blender + Mixamo) replace these in Phase 3; the rest of the game
-// only talks to the Person API (setPose, lookAt, hold, hit parts), so the swap is local to this file.
+// People. When a modelled character fits (characters.js, assets/models/manifest.json "characters"), `new Person()`
+// returns a SkinnedPerson instead; otherwise it builds this placeholder jointed body from simple shapes.
+// The rest of the game only talks to the Person API (setPose, lookAt, hold, hit parts), so both work the same.
 import * as THREE from 'three';
+import { pickCharacter, SkinnedPerson } from './characters.js';
 
 const SKIN = [0x3b2219, 0x4a2c1f, 0x5c3a28, 0x6e4630, 0x8a5a3c, 0xa8724f, 0xc58e68, 0xe0b48f, 0xf1cfb0];
 const rnd = (a, b) => a + Math.random() * (b - a);
@@ -35,6 +36,9 @@ const HATS = ['none', 'none', 'cap', 'beanie', 'durag', 'none'];
 
 export class Person {
   constructor(opts = {}) {
+    // a modelled character (assets/models/chars) takes over when one fits this outfit; see characters.js
+    const def = opts.procedural ? null : pickCharacter({ outfit: opts.outfit || 'hoodie', female: opts.female });
+    if (def) return new SkinnedPerson(def, { ...opts, outfit: opts.outfit || 'hoodie' });
     const o = this.opts = {
       height: rnd(1.62, 1.92), build: rnd(0.9, 1.25), skin: pick(SKIN), outfit: 'hoodie', hat: null, female: Math.random() < 0.45, ...opts,
     };

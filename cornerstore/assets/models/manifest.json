@@ -1,3 +1,44 @@
 {
+  "characters": {
+    "young": {
+      "file": "chars/young.glb",
+      "outfits": [
+        "hoodie",
+        "puffer",
+        "tee"
+      ],
+      "height": 1.8,
+      "female": false
+    },
+    "robber": {
+      "file": "chars/robber.glb",
+      "outfits": [
+        "robber"
+      ],
+      "height": 1.82,
+      "female": false
+    },
+    "church": {
+      "file": "chars/church.glb",
+      "outfits": [
+        "church"
+      ],
+      "height": 1.62,
+      "female": true,
+      "walk": "elderWalk",
+      "walkSpeed": 0.9
+    }
+  },
+  "animations": {
+    "idle": "anims/idle.glb",
+    "walk": "anims/walk.glb",
+    "talk": "anims/talk.glb",
+    "angry": "anims/angry.glb",
+    "dieBack": "anims/dieBack.glb",
+    "dieFwd": "anims/dieFwd.glb",
+    "run": "anims/run.glb",
+    "dance": "anims/dance.glb",
+    "hurt": "anims/hurt.glb"
+  },
   "props": {}
 }

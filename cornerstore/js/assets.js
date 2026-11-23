@@ -9,12 +9,16 @@
 // ~30k triangles; export from Blender with Draco off and textures at 1024 px.
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { loadCharacters } from './characters.js';
 
 const BASE = './assets/models/';
 
 export async function loadAssets(game) {
   let manifest;
-  try { manifest = await (await fetch(BASE + 'manifest.json', { cache: 'no-cache' })).json(); } catch (e) { return; }
+  try { manifest = await (await fetch(BASE + 'manifest.json', { cache: 'no-cache' })).json(); } catch (e) { game.assetsReady = true; return; }
+  // characters first: people who walk in after this point get a modelled body
+  if (manifest.characters) { try { await loadCharacters(manifest); } catch (e) { console.warn('[assets] characters failed', e); } }
+  game.assetsReady = true;
   const loader = new GLTFLoader();
   for (const [name, def] of Object.entries(manifest.props || {})) {
     const slot = game.store.slots?.[name]; if (!slot) { console.warn('[assets] no slot called', name); continue; }
