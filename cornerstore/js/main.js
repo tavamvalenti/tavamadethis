@@ -38,7 +38,13 @@ const audio = new Audio();
 const game = new Game({ renderer, scene, camera, audio });
 game.gore.level = settings.gore;
 window.__game = game; // handy for debugging in the console
-const assetsLoading = loadAssets(game);   // modelled people + props; the first night waits for them
+// modelled people + props load behind the start screen; Continue stays disabled until they are in, so the click
+// that starts the game can still take the pointer lock (a lock requested after an await loses the user gesture)
+{
+  const b = $('continue'), was = b.textContent;
+  b.disabled = true; b.textContent = 'Loading people…';
+  loadAssets(game).finally(() => { b.disabled = false; if (b.textContent === 'Loading people…') b.textContent = was; });
+}
 
 // post: bloom for neon, then a grade pass (grain, vignette, a cold-warm split, damage tint)
 const composer = new EffectComposer(renderer, new THREE.WebGLRenderTarget(innerWidth, innerHeight, { type: THREE.HalfFloatType, samples: settings.quality === 'low' ? 0 : 4 }));
@@ -93,7 +99,6 @@ function confirmReset() { const b = $('newgame'); if (b.dataset.sure) return tru
 
 let started = false;
 $('continue').onclick = async () => {
-  if (!started && !game.assetsReady) { const b = $('continue'), was = b.textContent; b.textContent = 'Loading people…'; await assetsLoading; b.textContent = was; }
   await audio.start();
   start.classList.remove('show'); $('hud').classList.add('show');
   renderer.domElement.requestPointerLock?.();
