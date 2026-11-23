@@ -25,17 +25,31 @@ const LOOPING_ONCE = new Set(['dieBack', 'dieFwd']);
 function findBone(root, ...names) {
   const want = names.map(n => n.toLowerCase());
   let hit = null;
-  root.traverse((o) => { if (!hit && o.isBone && want.includes(o.name.toLowerCase().replace(/^mixamorig:?/, ''))) hit = o; });
+  // clip-only files have no skin, so their joints load as plain nodes: accept those too
+  root.traverse((o) => { if (!hit && (o.isBone || !o.isMesh) && want.includes(o.name.toLowerCase().replace(/^mixamorig:?/, ''))) hit = o; });
   return hit;
 }
 
 // Make a clip safe to share: keep bone rotations, keep the hips' height (scaled to this body) and drop the hips'
 // horizontal travel, because the game moves people itself.
-function adaptClip(clip, hipsName, hipScale) {
+// Some clips stand at an angle (the stock idle faces ~45° off); the hips' average heading is turned back to face +z.
+function adaptClip(clip, hipsName, hipScale, hipsRest) {
   const tracks = [];
   for (const t of clip.tracks) {
     const [node, prop] = t.name.split('.');
     if (prop === 'scale') continue;
+    if (prop === 'quaternion' && node === hipsName && hipsRest) {
+      const v = t.values.slice(), q = new THREE.Quaternion(), f = new THREE.Vector3();
+      let sx = 0, sz = 0;
+      const restFwd = new THREE.Vector3(0, 0, 1).applyQuaternion(hipsRest); const restYaw = Math.atan2(restFwd.x, restFwd.z);
+      for (let i = 0; i < v.length; i += 4) { f.set(0, 0, 1).applyQuaternion(q.fromArray(v, i)); const a = Math.atan2(f.x, f.z) - restYaw; sx += Math.sin(a); sz += Math.cos(a); }
+      const yaw = Math.atan2(sx, sz);
+      if (Math.abs(yaw) > 0.05) {
+        const fix = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), -yaw);
+        for (let i = 0; i < v.length; i += 4) q.fromArray(v, i).premultiply(fix).toArray(v, i);
+      }
+      tracks.push(new THREE.QuaternionKeyframeTrack(t.name, t.times, v)); continue;
+    }
     if (prop === 'position') {
       if (node !== hipsName) continue;
       const v = t.values.slice(), x0 = v[0], z0 = v[2];
@@ -143,7 +157,7 @@ export class SkinnedPerson {
     for (const [name, { clip, scene }] of Object.entries(library.clips)) {
       const srcHips = findBone(scene, this.hips.name);
       const hipScale = srcHips && srcHips.position.y ? hipsRestY / srcHips.position.y : 1;
-      const a = this.mixer.clipAction(adaptClip(clip, this.hips.name, hipScale));
+      const a = this.mixer.clipAction(adaptClip(clip, this.hips.name, hipScale, srcHips ? srcHips.quaternion : null));
       if (LOOPING_ONCE.has(name)) { a.setLoop(THREE.LoopOnce, 1); a.clampWhenFinished = true; }
       this.actions[name] = a;
     }
