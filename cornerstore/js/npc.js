@@ -57,7 +57,10 @@ export class NPC {
     this.hostile = false; this.fireT = 2; this.barkT = 4 + Math.random() * 8;
     this.yaw = 0; this.waitT = 0; this.alive = true; this.gone = false;
     if (spec.hold) this.body.hold(spec.hold);
-    this.goTo(spots.doorIn, () => this.afterEnter());
+    if (spec.at) {   // already standing somewhere (the clerk, a guard, police outside)
+      this.root.position.copy(spec.at); this.state = 'idle';
+      if (spec.hunter) setTimeout(() => { if (this.alive && !this.gone) { game.makeHostile(this, 'gun'); this.stateT = 1e9; } }, 0);
+    } else this.goTo(spots.doorIn, () => this.afterEnter());
   }
 
   get pos() { return this.root.position; }
@@ -84,7 +87,8 @@ export class NPC {
 
   afterEnter() {
     this.game.audio.play('door-chime');
-    if (this.spec.onEnter) this.spec.onEnter(this);
+    if (this.spec.onEnter) { this.spec.onEnter(this); if (this.state !== 'enter') return; }
+    if (this.spec.hunter) { this.game.makeHostile(this, 'gun'); this.stateT = 1e9; return; }
     if (this.spec.companionOf) return this.toCompanion();
     if (this.spec.cop) return this.game.copArrived(this);
     if (this.spec.direct || this.browseLeft <= 0) return this.toCounter();
@@ -115,8 +119,13 @@ export class NPC {
     if (!this.alive) return;
     this.state = run ? 'flee' : 'leave'; this.target = null; this.body.lookAt(null);
     this.game.director.leaveQueue(this);
-    this.goTo(spots.outside.clone().add(new THREE.Vector3((Math.random() - 0.5) * 6, 0, 1.5)), () => { this.despawn(); then?.(); }, { run });
+    this.goTo(spots.outside.clone().add(new THREE.Vector3((Math.random() - 0.5) * 6, 0, 1.5)), () => { this.game.heist?.onExit(this); this.despawn(); then?.(); }, { run });
 
+  }
+  // shoved or hit: pushed back and staggered for a moment
+  knock(dir, dist) {
+    const p = this.pos.clone(); p.x += dir.x * dist; p.z += dir.z * dist; this.game.store.collide(p, 0.25);
+    this.pos.x = p.x; this.pos.z = p.z; this.stun = 0.7; this.poseHold = 0; this.body.setPose('hurt'); this.poseHold = 0.8;
   }
   despawn() { this.gone = true; this.game.scene.remove(this.root); }
 
@@ -127,6 +136,7 @@ export class NPC {
     this.body.hitT = 0.25; this.body.hitDir = 1;
     if (this.health <= 0) { this.kill(dir); return; }
     this.game.audio.play(Math.random() < 0.5 ? 'grunt' : 'scream', { pos: this.pos, rate: this.spec.voice || 1 });
+    if (this.state === 'clerk') { const h = this.game.heist; if (h?.cs) h.cs.down = 60; return; }   // the clerk drops behind the counter
     if (!this.hostile || this.health < 45) {
       this.hostile = false; this.body.hold(null); this.body.setPose('hurt');
       this.state = 'flee'; setTimeout(() => this.leave({ run: true }), 300);
@@ -154,7 +164,8 @@ export class NPC {
     if (this.state === 'dead') { body.speed = 0; body.update(dt); return; }
     // movement along the route
     let speed = 0;
-    if (this.route.length && !this.frozen) {
+    if (this.stun > 0) this.stun -= dt;
+    if (this.route.length && !this.frozen && !(this.stun > 0)) {
       const tgt = this.route[0], p = this.pos;
       const dx = tgt.x - p.x, dz = tgt.z - p.z, d = Math.hypot(dx, dz);
       const vmax = this.run ? Math.max(4.4, this.speedMax) : this.speedMax;
@@ -221,6 +232,7 @@ export class NPC {
       case 'companion': { const m = this.spec.companionOf; if (!m || !m.alive || m.gone || (!m.encounter && !['talking', 'queue', 'atCounter', 'waitHere', 'enter', 'browsing'].includes(m.state))) { this.game.applyBehavior(this, this._lateAfter || 'leave'); this._lateAfter = null; break; } } sp(this.spec.idlePose || 'idle'); body.lookAt(this.game.player.position); this.faceTarget = this.game.player.position; break;
       case 'watch': sp(body.held ? 'film' : 'idle'); if (this.stateT < 0) { body.hold(null); this.leave(); } break;
       case 'ruckus': if (!this.ruckus) this.leave(); break;
+      case 'clerk': case 'guard': break;   // posed by the job (heist.js)
       case 'flee': if (!this.route.length) this.leave({ run: true }); break;
       default:
         if (speed < 0.01 && !['talking'].includes(this.state)) sp(this.spec.idlePose || 'idle');

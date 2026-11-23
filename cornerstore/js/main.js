@@ -106,7 +106,7 @@ renderer.domElement.addEventListener('mousedown', () => { if (started && !game.p
 renderer.domElement.addEventListener('contextmenu', (e) => e.preventDefault());
 game.player.controls.addEventListener('unlock', () => {
   if (!started || game.nightOver || game.dead || game.cctv) return;
-  game.paused = true; start.classList.add('show'); $('continue').textContent = 'Back to the counter';
+  game.paused = true; start.classList.add('show'); $('continue').textContent = 'Back to the job';
   $('hud').classList.remove('show');
 });
 game.player.controls.addEventListener('lock', () => { game.paused = false; });

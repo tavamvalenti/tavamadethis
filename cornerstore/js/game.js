@@ -1,4 +1,4 @@
-// The game: holds the store, you, the people, and runs the night.
+// The game: holds the store, you, the people, and runs the job (see heist.js for the robbery itself).
 import * as THREE from 'three';
 import { Store, spots } from './store.js';
 import { Player } from './player.js';
@@ -9,6 +9,7 @@ import { Combat } from './combat.js';
 import { Gore } from './gore.js';
 import { World } from './economy.js';
 import { Social } from './social.js';
+import { Heist } from './heist.js';
 
 const $ = (id) => document.getElementById(id);
 const fmt = (n) => (n < 0 ? '-$' : '$') + Math.abs(Math.round(n)).toLocaleString();
@@ -34,35 +35,11 @@ export class Game {
     this.social = new Social(this); this.debris = [];
     this.flash = new THREE.PointLight(0xffb060, 0, 7, 2); scene.add(this.flash);
     this.cctv = false; this.paused = true; this.nightOver = false; this.dead = false;
-    this._interactables();
-    this._chores();
+    this.heist = new Heist(this);
     this._listen();
-    this.hint('Hold Right Mouse (or Space) while looking at someone to talk to them, kick them out or threaten them. G draws your gun.', 10);
   }
 
   // ------------------------------------------------------------------ setup
-  _interactables() {
-    const s = this.store, I = s.interactables;
-    I.push({ id: 'register', pos: spots.register.clone().add(new THREE.Vector3(0, 0.15, 0)), r: 0.35, prompt: () => `Open the register (${fmt(this.world.drawer)} inside)`, use: () => { s.register.hold = 1.2; this.audio.play('drawer-open'); this.hint(`Drawer: ${fmt(this.world.drawer)}. The owner wants ${fmt(this.world.float + this.world.cut)} back at 6 AM (the $${this.world.float} float plus his $${this.world.cut} cut). Anything over that is yours.`, 7); } });
-    I.push({ id: 'phone', pos: s.phonePos, r: 0.3, prompt: () => this.police ? 'Police are already on the way' : 'Use the phone', use: () => !this.police && this.phoneMenu() });
-    I.push({ id: 'monitor', pos: s.monitorPos, r: 0.35, prompt: () => 'Watch the security cameras', use: () => this.setCCTV(true) });
-    I.push({ id: 'stash', pos: new THREE.Vector3(-3.45, 0.8, 2.45), r: 0.35, reach: 1.8, prompt: () => s.stash.out ? 'Close the stash drawer' : `Check the stash (${this.world.weed} left)`, use: () => { s.stash.out = !s.stash.out; this.audio.play(s.stash.out ? 'drawer-open' : 'drawer-close', { vol: 0.6 }); if (s.stash.out) this.stashT = 30; } });
-  }
-
-  _chores() {
-    const s = this.store, I = s.interactables, w = this.world;
-    const done = (id) => { const c = w.chores.find(x => x.id === id); if (c && !c.done) { c.done = true; this.audio.play('ui-select'); this.hint('Chore done: ' + c.text, 4); w.note('Did a chore for the owner'); } };
-    this.choreDone = done;
-    // mop puddle by the fridges
-    const pud = new THREE.Mesh(new THREE.CircleGeometry(0.6, 20), new THREE.MeshStandardMaterial({ color: 0x5a4a2a, roughness: 0.02, metalness: 0.3, transparent: true, opacity: 0.55, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -1 }));
-    pud.rotation.x = -Math.PI / 2; pud.position.set(1.2, 0.004, -3.6); pud.scale.set(1.4, 1, 1); this.scene.add(pud); this.puddle = pud;
-    const has = (id) => () => w.chores.some(c => c.id === id && !c.done);
-    I.push({ id: 'mop', pos: new THREE.Vector3(1.2, 0.2, -3.6), r: 0.8, reach: 2.6, enabled: has('mop'), prompt: () => 'Mop the spill (owner\'s chore)', use: () => { done('mop'); } });
-    I.push({ id: 'fridge', pos: new THREE.Vector3(0, 1.2, -4.25), r: 2.5, enabled: has('fridge'), prompt: () => 'Restock the fridge (owner\'s chore)', use: () => { this.openFridge(this.player.position.x); done('fridge'); } });
-    I.push({ id: 'face', pos: new THREE.Vector3(1.5, 1.0, 0.85), r: 2.2, enabled: has('face'), prompt: () => 'Face the shelves (owner\'s chore)', use: () => done('face') });
-    I.push({ id: 'count', pos: new THREE.Vector3(-6.5, 1.4, 3.9), r: 1.6, enabled: has('count'), prompt: () => 'Count the cigarettes (owner\'s chore)', use: () => done('count') });
-  }
-
   _listen() {
     addEventListener('keydown', (e) => {
       if (this.paused) return;
@@ -72,12 +49,15 @@ export class Game {
       }
       if (e.code === 'Escape' && this.cctv) this.setCCTV(false);
       if (e.code === 'KeyG' && !e.repeat) { const out = this.player.toggleGun(); if (out !== undefined) this.onGunToggle(out); }
+      if (e.code === 'KeyB' && !e.repeat) this.player.toggleBat();
       if (e.code === 'KeyR') this.player.reload();
-      if (e.code === 'Tab') { e.preventDefault(); $('chores').classList.toggle('open'); }
     });
     addEventListener('mousedown', (e) => {
       if (this.paused || e.button !== 0 || !this.player.controls.isLocked || this.cctv) return;
-      if (this.player.tryShoot()) this.combat.playerShoot();
+      const shot = this.player.tryShoot();
+      if (shot) return this.combat.playerShoot(shot);
+      const hit = this.player.tryMelee();
+      if (hit !== false) setTimeout(() => this.heist.strike(hit), 130);
     });
   }
 
@@ -154,7 +134,7 @@ export class Game {
   // everyone who is not part of the trouble reacts to it
   panic(source) {
     for (const n of this.npcs) {
-      if (n === source || n.gone || !n.alive || n.hostile || n.spec.cop || n.state === 'talking' || n.state === 'escorted') continue;
+      if (n === source || n.gone || !n.alive || n.hostile || n.spec.cop || n.state === 'talking' || n.state === 'escorted' || n.state === 'clerk' || n.state === 'guard') continue;
       if (n.ruckus) this.director.endRuckus(n, 'panic');
       if (source?.companions && Object.values(source.companions).includes(n)) continue;
       if (n.spec.companionOf === source) continue;
@@ -174,14 +154,10 @@ export class Game {
     }
     this.panic(source);
     this.director.tension = 1;
-    if (!this.police && !this.autoCallT) this.autoCallT = 20 + Math.random() * 15; // a neighbour calls it in
   }
 
   onPlayerHit(npc, killed) {
-    const w = this.world;
-    const guilty = npc.hostile || npc.wild >= 3;
-    if (guilty) { w.addRespect(killed ? 6 : 3); w.note(`${killed ? 'Shot and killed' : 'Shot'} ${npc.name}`, 'danger'); }
-    else { w.addRespect(-15); w.debt += 200; w.note(`Shot ${npc.name}, who wasn't a threat. The owner charged you $200 for the mess.`, 'danger'); this.hint('They weren\'t a threat. The block will remember that.', 5); }
+    this.heist.onHit(npc, killed);
   }
 
   onDeath(npc) {
@@ -301,7 +277,7 @@ export class Game {
     if (!out) return;
     // people react to you pulling a gun
     for (const n of this.npcs) {
-      if (!n.alive || n.gone || n.hostile || n.spec.cop) continue;
+      if (!n.alive || n.gone || n.hostile || n.spec.cop || n.state === 'clerk' || n.state === 'guard') continue;
       if (n.pos.distanceTo(this.player.position) < 7 && n.state !== 'talking' && Math.random() < 0.6) {
         n.say(['Whoa, WHOA.', 'Chill, bro!', 'Why you got that out?!', 'I\'m just buying chips!'][Math.floor(Math.random() * 4)]);
         if (Math.random() < 0.4) n.leave({ run: true });
@@ -310,42 +286,8 @@ export class Game {
   }
 
   // ------------------------------------------------------------------ phone + police
-  phoneMenu() {
-    const g = this;
-    this.audio.play('phone-dial');
-    const enc = {
-      id: 'phone', nodes: {
-        start: {
-          who: 'main', say: 'Dial tone.', tag: 'PHONE',
-          options: [
-            { tone: 'shady', text: 'Call 911', do: () => g.callPolice('called from the store phone'), end: 'stay' },
-            { tone: 'passive', text: 'Call the owner', next: 'owner' },
-            { tone: 'hustle', text: 'Call Unc Bobby (restock)', if: () => g.world.stash >= 70, next: 'unc' },
-            { tone: 'dismissive', text: 'Hang up', end: 'stay' },
-          ],
-        },
-        owner: {
-          who: 'main', say: () => g.world.debt > 0 ? `The owner: "You owe me ${fmt(g.world.debt)}. Why you calling me at ${g.world.clock}? Do the chores."` : `The owner: "Why you calling me at ${g.world.clock}? Is the store on fire? No? Goodnight."`, tag: 'PHONE',
-          options: [{ tone: 'passive', text: 'Sorry, boss.', end: 'stay' }, { tone: 'sarcastic', text: 'Just checking you\'re awake.', end: 'stay' }],
-        },
-        unc: {
-          who: 'main', say: 'Unc Bobby: "Nephew. I\'ll swing by. Have the money."', tag: 'PHONE',
-          options: [{ tone: 'shady', text: 'Bet.', do: () => { g.director.played.delete('supplier'); g.world.flags.owesUnc = 0; setTimeout(() => { const e = g.director.pickById('supplier'); if (e) g.spawnEncounter(e); }, 15000); }, end: 'stay' }, { tone: 'passive', text: 'Never mind.', end: 'stay' }],
-        },
-      },
-    };
-    const phone = { name: 'Store phone', spec: {}, pos: this.store.phonePos, alive: true, body: { setPose() { }, hold() { } }, state: 'phone' };
-    this.dialogue.start(enc, { main: phone }, { world: this.world, npc: phone });
-  }
-
-  callPolice(why) {
-    if (this.police) return;
-    const eta = 35 + this.falseCalls * 15 + Math.random() * 10;
-    this.police = { t: eta, why, cops: [], arrived: false };
-    this.world.note(`Called the police: ${why}`);
-    this.audio.play('phone-dial', { vol: 0.5 });
-    this.hint(`Police are on the way (about ${Math.round(eta)} seconds).`, 5);
-  }
+  // anything that would have called the police now feeds the job's alarm
+  callPolice(why) { this.heist.alarm(why); }
 
   copArrived(cop) {
     const p = this.police; if (!p) return cop.leave();
@@ -421,19 +363,24 @@ export class Game {
   bark(npc, text, { loud = false, dur } = {}) {
     if (!npc || npc.gone) return;
     const d = npc.pos.distanceTo(this.camera.position);
-    if (d > (loud ? 30 : 11) && !this.cctv) return;                 // too far to hear
-    this.subtitle(npc.name, text, { loud, dur, far: d > 7 });
+    if (d > (loud ? 24 : 8)) return;                                // too far to hear
+    this.subtitle(npc.name, text, { loud, dur });
     if (npc.spec && Math.random() < 0.6) this.audio.play(loud ? 'scoff' : 'mumble', { pos: npc.pos, rate: npc.spec.voice || 1, vol: 0.5 });
   }
   subtitle(name, text, { loud = false, dur, sticky = null, color = null, far = false } = {}) {
     if (sticky) { const old = this.subs.find(x => x.sticky === sticky); if (old) { old.el.remove(); this.subs = this.subs.filter(x => x !== old); } if (!text) return; }
     if (!text) return;
+    // long lines are shown one short sentence at a time so they are easy to read
+    if (!sticky && text.length > 56) {
+      const parts = []; for (const s of text.match(/[^.!?]+[.!?]*\s*/g) || [text]) { if (parts.length && (parts[parts.length - 1] + s).length <= 56) parts[parts.length - 1] += s; else parts.push(s); }
+      if (parts.length > 1) { parts.forEach((t, i) => setTimeout(() => this.subtitle(name, t.trim(), { loud, color, dur: 2.2 }), i * 2000)); return; }
+    }
     const el = document.createElement('div'); el.className = 'sub' + (loud ? ' loud' : '') + (far ? ' far' : '');
     const b = document.createElement('b'); b.textContent = name; if (color) b.style.color = color; else b.style.color = this._nameColor(name);
     const sp = document.createElement('span'); sp.textContent = text;
     el.append(b, sp); this.subsEl.appendChild(el);
     this.subs.push({ el, t: sticky ? Infinity : (dur || Math.max(2.4, 1.2 + text.length * 0.055)), sticky });
-    while (this.subs.filter(x => !x.sticky).length > 3) { const o = this.subs.find(x => !x.sticky); o.el.remove(); this.subs = this.subs.filter(x => x !== o); }
+    while (this.subs.filter(x => !x.sticky).length > 2) { const o = this.subs.find(x => !x.sticky); o.el.remove(); this.subs = this.subs.filter(x => x !== o); }
   }
   _nameColor(name) { let h = 0; for (const c of name) h = (h * 31 + c.charCodeAt(0)) % 360; return `hsl(${h} 70% 72%)`; }
   _subs(dt) {
@@ -441,7 +388,7 @@ export class Game {
   }
 
   // a banner for trouble in the store, and where it is
-  alert(text, npc) { const el = $('alert'); this.alertNpc = text ? npc : null; el.textContent = text ? '⚠ ' + text : ''; el.classList.toggle('show', !!text); if (text) this.audio.play('scoff', { vol: 0.4 }); }
+  alert(text, npc) { const el = $('alert'); this.alertNpc = text ? npc : null; el.textContent = text ? '⚠ ' + text : ''; el.classList.toggle('show', !!text); clearTimeout(this._alertT); if (text) { this.audio.play('scoff', { vol: 0.4 }); this._alertT = setTimeout(() => el.classList.remove('show'), 5000); } }
 
   // somebody swipes a shelf: products hit the floor and stay there until you pick them up
   knockShelf(n, at) {
@@ -483,69 +430,12 @@ export class Game {
     this.paused = false; this.nightOver = false; this.dead = false; this.player.frozen = false;
     this.director.resetNight(); this.alert(null);
     for (const d of [...this.debris]) this.cleanPile(d, true);
-    this.player.health = 100; this.player.position.set(-4.7, this.player.eye, 3.3);
-    this.player.ammo = this.player.mag; this.player.reserve = Math.max(this.player.reserve, 30);
-    this.puddle.visible = this.world.chores.some(c => c.id === 'mop');
-    this.renderChores();
+    this.heist.start();
+    $('h-clock').textContent = `Job ${(this.world.jobs || 0) + 1}`; $('h-night').textContent = this.heist.job.title;
     this.audio.play('shift-start');
-    const w = this.world;
-    this.hint(`Night ${w.night}. The owner wants ${fmt(w.float + w.cut)} in the drawer at 6 AM. ${w.debt > 0 ? `You owe him ${fmt(w.debt)}, so he left chores (Tab).` : 'Everything over that is yours.'}`, 8);
-    if (w.marked > 0) setTimeout(() => this.hint('Word on the block is you fold when robbed. Expect people to try you.', 6), 9000);
   }
 
-  renderChores() {
-    const el = $('chores'), w = this.world;
-    if (!w.chores.length) { el.innerHTML = ''; el.style.display = 'none'; return; }
-    el.style.display = '';
-    el.innerHTML = '<b>Owner\'s list (Tab)</b>' + w.chores.map(c => `<div class="${c.done ? 'done' : ''}">${c.done ? '✓' : '○'} ${c.text}</div>`).join('');
-  }
-
-  endNight(died = false) {
-    if (this.nightOver && !died) return;
-    this.nightOver = true; this.paused = true;
-    this.dialogue.cancel(); this.setCCTV(false);
-    this.player.controls.unlock();
-    const w = this.world;
-    // numbers: did anyone hit?
-    const betLines = [];
-    for (const b of w.bets) { if (Math.random() < 0.12) { const pay = b.amt * 6; if (w.stash >= pay) { w.stash -= pay; betLines.push(`${b.who} hit the number. You paid out ${fmt(pay)}.`); } else { w.debt += pay; w.addRespect(-10); betLines.push(`${b.who} hit the number and you couldn't pay ${fmt(pay)}. That's on your debt now, and people are talking.`); } } }
-    w.bets = [];
-    let hosp = null;
-    if (died) hosp = w.died();
-    const r = w.clockOut();
-    this.audio.play('shift-end');
-    const el = $('recap');
-    const rows = [
-      ['Drawer at 6 AM', fmt(r.drawer)], ['Owner\'s float + cut', fmt(r.float + r.cut)],
-      ...(r.shortfall ? [['Short', '-' + fmt(r.shortfall)]] : []),
-      ...(r.caught ? [['Audit caught your skimming', '-' + fmt(r.caught)]] : r.audit ? [['Audit', 'clean']] : []),
-      ...(r.choresMissed ? [['Chores skipped', '-' + fmt(r.choresMissed * 25)]] : []),
-      ...(hosp ? [['Hospital bill', '-' + fmt(hosp.bill)], ['Lost from your stash', '-' + fmt(hosp.lost)]] : []),
-      ...(r.paidDebt ? [['Paid toward debt', fmt(r.paidDebt)]] : []),
-      ['Kept from the drawer', fmt(r.kept)], ['Skimmed', fmt(r.skimmed)], ['Hustles', fmt(r.hustle)], ['Tips', fmt(r.tips)],
-      ...(r.robbed ? [['Taken by robbers', '-' + fmt(r.robbed)]] : []),
-    ];
-    const gossip = this.gossip(r);
-    el.querySelector('.title').textContent = died ? 'You got hit. You wake up at Penn the next night.' : `6:00 AM. Night ${r.night} is over.`;
-    el.querySelector('.money').innerHTML = rows.map(([a, b]) => `<div><span>${a}</span><b class="${String(b).startsWith('-') ? 'neg' : ''}">${b}</b></div>`).join('') +
-      `<div class="total"><span>Your stash</span><b>${fmt(r.stash)}</b></div><div class="total"><span>You owe the owner</span><b class="${r.debt ? 'neg' : ''}">${fmt(r.debt)}</b></div>`;
-    el.querySelector('.log').innerHTML = [...betLines, ...gossip].map(t => `<div class="n"></div>`).join('');
-    [...el.querySelectorAll('.log .n')].forEach((d, i) => { d.textContent = [...betLines, ...gossip][i]; });
-    const pay = el.querySelector('.pay');
-    pay.style.display = w.debt > 0 && w.stash > 0 ? '' : 'none';
-    pay.textContent = `Pay ${fmt(Math.min(w.stash, w.debt))} of the debt from your stash`;
-    pay.onclick = () => { w.payDebtFromStash(); pay.style.display = 'none'; el.querySelector('.money .total:last-child b').textContent = fmt(w.debt); el.querySelectorAll('.money .total b')[0].textContent = fmt(w.stash); };
-    el.querySelector('.next').textContent = `Start night ${w.night}`;
-    el.classList.add('show');
-    $('hud').classList.remove('show');
-  }
-
-  gossip(r) {
-    const lines = r.log.filter(l => l.kind === 'danger' || Math.random() < 0.75).slice(-9).map(l => `${l.t}  ${l.text}`);
-    if (!lines.length) lines.push('A quiet night. Nobody posted about the store.');
-    if (this.world.flags.viral) lines.push('The egg speech has 400K views. Strangers keep calling you "the egg guy".');
-    return lines;
-  }
+  endNight(died = false) { this.heist.finish(died ? 'dead' : 'escaped'); }
 
   nextNight() {
     $('recap').classList.remove('show'); $('hud').classList.add('show');
@@ -561,8 +451,6 @@ export class Game {
   update(dt, t) {
     if (this.paused) { this.store.update(dt, t); return; }
     const w = this.world;
-    if (!this.nightOver && w.tick(dt) && !this.director.closing) { this.director.closing = true; this.closeT = 45; this.hint('6:00 AM. Last customers, then clock out.', 5); }
-    if (this.director.closing) { this.closeT -= dt; if ((this.director.inside === 0 && !this.dialogue.open) || this.closeT < 0) this.endNight(); }
     this.director.update(dt);
     // encounters that start where the person is standing (shoplifters)
     if (this.pendingHere.length && !this.dialogue.open) { const n = this.pendingHere.shift(); if (n.alive && !n.gone) { n.state = 'talking'; this.startEncounter(n); } }
@@ -572,7 +460,7 @@ export class Game {
     this.player.update(dt);
     this.gore.update(dt);
     this.policeUpdate(dt);
-    this._subs(dt); this.social.update(dt);
+    this._subs(dt); this.social.update(dt); this.heist.update(dt);
     if (this.stashT > 0) { this.stashT -= dt; if (this.stashT <= 0) this.store.stash.out = false; }
     this.flash.intensity *= Math.pow(0.0001, dt);
     this.audio.listener = { pos: this.camera.position, yaw: Math.atan2(-this.camera.getWorldDirection(new THREE.Vector3()).x, -this.camera.getWorldDirection(new THREE.Vector3()).z) };
@@ -590,24 +478,10 @@ export class Game {
   }
 
   _hud() {
-    const w = this.world, p = this.player;
-    $('h-clock').textContent = w.clock; $('h-night').textContent = `Night ${w.night}`;
-    $('h-drawer').textContent = fmt(w.drawer);
-    $('h-cut').textContent = fmt(w.float + w.cut);
-    $('h-stash').textContent = fmt(w.stash);
-    $('h-debt').textContent = fmt(w.debt); $('h-debt').parentElement.style.display = w.debt > 0 ? '' : 'none';
-    $('h-respect').style.width = `${(w.respect + 100) / 2}%`;
-    $('h-weed').textContent = w.weed;
-    if (this._cashShown !== Math.round(w.drawer)) { this._cashShown = Math.round(w.drawer); this.store.register.setCash(w.drawer); }
-    if (this._weedShown !== w.weed) { this._weedShown = w.weed; this.store.stash.setWeed(w.weed); }
-    const wtxt = p.reloadT > 0 ? 'Reloading...' : p.gunOut ? `${p.ammo} / ${p.reserve}` : 'holstered';
-    if (this._wtxt !== wtxt) { this._wtxt = wtxt; $('ammo').textContent = wtxt; $('weapon').classList.toggle('out', p.gunOut); }
+    const p = this.player;
     $('vignette').style.opacity = Math.min(1, p.hurtT * 0.9 + (100 - p.health) / 140);
-    $('police').style.display = this.police && !this.police.arrived ? '' : 'none';
-    if (this.police && !this.police.arrived) $('police').textContent = `Police: ${Math.max(0, Math.ceil(this.police.t))}s`;
-    const it = (!this.social.active && !this.cctv) ? p.lookTarget() : null;
+    const it = !this.social.active ? p.lookTarget() : null;
     $('prompt').textContent = it ? `E  ${it.prompt()}` : ''; $('prompt').style.opacity = it ? 1 : 0;
-    if (this._choreSig !== JSON.stringify(w.chores)) { this._choreSig = JSON.stringify(w.chores); this.renderChores(); }
     $('crosshair').classList.toggle('gun', p.gunOut);
   }
 }
