@@ -11,6 +11,7 @@ Tava Valenti's portfolio. This repository **is** the website: the live site at h
 | `index.html`, `img/`, `fonts/`, `vid/` | The portfolio home page and its shared assets | `/` |
 | `tiny-world/` | Tiny World, the browser game (its own `index.html`, `game.html`, `js/`, `assets/`) | `/tiny-world/` |
 | `onewheel/` | Temporary client demo for SD Onewheel Rentals (removed once the client's own domain is live) | `/onewheel/` |
+| `cornerstore/` | Corner Store, a first-person 3D corner-store heist game (three.js vendored in `vendor/`, game code in `js/` and `data/`, sound files in `assets/audio/`). Unlinked and noindex for now | `/cornerstore/` |
 | `game.html` | Old Tiny World address; forwards to `/tiny-world/game.html` | `/game.html` |
 | `CNAME` | Custom domain for GitHub Pages | |
 | `wrangler.jsonc`, `_headers`, `.assetsignore` | Cloudflare Workers Builds config, cache rules, files left out of the deploy | |

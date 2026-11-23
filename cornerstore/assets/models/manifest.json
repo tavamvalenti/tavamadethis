@@ -1,0 +1,158 @@
+{
+  "characters": {
+    "young": {
+      "file": "chars/young.glb",
+      "outfits": [
+        "hoodie",
+        "puffer"
+      ],
+      "height": 1.8,
+      "female": false
+    },
+    "woman": {
+      "file": "chars/woman.glb",
+      "outfits": [
+        "hoodie",
+        "puffer",
+        "tee"
+      ],
+      "height": 1.66,
+      "female": true
+    },
+    "track": {
+      "file": "chars/track.glb",
+      "outfits": [
+        "track",
+        "tee",
+        "hoodie"
+      ],
+      "height": 1.76,
+      "female": false
+    },
+    "og": {
+      "file": "chars/og.glb",
+      "outfits": [
+        "tee",
+        "puffer"
+      ],
+      "height": 1.75,
+      "female": false,
+      "walkSpeed": 1.15
+    },
+    "robber": {
+      "file": "chars/robber.glb",
+      "outfits": [
+        "robber"
+      ],
+      "height": 1.82,
+      "female": false
+    },
+    "church": {
+      "file": "chars/church.glb",
+      "outfits": [
+        "church"
+      ],
+      "height": 1.62,
+      "female": true,
+      "walk": "elderWalk",
+      "walkSpeed": 0.9
+    },
+    "unhoused": {
+      "file": "chars/unhoused.glb",
+      "outfits": [
+        "ragged"
+      ],
+      "height": 1.76,
+      "female": false
+    },
+    "nurse": {
+      "file": "chars/nurse.glb",
+      "outfits": [
+        "scrubs"
+      ],
+      "height": 1.65,
+      "female": true
+    },
+    "cop": {
+      "file": "chars/cop.glb",
+      "outfits": [
+        "cop"
+      ],
+      "height": 1.83,
+      "female": false
+    },
+    "worker": {
+      "file": "chars/worker.glb",
+      "outfits": [
+        "work"
+      ],
+      "height": 1.78,
+      "female": false
+    },
+    "tourist": {
+      "file": "chars/tourist.glb",
+      "outfits": [
+        "tourist"
+      ],
+      "height": 1.68,
+      "female": true
+    },
+    "clerk": {
+      "file": "chars/clerk.glb",
+      "outfits": [
+        "clerk"
+      ],
+      "height": 1.74,
+      "female": false
+    }
+  },
+  "animations": {
+    "idle": "anims/idle.glb",
+    "idle2": "anims/idle2.glb",
+    "walk": "anims/walk.glb",
+    "run": "anims/run.glb",
+    "drunkWalk": "anims/drunkWalk.glb",
+    "elderWalk": "anims/elderWalk.glb",
+    "talk": "anims/talk.glb",
+    "angry": "anims/angry.glb",
+    "phone": "anims/phone.glb",
+    "dance": "anims/dance.glb",
+    "shrug": "anims/shrug.glb",
+    "hurt": "anims/hurt.glb",
+    "stab": "anims/stab.glb",
+    "dieBack": "anims/dieBack.glb",
+    "dieFwd": "anims/dieFwd.glb"
+  },
+  "props": {},
+  "models": {
+    "cctv": {
+      "file": "props/cctv.glb",
+      "size": 0.34
+    },
+    "cash": {
+      "file": "props/cash.glb",
+      "size": 0.16
+    },
+    "chips": {
+      "file": "props/chips.glb",
+      "size": 0.24
+    },
+    "liquor": {
+      "file": "props/liquor.glb",
+      "size": 0.3
+    },
+    "register": {
+      "file": "props/register.glb",
+      "size": 0.45
+    },
+    "stash": {
+      "file": "props/stash.glb",
+      "size": 0.4
+    },
+    "safe": {
+      "file": "props/safe.glb",
+      "size": 0.72
+    }
+  },
+  "cctv": "cctv"
+}
