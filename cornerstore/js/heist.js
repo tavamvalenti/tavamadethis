@@ -12,8 +12,8 @@ const CAR = new THREE.Vector3(9, 0, 12.1), START = new THREE.Vector3(8.2, 0, 9.9
 // the same store on different nights, until more locations are built
 export const JOBS = [
   { title: 'The night kid', brief: 'A nervous kid is alone behind the glass. He knows the safe code.', clerk: { name: 'Sami', nerve: 0.15, knows: true }, reg: [220, 380], safe: [700, 1000], crowd: 2 },
-  { title: 'The owner\'s shift', brief: 'The owner is working. He keeps a shotgun under the counter, and he will not give up the code.', clerk: { name: 'Mr. Haddad', nerve: 0.7, armed: true, knows: false, look: { outfit: 'tee', top: 0x39424e }, height: 1.72 }, reg: [350, 560], safe: [1200, 1700], crowd: 3 },
-  { title: 'Payroll night', brief: 'Check-cashing cash is in the safe. There is an armed guard by the door.', clerk: { name: 'Dee', nerve: 0.45, knows: true, look: { outfit: 'hoodie', female: true } }, reg: [400, 650], safe: [2200, 3200], crowd: 4, guard: true },
+  { title: 'The owner\'s shift', brief: 'The owner is working. He keeps a shotgun under the counter, and he will not give up the code.', clerk: { name: 'Mr. Haddad', nerve: 0.7, armed: true, knows: false, look: { outfit: 'clerk' }, height: 1.72 }, reg: [350, 560], safe: [1200, 1700], crowd: 3 },
+  { title: 'Payroll night', brief: 'Check-cashing cash is in the safe. There is an armed guard by the door.', clerk: { name: 'Dee', nerve: 0.45, knows: true, look: { outfit: 'clerk' } }, reg: [400, 650], safe: [2200, 3200], crowd: 4, guard: true },
 ];
 
 export const GEAR = {
@@ -98,7 +98,7 @@ export class Heist {
     this.kills = 0; this.copKills = 0; this.tape = false; this.busy = null; this.intim = 0; this.lockHP = 2; this.seenByCam = false; this.shotsHeard = false; this.t = 0;
     this.regCash = rnd(j.reg[0] * k, j.reg[1] * k); this.safeCash = rnd(j.safe[0] * k, j.safe[1] * k); this.atm = rnd(500, 800); this.weed = rnd(3, 8); this.bagCash = 0;
     this.code = false; this.codeTxt = String(rnd(1000, 9999));
-    this.cams = st.cameras.map(() => true); this.camDead.forEach(m => { m.visible = false; });
+    this.cams = st.cameras.map((c, i) => { this._camModel(i, true); return true; });
     this.safe.opened = false; this.safe.drill = 0; this.safe.cash.visible = true; this.bag.visible = false;
     st.setBoothDoor(false); st.stash.out = false; st.stash.setWeed(this.weed); st.register.setCash(this.regCash);
     // where the note with the code is tonight
@@ -108,7 +108,7 @@ export class Heist {
     p.ammo = p.mag; p.reserve = Math.max(p.reserve, 45); p.hasShotgun = !!this.gear.shotgun; if (p.hasShotgun) { p.shells = p.shellMag; p.shellReserve = Math.max(p.shellReserve, 12); }
     // the clerk
     const c = j.clerk;
-    this.clerk = g.spawn({ kind: 'clerk', name: c.name, look: c.look || { outfit: 'tee' }, height: c.height, nerve: c.nerve, at: CLERK, armed: !!c.armed, browse: 0 });
+    this.clerk = g.spawn({ kind: 'clerk', name: c.name, look: c.look || { outfit: 'clerk' }, height: c.height, nerve: c.nerve, at: CLERK, armed: !!c.armed, browse: 0 });
     this.clerk.state = 'clerk'; this.cs = { away: 0, down: 0, busy: 0, asked: {} };
     this.guard = j.guard ? g.spawn({ kind: 'guard', name: 'Guard', look: { outfit: 'cop', top: 0x2a2a2e }, height: 1.86, build: 1.2, nerve: 0.9, at: new THREE.Vector3(2.6, 0, 4.7), armed: true, health: 140, browse: 0 }) : null;
     if (this.guard) this.guard.state = 'guard';
@@ -119,6 +119,8 @@ export class Heist {
   }
 
   // ------------------------------------------------------------------ helpers
+  // a shot-out camera hangs broken (the modelled camera if it has loaded, otherwise a dark marker)
+  _camModel(i, alive) { const m = this.g.store.cameras[i].userData.model; if (m) { m.rotation.z = alive ? 0 : 0.9; m.position.y += alive ? (m.userData.dropped ? 0.12 : 0) : -0.12; m.userData.dropped = !alive; } else this.camDead[i].visible = !alive; }
   say(t) { this.g.subtitle('You', t, { color: '#8fd0ff', dur: 2.4 }); }
   cash(n, from) { this.take += n; this.g.audio.play('coins'); this.g.hint(`+${fmt(n)} from the ${from}.`, 3); }
   addWanted(n, why) { const b = Math.floor(this.wanted); this.wanted = Math.min(5, this.wanted + n); if (Math.floor(this.wanted) > b) this.g.audio.play('scoff', { vol: 0.5 }); }
@@ -213,7 +215,7 @@ export class Heist {
     const g = this.g; this.noise('shots'); this.intim = Math.min(0.5, this.intim + 0.25);
     if (!this.shotsHeard) { this.shotsHeard = true; this.addWanted(0.5); }
     if (!point || npc) return;
-    this.cams.forEach((alive, i) => { if (alive && g.store.cameras[i].position.distanceTo(point) < 0.6) { this.cams[i] = false; this.camDead[i].visible = true; g.audio.play('glass-break', { pos: point }); g.hint(`Camera ${i + 1} is dead. ${this.cams.filter(Boolean).length} left.`, 3); } });
+    this.cams.forEach((alive, i) => { if (alive && g.store.cameras[i].position.distanceTo(point) < 0.6) { this.cams[i] = false; this._camModel(i, false); g.audio.play('glass-break', { pos: point }); g.hint(`Camera ${i + 1} is dead. ${this.cams.filter(Boolean).length} left.`, 3); } });
     if (!g.store.boothDoorOpen && Math.abs(point.z - 1.8) < 0.25 && Math.abs(point.x + 3.9) < 0.6 && point.y < 2.3 && --this.lockHP <= 0) { g.store.setBoothDoor(true); g.hint('You shot the lock off the booth door.', 3); }
   }
   onHit(npc, killed) {
